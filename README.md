@@ -6,7 +6,7 @@ This repository is intentionally small at the start. Stable skills will be publi
 
 ## Website
 
-Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The site includes generated indexes for protocols and [recipes](https://skills.lab.sa/recipes.html), beginning with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `master` rebuilds the site on Netlify; the GitHub Pages workflow maintains a secondary mirror.
+Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The site includes generated indexes for protocols and [recipes](https://skills.lab.sa/recipes.html), beginning with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `master` rebuilds the site on Netlify.
 
 For a local file preview, run `npm run site:build` and open `site/index.html`. Use `npm run site:watch` while editing skills or website source to keep the generated preview current.
 
