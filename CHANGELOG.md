@@ -20,3 +20,4 @@ Notable repository and skill changes are documented here.
 - Apply the LABs offset shadow consistently across top-level cards and render each skill's Markdown instructions directly on its detail page.
 - Add a searchable Recipes index, generated directly from `recipes/*/RECIPE.md`, with full-row links to individual delivery playbooks.
 - Add a persistent System, Light, and Dark appearance control across every discovery and detail page.
+- Reimagine the discovery site in LAB's monochrome product language with a flask identity, editorial typography, reagent-lime interaction states, softer panels, and a responsive recipe timeline.

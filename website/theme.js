@@ -33,7 +33,7 @@
     document.documentElement.dataset.themePreference = preference;
     document.documentElement.style.colorScheme = resolved;
     const themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.content = resolved === "dark" ? "#111111" : "#e8edf0";
+    if (themeColor) themeColor.content = resolved === "dark" ? "#111111" : "#f7f7f5";
 
     for (const picker of document.querySelectorAll("[data-theme-picker]")) {
       picker.value = preference;
