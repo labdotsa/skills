@@ -1,0 +1,116 @@
+window.SKILLS_DATA = {
+  "skills": [
+    {
+      "index": 1,
+      "name": "build-product-artifacts",
+      "description": "Turn rough product ideas, workshop notes, stakeholder conversations, or evolving product briefs into structured, atomized, and traceable product artifacts. Use when Codex needs to bootstrap or expand product documentation covering vision, phases, vocabulary, actors, domain models, taxonomies, journeys, workflows, business rules, platform capabilities, requirements, delivery scope, information architecture, screens, routes, technical architecture, integrations, assumptions, open questions, and decisions; update an existing artifact system after product or technical decisions change; audit artifacts for gaps and contradictions; or report the current product definition without changing it.",
+      "category": "product",
+      "resources": {
+        "references": 5,
+        "scripts": 1,
+        "assets": 5,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/build-product-artifacts",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/build-product-artifacts/SKILL.md"
+    },
+    {
+      "index": 2,
+      "name": "copywriting",
+      "description": "Production-grade copywriting system. Turns structured briefs into high-conversion, channel-specific copy using proven frameworks (AIDA, PAS, FAB, JTBD). Includes variants, hypotheses, evaluation rubric, localization readiness, and strict safety/compliance guardrails. Use when writing ads, landing pages, emails, product descriptions, or UX copy.",
+      "category": "content",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/copywriting",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/copywriting/SKILL.md"
+    },
+    {
+      "index": 3,
+      "name": "deconstruct",
+      "description": "Deconstruct UI sources into hierarchical, reusable, customizable component systems. Use when a screenshot, mockup, design file, live interface, or existing UI code must be analyzed into visual regions, responsibility boundaries, stack-native contracts, adaptive layouts, interaction states, and explicit uncertainties before implementation.",
+      "category": "design",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/deconstruct",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/deconstruct/SKILL.md"
+    },
+    {
+      "index": 4,
+      "name": "information-architecture",
+      "description": "Design and structure information architecture (IA) for digital products. Covers content organization, taxonomy, navigation systems, content models, metadata, and findability optimization. Use when user needs to organize complex content, improve navigation, or define scalable structure.",
+      "category": "product",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/information-architecture",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/information-architecture/SKILL.md"
+    },
+    {
+      "index": 5,
+      "name": "seo-engine",
+      "description": "End-to-end SEO execution system. Audits, plans, and optimizes websites across technical SEO, content, performance, structured data, and analytics. Use when diagnosing or improving organic search visibility, indexing, rankings, or SEO infrastructure.",
+      "category": "growth",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/seo-engine",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/seo-engine/SKILL.md"
+    },
+    {
+      "index": 6,
+      "name": "tailwind-localizable-layout",
+      "description": "Enforces localization-safe layout in Tailwind CSS by replacing physical left/right utilities with logical start/end equivalents. Ensures UI components behave correctly across LTR/RTL contexts with consistent, production-grade patterns, migration rules, and edge-case handling.",
+      "category": "frontend",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/tailwind-localizable-layout",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/tailwind-localizable-layout/SKILL.md"
+    },
+    {
+      "index": 7,
+      "name": "tailwind-responsive-layout",
+      "description": "Engineer precise, production-grade responsive layouts using Tailwind CSS breakpoint variants (sm, md, lg, xl, 2xl), visibility utilities, and information architecture principles. This skill focuses on structuring components, controlling visibility, and optimizing user experience across screen sizes using patterns like hidden md:flex, md:hidden, and progressive disclosure.",
+      "category": "frontend",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/tailwind-responsive-layout",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/tailwind-responsive-layout/SKILL.md"
+    },
+    {
+      "index": 8,
+      "name": "tailwind-v4",
+      "description": "Guides engineers to adopt Tailwind CSS v4 safely in production systems, migrate from v3 without regressions, and prevent multi-version conflicts across build pipelines, CSS scope, and runtime behavior.",
+      "category": "frontend",
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/tailwind-v4",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/tailwind-v4/SKILL.md"
+    }
+  ]
+};

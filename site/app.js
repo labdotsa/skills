@@ -1,4 +1,4 @@
-const INSTALL_COMMAND = "npx skills@latest add labdotsa/skills";
+const INSTALL_COMMAND = "npx skills add labdotsa/skills";
 const categoryLabels = {
   all: "All",
   content: "Content",
@@ -21,6 +21,7 @@ const elements = {
   dialog: document.querySelector("#skillDialog"),
   dialogCategory: document.querySelector("#dialogCategory"),
   dialogClose: document.querySelector(".dialog-close"),
+  dialogCommand: document.querySelector("#dialogCommand"),
   dialogDescription: document.querySelector("#dialogDescription"),
   dialogFile: document.querySelector("#dialogFile"),
   dialogIndex: document.querySelector("#dialogIndex"),
@@ -29,12 +30,9 @@ const elements = {
   dialogTitle: document.querySelector("#dialogTitle"),
   emptyState: document.querySelector("#emptyState"),
   filterList: document.querySelector("#filterList"),
-  grid: document.querySelector("#skillGrid"),
+  index: document.querySelector("#skillIndex"),
   resultCount: document.querySelector("#resultCount"),
   search: document.querySelector("#skillSearch"),
-  skillCount: document.querySelector("#skillCount"),
-  spineCount: document.querySelector("#spineCount"),
-  spineList: document.querySelector("#spineList"),
   toast: document.querySelector("#toast"),
 };
 
@@ -42,30 +40,18 @@ function labelForCategory(category) {
   return categoryLabels[category] || category.replaceAll("-", " ");
 }
 
-function displayName(name) {
-  return name.replaceAll("-", " ");
+function formatNumber(index) {
+  return String(index).padStart(2, "0");
 }
 
-function formatIndex(index) {
-  return `S—${String(index).padStart(2, "0")}`;
+function resourceTotal(resources) {
+  return Object.values(resources).reduce((total, count) => total + count, 0);
 }
 
-function createSpine() {
-  elements.spineList.replaceChildren();
-
-  for (const skill of state.skills) {
-    const entry = document.createElement("div");
-    entry.className = "spine-entry";
-    entry.innerHTML = `
-      <span>${formatIndex(skill.index)}</span>
-      <strong>${displayName(skill.name)}</strong>
-      <i aria-hidden="true"></i>
-    `;
-    elements.spineList.append(entry);
-  }
-
-  elements.spineCount.textContent = `${String(state.skills.length).padStart(2, "0")} entries`;
-  elements.skillCount.textContent = String(state.skills.length).padStart(2, "0");
+function resourceSummary(resources) {
+  const total = resourceTotal(resources);
+  if (total === 0) return "single file";
+  return `${total} supporting ${total === 1 ? "file" : "files"}`;
 }
 
 function createFilters() {
@@ -81,7 +67,7 @@ function createFilters() {
     button.className = "filter-button";
     button.dataset.category = category;
     button.setAttribute("aria-pressed", String(state.category === category));
-    button.textContent = `${labelForCategory(category)} ${count}`;
+    button.textContent = `${labelForCategory(category)} ${formatNumber(count)}`;
     elements.filterList.append(button);
   }
 }
@@ -91,48 +77,88 @@ function filteredSkills() {
 
   return state.skills.filter((skill) => {
     const categoryMatches = state.category === "all" || skill.category === state.category;
-    const text = `${skill.name} ${skill.description} ${skill.category}`.toLowerCase();
-    return categoryMatches && (!query || text.includes(query));
+    const searchableText = `${skill.name} ${skill.description} ${skill.category}`.toLowerCase();
+    return categoryMatches && (!query || searchableText.includes(query));
   });
 }
 
-function createCard(skill) {
-  const article = document.createElement("article");
-  article.className = "skill-card";
-  article.dataset.category = skill.category;
+function createSkillRow(skill) {
+  const row = document.createElement("article");
+  row.className = "skill-row";
 
-  const meta = document.createElement("div");
-  meta.className = "card-meta";
-  meta.innerHTML = `<span>${formatIndex(skill.index)}</span><span class="card-category">${labelForCategory(skill.category)}</span>`;
+  const number = document.createElement("span");
+  number.className = "row-number";
+  number.textContent = formatNumber(skill.index);
 
-  const heading = document.createElement("h3");
-  heading.textContent = displayName(skill.name);
-
+  const main = document.createElement("div");
+  main.className = "row-main";
+  const title = document.createElement("h3");
+  title.textContent = skill.name;
   const description = document.createElement("p");
   description.textContent = skill.description;
+  main.append(title, description);
+
+  const resources = document.createElement("span");
+  resources.className = "row-resources";
+  const total = resourceTotal(skill.resources);
+  resources.innerHTML = total === 0 ? "<strong>01</strong><br>source file" : `<strong>${formatNumber(total)}</strong><br>supporting files`;
+
+  const arrow = document.createElement("span");
+  arrow.className = "row-arrow";
+  arrow.setAttribute("aria-hidden", "true");
+  arrow.textContent = "→";
 
   const action = document.createElement("button");
   action.type = "button";
-  action.className = "card-action";
+  action.className = "row-action";
   action.dataset.skill = skill.name;
-  action.setAttribute("aria-label", `Read details for ${displayName(skill.name)}`);
-  action.innerHTML = `<span>Inspect the playbook</span><span aria-hidden="true">→</span>`;
+  action.setAttribute("aria-label", `Inspect ${skill.name}`);
 
-  article.append(meta, heading, description, action);
-  return article;
+  row.append(number, main, resources, arrow, action);
+  return row;
 }
 
-function renderGrid() {
+function createCategorySection(category, skills) {
+  const section = document.createElement("section");
+  section.className = "category-section";
+  section.setAttribute("aria-labelledby", `category-${category}`);
+
+  const heading = document.createElement("div");
+  heading.className = "category-heading";
+  const label = document.createElement("span");
+  label.id = `category-${category}`;
+  label.textContent = labelForCategory(category);
+  const count = document.createElement("span");
+  count.textContent = `${formatNumber(skills.length)} ${skills.length === 1 ? "entry" : "entries"}`;
+  heading.append(label, count);
+
+  section.append(heading, ...skills.map(createSkillRow));
+  return section;
+}
+
+function renderIndex() {
   const visibleSkills = filteredSkills();
-  elements.grid.replaceChildren(...visibleSkills.map(createCard));
-  elements.grid.hidden = visibleSkills.length === 0;
+  const groups = new Map();
+
+  for (const skill of visibleSkills) {
+    const list = groups.get(skill.category) || [];
+    list.push(skill);
+    groups.set(skill.category, list);
+  }
+
+  const sections = [...groups.entries()]
+    .sort(([left], [right]) => labelForCategory(left).localeCompare(labelForCategory(right)))
+    .map(([category, skills]) => createCategorySection(category, skills));
+
+  elements.index.replaceChildren(...sections);
+  elements.index.hidden = visibleSkills.length === 0;
   elements.emptyState.hidden = visibleSkills.length !== 0;
-  elements.resultCount.textContent = `${visibleSkills.length} ${visibleSkills.length === 1 ? "skill" : "skills"} shown`;
+  elements.resultCount.textContent = `${formatNumber(visibleSkills.length)} of ${formatNumber(state.skills.length)} entries`;
 }
 
 function render() {
   createFilters();
-  renderGrid();
+  renderIndex();
 }
 
 function resourcePills(resources) {
@@ -154,20 +180,25 @@ function resourcePills(resources) {
   return entries.map(([type, count]) => {
     const pill = document.createElement("span");
     pill.className = "resource-pill";
-    pill.textContent = `${count} ${labels[type]}`;
+    pill.textContent = `${formatNumber(count)} ${labels[type]}`;
     return pill;
   });
+}
+
+function commandForSkill(name) {
+  return `${INSTALL_COMMAND} --skill ${name}`;
 }
 
 function openSkill(name, updateHash = true) {
   const skill = state.skills.find((candidate) => candidate.name === name);
   if (!skill) return;
 
-  elements.dialogIndex.textContent = formatIndex(skill.index);
-  elements.dialogCategory.textContent = `${labelForCategory(skill.category)} skill`;
-  elements.dialogTitle.textContent = displayName(skill.name);
+  elements.dialogIndex.textContent = `No. ${formatNumber(skill.index)}`;
+  elements.dialogCategory.textContent = `${labelForCategory(skill.category)} / ${resourceSummary(skill.resources)}`;
+  elements.dialogTitle.textContent = skill.name;
   elements.dialogDescription.textContent = skill.description;
   elements.dialogResources.replaceChildren(...resourcePills(skill.resources));
+  elements.dialogCommand.textContent = commandForSkill(skill.name);
   elements.dialogSource.href = skill.sourceUrl;
   elements.dialogFile.href = skill.fileUrl;
 
@@ -175,41 +206,36 @@ function openSkill(name, updateHash = true) {
   if (updateHash) history.replaceState(null, "", `#skill/${encodeURIComponent(skill.name)}`);
 }
 
-function closeSkill() {
-  if (elements.dialog.open) elements.dialog.close();
-}
-
 function skillFromHash() {
   if (!window.location.hash.startsWith("#skill/")) return null;
   return decodeURIComponent(window.location.hash.slice("#skill/".length));
 }
 
+function closeSkill() {
+  if (elements.dialog.open) elements.dialog.close();
+}
+
 let toastTimer;
-async function copyInstall(button) {
+async function copyCommand(command) {
   try {
-    await navigator.clipboard.writeText(INSTALL_COMMAND);
+    await navigator.clipboard.writeText(command);
   } catch {
     const input = document.createElement("textarea");
-    input.value = INSTALL_COMMAND;
+    input.value = command;
     document.body.append(input);
     input.select();
     document.execCommand("copy");
     input.remove();
   }
 
-  if (button?.classList.contains("copy-button")) {
-    button.classList.add("is-copied");
-    window.setTimeout(() => button.classList.remove("is-copied"), 1600);
-  }
-
   elements.toast.classList.add("is-visible");
   window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => elements.toast.classList.remove("is-visible"), 1800);
+  toastTimer = window.setTimeout(() => elements.toast.classList.remove("is-visible"), 1600);
 }
 
 elements.search.addEventListener("input", (event) => {
   state.query = event.currentTarget.value;
-  renderGrid();
+  renderIndex();
 });
 
 elements.filterList.addEventListener("click", (event) => {
@@ -219,7 +245,7 @@ elements.filterList.addEventListener("click", (event) => {
   render();
 });
 
-elements.grid.addEventListener("click", (event) => {
+elements.index.addEventListener("click", (event) => {
   const button = event.target.closest("[data-skill]");
   if (button) openSkill(button.dataset.skill);
 });
@@ -237,12 +263,12 @@ elements.dialog.addEventListener("click", (event) => {
   if (event.target === elements.dialog) closeSkill();
 });
 elements.dialog.addEventListener("close", () => {
-  if (skillFromHash()) history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+  if (skillFromHash()) history.replaceState(null, "", window.location.href.split("#")[0]);
 });
 
 document.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-copy-install]");
-  if (button) copyInstall(button);
+  if (event.target.closest("[data-copy-install]")) copyCommand(INSTALL_COMMAND);
+  if (event.target.closest("[data-copy-skill]")) copyCommand(elements.dialogCommand.textContent);
 });
 
 document.addEventListener("keydown", (event) => {
@@ -257,20 +283,23 @@ window.addEventListener("hashchange", () => {
   if (name) openSkill(name, false);
 });
 
+async function loadSkills() {
+  if (window.SKILLS_DATA?.skills) return window.SKILLS_DATA.skills;
+  const response = await fetch("./skills.json");
+  if (!response.ok) throw new Error(`Catalog request failed with ${response.status}`);
+  const data = await response.json();
+  return data.skills;
+}
+
 async function initialize() {
   try {
-    const response = await fetch("./skills.json");
-    if (!response.ok) throw new Error(`Catalog request failed with ${response.status}`);
-    const data = await response.json();
-    state.skills = data.skills;
-    createSpine();
+    state.skills = await loadSkills();
     render();
 
     const linkedSkill = skillFromHash();
     if (linkedSkill) openSkill(linkedSkill, false);
   } catch (error) {
-    elements.spineList.innerHTML = '<div class="spine-loading">The catalog could not be loaded.</div>';
-    elements.resultCount.textContent = "Catalog unavailable";
+    elements.resultCount.textContent = "Index unavailable";
     console.error(error);
   }
 }

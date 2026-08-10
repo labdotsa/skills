@@ -25,6 +25,7 @@ const publicSkills = skills.map((skill, index) => ({
 const indexHtml = await readFile(path.join(siteDirectory, "index.html"), "utf8");
 const outputs = new Map([
   ["skills.json", `${JSON.stringify({ skills: publicSkills }, null, 2)}\n`],
+  ["skills-data.js", `window.SKILLS_DATA = ${JSON.stringify({ skills: publicSkills }, null, 2)};\n`],
   ["404.html", indexHtml],
   [
     "sitemap.xml",
