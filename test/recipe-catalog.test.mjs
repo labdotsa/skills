@@ -16,6 +16,8 @@ test("derives recipe discovery data from RECIPE.md", async () => {
 
   assert.ok(prototype);
   assert.equal(prototype.title, "Functioning Prototype");
+  assert.match(prototype.description, /^Guide a product from early discovery/);
+  assert.match(prototype.description, /implement one tested task at a time\.$/);
   assert.equal(prototype.category, "product-delivery");
   assert.equal(prototype.status, "draft");
   assert.equal(prototype.conversations, 4);

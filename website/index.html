@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7f5" />
+    <meta name="theme-color" content="#f4f4f5" />
     <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
-      content="LABs Skills is a public working library of reusable agent protocols for product, design, frontend, content, and growth."
+      content="LAB Skills is the public library of agent protocols used across research, design, development, and marketing at LAB."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="LABs Skills — Working knowledge, kept in the open" />
+    <meta property="og:title" content="LAB Skills — Product knowledge, made reusable" />
     <meta
       property="og:description"
-      content="Browse, inspect, and install the public agent protocols maintained by labdotsa."
+      content="Browse, inspect, and install the public agent protocols maintained by LAB."
     />
     <meta property="og:url" content="https://skills.lab.sa/" />
     <meta property="og:image" content="https://skills.lab.sa/og.png" />
@@ -21,6 +21,8 @@
     <meta property="og:image:height" content="909" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://skills.lab.sa/" />
+    <link rel="icon" href="https://lab.sa/favicon.svg" />
+    <link rel="apple-touch-icon" href="https://lab.sa/apple-touch-icon.png" />
     <script>
       if (window.location.protocol === "file:" && window.location.pathname.endsWith("/website/index.html")) {
         const generatedPreview = new URL("../site/index.html", window.location.href);
@@ -30,70 +32,96 @@
     </script>
     <script src="./theme.js"></script>
     <link rel="stylesheet" href="./styles.css" />
-    <title>LABs Skills — Public agent protocols</title>
+    <title>LAB Skills — Public agent protocols</title>
   </head>
   <body>
     <a class="skip-link" href="#catalog">Skip to the catalog</a>
 
     <header class="site-header">
-      <a class="brand" href="./" aria-label="LABs Skills home">
-        <span class="brand-flask" aria-hidden="true">
-          <svg viewBox="0 0 24 28"><path d="M8 2h8M10 2v7L4.7 21.2A3 3 0 0 0 7.4 26h9.2a3 3 0 0 0 2.7-4.8L14 9V2M7.2 18h9.6M9.3 21.3h.1m5.2 1h.1" /></svg>
-        </span>
-        <span class="brand-name">LAB</span>
-        <span class="brand-slash">/</span>
-        <strong>Skills</strong>
-      </a>
-      <div class="header-actions">
-        <nav aria-label="Primary navigation">
-          <a href="#catalog" aria-current="page">Catalog</a>
-          <a href="./recipes.html">Recipes</a>
-          <a href="https://github.com/labdotsa/skills">Repository <span aria-hidden="true">↗</span></a>
+      <div class="header-inner">
+        <a class="brand" href="./index.html" aria-label="LAB Skills home">
+          <img src="https://lab.sa/assets/logos/lab.svg" alt="LAB" />
+        </a>
+        <nav class="pillar-nav" aria-label="LAB services">
+          <a href="https://lab.sa/services/research">Research</a>
+          <a href="https://lab.sa/services/design">Design</a>
+          <a href="https://lab.sa/services/development">Development</a>
+          <a href="https://lab.sa/services/marketing">Marketing</a>
         </nav>
-        <label class="theme-picker">
-          <span>Theme</span>
-          <select data-theme-picker aria-label="Color theme">
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-        </label>
+        <div class="header-actions">
+          <a class="header-link is-active" href="#catalog">Skills</a>
+          <a class="header-link" href="./recipes.html">Recipes</a>
+          <label class="theme-picker">
+            <span class="sr-only">Theme</span>
+            <span class="theme-icon" aria-hidden="true">◐</span>
+            <select data-theme-picker aria-label="Color theme">
+              <option value="system">System</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+        </div>
+        <details class="mobile-menu">
+          <summary aria-label="Open navigation"><span></span><span></span></summary>
+          <nav aria-label="Mobile navigation">
+            <a href="https://lab.sa/services/research">Research <span>↗</span></a>
+            <a href="https://lab.sa/services/design">Design <span>↗</span></a>
+            <a href="https://lab.sa/services/development">Development <span>↗</span></a>
+            <a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a>
+            <a href="#catalog">Skills</a>
+            <a href="./recipes.html">Recipes</a>
+          </nav>
+        </details>
       </div>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="page-title">
-        <div class="hero-register" aria-hidden="true">
-          <span>LABS / PUBLIC INDEX</span>
-          <span>REV. <time datetime="2026">2026</time></span>
-        </div>
-
         <div class="hero-copy">
-          <p class="eyebrow">Reusable instructions for agents and their humans</p>
-          <h1 id="page-title">Working knowledge,<br /><span>kept in the open.</span></h1>
-          <p>
-            A small, maintained library of protocols we use for product and engineering work. Read the source, install one,
-            or take the whole bench.
-          </p>
+          <h1 id="page-title"><span class="font-heading">LAB</span> Skills are reusable<br />instructions for better digital products.</h1>
+          <p>We research, design, develop and market with <em>agent protocols</em> built from real delivery work.</p>
         </div>
+        <div class="hero-actions">
+          <button class="button button-primary" type="button" data-copy-text="npx skills add labdotsa/skills">
+            Install the collection
+          </button>
+          <a class="button button-secondary" href="./recipes.html">Browse recipes</a>
+        </div>
+      </section>
 
-        <div class="hero-install" aria-label="Install the complete LABs skill collection">
-          <div>
-            <span>Install the collection</span>
-            <span>skills CLI</span>
-          </div>
-          <code><span aria-hidden="true">$</span> npx skills add labdotsa/skills</code>
-          <button type="button" data-copy-text="npx skills add labdotsa/skills">Copy command</button>
+      <section class="labs-overview" aria-labelledby="labs-title">
+        <div class="section-tabs">
+          <h2 class="font-heading" id="labs-title">Built across every LAB</h2>
+          <p>Research <span>→</span> Design <span>→</span> Development <span>→</span> Marketing</p>
         </div>
+        <div class="lab-grid">
+          <a class="lab-card lab-research" href="https://lab.sa/services/research">
+            <span class="lab-lockup font-heading">research<br /><strong>LAB</strong></span>
+            <p>Know before you build.</p>
+          </a>
+          <a class="lab-card lab-design" href="https://lab.sa/services/design">
+            <span class="lab-lockup font-heading">design<br /><strong>LAB</strong></span>
+            <p>Design it to work, not just to look good.</p>
+          </a>
+          <a class="lab-card lab-development" href="https://lab.sa/services/development">
+            <span class="lab-lockup font-heading">dev<br /><strong>LAB</strong></span>
+            <p>Build for today. Scale for tomorrow.</p>
+          </a>
+          <a class="lab-card lab-marketing" href="https://lab.sa/services/marketing">
+            <span class="lab-lockup font-heading">marketing<br /><strong>LAB</strong></span>
+            <p>Turn attention into momentum.</p>
+          </a>
+        </div>
+        <p class="labs-caption">One product team, four specialist disciplines, and a shared library that keeps the work consistent.</p>
       </section>
 
       <section class="workbench" id="catalog" aria-labelledby="catalog-title">
         <div class="bench-heading">
           <div>
-            <p class="eyebrow">The working library</p>
-            <h2 id="catalog-title">Protocols</h2>
+            <p class="eyebrow">Public working library</p>
+            <h2 class="font-heading" id="catalog-title">Skills</h2>
           </div>
-          <p><strong id="skillCount">—</strong> public skills · generated from source</p>
+          <p><strong id="skillCount">—</strong> reusable protocols, generated from source.</p>
         </div>
 
         <div class="catalog-directory">
@@ -119,15 +147,33 @@
 
       <section class="principles" aria-label="Repository principles">
         <p><span>01</span><strong>Plain source.</strong> Every protocol starts with a readable <code>SKILL.md</code>.</p>
-        <p><span>02</span><strong>Progressive depth.</strong> References stay beside the skill that owns them.</p>
-        <p><span>03</span><strong>Public by default.</strong> The library improves in the open with real use.</p>
+        <p><span>02</span><strong>Built in practice.</strong> The library comes from real research, design, development, and marketing work.</p>
+        <p><span>03</span><strong>Open by default.</strong> Read the source, adapt the protocol, and improve the craft.</p>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>LABs Skills · MIT licensed</p>
-      <p>Maintained by <a href="https://github.com/labdotsa">labdotsa</a></p>
-      <a href="#page-title">Return to index ↑</a>
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="https://lab.sa" aria-label="LAB home">
+            <img src="https://lab.sa/assets/logos/lab.svg" alt="" />
+            <span class="font-heading">LAB</span>
+          </a>
+          <p>We are a product innovation company. Built to explore, design, develop, and scale what matters.</p>
+          <div class="social-links">
+            <a href="https://bind.link/@labdotsa">Bindlink</a>
+            <a href="https://instagram.com/labdotsa">Instagram</a>
+            <a href="https://twitter.com/labdotsa">Twitter</a>
+            <a href="https://linkedin.com/company/labdotsa">LinkedIn</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <section><h2>Company</h2><a href="https://lab.sa/about">About</a><a href="https://lab.sa/portfolio">Portfolio</a><a href="https://lab.sa/contact">Contact</a></section>
+          <section><h2>Services</h2><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></section>
+          <section><h2>Explore</h2><a href="./index.html#catalog">Skills</a><a href="./recipes.html">Recipes</a><a href="https://github.com/labdotsa/skills">GitHub</a></section>
+        </div>
+      </div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><a href="#page-title">Back to top ↑</a></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>

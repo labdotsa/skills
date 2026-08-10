@@ -5,7 +5,7 @@
       "index": 1,
       "slug": "functional-prototype",
       "title": "Functioning Prototype",
-      "description": ">-",
+      "description": "Guide a product from early discovery to a functioning prototype through four focused conversation layers: foundation, visuals, planning, and implementation. Use this recipe to gather and research product context, establish durable artifacts, define and reverse-engineer visual directions, create implementation-ready tickets, resolve human-in-the-loop decisions, and implement one tested task at a time.",
       "category": "product-delivery",
       "status": "draft",
       "conversations": 4,

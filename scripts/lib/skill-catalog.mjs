@@ -19,13 +19,13 @@ export function parseFrontmatter(source) {
       const [, key, rawValue] = topLevelMatch;
       section = rawValue === "" ? key : null;
 
-      if (rawValue === ">" || rawValue === "|") {
+      if (/^[>|][+-]?$/.test(rawValue)) {
         const parts = [];
         while (index + 1 < lines.length && /^\s+/.test(lines[index + 1])) {
           index += 1;
           parts.push(lines[index].trim());
         }
-        values[key] = rawValue === ">" ? parts.join(" ") : parts.join("\n");
+        values[key] = rawValue.startsWith(">") ? parts.join(" ") : parts.join("\n");
         continue;
       }
 

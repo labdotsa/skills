@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Rebuilt the discovery site to match LAB's current product-innovation brand system across catalog, recipe, and skill-detail pages.
+- Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.
 - Add a searchable, filterable GitHub Pages discovery site generated from stable skill metadata.

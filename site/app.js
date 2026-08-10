@@ -69,6 +69,14 @@ function createSkillRow(skill) {
   const item = document.createElement("article");
   item.className = "catalog-item";
   item.setAttribute("role", "listitem");
+  item.dataset.pillar =
+    skill.category === "design"
+      ? "design"
+      : ["frontend", "integrations"].includes(skill.category)
+        ? "development"
+        : ["content", "growth"].includes(skill.category)
+          ? "marketing"
+          : "research";
 
   const link = document.createElement("a");
   link.className = "catalog-row";

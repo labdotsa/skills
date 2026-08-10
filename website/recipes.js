@@ -71,6 +71,7 @@ function createRecipeRow(recipe) {
   const item = document.createElement("article");
   item.className = "catalog-item";
   item.setAttribute("role", "listitem");
+  item.dataset.pillar = recipe.category === "design" ? "design" : "research";
 
   const link = document.createElement("a");
   link.className = "catalog-row recipe-row";

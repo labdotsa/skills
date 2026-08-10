@@ -4,74 +4,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7f5" />
+    <meta name="theme-color" content="#f4f4f5" />
     <meta name="color-scheme" content="light dark" />
     <meta name="description" content="Design, migrate, implement, and review production Tailwind CSS systems across Tailwind v4 adoption, responsive breakpoint and visibility architecture, and localization-safe LTR/RTL layouts. Use for Tailwind configuration or migration, responsive component behavior, logical direction utilities, or any task that combines these concerns." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="tailwind — LABs Skills" />
+    <meta property="og:title" content="tailwind — LAB Skills" />
     <meta property="og:description" content="Design, migrate, implement, and review production Tailwind CSS systems across Tailwind v4 adoption, responsive breakpoint and visibility architecture, and localization-safe LTR/RTL layouts. Use for Tailwind configuration or migration, responsive component behavior, logical direction utilities, or any task that combines these concerns." />
     <meta property="og:url" content="https://skills.lab.sa/skills/tailwind/" />
     <meta property="og:image" content="https://skills.lab.sa/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://skills.lab.sa/skills/tailwind/" />
+    <link rel="icon" href="https://lab.sa/favicon.svg" />
     <script src="../../theme.js"></script>
     <link rel="stylesheet" href="../../styles.css" />
-    <title>tailwind — LABs Skills</title>
+    <title>tailwind — LAB Skills</title>
   </head>
   <body>
     <a class="skip-link" href="#protocol">Skip to the protocol</a>
 
     <header class="site-header">
-      <a class="brand" href="../../index.html" aria-label="LABs Skills home">
-        <span class="brand-flask" aria-hidden="true">
-          <svg viewBox="0 0 24 28"><path d="M8 2h8M10 2v7L4.7 21.2A3 3 0 0 0 7.4 26h9.2a3 3 0 0 0 2.7-4.8L14 9V2M7.2 18h9.6M9.3 21.3h.1m5.2 1h.1" /></svg>
-        </span>
-        <span class="brand-name">LAB</span>
-        <span class="brand-slash">/</span>
-        <strong>Skills</strong>
-      </a>
-      <div class="header-actions">
-        <nav aria-label="Primary navigation">
-          <a href="../../index.html#catalog" data-active="true">All protocols</a>
-          <a href="../../recipes.html">Recipes</a>
-          <a href="https://github.com/labdotsa/skills/tree/master/skills/tailwind">Repository <span aria-hidden="true">↗</span></a>
-        </nav>
-        <label class="theme-picker">
-          <span>Theme</span>
-          <select data-theme-picker aria-label="Color theme">
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-        </label>
+      <div class="header-inner">
+        <a class="brand" href="../../index.html" aria-label="LAB Skills home"><img src="https://lab.sa/assets/logos/lab.svg" alt="LAB" /></a>
+        <nav class="pillar-nav" aria-label="LAB services"><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></nav>
+        <div class="header-actions"><a class="header-link is-active" href="../../index.html#catalog">Skills</a><a class="header-link" href="../../recipes.html">Recipes</a><label class="theme-picker"><span class="sr-only">Theme</span><span class="theme-icon" aria-hidden="true">◐</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
+        <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="https://lab.sa/services/research">Research <span>↗</span></a><a href="https://lab.sa/services/design">Design <span>↗</span></a><a href="https://lab.sa/services/development">Development <span>↗</span></a><a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a></nav></details>
       </div>
     </header>
 
     <main class="protocol-page" id="protocol">
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="../../index.html">Skills</a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">tailwind</span>
-      </nav>
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Skills</a><span aria-hidden="true">/</span><span aria-current="page">tailwind</span></nav>
 
       <article class="protocol-sheet">
         <header class="protocol-hero">
           <div class="protocol-intro">
-            <div class="protocol-meta">
-              <span>frontend</span>
-              <span>4 files</span>
-              <span>Public protocol</span>
-            </div>
-            <p class="eyebrow">LABs skill dossier</p>
+            <div class="protocol-meta"><span>frontend</span><span>4 files</span><span>Public protocol</span></div>
+            <p class="eyebrow">LAB skill</p>
             <h1>tailwind</h1>
             <p class="protocol-description">Design, migrate, implement, and review production Tailwind CSS systems across Tailwind v4 adoption, responsive breakpoint and visibility architecture, and localization-safe LTR/RTL layouts. Use for Tailwind configuration or migration, responsive component behavior, logical direction utilities, or any task that combines these concerns.</p>
           </div>
-
           <aside class="protocol-install" aria-label="Install tailwind">
-            <div>
-              <span>Use this protocol</span>
-              <span>skills CLI</span>
-            </div>
+            <div><span>Use this skill</span><span>skills CLI</span></div>
             <code><span aria-hidden="true">$</span> npx skills add labdotsa/skills --skill tailwind</code>
             <button type="button" data-copy-text="npx skills add labdotsa/skills --skill tailwind">Copy install command</button>
           </aside>
@@ -79,19 +51,8 @@
 
         <div class="protocol-content">
           <section class="package-section" aria-labelledby="package-title">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Everything included</p>
-                <h2 id="package-title">Package contents</h2>
-              </div>
-              <p>Open any file to inspect the source.</p>
-            </div>
-            <div class="package-directory">
-              <div class="package-root">
-                <span>skills/tailwind/</span>
-                <span>4 files</span>
-              </div>
-              <ol>
+            <div class="section-heading"><div><p class="eyebrow">Everything included</p><h2 id="package-title">Package contents</h2></div><p>Open any file to inspect the source.</p></div>
+            <div class="package-directory"><div class="package-root"><span>skills/tailwind/</span><span>4 files</span></div><ol>
                 <li data-kind="root">
                   <span>01</span>
                   <a href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md"><code>SKILL.md</code><span>Open ↗</span></a>
@@ -107,40 +68,18 @@
                 <li data-kind="reference">
                   <span>04</span>
                   <a href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/references/v4-adoption.md"><code>references/v4-adoption.md</code><span>Open ↗</span></a>
-                </li></ol>
-            </div>
+                </li></ol></div>
           </section>
-
           <aside class="protocol-sidebar">
-            <section>
-              <p class="eyebrow">Primary access</p>
-              <h2>Read and reuse</h2>
-              <a class="access-link access-link-primary" href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md">
-                <span>Read SKILL.md</span><span aria-hidden="true">↗</span>
-              </a>
-              <a class="access-link" href="https://github.com/labdotsa/skills/tree/master/skills/tailwind">
-                <span>Browse the package</span><span aria-hidden="true">↗</span>
-              </a>
-            </section>
-
-            <section>
-              <p class="eyebrow">Keep exploring</p>
-              <h2>Other protocols</h2>
-              <div class="related-list"><a href="../build-product-artifacts/index.html"><span>build-product-artifacts</span><span aria-hidden="true">→</span></a>
+            <section><p class="eyebrow">Primary access</p><h2>Read and reuse</h2><a class="access-link access-link-primary" href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md"><span>Read SKILL.md</span><span aria-hidden="true">↗</span></a><a class="access-link" href="https://github.com/labdotsa/skills/tree/master/skills/tailwind"><span>Browse the package</span><span aria-hidden="true">↗</span></a></section>
+            <section><p class="eyebrow">Keep exploring</p><h2>Other skills</h2><div class="related-list"><a href="../build-product-artifacts/index.html"><span>build-product-artifacts</span><span aria-hidden="true">→</span></a>
                 <a href="../copywriting/index.html"><span>copywriting</span><span aria-hidden="true">→</span></a>
-                <a href="../deconstruct/index.html"><span>deconstruct</span><span aria-hidden="true">→</span></a></div>
-            </section>
+                <a href="../deconstruct/index.html"><span>deconstruct</span><span aria-hidden="true">→</span></a></div></section>
           </aside>
         </div>
 
         <section class="markdown-section" aria-labelledby="instructions-title">
-          <div class="markdown-section-heading">
-            <div>
-              <p class="eyebrow">Rendered from SKILL.md</p>
-              <h2 id="instructions-title">Protocol instructions</h2>
-            </div>
-            <a href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md">View raw source ↗</a>
-          </div>
+          <div class="markdown-section-heading"><div><p class="eyebrow">Rendered from SKILL.md</p><h2 id="instructions-title">Protocol instructions</h2></div><a href="https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md">View raw source ↗</a></div>
           <div class="markdown-body"><h2 id="tailwind-engineering">Tailwind Engineering</h2>
 <p>Treat Tailwind as one UI system. Resolve build architecture, responsive behavior, and directionality together instead of applying isolated class substitutions.</p>
 <h3 id="route-the-task">Route the task</h3>
@@ -159,9 +98,8 @@
     </main>
 
     <footer class="site-footer">
-      <p>LABs Skills · MIT licensed</p>
-      <p>Maintained by <a href="https://github.com/labdotsa">labdotsa</a></p>
-      <a href="../../index.html#catalog">Browse all protocols →</a>
+      <div class="footer-main"><div class="footer-brand"><a href="https://lab.sa" aria-label="LAB home"><img src="https://lab.sa/assets/logos/lab.svg" alt="" /><span class="font-heading">LAB</span></a><p>We are a product innovation company. Built to explore, design, develop, and scale what matters.</p><div class="social-links"><a href="https://bind.link/@labdotsa">Bindlink</a><a href="https://instagram.com/labdotsa">Instagram</a><a href="https://linkedin.com/company/labdotsa">LinkedIn</a></div></div><div class="footer-links"><section><h2>Services</h2><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></section><section><h2>Explore</h2><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a><a href="https://github.com/labdotsa/skills">GitHub</a></section></div></div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><a href="../../index.html#catalog">Browse all skills →</a></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>
