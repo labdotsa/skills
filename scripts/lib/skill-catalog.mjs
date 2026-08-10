@@ -64,6 +64,22 @@ async function countFiles(directory) {
   }
 }
 
+async function listFiles(directory, prefix = "") {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
+    const relativePath = path.posix.join(prefix, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await listFiles(path.join(directory, entry.name), relativePath)));
+    } else if (entry.isFile()) {
+      files.push(relativePath);
+    }
+  }
+
+  return files;
+}
+
 export async function readSkillCatalog(repositoryRoot) {
   const skillsDirectory = path.join(repositoryRoot, "skills");
   const entries = await readdir(skillsDirectory, { withFileTypes: true });
@@ -78,12 +94,19 @@ export async function readSkillCatalog(repositoryRoot) {
     try {
       const source = await readFile(path.join(repositoryRoot, relativeSkillFile), "utf8");
       const frontmatter = parseFrontmatter(source);
+      const packageFiles = await listFiles(directory);
+      packageFiles.sort((left, right) => {
+        if (left === "SKILL.md") return -1;
+        if (right === "SKILL.md") return 1;
+        return left.localeCompare(right);
+      });
 
       skills.push({
         name: frontmatter.name || entry.name,
         description: frontmatter.description || "Description unavailable.",
         category: frontmatter.metadata.category || "general",
         relativeSkillFile,
+        files: packageFiles,
         resources: {
           references: await countFiles(path.join(directory, "references")),
           scripts: await countFiles(path.join(directory, "scripts")),

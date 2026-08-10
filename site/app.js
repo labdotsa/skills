@@ -1,4 +1,5 @@
 const INSTALL_COMMAND = "npx skills add labdotsa/skills";
+
 const categoryLabels = {
   all: "All",
   content: "Content",
@@ -14,25 +15,28 @@ const state = {
   skills: [],
   query: "",
   category: "all",
+  selectedName: null,
 };
 
 const elements = {
   clearSearch: document.querySelector("#clearSearch"),
-  dialog: document.querySelector("#skillDialog"),
-  dialogCategory: document.querySelector("#dialogCategory"),
-  dialogClose: document.querySelector(".dialog-close"),
-  dialogCommand: document.querySelector("#dialogCommand"),
-  dialogDescription: document.querySelector("#dialogDescription"),
-  dialogFile: document.querySelector("#dialogFile"),
-  dialogIndex: document.querySelector("#dialogIndex"),
-  dialogResources: document.querySelector("#dialogResources"),
-  dialogSource: document.querySelector("#dialogSource"),
-  dialogTitle: document.querySelector("#dialogTitle"),
+  detail: document.querySelector("#skillDetail"),
+  detailCategory: document.querySelector("#detailCategory"),
+  detailClose: document.querySelector(".detail-close"),
+  detailCommand: document.querySelector("#detailCommand"),
+  detailDescription: document.querySelector("#detailDescription"),
+  detailFile: document.querySelector("#detailFile"),
+  detailFileCount: document.querySelector("#detailFileCount"),
+  detailFiles: document.querySelector("#detailFiles"),
+  detailPackageName: document.querySelector("#detailPackageName"),
+  detailSource: document.querySelector("#detailSource"),
+  detailTitle: document.querySelector("#detailTitle"),
   emptyState: document.querySelector("#emptyState"),
   filterList: document.querySelector("#filterList"),
   index: document.querySelector("#skillIndex"),
   resultCount: document.querySelector("#resultCount"),
   search: document.querySelector("#skillSearch"),
+  skillCount: document.querySelector("#skillCount"),
   toast: document.querySelector("#toast"),
 };
 
@@ -40,18 +44,31 @@ function labelForCategory(category) {
   return categoryLabels[category] || category.replaceAll("-", " ");
 }
 
-function formatNumber(index) {
-  return String(index).padStart(2, "0");
+function formatNumber(value) {
+  return String(value).padStart(2, "0");
 }
 
-function resourceTotal(resources) {
-  return Object.values(resources).reduce((total, count) => total + count, 0);
+function packageFileCount(skill) {
+  if (Array.isArray(skill.files)) return skill.files.length;
+  return 1 + Object.values(skill.resources || {}).reduce((total, count) => total + count, 0);
 }
 
-function resourceSummary(resources) {
-  const total = resourceTotal(resources);
-  if (total === 0) return "single file";
-  return `${total} supporting ${total === 1 ? "file" : "files"}`;
+function commandForSkill(name) {
+  return `${INSTALL_COMMAND} --skill ${name}`;
+}
+
+function skillFromHash() {
+  if (!window.location.hash.startsWith("#skill/")) return null;
+  return decodeURIComponent(window.location.hash.slice("#skill/".length));
+}
+
+function filteredSkills() {
+  const query = state.query.trim().toLowerCase();
+  return state.skills.filter((skill) => {
+    const categoryMatches = state.category === "all" || skill.category === state.category;
+    const searchable = `${skill.name} ${skill.description} ${skill.category} ${(skill.files || []).join(" ")}`.toLowerCase();
+    return categoryMatches && (!query || searchable.includes(query));
+  });
 }
 
 function createFilters() {
@@ -64,155 +81,111 @@ function createFilters() {
     const button = document.createElement("button");
     const count = category === "all" ? state.skills.length : counts.get(category);
     button.type = "button";
-    button.className = "filter-button";
     button.dataset.category = category;
     button.setAttribute("aria-pressed", String(state.category === category));
-    button.textContent = `${labelForCategory(category)} ${formatNumber(count)}`;
+    button.innerHTML = `<span>${labelForCategory(category)}</span><small>${formatNumber(count)}</small>`;
     elements.filterList.append(button);
   }
 }
 
-function filteredSkills() {
-  const query = state.query.trim().toLowerCase();
-
-  return state.skills.filter((skill) => {
-    const categoryMatches = state.category === "all" || skill.category === state.category;
-    const searchableText = `${skill.name} ${skill.description} ${skill.category}`.toLowerCase();
-    return categoryMatches && (!query || searchableText.includes(query));
-  });
-}
-
 function createSkillRow(skill) {
-  const row = document.createElement("article");
-  row.className = "skill-row";
+  const item = document.createElement("div");
+  item.className = "catalog-item";
+  item.setAttribute("role", "listitem");
 
-  const number = document.createElement("span");
-  number.className = "row-number";
-  number.textContent = formatNumber(skill.index);
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "catalog-row";
+  button.dataset.skill = skill.name;
+  button.setAttribute("aria-pressed", String(state.selectedName === skill.name));
 
-  const main = document.createElement("div");
-  main.className = "row-main";
-  const title = document.createElement("h3");
-  title.textContent = skill.name;
-  const description = document.createElement("p");
+  const heading = document.createElement("span");
+  heading.className = "row-heading";
+  heading.innerHTML = `<span class="row-path">skills/</span>${skill.name}`;
+
+  const description = document.createElement("span");
+  description.className = "row-description";
   description.textContent = skill.description;
-  main.append(title, description);
 
-  const resources = document.createElement("span");
-  resources.className = "row-resources";
-  const total = resourceTotal(skill.resources);
-  resources.innerHTML = total === 0 ? "<strong>01</strong><br>source file" : `<strong>${formatNumber(total)}</strong><br>supporting files`;
+  const meta = document.createElement("span");
+  meta.className = "row-meta";
+  meta.innerHTML = `<span>${labelForCategory(skill.category)}</span><span>${formatNumber(packageFileCount(skill))} files</span>`;
 
   const arrow = document.createElement("span");
   arrow.className = "row-arrow";
   arrow.setAttribute("aria-hidden", "true");
-  arrow.textContent = "→";
+  arrow.textContent = "↗";
 
-  const action = document.createElement("button");
-  action.type = "button";
-  action.className = "row-action";
-  action.dataset.skill = skill.name;
-  action.setAttribute("aria-label", `Inspect ${skill.name}`);
-
-  row.append(number, main, resources, arrow, action);
-  return row;
+  button.append(heading, description, meta, arrow);
+  item.append(button);
+  return item;
 }
 
-function createCategorySection(category, skills) {
-  const section = document.createElement("section");
-  section.className = "category-section";
-  section.setAttribute("aria-labelledby", `category-${category}`);
-
-  const heading = document.createElement("div");
-  heading.className = "category-heading";
-  const label = document.createElement("span");
-  label.id = `category-${category}`;
-  label.textContent = labelForCategory(category);
-  const count = document.createElement("span");
-  count.textContent = `${formatNumber(skills.length)} ${skills.length === 1 ? "entry" : "entries"}`;
-  heading.append(label, count);
-
-  section.append(heading, ...skills.map(createSkillRow));
-  return section;
-}
-
-function renderIndex() {
+function renderCatalog() {
   const visibleSkills = filteredSkills();
-  const groups = new Map();
-
-  for (const skill of visibleSkills) {
-    const list = groups.get(skill.category) || [];
-    list.push(skill);
-    groups.set(skill.category, list);
-  }
-
-  const sections = [...groups.entries()]
-    .sort(([left], [right]) => labelForCategory(left).localeCompare(labelForCategory(right)))
-    .map(([category, skills]) => createCategorySection(category, skills));
-
-  elements.index.replaceChildren(...sections);
+  elements.index.replaceChildren(...visibleSkills.map(createSkillRow));
   elements.index.hidden = visibleSkills.length === 0;
   elements.emptyState.hidden = visibleSkills.length !== 0;
-  elements.resultCount.textContent = `${formatNumber(visibleSkills.length)} of ${formatNumber(state.skills.length)} entries`;
+  elements.resultCount.textContent = `${formatNumber(visibleSkills.length)} / ${formatNumber(state.skills.length)}`;
 }
 
 function render() {
   createFilters();
-  renderIndex();
+  renderCatalog();
 }
 
-function resourcePills(resources) {
-  const labels = {
-    assets: "assets",
-    evals: "eval cases",
-    references: "references",
-    scripts: "scripts",
-  };
-  const entries = Object.entries(resources).filter(([, count]) => count > 0);
+function createFileEntry(file, index, total) {
+  const item = document.createElement("li");
+  const branch = document.createElement("span");
+  branch.setAttribute("aria-hidden", "true");
+  branch.textContent = index === total - 1 ? "└─" : "├─";
 
-  if (entries.length === 0) {
-    const pill = document.createElement("span");
-    pill.className = "resource-pill";
-    pill.textContent = "Self-contained SKILL.md";
-    return [pill];
-  }
+  const path = document.createElement("code");
+  path.textContent = file;
 
-  return entries.map(([type, count]) => {
-    const pill = document.createElement("span");
-    pill.className = "resource-pill";
-    pill.textContent = `${formatNumber(count)} ${labels[type]}`;
-    return pill;
-  });
+  item.append(branch, path);
+  if (file.startsWith("references/")) item.dataset.kind = "reference";
+  if (file === "SKILL.md") item.dataset.kind = "root";
+  return item;
 }
 
-function commandForSkill(name) {
-  return `${INSTALL_COMMAND} --skill ${name}`;
-}
-
-function openSkill(name, updateHash = true) {
+function openSkill(name, options = {}) {
+  const { updateHash = true, revealOnMobile = true } = options;
   const skill = state.skills.find((candidate) => candidate.name === name);
   if (!skill) return;
 
-  elements.dialogIndex.textContent = `No. ${formatNumber(skill.index)}`;
-  elements.dialogCategory.textContent = `${labelForCategory(skill.category)} / ${resourceSummary(skill.resources)}`;
-  elements.dialogTitle.textContent = skill.name;
-  elements.dialogDescription.textContent = skill.description;
-  elements.dialogResources.replaceChildren(...resourcePills(skill.resources));
-  elements.dialogCommand.textContent = commandForSkill(skill.name);
-  elements.dialogSource.href = skill.sourceUrl;
-  elements.dialogFile.href = skill.fileUrl;
+  state.selectedName = skill.name;
+  elements.detailCategory.textContent = labelForCategory(skill.category);
+  elements.detailFileCount.textContent = `${formatNumber(packageFileCount(skill))} ${packageFileCount(skill) === 1 ? "file" : "files"}`;
+  elements.detailTitle.textContent = skill.name;
+  elements.detailDescription.textContent = skill.description;
+  elements.detailCommand.textContent = commandForSkill(skill.name);
+  elements.detailPackageName.textContent = `skills/${skill.name}/`;
+  elements.detailSource.href = skill.sourceUrl;
+  elements.detailFile.href = skill.fileUrl;
 
-  if (!elements.dialog.open) elements.dialog.showModal();
+  const files = skill.files?.length ? skill.files : ["SKILL.md"];
+  elements.detailFiles.replaceChildren(...files.map((file, index) => createFileEntry(file, index, files.length)));
+  elements.detail.scrollTop = 0;
+
+  elements.index.querySelectorAll("[data-skill]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.skill === skill.name));
+  });
+
+  if (revealOnMobile && window.matchMedia("(max-width: 760px)").matches) {
+    elements.detail.classList.add("is-open");
+    document.body.classList.add("detail-open");
+    elements.detailClose.focus();
+  }
+
   if (updateHash) history.replaceState(null, "", `#skill/${encodeURIComponent(skill.name)}`);
 }
 
-function skillFromHash() {
-  if (!window.location.hash.startsWith("#skill/")) return null;
-  return decodeURIComponent(window.location.hash.slice("#skill/".length));
-}
-
 function closeSkill() {
-  if (elements.dialog.open) elements.dialog.close();
+  elements.detail.classList.remove("is-open");
+  document.body.classList.remove("detail-open");
+  if (skillFromHash()) history.replaceState(null, "", window.location.href.split("#")[0]);
+  elements.index.querySelector(`[data-skill="${CSS.escape(state.selectedName || "")}"]`)?.focus();
 }
 
 let toastTimer;
@@ -235,7 +208,7 @@ async function copyCommand(command) {
 
 elements.search.addEventListener("input", (event) => {
   state.query = event.currentTarget.value;
-  renderIndex();
+  renderCatalog();
 });
 
 elements.filterList.addEventListener("click", (event) => {
@@ -250,6 +223,18 @@ elements.index.addEventListener("click", (event) => {
   if (button) openSkill(button.dataset.skill);
 });
 
+elements.index.addEventListener("keydown", (event) => {
+  if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+  const buttons = [...elements.index.querySelectorAll("[data-skill]")];
+  const currentIndex = buttons.indexOf(document.activeElement);
+  if (currentIndex === -1) return;
+  event.preventDefault();
+  const offset = event.key === "ArrowDown" ? 1 : -1;
+  const next = buttons[(currentIndex + offset + buttons.length) % buttons.length];
+  next.focus();
+  openSkill(next.dataset.skill, { revealOnMobile: false });
+});
+
 elements.clearSearch.addEventListener("click", () => {
   state.query = "";
   state.category = "all";
@@ -258,48 +243,45 @@ elements.clearSearch.addEventListener("click", () => {
   elements.search.focus();
 });
 
-elements.dialogClose.addEventListener("click", closeSkill);
-elements.dialog.addEventListener("click", (event) => {
-  if (event.target === elements.dialog) closeSkill();
-});
-elements.dialog.addEventListener("close", () => {
-  if (skillFromHash()) history.replaceState(null, "", window.location.href.split("#")[0]);
-});
+elements.detailClose.addEventListener("click", closeSkill);
 
 document.addEventListener("click", (event) => {
   if (event.target.closest("[data-copy-install]")) copyCommand(INSTALL_COMMAND);
-  if (event.target.closest("[data-copy-skill]")) copyCommand(elements.dialogCommand.textContent);
+  if (event.target.closest("[data-copy-skill]")) copyCommand(elements.detailCommand.textContent);
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "/" && document.activeElement?.tagName !== "INPUT") {
+  if (event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
     event.preventDefault();
     elements.search.focus();
   }
+  if (event.key === "Escape" && elements.detail.classList.contains("is-open")) closeSkill();
 });
 
 window.addEventListener("hashchange", () => {
   const name = skillFromHash();
-  if (name) openSkill(name, false);
+  if (name) openSkill(name, { updateHash: false });
 });
 
 async function loadSkills() {
-  if (window.SKILLS_DATA?.skills) return window.SKILLS_DATA.skills;
+  const embeddedData = document.querySelector("#skills-data")?.textContent;
+  if (embeddedData) return JSON.parse(embeddedData).skills;
   const response = await fetch("./skills.json");
   if (!response.ok) throw new Error(`Catalog request failed with ${response.status}`);
-  const data = await response.json();
-  return data.skills;
+  return (await response.json()).skills;
 }
 
 async function initialize() {
   try {
     state.skills = await loadSkills();
+    elements.skillCount.textContent = formatNumber(state.skills.length);
     render();
 
     const linkedSkill = skillFromHash();
-    if (linkedSkill) openSkill(linkedSkill, false);
+    const initialSkill = state.skills.find((skill) => skill.name === linkedSkill) || state.skills[0];
+    if (initialSkill) openSkill(initialSkill.name, { updateHash: false, revealOnMobile: Boolean(linkedSkill) });
   } catch (error) {
-    elements.resultCount.textContent = "Index unavailable";
+    elements.resultCount.textContent = "Catalog unavailable";
     console.error(error);
   }
 }

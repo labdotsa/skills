@@ -1,21 +1,6 @@
----
-name: tailwind-responsive-layout
-description: >
-  Engineer precise, production-grade responsive layouts using Tailwind CSS breakpoint
-  variants (sm, md, lg, xl, 2xl), visibility utilities, and information architecture
-  principles. This skill focuses on structuring components, controlling visibility,
-  and optimizing user experience across screen sizes using patterns like hidden md:flex,
-  md:hidden, and progressive disclosure.
-metadata:
-  author: labdotsa
-  category: frontend
----
-
 # Tailwind Responsive Architecture
 
-## When to use this skill
-
-Use this skill when you need to:
+Use this reference to:
 
 - Design or refactor responsive UI components using Tailwind breakpoints.
 - Control layout transformations across screen sizes (stack → row, list → grid).
@@ -27,7 +12,7 @@ Use this skill when you need to:
   - `flex-col md:flex-row`
   - `grid-cols-1 md:grid-cols-3`
 
-Do NOT use this skill when:
+Do not load this reference when:
 
 - Task is purely visual (colors, typography, spacing only).
 - No responsive behavior is required.
@@ -45,7 +30,7 @@ Do NOT use this skill when:
 Bad:
 ```html
 <div class="flex md:flex-col">
-````
+```
 
 Good:
 

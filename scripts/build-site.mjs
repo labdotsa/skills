@@ -17,15 +17,26 @@ const publicSkills = skills.map((skill, index) => ({
   name: skill.name,
   description: skill.description,
   category: skill.category,
+  files: skill.files,
   resources: skill.resources,
   sourceUrl: `${repositoryUrl}/tree/main/skills/${skill.name}`,
   fileUrl: `${repositoryUrl}/blob/main/${skill.relativeSkillFile}`,
 }));
 
-const indexHtml = await readFile(path.join(siteDirectory, "index.html"), "utf8");
+const indexSource = await readFile(path.join(siteDirectory, "index.html"), "utf8");
+const inlineDataPattern = /(<script id="skills-data" type="application\/json">)[\s\S]*?(<\/script>)/;
+const serializedData = JSON.stringify({ skills: publicSkills }, null, 2).replaceAll("<", "\\u003c");
+
+if (!inlineDataPattern.test(indexSource)) {
+  throw new Error('site/index.html is missing the <script id="skills-data" type="application/json"> data block.');
+}
+
+const indexHtml = indexSource.replace(inlineDataPattern, (_, openingTag, closingTag) => {
+  return `${openingTag}\n${serializedData}\n    ${closingTag}`;
+});
 const outputs = new Map([
+  ["index.html", indexHtml],
   ["skills.json", `${JSON.stringify({ skills: publicSkills }, null, 2)}\n`],
-  ["skills-data.js", `window.SKILLS_DATA = ${JSON.stringify({ skills: publicSkills }, null, 2)};\n`],
   ["404.html", indexHtml],
   [
     "sitemap.xml",

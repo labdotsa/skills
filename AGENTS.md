@@ -25,6 +25,8 @@ This is a public Agent Skills repository. Optimize for portability, clarity, and
 - Run `npm run catalog` after adding, renaming, or removing a stable skill.
 - Add a `metadata.category` value for every stable skill so discovery filters stay useful.
 - Run `npm run site:build` after changing stable skill metadata or website source files.
+- The Pages workflow runs `npm run build` before validation so deployed discovery data always reflects the current `skills/` directory.
+- Use `npm run site:watch` when maintaining the catalog beside a local file preview.
 - Run `npm run validate` before considering a change complete.
 - Update `CHANGELOG.md` for behavioral, lifecycle, or distribution changes.
 - Keep generated catalog content synchronized with skill frontmatter.

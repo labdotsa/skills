@@ -6,11 +6,13 @@ This repository is intentionally small at the start. Stable skills will be publi
 
 ## Website
 
-Explore the collection at [labdotsa.github.io/skills](https://labdotsa.github.io/skills/). The discovery site is generated from the same metadata as the repository catalog and deploys to GitHub Pages from `main`.
+Explore the collection at [labdotsa.github.io/skills](https://labdotsa.github.io/skills/). Every push to `main` rebuilds the discovery site directly from the current `skills/` directory before GitHub Pages deploys it.
+
+For a local file preview, run `npm run site:build` and refresh the page. Use `npm run site:watch` while editing skills to regenerate the local index whenever a `SKILL.md` changes.
 
 ## Catalog
 
-Eight stable skills are currently published. Browse the generated [catalog](docs/catalog.md) for the complete list.
+Stable skills are published from the flat [`skills/`](skills/) directory. Browse the generated [catalog](docs/catalog.md) for the current list.
 
 ## Installation
 

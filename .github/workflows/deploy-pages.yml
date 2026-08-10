@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -23,8 +23,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm run validate
-      - run: npm run site:build
+      - name: Generate the current catalog and site index
+        run: npm run build
+      - name: Validate the generated result
+        run: npm run validate
+      - name: Commit the refreshed repository index
+        continue-on-error: true
+        shell: bash
+        run: |
+          if git diff --quiet -- docs/catalog.md site/index.html site/404.html site/skills.json site/sitemap.xml site/robots.txt; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/catalog.md site/index.html site/404.html site/skills.json site/sitemap.xml site/robots.txt
+          git commit -m "chore: refresh generated skill index [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,14 +1,3 @@
----
-name: tailwind-v4
-description: >
-  Guides engineers to adopt Tailwind CSS v4 safely in production systems,
-  migrate from v3 without regressions, and prevent multi-version conflicts
-  across build pipelines, CSS scope, and runtime behavior.
-metadata:
-  author: labdotsa
-  category: frontend
----
-
 # Tailwind V4 Adoption
 
 Adopt Tailwind v4 **correctly, deterministically, and safely**.  
@@ -33,9 +22,9 @@ It is a **system rewrite**.
 
 ---
 
-## When to Use
+## Apply this reference when
 
-Use this skill when:
+Load it when:
 
 - Migrating Tailwind v3 → v4
 - Maintaining monorepo with mixed versions
@@ -44,7 +33,7 @@ Use this skill when:
 
 ---
 
-## When NOT to Use
+## Do not apply it when
 
 Do NOT adopt v4 if:
 

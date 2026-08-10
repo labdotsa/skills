@@ -1,15 +1,3 @@
----
-name: tailwind-localizable-layout
-description: >
-  Enforces localization-safe layout in Tailwind CSS by replacing physical
-  left/right utilities with logical start/end equivalents. Ensures UI components
-  behave correctly across LTR/RTL contexts with consistent, production-grade
-  patterns, migration rules, and edge-case handling.
-metadata:
-  author: labdotsa
-  category: frontend
----
-
 # Localizable Layout
 
 Write Tailwind like global product. No left/right assumptions. Direction safe by default.

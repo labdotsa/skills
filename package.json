@@ -5,8 +5,10 @@
   "description": "Public agent skills and playbooks from labdotsa",
   "type": "module",
   "scripts": {
+    "build": "npm run catalog && npm run site:build",
     "catalog": "node scripts/generate-catalog.mjs",
     "site:build": "node scripts/build-site.mjs",
+    "site:watch": "node --watch --watch-preserve-output --watch-path=skills scripts/build-site.mjs",
     "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/build-site.mjs --check"
   },
   "license": "MIT"

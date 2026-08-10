@@ -3,146 +3,275 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="theme-color" content="#e8edf0" />
     <meta
       name="description"
-      content="Browse public, reusable agent skills from labdotsa—practical playbooks for product, design, content, frontend, and growth."
+      content="LABs Skills is a public working library of reusable agent protocols for product, design, frontend, content, and growth."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="labdotsa / skills index" />
-    <meta property="og:description" content="A compact index of working knowledge for agents." />
-    <meta property="og:url" content="https://labdotsa.github.io/skills/" />
-    <link rel="canonical" href="https://labdotsa.github.io/skills/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
-      rel="stylesheet"
+    <meta property="og:title" content="LABs Skills — Working knowledge, kept in the open" />
+    <meta
+      property="og:description"
+      content="Browse, inspect, and install the public agent protocols maintained by labdotsa."
     />
+    <meta property="og:url" content="https://labdotsa.github.io/skills/" />
+    <meta property="og:image" content="https://labdotsa.github.io/skills/og.png" />
+    <meta property="og:image:width" content="1732" />
+    <meta property="og:image:height" content="909" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://labdotsa.github.io/skills/" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>Skills Index — labdotsa</title>
+    <title>LABs Skills — Public agent protocols</title>
   </head>
   <body>
-    <a class="skip-link" href="#index">Skip to skill index</a>
+    <a class="skip-link" href="#catalog">Skip to the catalog</a>
 
     <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="./" aria-label="labdotsa skills index home">
-          <span class="brand-mark" aria-hidden="true">◆</span>
-          <span>labdotsa</span>
-          <span class="brand-slash">/</span>
-          <strong>skills</strong>
-        </a>
-        <nav class="header-nav" aria-label="Primary navigation">
-          <a href="#index">Index</a>
-          <a href="https://github.com/labdotsa/skills">GitHub <span aria-hidden="true">↗</span></a>
-        </nav>
-      </div>
+      <a class="brand" href="./" aria-label="LABs Skills home">
+        <span class="brand-seal" aria-hidden="true"><i>L</i><i>A</i><i>B</i><i>S</i></span>
+        <span class="brand-name">labdotsa</span>
+        <span class="brand-slash">/</span>
+        <strong>skills</strong>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#bench">Catalog</a>
+        <a href="https://github.com/labdotsa/skills">Repository <span aria-hidden="true">↗</span></a>
+      </nav>
     </header>
 
-    <main class="page">
-      <section class="intro" aria-labelledby="page-title">
-        <div class="intro-copy">
-          <p class="kicker">Public agent playbooks · maintained by labdotsa</p>
-          <h1 id="page-title">An index of<br /><span>working knowledge.</span></h1>
-          <p class="intro-text">
-            Focused instructions for recurring product and engineering work. Every entry is plain Markdown, open to inspect,
-            and portable across compatible agents.
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-register" aria-hidden="true">
+          <span>LABS / PUBLIC INDEX</span>
+          <span>REV. <time datetime="2026">2026</time></span>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Reusable instructions for agents and their humans</p>
+          <h1 id="page-title">Working knowledge,<br /><span>kept in the open.</span></h1>
+          <p>
+            A small, maintained library of protocols we use for product and engineering work. Read the source, install one,
+            or take the whole bench.
           </p>
         </div>
 
-        <div class="terminal" aria-label="Install command">
-          <div class="terminal-bar">
-            <span>Quick install</span>
+        <div class="hero-install" aria-label="Install the complete LABs skill collection">
+          <div>
+            <span>Install the collection</span>
             <span>skills CLI</span>
           </div>
-          <div class="terminal-command">
-            <span class="prompt" aria-hidden="true">$</span>
-            <code>npx skills add labdotsa/skills</code>
-            <button type="button" data-copy-install>Copy</button>
-          </div>
-          <p>Select one skill or install the complete collection when prompted.</p>
+          <code><span aria-hidden="true">$</span> npx skills add labdotsa/skills</code>
+          <button type="button" data-copy-install>Copy command</button>
         </div>
       </section>
 
-      <section class="directory" id="index" aria-labelledby="index-title">
-        <div class="directory-title-row">
+      <section class="workbench" id="catalog" aria-labelledby="catalog-title">
+        <div class="bench-heading">
           <div>
-            <p class="section-kicker">Directory</p>
-            <h2 id="index-title">Skill index</h2>
+            <p class="eyebrow">The working library</p>
+            <h2 id="catalog-title">Protocols</h2>
           </div>
-          <p id="resultCount" aria-live="polite">Loading index…</p>
+          <p><strong id="skillCount">—</strong> public skills · generated from source</p>
         </div>
 
-        <div class="controls">
-          <label class="search" for="skillSearch">
-            <span class="search-prompt" aria-hidden="true">&gt;_</span>
-            <span class="sr-only">Search skills</span>
-            <input id="skillSearch" type="search" placeholder="Search by name, problem, or discipline" autocomplete="off" />
-            <kbd>/</kbd>
-          </label>
-          <div class="filters" id="filterList" aria-label="Filter skills by category"></div>
-        </div>
+        <div class="bench-shell" id="bench">
+          <div class="catalog-pane">
+            <div class="catalog-tools">
+              <label class="search" for="skillSearch">
+                <span aria-hidden="true">⌕</span>
+                <span class="sr-only">Search skills</span>
+                <input id="skillSearch" type="search" placeholder="Find a protocol" autocomplete="off" />
+                <kbd>/</kbd>
+              </label>
+              <p id="resultCount" aria-live="polite">Loading catalog…</p>
+            </div>
 
-        <div class="index-heading" aria-hidden="true">
-          <span>No.</span>
-          <span>Skill / purpose</span>
-          <span>Contents</span>
-          <span></span>
-        </div>
+            <div class="filters" id="filterList" aria-label="Filter skills by discipline"></div>
+            <div class="catalog-list" id="skillIndex" role="list"></div>
 
-        <div class="skill-index" id="skillIndex"></div>
+            <div class="empty-state" id="emptyState" hidden>
+              <p>No protocol matches that search.</p>
+              <button type="button" id="clearSearch">Clear the bench</button>
+            </div>
+          </div>
 
-        <div class="empty-state" id="emptyState" hidden>
-          <span aria-hidden="true">∅</span>
-          <p>No entries match this query.</p>
-          <button type="button" id="clearSearch">Reset the index</button>
+          <aside class="detail-pane" id="skillDetail" aria-labelledby="detailTitle">
+            <button class="detail-close" type="button" aria-label="Close skill details">Close</button>
+
+            <div class="detail-meta">
+              <span id="detailCategory">Protocol</span>
+              <span id="detailFileCount">— files</span>
+            </div>
+
+            <div class="detail-heading">
+              <p>Selected protocol</p>
+              <h3 id="detailTitle">Choose a skill</h3>
+            </div>
+
+            <p class="detail-description" id="detailDescription">Select a protocol from the catalog to inspect it.</p>
+
+            <div class="detail-command">
+              <span>Install this skill</span>
+              <div>
+                <code id="detailCommand">npx skills add labdotsa/skills</code>
+                <button type="button" data-copy-skill>Copy</button>
+              </div>
+            </div>
+
+            <div class="file-map">
+              <div>
+                <span>Package map</span>
+                <span id="detailPackageName">skills/</span>
+              </div>
+              <ul id="detailFiles"></ul>
+            </div>
+
+            <div class="detail-actions">
+              <a id="detailSource" href="https://github.com/labdotsa/skills">Open package <span aria-hidden="true">↗</span></a>
+              <a id="detailFile" href="https://github.com/labdotsa/skills">Read SKILL.md <span aria-hidden="true">→</span></a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section class="about-strip" aria-labelledby="about-title">
-        <p class="section-kicker">Repository model</p>
-        <h2 id="about-title">The source is the product.</h2>
-        <p>
-          Skills live in a flat public catalog. Supporting references, scripts, and assets stay beside the instruction file
-          that owns them. This index is generated from that same source.
-        </p>
-        <a href="https://github.com/labdotsa/skills">Browse the repository <span aria-hidden="true">→</span></a>
+      <section class="principles" aria-label="Repository principles">
+        <p><span>01</span><strong>Plain source.</strong> Every protocol starts with a readable <code>SKILL.md</code>.</p>
+        <p><span>02</span><strong>Progressive depth.</strong> References stay beside the skill that owns them.</p>
+        <p><span>03</span><strong>Public by default.</strong> The library improves in the open with real use.</p>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div>
-        <span>labdotsa / skills</span>
-        <span>MIT licensed</span>
-        <span>Agent Skills format</span>
-      </div>
-      <a href="#page-title">Back to top ↑</a>
+      <p>LABs Skills · MIT licensed</p>
+      <p>Maintained by <a href="https://github.com/labdotsa">labdotsa</a></p>
+      <a href="#page-title">Return to index ↑</a>
     </footer>
 
-    <dialog class="skill-dialog" id="skillDialog">
-      <div class="dialog-shell">
-        <div class="dialog-topline">
-          <span id="dialogIndex">No. 00</span>
-          <button class="dialog-close" type="button" aria-label="Close skill details">Close ×</button>
-        </div>
-        <p class="dialog-category" id="dialogCategory"></p>
-        <h2 id="dialogTitle"></h2>
-        <p class="dialog-description" id="dialogDescription"></p>
-        <div class="resource-list" id="dialogResources"></div>
-        <div class="dialog-command">
-          <code id="dialogCommand">npx skills add labdotsa/skills --skill skill-name</code>
-          <button type="button" data-copy-skill>Copy</button>
-        </div>
-        <div class="dialog-actions">
-          <a id="dialogSource" href="https://github.com/labdotsa/skills">Open package <span aria-hidden="true">↗</span></a>
-          <a id="dialogFile" href="https://github.com/labdotsa/skills">Read SKILL.md <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </dialog>
-
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>
-    <script src="./skills-data.js"></script>
+    <script id="skills-data" type="application/json">
+{
+  "skills": [
+    {
+      "index": 1,
+      "name": "build-product-artifacts",
+      "description": "Turn rough product ideas, workshop notes, stakeholder conversations, or evolving product briefs into structured, atomized, and traceable product artifacts. Use when Codex needs to bootstrap or expand product documentation covering vision, phases, vocabulary, actors, domain models, taxonomies, journeys, workflows, business rules, platform capabilities, requirements, delivery scope, information architecture, screens, routes, technical architecture, integrations, assumptions, open questions, and decisions; update an existing artifact system after product or technical decisions change; audit artifacts for gaps and contradictions; or report the current product definition without changing it.",
+      "category": "product",
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "assets/artifact-templates/decision-log.md",
+        "assets/artifact-templates/integration.md",
+        "assets/artifact-templates/journey.md",
+        "assets/artifact-templates/open-questions.md",
+        "assets/artifact-templates/screen-specification.md",
+        "references/artifact-map.md",
+        "references/artifact-writing-standards.md",
+        "references/classification-rules.md",
+        "references/impact-mapping.md",
+        "references/review-gates.md",
+        "scripts/validate_artifacts.py"
+      ],
+      "resources": {
+        "references": 5,
+        "scripts": 1,
+        "assets": 5,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/build-product-artifacts",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/build-product-artifacts/SKILL.md"
+    },
+    {
+      "index": 2,
+      "name": "copywriting",
+      "description": "Production-grade copywriting system. Turns structured briefs into high-conversion, channel-specific copy using proven frameworks (AIDA, PAS, FAB, JTBD). Includes variants, hypotheses, evaluation rubric, localization readiness, and strict safety/compliance guardrails. Use when writing ads, landing pages, emails, product descriptions, or UX copy.",
+      "category": "content",
+      "files": [
+        "SKILL.md"
+      ],
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/copywriting",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/copywriting/SKILL.md"
+    },
+    {
+      "index": 3,
+      "name": "deconstruct",
+      "description": "Deconstruct UI sources into hierarchical, reusable, customizable component systems. Use when a screenshot, mockup, design file, live interface, or existing UI code must be analyzed into visual regions, responsibility boundaries, stack-native contracts, adaptive layouts, interaction states, and explicit uncertainties before implementation.",
+      "category": "design",
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ],
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/deconstruct",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/deconstruct/SKILL.md"
+    },
+    {
+      "index": 4,
+      "name": "information-architecture",
+      "description": "Design and structure information architecture (IA) for digital products. Covers content organization, taxonomy, navigation systems, content models, metadata, and findability optimization. Use when user needs to organize complex content, improve navigation, or define scalable structure.",
+      "category": "product",
+      "files": [
+        "SKILL.md"
+      ],
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/information-architecture",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/information-architecture/SKILL.md"
+    },
+    {
+      "index": 5,
+      "name": "seo-engine",
+      "description": "End-to-end SEO execution system. Audits, plans, and optimizes websites across technical SEO, content, performance, structured data, and analytics. Use when diagnosing or improving organic search visibility, indexing, rankings, or SEO infrastructure.",
+      "category": "growth",
+      "files": [
+        "SKILL.md"
+      ],
+      "resources": {
+        "references": 0,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/seo-engine",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/seo-engine/SKILL.md"
+    },
+    {
+      "index": 6,
+      "name": "tailwind",
+      "description": "Design, migrate, implement, and review production Tailwind CSS systems across Tailwind v4 adoption, responsive breakpoint and visibility architecture, and localization-safe LTR/RTL layouts. Use for Tailwind configuration or migration, responsive component behavior, logical direction utilities, or any task that combines these concerns.",
+      "category": "frontend",
+      "files": [
+        "SKILL.md",
+        "references/localizable-layout.md",
+        "references/responsive-layout.md",
+        "references/v4-adoption.md"
+      ],
+      "resources": {
+        "references": 3,
+        "scripts": 0,
+        "assets": 0,
+        "evals": 0
+      },
+      "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/tailwind",
+      "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/tailwind/SKILL.md"
+    }
+  ]
+}
+    </script>
     <script src="./app.js" defer></script>
   </body>
 </html>
