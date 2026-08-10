@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e8edf0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="The LABs recipe for moving from a rough product idea to a functioning prototype through four focused conversations."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Delivering a Functioning Prototype — LABs Recipe" />
+    <meta
+      property="og:description"
+      content="Foundation, visuals, planning, and implementation—each in a dedicated conversation with durable handoffs."
+    />
+    <meta property="og:url" content="https://labdotsa.github.io/skills/recipe.html" />
+    <meta property="og:image" content="https://labdotsa.github.io/skills/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://labdotsa.github.io/skills/recipe.html" />
+    <script>
+      if (window.location.protocol === "file:" && window.location.pathname.endsWith("/website/recipe.html")) {
+        window.location.replace(new URL("../site/recipe.html", window.location.href).href);
+      }
+    </script>
+    <script src="./theme.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Delivering a Functioning Prototype — LABs Recipe</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#recipe">Skip to the recipe</a>
+
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="LABs Skills home">
+        <span class="brand-seal" aria-hidden="true"><i>L</i><i>A</i><i>B</i><i>S</i></span>
+        <span class="brand-name">labdotsa</span>
+        <span class="brand-slash">/</span>
+        <strong>skills</strong>
+      </a>
+      <div class="header-actions">
+        <nav aria-label="Primary navigation">
+          <a href="./index.html#catalog">Catalog</a>
+          <a href="./recipes.html" aria-current="page">Recipes</a>
+          <a href="https://github.com/labdotsa/skills">Repository <span aria-hidden="true">↗</span></a>
+        </nav>
+        <label class="theme-picker">
+          <span>Theme</span>
+          <select data-theme-picker aria-label="Color theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main class="recipe-page" id="recipe">
+      <nav class="recipe-back" aria-label="Breadcrumb">
+        <a href="./recipes.html">Recipes</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Functioning Prototype</span>
+      </nav>
+      <header class="recipe-hero">
+        <div class="recipe-register">
+          <span>LABS / RECIPE 001</span>
+          <span>Functioning prototype · working draft</span>
+        </div>
+        <p class="eyebrow">Our delivery playbook</p>
+        <h1>Deliver a functioning prototype.<br /><span>Keep each layer in its own conversation.</span></h1>
+        <p class="recipe-lede">
+          This is the LABs path from an early product idea to a prototype that runs, demonstrates its primary journey, and
+          is structured for continued delivery. The workflow deliberately separates foundation, visuals, planning, and
+          implementation so that discovery context does not compete with build context.
+        </p>
+        <div class="recipe-outcome">
+          <span>Why separate conversations?</span>
+          <p>
+            Each layer asks a different kind of question. Durable artifacts carry decisions forward; raw transcripts and
+            temporary exploration stay behind.
+          </p>
+        </div>
+      </header>
+
+      <section class="delivery-map" aria-labelledby="delivery-map-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The delivery line</p>
+            <h2 id="delivery-map-title">Four conversations, one shared workspace</h2>
+          </div>
+          <p>Finish the handoff before opening the next conversation.</p>
+        </div>
+        <ol class="conversation-line">
+          <li><a href="#foundation"><span>01</span><strong>Foundation</strong><small>Scope + artifacts</small></a></li>
+          <li><a href="#visuals"><span>02</span><strong>Visuals</strong><small>Direction + architecture</small></a></li>
+          <li><a href="#planning"><span>03</span><strong>Planning</strong><small>Tickets + decisions</small></a></li>
+          <li><a href="#implementation"><span>04</span><strong>Implementation</strong><small>Tracer bullets + commits</small></a></li>
+        </ol>
+      </section>
+
+      <div class="recipe-layout">
+        <aside class="recipe-nav" aria-label="Recipe contents">
+          <p>On this page</p>
+          <a href="#handoff-rule">Conversation rule</a>
+          <a href="#foundation">01 · Foundation</a>
+          <a href="#visuals">02 · Visuals</a>
+          <a href="#planning">03 · Planning</a>
+          <a href="#implementation">04 · Implementation</a>
+          <a href="#prototype-gate">Prototype gate</a>
+        </aside>
+
+        <article class="recipe-article">
+          <section class="recipe-section" id="handoff-rule">
+            <p class="eyebrow">Before you start</p>
+            <h2>Share files, not conversation history.</h2>
+            <p>
+              Keep every conversation in the same project workspace. Each one reads the current <code>artifacts/</code> and
+              writes its approved decisions back there. When a layer is done, ask for a short handoff containing the files
+              changed, decisions locked, assumptions still open, and the exact prompt for the next conversation.
+            </p>
+            <div class="chat-roster chat-roster-four">
+              <div><span>01</span><strong>Foundation</strong><p>Understands the product, researches unknowns, and establishes its durable definition.</p></div>
+              <div><span>02</span><strong>Visuals</strong><p>Explores appearance, chooses a direction, and translates it into screen architecture.</p></div>
+              <div><span>03</span><strong>Planning</strong><p>Turns approved artifacts into dependency-aware tracer-bullet tickets and resolves HITL decisions.</p></div>
+              <div><span>04</span><strong>Implementation</strong><p>Works one approved AFK issue per run using vertical TDD cycles and verified commits.</p></div>
+            </div>
+            <aside class="recipe-note">
+              <strong>AFK means decisions are already settled.</strong>
+              <p>
+                If a ticket does not define its intended behavior, public interface, or critical test seam, classify it as
+                HITL. The implementation conversation must not invent product decisions merely to remain autonomous.
+              </p>
+            </aside>
+          </section>
+
+          <section class="recipe-phase" id="foundation">
+            <header>
+              <span>01</span>
+              <div><p class="eyebrow">Conversation · Foundation layer</p><h2>Understand and establish the product.</h2></div>
+            </header>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>1.1</span><div><h3>Gather the whole shape first.</h3><p>Information gathering</p></div></div>
+              <p>
+                Gather the product premise, intended users, immediate scope, constraints, and plausible future expansion.
+                The goal is not to design or implement; it is to make the landscape visible and separate facts from guesses.
+              </p>
+              <div class="skill-stack" aria-label="Skills used for information gathering">
+                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/wayfinder">Matt Pocock · wayfinder</a>
+                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/grilling">Matt Pocock · grilling</a>
+              </div>
+              <p class="step-guidance">
+                Use <strong>wayfinder</strong> when the effort is too large or foggy for one session and unresolved decisions
+                need a map. Use <strong>grilling</strong> when the idea needs one-question-at-a-time interrogation before it is
+                treated as understood.
+              </p>
+              <div class="prompt-block">
+                <div><span>Foundation kickoff</span><button type="button" data-copy-target="#prompt-foundation">Copy prompt</button></div>
+                <pre id="prompt-foundation"><code>We are defining a product before any design or implementation begins.
+
+Premise: [describe the idea]
+Known audience: [who this may serve]
+Current constraints: [time, platform, policy, team, budget]
+Possible future expansion: [what it may grow into]
+
+Use wayfinder if the route is still unclear, or grilling if the idea needs deeper interrogation. Identify facts, assumptions, decisions, dependencies, and open questions. Do not implement anything.
+
+End with a concise foundation handoff and recommend what needs focused research before artifacts are established.</code></pre>
+              </div>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>1.2</span><div><h3>Dig deeper where evidence is thin.</h3><p>Focused research</p></div></div>
+              <p>
+                Some assumptions need primary-source research before they can become product or technical decisions. Keep
+                that investigation focused and write its findings into the shared workspace rather than expanding the chat.
+              </p>
+              <div class="skill-stack" aria-label="Skills used for research">
+                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/research">Matt Pocock · research</a>
+              </div>
+              <div class="prompt-block">
+                <div><span>Research prompt</span><button type="button" data-copy-target="#prompt-research">Copy prompt</button></div>
+                <pre id="prompt-research"><code>Use the research skill to investigate this unresolved foundation question:
+
+Question: [one precise question]
+Decision it will inform: [what depends on the answer]
+
+Prefer primary sources: official documentation, specifications, source code, first-party APIs, or authoritative datasets. Cite every material claim.
+
+Save the findings under artifacts/research/ using a descriptive Markdown filename. End with: findings, confidence, contradictions, implications for the product, and remaining unknowns.</code></pre>
+              </div>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>1.3</span><div><h3>Establish the product artifacts.</h3><p>Artifact establishment</p></div></div>
+              <p>
+                Once the foundation is coherent enough to lock, use the LABs artifact system to turn it into structured,
+                traceable product documentation. These files become the context boundary for every later conversation.
+              </p>
+              <div class="skill-stack" aria-label="Skills used to establish artifacts">
+                <a data-owner="labs" href="./skills/build-product-artifacts/index.html">LABs · build-product-artifacts</a>
+              </div>
+              <div class="prompt-block">
+                <div><span>Artifact establishment prompt</span><button type="button" data-copy-target="#prompt-artifacts">Copy prompt</button></div>
+                <pre id="prompt-artifacts"><code>Use build-product-artifacts to establish the product definition from this conversation and the research under artifacts/research/.
+
+Create or update the artifact system under artifacts/. Cover the product vision, phases, vocabulary, actors, domain model, journeys, workflows, business rules, capabilities, requirements, delivery scope, information architecture, screens, routes, technical architecture, integrations, assumptions, open questions, and decisions where the available evidence supports them.
+
+Do not turn assumptions into facts. Cross-link related artifacts and report contradictions or missing decisions before closing the handoff.</code></pre>
+              </div>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>1.4</span><div><h3>Harden the parts you do not trust yet.</h3><p>Artifact hardening</p></div></div>
+              <p>
+                Review proposed integrations, technology choices, cloud infrastructure, and publishing approach. Challenge
+                them while they are still cheap to change. Research unstable facts, compare viable options, settle the
+                decision with the human, then update the artifacts so the next conversation inherits the chosen direction.
+              </p>
+              <div class="prompt-block">
+                <div><span>Hardening prompt</span><button type="button" data-copy-target="#prompt-hardening">Copy prompt</button></div>
+                <pre id="prompt-hardening"><code>Audit the current artifacts for weak or unsupported decisions in:
+- integrations,
+- technology stack,
+- cloud infrastructure,
+- data ownership and security,
+- publishing and deployment.
+
+For each concern, show the current assumption, viable options, trade-offs, and your recommendation. Research current facts from primary sources when needed.
+
+Ask for a decision where the choice materially changes cost, architecture, risk, or delivery. After decisions are confirmed, update the affected artifacts and decision log. End with the handoff prompt for a fresh Visuals conversation.</code></pre>
+              </div>
+            </div>
+
+            <p class="phase-output"><strong>Foundation handoff:</strong> A coherent <code>artifacts/</code> system with explicit decisions, evidence, assumptions, and unresolved questions.</p>
+          </section>
+
+          <section class="recipe-phase" id="visuals">
+            <header>
+              <span>02</span>
+              <div><p class="eyebrow">Conversation · Visuals layer</p><h2>Choose a direction, then make it describable.</h2></div>
+            </header>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>2.1</span><div><h3>Gather useful references.</h3><p>Screen design direction</p></div></div>
+              <p>
+                The artifacts should already name the journeys and screens. Now gather references that clarify visual tone,
+                density, navigation, interaction patterns, or content presentation. Dribbble, Mobbin, live products, design
+                systems, and editorial references can all help—but collect specific lessons, not a mood-board pile.
+              </p>
+              <ul class="reference-checklist">
+                <li><strong>Relevance:</strong> the reference solves a comparable interface problem.</li>
+                <li><strong>Transferable idea:</strong> note the hierarchy, interaction, or visual principle worth borrowing.</li>
+                <li><strong>Mismatch:</strong> record what should not be copied because the audience or product differs.</li>
+                <li><strong>Source:</strong> keep the original URL beside every captured reference.</li>
+              </ul>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>2.2</span><div><h3>Generate visual directions when references are not enough.</h3><p>Image generation</p></div></div>
+              <p>
+                In Codex, use <strong>imagegen</strong> in this dedicated conversation to create bitmap UI directions from the
+                approved artifacts. Generate each direction separately so they are genuinely distinct, and save selected
+                project-bound outputs back into the workspace.
+              </p>
+              <div class="skill-stack" aria-label="Skills used to generate visuals">
+                <span data-owner="system">Codex · imagegen</span>
+              </div>
+              <div class="prompt-block">
+                <div><span>Visual-direction prompt</span><button type="button" data-copy-target="#prompt-imagegen">Copy prompt</button></div>
+                <pre id="prompt-imagegen"><code>Use imagegen to visualize the prioritized screens defined under artifacts/.
+
+Read the product vision, primary journeys, information architecture, screen specifications, brand constraints, localization requirements, and chosen references first.
+
+Create three genuinely distinct visual directions for each prioritized screen. Generate each direction separately. Keep the approved screen purpose, content hierarchy, states, and interaction intent unchanged while varying composition, visual language, density, typography treatment, and atmosphere.
+
+For every direction, state:
+- the design thesis,
+- what makes it different,
+- which product constraints it serves,
+- what may be difficult to implement.
+
+Do not add unsupported product features or invented claims. Save selected project-bound mockups under artifacts/visual-directions/.</code></pre>
+              </div>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>2.3</span><div><h3>Reverse-engineer the selected screens.</h3><p>Screen design deconstruction</p></div></div>
+              <p>
+                Once a direction is chosen, convert the image or reference into a contextual layout architecture. The goal is
+                not pixel description—it is a reusable system of regions, responsibilities, component contracts, adaptive
+                behavior, and explicit uncertainty.
+              </p>
+              <div class="skill-stack" aria-label="Skills used to deconstruct screens">
+                <a data-owner="labs" href="./skills/deconstruct/index.html">LABs · deconstruct</a>
+              </div>
+              <div class="prompt-block">
+                <div><span>Deconstruction prompt</span><button type="button" data-copy-target="#prompt-deconstruct">Copy prompt</button></div>
+                <pre id="prompt-deconstruct"><code>Use deconstruct on the selected visual directions under artifacts/visual-directions/ and the approved screen artifacts.
+
+For each screen, define visual regions, responsibility boundaries, reusable components, data and content contracts, responsive behavior, interaction states, localization behavior, and uncertainties that the image cannot prove.
+
+Update the corresponding screen and interface artifacts. Preserve the selected visual thesis without treating decorative pixels as architecture. End with a clear Visuals handoff for the Planning conversation.</code></pre>
+              </div>
+            </div>
+
+            <p class="phase-output"><strong>Visuals handoff:</strong> Selected screen directions plus implementation-ready screen and component architecture in <code>artifacts/</code>.</p>
+          </section>
+
+          <section class="recipe-phase" id="planning">
+            <header>
+              <span>03</span>
+              <div><p class="eyebrow">Conversation · Planning layer</p><h2>Turn the artifacts into a safe work frontier.</h2></div>
+            </header>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>3.1</span><div><h3>Draft tracer-bullet tickets.</h3><p>Pre-implementation</p></div></div>
+              <p>
+                Use <strong>to-tickets</strong> to slice the approved product into narrow, complete paths through the system.
+                Every ticket must be independently demonstrable, fit in a fresh context window, and declare the tickets that
+                block it. Draft and review the breakdown before publishing it.
+              </p>
+              <div class="skill-stack" aria-label="Skills used to prepare tickets">
+                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/to-tickets">Matt Pocock · to-tickets</a>
+              </div>
+              <div class="prompt-block">
+                <div><span>Ticket-drafting prompt</span><button type="button" data-copy-target="#prompt-tickets">Copy prompt</button></div>
+                <pre id="prompt-tickets"><code>Based on the approved artifacts/ and the current codebase, use to-tickets to draft implementation-ready tracer-bullet tickets.
+
+Each ticket must:
+- deliver a narrow but complete behavior through every necessary layer,
+- fit in one fresh implementation context,
+- declare its blockers,
+- define observable acceptance criteria,
+- use the project's domain vocabulary,
+- be classified AFK or HITL.
+
+AFK tickets must already define the intended public interface and critical behaviors. Any unresolved product, interface, architecture, provider, or risk decision makes the ticket HITL.
+
+First present the numbered breakdown and blocking edges for review. Wait for approval before publishing. After approval, publish under issues/ as one zero-padded Markdown file per ticket, for example 0001-foundation-slice.md.</code></pre>
+              </div>
+            </div>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>3.2</span><div><h3>Clear the HITL frontier.</h3><p>Human decisions</p></div></div>
+              <p>
+                HITL tickets are not implementation failures. They mark places where the human still owns a material choice.
+                Review them before starting the long-running implementation loop, settle the direction, and regenerate the
+                affected tickets and artifacts.
+              </p>
+              <div class="prompt-grid">
+                <div class="prompt-block">
+                  <div><span>List the decisions</span><button type="button" data-copy-target="#prompt-hitl-list">Copy prompt</button></div>
+                  <pre id="prompt-hitl-list"><code>What HITL issues remain under issues/?
+
+For each one, explain:
+- the exact decision required,
+- viable options,
+- trade-offs and downstream impact,
+- your recommended option and why,
+- which artifacts and tickets change after the decision.
+
+Do not implement the tickets.</code></pre>
+                </div>
+                <div class="prompt-block">
+                  <div><span>Recommend from the artifacts</span><button type="button" data-copy-target="#prompt-hitl-recommend">Copy prompt</button></div>
+                  <pre id="prompt-hitl-recommend"><code>Based on the current artifacts/, recommend the best option for each unresolved HITL issue.
+
+Distinguish recommendations supported by an existing decision or requirement from recommendations that remain judgment calls. Identify any option that requires fresh research before approval.</code></pre>
+                </div>
+              </div>
+              <div class="approval-callout">
+                <span>When the breakdown and decisions are correct</span>
+                <code>LGTM. Update the affected artifacts and issues, then commit the approved planning state.</code>
+              </div>
+            </div>
+
+            <p class="phase-output"><strong>Planning handoff:</strong> Approved, dependency-aware issue files with a clear AFK frontier and no hidden implementation decisions.</p>
+          </section>
+
+          <section class="recipe-phase" id="implementation">
+            <header>
+              <span>04</span>
+              <div><p class="eyebrow">Conversation · Implementation layer</p><h2>Work one AFK issue per run.</h2></div>
+            </header>
+
+            <div class="recipe-step">
+              <div class="step-heading"><span>4.1</span><div><h3>Start the persistent implementation goal.</h3><p>AFK delivery loop</p></div></div>
+              <p>
+                This prompt is designed for Codex’s long-running goal mode. It selects one eligible AFK issue, follows a
+                tracer-bullet TDD loop, runs feedback checks, commits the coherent result, updates the issue, and stops. The
+                next run begins with a fresh implementation context.
+              </p>
+              <div class="skill-stack" aria-label="Skills used during implementation">
+                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/tdd">Matt Pocock · tdd</a>
+              </div>
+              <aside class="recipe-note">
+                <strong>Configure the feedback commands.</strong>
+                <p>
+                  The draft below uses <code>bun run test</code> and <code>bun run typecheck</code>. Replace them with the
+                  repository’s actual commands before starting the goal.
+                </p>
+              </aside>
+              <div class="prompt-block prompt-block-tall">
+                <div><span>Codex long-running goal prompt</span><button type="button" data-copy-target="#prompt-implementation">Copy prompt</button></div>
+                <pre id="prompt-implementation"><code>/goal Review and implement the AFK issues under issues/, one issue per run. Use the issue files, current artifacts, repository state, and recent commits to determine what remains.
+
+# ISSUES
+
+Read all local issue files under issues/ at the start of the run. Review recent commits to understand completed work and avoid repeating it.
+
+Work on AFK issues only. Never implement a HITL issue.
+
+If all AFK issues are complete, output:
+&lt;promise&gt;NO MORE TASKS&lt;/promise&gt;
+
+# TASK SELECTION
+
+Choose one frontier issue whose blockers are complete. Prioritize:
+1. Critical bug fixes
+2. Development infrastructure required by later work
+3. Tracer bullets for new features
+4. Polish and quick wins
+5. Refactors
+
+A tracer bullet is the smallest end-to-end slice that proves the approach across every necessary layer before the feature expands.
+
+# EXPLORATION
+
+Explore only the repository areas needed for the selected issue. Read the relevant artifacts, domain vocabulary, architecture decisions, tests, and current public interfaces.
+
+If the issue does not define an approved public interface and prioritized behaviors, reclassify it as HITL with a precise note. Do not invent the missing decision.
+
+# IMPLEMENTATION
+
+Use tdd to complete the selected issue through vertical red-green-refactor cycles:
+- agree with the ticket's approved public seam,
+- write one behavior-focused test and confirm it fails,
+- write the minimum implementation that makes it pass,
+- repeat one behavior at a time,
+- refactor only while green.
+
+Tests must verify behavior through public interfaces and survive internal refactors. Do not write all tests before implementation.
+
+# FEEDBACK LOOPS
+
+Before committing, run:
+- bun run test
+- bun run typecheck
+
+Also run any focused checks required by the selected issue. Do not claim completion while required checks fail.
+
+# COMMIT
+
+Commit the coherent change. The commit subject should summarize the delivered behavior. The commit body must record:
+- key decisions,
+- important files or areas changed,
+- verification performed,
+- blockers or notes for the next run.
+
+# ISSUE UPDATE
+
+If the issue is complete, mark it done and record the verification evidence.
+If it is incomplete, record exactly what was completed, what remains, and why the run stopped.
+
+# FINAL RULES
+
+- Work on one issue only.
+- Preserve the current code style unless the issue explicitly approves a change.
+- Preserve the current user experience and interface unless the issue explicitly changes them.
+- Do not broaden scope with unrelated cleanup.
+- Do not bypass unresolved HITL decisions.</code></pre>
+              </div>
+            </div>
+
+            <p class="phase-output"><strong>Implementation handoff:</strong> One verified issue and one coherent commit per run, until the AFK frontier is empty.</p>
+          </section>
+
+          <section class="recipe-section final-gate" id="prototype-gate">
+            <p class="eyebrow">Functioning prototype gate</p>
+            <h2>“Looks complete” is not the same as functioning.</h2>
+            <p>Before calling the recipe complete, verify the result against the artifacts and the issue frontier.</p>
+            <ul class="gate-list">
+              <li><span>Journey</span><p>The primary actor can complete at least one end-to-end journey.</p></li>
+              <li><span>Behavior</span><p>Critical behavior is verified through approved public interfaces.</p></li>
+              <li><span>States</span><p>Loading, empty, failure, recovery, and success states exist where required.</p></li>
+              <li><span>Visuals</span><p>The selected direction is recognizable and responsive without contradicting the artifacts.</p></li>
+              <li><span>Evidence</span><p>Tests, type checks, and issue notes show what works and what remains.</p></li>
+              <li><span>Frontier</span><p>Remaining work is visible as AFK or HITL rather than hidden in chat history.</p></li>
+            </ul>
+          </section>
+
+          <footer class="recipe-sources">
+            <p class="eyebrow">Referenced public skills</p>
+            <p>
+              Foundation and planning use selected protocols from
+              <a href="https://www.skills.sh/mattpocock/skills">mattpocock/skills</a>. Product artifacts and visual
+              deconstruction come from the LABs catalog. Image generation is a Codex system capability and should be invoked
+              only when producing bitmap visual directions. Review external sources before adopting updated versions.
+            </p>
+          </footer>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>LABs Skills · MIT licensed</p>
+      <p>Recipe 001 · working draft</p>
+      <a href="./index.html#catalog">Browse protocols →</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Prompt copied</div>
+    <script src="./copy.js" defer></script>
+  </body>
+</html>

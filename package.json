@@ -8,8 +8,9 @@
     "build": "npm run catalog && npm run site:build",
     "catalog": "node scripts/generate-catalog.mjs",
     "site:build": "node scripts/build-site.mjs",
-    "site:watch": "node --watch --watch-preserve-output --watch-path=skills scripts/build-site.mjs",
-    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/build-site.mjs --check"
+    "site:watch": "node --watch --watch-preserve-output --watch-path=skills --watch-path=recipes --watch-path=website scripts/build-site.mjs",
+    "test": "node --test",
+    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/build-site.mjs --check && node scripts/validate-site.mjs && npm test"
   },
   "license": "MIT"
 }

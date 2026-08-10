@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "recipes": [
+    {
+      "index": 1,
+      "slug": "functional-prototype",
+      "title": "Functioning Prototype",
+      "description": ">-",
+      "category": "product-delivery",
+      "status": "draft",
+      "conversations": 4,
+      "detailUrl": "./recipe.html",
+      "sourceUrl": "https://github.com/labdotsa/skills/blob/main/recipes/functional-prototype/RECIPE.md"
+    }
+  ]
+}

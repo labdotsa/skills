@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://labdotsa.github.io/skills/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/recipes.html</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/recipe.html</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/build-product-artifacts/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/copywriting/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/deconstruct/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/information-architecture/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/seo-engine/</loc></url>
+  <url><loc>https://labdotsa.github.io/skills/skills/tailwind/</loc></url>
 </urlset>

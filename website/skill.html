@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e8edf0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="{{DESCRIPTION}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{SKILL_NAME}} — LABs Skills" />
+    <meta property="og:description" content="{{DESCRIPTION}}" />
+    <meta property="og:url" content="{{CANONICAL_URL}}" />
+    <meta property="og:image" content="https://labdotsa.github.io/skills/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+    <script src="../../theme.js"></script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <title>{{SKILL_NAME}} — LABs Skills</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#protocol">Skip to the protocol</a>
+
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="LABs Skills home">
+        <span class="brand-seal" aria-hidden="true"><i>L</i><i>A</i><i>B</i><i>S</i></span>
+        <span class="brand-name">labdotsa</span>
+        <span class="brand-slash">/</span>
+        <strong>skills</strong>
+      </a>
+      <div class="header-actions">
+        <nav aria-label="Primary navigation">
+          <a href="../../index.html#catalog">All protocols</a>
+          <a href="../../recipes.html">Recipes</a>
+          <a href="{{SOURCE_URL}}">Repository <span aria-hidden="true">↗</span></a>
+        </nav>
+        <label class="theme-picker">
+          <span>Theme</span>
+          <select data-theme-picker aria-label="Color theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main class="protocol-page" id="protocol">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../../index.html">Skills</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{SKILL_NAME}}</span>
+      </nav>
+
+      <article class="protocol-sheet">
+        <header class="protocol-hero">
+          <div class="protocol-intro">
+            <div class="protocol-meta">
+              <span>{{CATEGORY}}</span>
+              <span>{{FILE_COUNT_LABEL}}</span>
+              <span>Public protocol</span>
+            </div>
+            <p class="eyebrow">LABs skill dossier</p>
+            <h1>{{SKILL_NAME}}</h1>
+            <p class="protocol-description">{{DESCRIPTION}}</p>
+          </div>
+
+          <aside class="protocol-install" aria-label="Install {{SKILL_NAME}}">
+            <div>
+              <span>Use this protocol</span>
+              <span>skills CLI</span>
+            </div>
+            <code><span aria-hidden="true">$</span> {{INSTALL_COMMAND}}</code>
+            <button type="button" data-copy-text="{{INSTALL_COMMAND}}">Copy install command</button>
+          </aside>
+        </header>
+
+        <div class="protocol-content">
+          <section class="package-section" aria-labelledby="package-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Everything included</p>
+                <h2 id="package-title">Package contents</h2>
+              </div>
+              <p>Open any file to inspect the source.</p>
+            </div>
+            <div class="package-directory">
+              <div class="package-root">
+                <span>skills/{{SKILL_NAME}}/</span>
+                <span>{{FILE_COUNT_LABEL}}</span>
+              </div>
+              <ol>{{FILE_LIST}}</ol>
+            </div>
+          </section>
+
+          <aside class="protocol-sidebar">
+            <section>
+              <p class="eyebrow">Primary access</p>
+              <h2>Read and reuse</h2>
+              <a class="access-link access-link-primary" href="{{SKILL_FILE_URL}}">
+                <span>Read SKILL.md</span><span aria-hidden="true">↗</span>
+              </a>
+              <a class="access-link" href="{{SOURCE_URL}}">
+                <span>Browse the package</span><span aria-hidden="true">↗</span>
+              </a>
+            </section>
+
+            <section>
+              <p class="eyebrow">Keep exploring</p>
+              <h2>Other protocols</h2>
+              <div class="related-list">{{RELATED_LIST}}</div>
+            </section>
+          </aside>
+        </div>
+
+        <section class="markdown-section" aria-labelledby="instructions-title">
+          <div class="markdown-section-heading">
+            <div>
+              <p class="eyebrow">Rendered from SKILL.md</p>
+              <h2 id="instructions-title">Protocol instructions</h2>
+            </div>
+            <a href="{{SKILL_FILE_URL}}">View raw source ↗</a>
+          </div>
+          <div class="markdown-body">{{MARKDOWN_CONTENT}}</div>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>LABs Skills · MIT licensed</p>
+      <p>Maintained by <a href="https://github.com/labdotsa">labdotsa</a></p>
+      <a href="../../index.html#catalog">Browse all protocols →</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>
+    <script src="../../copy.js" defer></script>
+  </body>
+</html>

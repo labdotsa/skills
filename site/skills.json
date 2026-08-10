@@ -1,4 +1,7 @@
 {
+  "schemaVersion": 1,
+  "installCommand": "npx skills add labdotsa/skills",
+  "repositoryUrl": "https://github.com/labdotsa/skills",
   "skills": [
     {
       "index": 1,
@@ -26,6 +29,7 @@
         "assets": 5,
         "evals": 0
       },
+      "detailUrl": "./skills/build-product-artifacts/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/build-product-artifacts",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/build-product-artifacts/SKILL.md"
     },
@@ -43,6 +47,7 @@
         "assets": 0,
         "evals": 0
       },
+      "detailUrl": "./skills/copywriting/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/copywriting",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/copywriting/SKILL.md"
     },
@@ -61,6 +66,7 @@
         "assets": 0,
         "evals": 0
       },
+      "detailUrl": "./skills/deconstruct/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/deconstruct",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/deconstruct/SKILL.md"
     },
@@ -78,6 +84,7 @@
         "assets": 0,
         "evals": 0
       },
+      "detailUrl": "./skills/information-architecture/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/information-architecture",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/information-architecture/SKILL.md"
     },
@@ -95,6 +102,7 @@
         "assets": 0,
         "evals": 0
       },
+      "detailUrl": "./skills/seo-engine/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/seo-engine",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/seo-engine/SKILL.md"
     },
@@ -115,6 +123,7 @@
         "assets": 0,
         "evals": 0
       },
+      "detailUrl": "./skills/tailwind/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/main/skills/tailwind",
       "fileUrl": "https://github.com/labdotsa/skills/blob/main/skills/tailwind/SKILL.md"
     }

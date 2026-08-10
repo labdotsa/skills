@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e8edf0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Browse LABs Recipes: practical, sequenced playbooks that combine skills into complete product and engineering workflows."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LABs Recipes — Skills assembled into delivery workflows" />
+    <meta
+      property="og:description"
+      content="Browse repeatable delivery recipes with focused conversations, prompts, skills, and durable handoffs."
+    />
+    <meta property="og:url" content="https://labdotsa.github.io/skills/recipes.html" />
+    <meta property="og:image" content="https://labdotsa.github.io/skills/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://labdotsa.github.io/skills/recipes.html" />
+    <script>
+      if (window.location.protocol === "file:" && window.location.pathname.endsWith("/website/recipes.html")) {
+        window.location.replace(new URL("../site/recipes.html", window.location.href).href);
+      }
+    </script>
+    <script src="./theme.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>LABs Recipes — Delivery playbooks</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#recipeCatalog">Skip to recipes</a>
+
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="LABs Skills home">
+        <span class="brand-seal" aria-hidden="true"><i>L</i><i>A</i><i>B</i><i>S</i></span>
+        <span class="brand-name">labdotsa</span>
+        <span class="brand-slash">/</span>
+        <strong>skills</strong>
+      </a>
+      <div class="header-actions">
+        <nav aria-label="Primary navigation">
+          <a href="./index.html#catalog">Catalog</a>
+          <a href="./recipes.html" aria-current="page">Recipes</a>
+          <a href="https://github.com/labdotsa/skills">Repository <span aria-hidden="true">↗</span></a>
+        </nav>
+        <label class="theme-picker">
+          <span>Theme</span>
+          <select data-theme-picker aria-label="Color theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero recipe-index-hero" aria-labelledby="page-title">
+        <div class="hero-register" aria-hidden="true">
+          <span>LABS / RECIPE INDEX</span>
+          <span>SEQUENCED PLAYBOOKS</span>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Skills become more useful when the handoffs are clear</p>
+          <h1 id="page-title">Recipes for getting<br /><span>the whole job done.</span></h1>
+          <p>
+            Each recipe assembles individual protocols into a repeatable delivery line—showing which conversation owns each
+            phase, what to prompt, what to hand off, and where human decisions belong.
+          </p>
+        </div>
+        <aside class="recipe-index-note">
+          <span>Recipe format</span>
+          <strong>Conversation → skill → prompt → artifact → handoff</strong>
+          <p>Use the sequence as written first. Adapt it after you understand where your team needs a different boundary.</p>
+        </aside>
+      </section>
+
+      <section class="workbench" id="recipeCatalog" aria-labelledby="recipes-title">
+        <div class="bench-heading">
+          <div>
+            <p class="eyebrow">The delivery library</p>
+            <h2 id="recipes-title">Recipes</h2>
+          </div>
+          <p><strong id="recipeCount">—</strong> public recipes · maintained in source</p>
+        </div>
+
+        <div class="catalog-directory">
+          <div class="catalog-tools">
+            <label class="search" for="recipeSearch">
+              <span aria-hidden="true">⌕</span>
+              <span class="sr-only">Search recipes</span>
+              <input id="recipeSearch" type="search" placeholder="Search by outcome, phase, or category" autocomplete="off" />
+              <kbd>/</kbd>
+            </label>
+            <p id="recipeResultCount" aria-live="polite">Loading recipes…</p>
+          </div>
+
+          <div class="filters" id="recipeFilterList" aria-label="Filter recipes by category"></div>
+          <div class="catalog-list" id="recipeIndex" role="list"></div>
+
+          <div class="empty-state" id="recipeEmptyState" hidden>
+            <p>No recipe matches that search.</p>
+            <button type="button" id="clearRecipeSearch">Clear filters</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="principles" aria-label="Recipe principles">
+        <p><span>01</span><strong>Focused context.</strong> A conversation owns one layer and produces a durable handoff.</p>
+        <p><span>02</span><strong>Visible decisions.</strong> Human choices stay explicit instead of hiding inside implementation.</p>
+        <p><span>03</span><strong>Observable finish.</strong> Every recipe ends with evidence that the intended outcome works.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>LABs Skills · MIT licensed</p>
+      <p>Recipes are working playbooks</p>
+      <a href="./index.html#catalog">Browse protocols →</a>
+    </footer>
+
+    <script id="recipes-data" type="application/json"></script>
+    <script src="./recipes.js" defer></script>
+  </body>
+</html>

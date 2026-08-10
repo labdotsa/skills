@@ -6,9 +6,9 @@ This repository is intentionally small at the start. Stable skills will be publi
 
 ## Website
 
-Explore the collection at [labdotsa.github.io/skills](https://labdotsa.github.io/skills/). Every push to `main` rebuilds the discovery site directly from the current `skills/` directory before GitHub Pages deploys it.
+Explore the collection at [labdotsa.github.io/skills](https://labdotsa.github.io/skills/). The site includes generated indexes for protocols and [recipes](https://labdotsa.github.io/skills/recipes.html), beginning with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `main` rebuilds the site before GitHub Pages deploys it.
 
-For a local file preview, run `npm run site:build` and refresh the page. Use `npm run site:watch` while editing skills to regenerate the local index whenever a `SKILL.md` changes.
+For a local file preview, run `npm run site:build` and open `site/index.html`. Use `npm run site:watch` while editing skills or website source to keep the generated preview current.
 
 ## Catalog
 
@@ -29,12 +29,20 @@ The skills follow the [Agent Skills specification](https://agentskills.io/specif
 | Path | Purpose |
 | --- | --- |
 | [`skills/`](skills/) | Stable, installable skills in a flat catalog |
+| [`recipes/`](recipes/) | Sequenced delivery playbooks indexed from `RECIPE.md` source |
 | [`incubator/`](incubator/) | Public drafts that are not installable yet |
 | [`deprecated/`](deprecated/) | Retirement and migration notes |
 | [`docs/`](docs/) | Human-facing catalog and repository documentation |
 | [`templates/`](templates/) | Starting point for new skills |
 | [`scripts/`](scripts/) | Catalog generation and repository validation |
-| [`site/`](site/) | Static GitHub Pages discovery experience |
+| [`website/`](website/) | Editable source for the discovery experience |
+| [`site/`](site/) | Generated GitHub Pages output; do not edit directly |
+
+## Website architecture
+
+The discovery site remains a zero-dependency static application. `website/` owns the skill and recipe indexes, detail-page sources, presentation, browser behavior, and social image. `scripts/build-site.mjs` derives discovery data from `skills/*/SKILL.md` and `recipes/*/RECIPE.md`, then writes the deployable pages plus one detail route per skill to `site/`. Each skill detail route renders its `SKILL.md` at build time, including headings, lists, tables, links, task lists, blockquotes, and fenced code without requiring browser-side dependencies.
+
+Catalog data has an explicit, versioned contract shared by the generator, validation scripts, and browser model. `npm run validate` checks skill structure, generated-file freshness, catalog integrity, package-file links, and browser-model behavior.
 
 ## Lifecycle
 
