@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deconstruct"
+  short_description: "Turn UI sources into reusable component systems"
+  default_prompt: "Use $deconstruct to turn this UI source into a stack-native, responsive, directionally localizable component system."

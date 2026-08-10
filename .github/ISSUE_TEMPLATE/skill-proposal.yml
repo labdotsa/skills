@@ -1,0 +1,42 @@
+name: Skill proposal
+description: Propose a repeatable workflow for the public catalog.
+title: "[Skill]: "
+labels:
+  - skill-proposal
+body:
+  - type: markdown
+    attributes:
+      value: Describe the demonstrated workflow before proposing its instructions.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+      placeholder: lowercase-skill-name
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Recurring problem
+      description: What keeps happening, and who experiences it?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence from real use
+      description: Where has this workflow already been used or corrected?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Successful outcome
+      description: What should be observable when the skill works?
+    validations:
+      required: true
+  - type: textarea
+    id: portability
+    attributes:
+      label: Portability and public-safety considerations
+      description: Identify private assumptions, external dependencies, or risky operations.

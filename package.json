@@ -1,0 +1,13 @@
+{
+  "name": "labdotsa-skills",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Public agent skills and playbooks from labdotsa",
+  "type": "module",
+  "scripts": {
+    "catalog": "node scripts/generate-catalog.mjs",
+    "site:build": "node scripts/build-site.mjs",
+    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/build-site.mjs --check"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+{
+  "skill_name": "skill-name",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "A realistic request that should activate the skill.",
+      "expected_output": "A concrete description of a successful result.",
+      "assertions": [
+        "A specific, observable condition is satisfied."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Product Artifacts"
+  short_description: "Turn evolving briefs into synchronized artifacts"
+  default_prompt: "Use $build-product-artifacts to turn this product brief into a structured, traceable artifact system."
