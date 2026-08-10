@@ -6,3 +6,6 @@ coverage/
 dist/
 tmp/
 *.log
+
+# Local Netlify folder
+.netlify
