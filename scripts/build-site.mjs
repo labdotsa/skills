@@ -12,7 +12,7 @@ const repositoryRoot = path.resolve(scriptDirectory, "..");
 const sourceDirectory = path.join(repositoryRoot, "website");
 const outputDirectory = path.join(repositoryRoot, "site");
 const repositoryUrl = "https://github.com/labdotsa/skills";
-const siteUrl = "https://labdotsa.github.io/skills/";
+const siteUrl = "https://skills.lab.sa/";
 const installCommand = "npx skills add labdotsa/skills";
 const checkOnly = process.argv.includes("--check");
 
@@ -65,7 +65,7 @@ function escapeHtml(value) {
 
 function sourceFileUrl(skill, file) {
   const encodedPath = file.split("/").map(encodeURIComponent).join("/");
-  return `${repositoryUrl}/blob/main/skills/${encodeURIComponent(skill.name)}/${encodedPath}`;
+  return `${repositoryUrl}/blob/master/skills/${encodeURIComponent(skill.name)}/${encodedPath}`;
 }
 
 function renderSkillPage(skill, markdownSource) {

@@ -47,6 +47,6 @@ test("builds install commands and direct package-file links", () => {
   assert.equal(Catalog.commandForSkill(catalog, "tailwind"), "npx skills add labdotsa/skills --skill tailwind");
   assert.equal(
     Catalog.fileUrl(catalog, catalog.skills[0], "references/v4-adoption.md"),
-    "https://github.com/labdotsa/skills/blob/main/skills/tailwind/references/v4-adoption.md",
+    "https://github.com/labdotsa/skills/blob/master/skills/tailwind/references/v4-adoption.md",
   );
 });

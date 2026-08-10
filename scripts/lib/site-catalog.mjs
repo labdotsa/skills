@@ -23,8 +23,8 @@ export function createSiteCatalog(skills, options) {
       files: skill.files,
       resources: skill.resources,
       detailUrl: `./skills/${skill.name}/index.html`,
-      sourceUrl: `${repositoryUrl}/tree/main/skills/${skill.name}`,
-      fileUrl: `${repositoryUrl}/blob/main/${skill.relativeSkillFile}`,
+      sourceUrl: `${repositoryUrl}/tree/master/skills/${skill.name}`,
+      fileUrl: `${repositoryUrl}/blob/master/${skill.relativeSkillFile}`,
     })),
   };
 }

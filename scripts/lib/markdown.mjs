@@ -201,7 +201,7 @@ export function createMarkdownUrlResolver(options) {
       .replace(/^\.\//, "")
       .replace(/^(\.\.\/)+/, "");
     const suffix = hash ? `#${encodeURIComponent(hash)}` : "";
-    return `${repositoryUrl}/blob/main/skills/${encodeURIComponent(skillName)}/${normalized
+    return `${repositoryUrl}/blob/master/skills/${encodeURIComponent(skillName)}/${normalized
       .split("/")
       .map(encodeURIComponent)
       .join("/")}${suffix}`;

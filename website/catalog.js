@@ -62,7 +62,7 @@
   }
 
   function fileUrl(catalog, skill, file) {
-    return `${catalog.repositoryUrl}/blob/main/skills/${encodeURIComponent(skill.name)}/${file
+    return `${catalog.repositoryUrl}/blob/master/skills/${encodeURIComponent(skill.name)}/${file
       .split("/")
       .map(encodeURIComponent)
       .join("/")}`;

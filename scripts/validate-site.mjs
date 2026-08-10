@@ -132,10 +132,10 @@ if (JSON.stringify(generatedSkillDirectories) !== JSON.stringify(expectedSkillDi
 }
 
 const sitemap = await readFile(path.join(outputDirectory, "sitemap.xml"), "utf8");
-if (!sitemap.includes("https://labdotsa.github.io/skills/recipes.html")) {
+if (!sitemap.includes("https://skills.lab.sa/recipes.html")) {
   throw new Error("The sitemap does not include the recipe index.");
 }
-if (!sitemap.includes("https://labdotsa.github.io/skills/recipe.html")) {
+if (!sitemap.includes("https://skills.lab.sa/recipe.html")) {
   throw new Error("The sitemap does not include the recipe page.");
 }
 

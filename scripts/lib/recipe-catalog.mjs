@@ -65,7 +65,7 @@ export function createRecipeSiteCatalog(recipes, repositoryUrl) {
       status: recipe.status,
       conversations: recipe.conversations,
       detailUrl: recipe.detailUrl,
-      sourceUrl: `${repositoryUrl}/blob/main/${recipe.relativeRecipeFile}`,
+      sourceUrl: `${repositoryUrl}/blob/master/${recipe.relativeRecipeFile}`,
     })),
   };
 }
