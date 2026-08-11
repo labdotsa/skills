@@ -80,156 +80,48 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <h1 id="page-title"><span class="font-heading">LAB</span> Skills are reusable<br /> instructions for better digital products.</h1>
-          <p>We research, design, develop and market with <em>agent protocols</em> built from real delivery work.</p>
+          <p class="eyebrow">LAB Skills / public working knowledge</p>
+          <h1 id="page-title">Working knowledge,<br /><span class="font-heading">kept in the open.</span></h1>
+          <p>Reusable instructions shaped by how LAB researches, designs, develops, and markets digital products.</p>
         </div>
-        <div class="hero-actions">
-          <button class="button button-primary" type="button" data-copy-text="npx skills add labdotsa/skills">
-            Install the collection
+        <div class="command-block hero-command" aria-label="Install the LAB Skills collection">
+          <span class="command-prompt" aria-hidden="true">$</span>
+          <code id="collection-command">npx skills add labdotsa/skills</code>
+          <button type="button" data-copy-target="#collection-command" data-copy-message="Install command copied" aria-label="Copy install command">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
           </button>
-          <a class="button button-secondary" href="./recipes.html">Browse recipes</a>
-        </div>
-      </section>
-
-      <section class="audience-section" aria-labelledby="audience-title">
-        <div class="audience-header">
-          <h2 class="font-heading" id="audience-title">We work with</h2>
-          <div class="audience-tabs" role="tablist" aria-label="Select an audience">
-            <button type="button" role="tab" aria-selected="false" data-audience="founders">Founders</button>
-            <button type="button" role="tab" aria-selected="true" data-audience="startups">Startups</button>
-            <button type="button" role="tab" aria-selected="false" data-audience="enterprises">Enterprises</button>
-          </div>
-        </div>
-        <div class="audience-grid" id="audienceGrid">
-          <a class="audience-card audience-research" href="https://lab.sa/services/research">
-            <span class="lab-lockup font-heading">research<br /><strong>LAB</strong></span>
-            <p data-audience-benefit="research">Spot opportunities and risks in one sprint.</p>
-          </a>
-          <a class="audience-card audience-design" href="https://lab.sa/services/design">
-            <span class="lab-lockup font-heading">design<br /><strong>LAB</strong></span>
-            <p data-audience-benefit="design">Build UX users love from day one.</p>
-          </a>
-          <a class="audience-card audience-development" href="https://lab.sa/services/development">
-            <span class="lab-lockup font-heading">dev<br /><strong>LAB</strong></span>
-            <p data-audience-benefit="development">Scale tech smoothly as you grow.</p>
-          </a>
-          <a class="audience-card audience-marketing" href="https://lab.sa/services/marketing">
-            <span class="lab-lockup font-heading">marketing<br /><strong>LAB</strong></span>
-            <p data-audience-benefit="marketing">Grow with organic and paid channels.</p>
-          </a>
-        </div>
-        <p class="audience-summary" id="audienceSummary">Speed up growth—spot opportunities and fix issues fast.</p>
-      </section>
-
-      <section class="lab-section" data-lab="research" style="--lab-accent: var(--research-lab)" aria-labelledby="research-lab-title">
-        <div class="lab-section-heading">
-          <h2 class="lab-title font-heading" id="research-lab-title">research<br /><strong>LAB</strong></h2>
-          <p>Know before you build.</p>
-          <a href="https://lab.sa/services/research">Learn more about ResearchLAB <span aria-hidden="true">›</span></a>
-        </div>
-        <div class="lab-stats">
-          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">06</strong><p>Public Product Protocols</p></div></div>
-          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">17</strong><p>Maintained Source Files</p></div><span class="stat-strip stat-strip-soft"></span></div>
-        </div>
-        <div class="service-carousel" data-carousel>
-          <div class="service-track">
-            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/network.svg" alt="" /></span><span class="service-copy"><strong>Information Architecture</strong><small>Structure product content, navigation, and findability before implementation begins.</small></span></a>
-            <a class="service-card" href="./skills/build-product-artifacts/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/notebook-tabs.svg" alt="" /></span><span class="service-copy"><strong>Product Artifacts</strong><small>Turn uncertain product context into traceable, durable sources of truth.</small></span></a>
-            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/scan-search.svg" alt="" /></span><span class="service-copy"><strong>Deconstruct</strong><small>Read visible evidence carefully and separate observation from inference.</small></span></a>
-            <a class="service-card" href="https://lab.sa/services/research"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/chart-bar.svg" alt="" /></span><span class="service-copy"><strong>ResearchLAB</strong><small>Explore LAB's complete research and product validation practice.</small></span></a>
-          </div>
-          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
-        </div>
-      </section>
-
-      <section class="lab-section" data-lab="design" style="--lab-accent: var(--design-lab)" aria-labelledby="design-lab-title">
-        <div class="lab-section-heading">
-          <h2 class="lab-title font-heading" id="design-lab-title">design<br /><strong>LAB</strong></h2>
-          <p>Design it to work, not just to look good.</p>
-          <a href="https://lab.sa/services/design">Learn more about DesignLAB <span aria-hidden="true">›</span></a>
-        </div>
-        <div class="lab-stats">
-          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">03</strong><p>Experience Design Protocols</p></div></div>
-          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">100%</strong><p>Inspectable Source</p></div><span class="stat-strip stat-strip-soft"></span></div>
-        </div>
-        <div class="service-carousel" data-carousel>
-          <div class="service-track">
-            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/layout-template.svg" alt="" /></span><span class="service-copy"><strong>Interface Deconstruction</strong><small>Translate visual evidence into responsibilities, contracts, and adaptive rules.</small></span></a>
-            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/blocks.svg" alt="" /></span><span class="service-copy"><strong>Information Architecture</strong><small>Design coherent structures for content-heavy digital products.</small></span></a>
-            <a class="service-card" href="./skills/copywriting/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/type.svg" alt="" /></span><span class="service-copy"><strong>Product Copywriting</strong><small>Shape clear, useful interface language with structured messaging systems.</small></span></a>
-            <a class="service-card" href="https://lab.sa/services/design"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/palette.svg" alt="" /></span><span class="service-copy"><strong>DesignLAB</strong><small>Explore LAB's complete product, interface, and brand design practice.</small></span></a>
-          </div>
-          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
-        </div>
-      </section>
-
-      <section class="lab-section" data-lab="development" style="--lab-accent: var(--development-lab)" aria-labelledby="development-lab-title">
-        <div class="lab-section-heading">
-          <h2 class="lab-title font-heading" id="development-lab-title">development<br /><strong>LAB</strong></h2>
-          <p>Build it right. Scale it fast.</p>
-          <a href="https://lab.sa/services/development">Learn more about DevelopmentLAB <span aria-hidden="true">›</span></a>
-        </div>
-        <div class="lab-stats">
-          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">04</strong><p>Engineering Reference Files</p></div></div>
-          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">09</strong><p>Automated Validation Checks</p></div><span class="stat-strip stat-strip-soft"></span></div>
-        </div>
-        <div class="service-carousel" data-carousel>
-          <div class="service-track">
-            <a class="service-card" href="./skills/tailwind/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/code-2.svg" alt="" /></span><span class="service-copy"><strong>Tailwind Engineering</strong><small>Adopt Tailwind v4 with responsive and localization-safe architecture.</small></span></a>
-            <a class="service-card" href="./skills/build-product-artifacts/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/workflow.svg" alt="" /></span><span class="service-copy"><strong>Delivery Artifacts</strong><small>Keep implementation anchored to approved journeys, states, and decisions.</small></span></a>
-            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/component.svg" alt="" /></span><span class="service-copy"><strong>Component Contracts</strong><small>Define stack-native boundaries before writing interface code.</small></span></a>
-            <a class="service-card" href="https://lab.sa/services/development"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/terminal-square.svg" alt="" /></span><span class="service-copy"><strong>DevelopmentLAB</strong><small>Explore LAB's complete software engineering and platform practice.</small></span></a>
-          </div>
-          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
-        </div>
-      </section>
-
-      <section class="lab-section" data-lab="marketing" style="--lab-accent: var(--marketing-lab)" aria-labelledby="marketing-lab-title">
-        <div class="lab-section-heading">
-          <h2 class="lab-title font-heading" id="marketing-lab-title">marketing<br /><strong>LAB</strong></h2>
-          <p>Don't just launch—grow.</p>
-          <a href="https://lab.sa/services/marketing">Learn more about MarketingLAB <span aria-hidden="true">›</span></a>
-        </div>
-        <div class="lab-stats">
-          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">02</strong><p>Growth-Focused Protocols</p></div></div>
-          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">100%</strong><p>Reusable Delivery Logic</p></div><span class="stat-strip stat-strip-soft"></span></div>
-        </div>
-        <div class="service-carousel" data-carousel>
-          <div class="service-track">
-            <a class="service-card" href="./skills/seo-engine/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/trending-up.svg" alt="" /></span><span class="service-copy"><strong>SEO Engine</strong><small>Audit, plan, and execute search growth across technical and content layers.</small></span></a>
-            <a class="service-card" href="./skills/copywriting/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/file-text.svg" alt="" /></span><span class="service-copy"><strong>Copywriting</strong><small>Produce high-conversion messaging across ads, pages, email, and product.</small></span></a>
-            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/route.svg" alt="" /></span><span class="service-copy"><strong>Content Structure</strong><small>Make content systems discoverable, scalable, and ready for localization.</small></span></a>
-            <a class="service-card" href="https://lab.sa/services/marketing"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/megaphone.svg" alt="" /></span><span class="service-copy"><strong>MarketingLAB</strong><small>Explore LAB's complete go-to-market and growth practice.</small></span></a>
-          </div>
-          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
         </div>
       </section>
 
       <section class="workbench" id="catalog" aria-labelledby="catalog-title">
         <div class="bench-heading">
-          <div>
-            <p class="eyebrow">Public working library</p>
-            <h2 class="font-heading" id="catalog-title">Skills</h2>
+          <div class="directory-tabs" role="tablist" aria-label="Browse the LAB library">
+            <button type="button" role="tab" aria-selected="true" data-directory-kind="skills">
+              <span class="font-heading" id="catalog-title">Skills</span><small id="skillCount">—</small>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-directory-kind="recipes">
+              <span class="font-heading">Recipes</span><small id="recipeCount">—</small>
+            </button>
           </div>
-          <p><strong id="skillCount">—</strong> reusable protocols, generated from source.</p>
+          <p id="directoryIntro">Focused instructions an agent can use directly.</p>
         </div>
 
         <div class="catalog-directory">
           <div class="catalog-tools">
             <label class="search" for="skillSearch">
               <span aria-hidden="true">⌕</span>
-              <span class="sr-only">Search skills</span>
+              <span class="sr-only" id="searchLabel">Search skills</span>
               <input id="skillSearch" type="search" placeholder="Search by name, purpose, or file" autocomplete="off" />
               <kbd>/</kbd>
             </label>
             <p id="resultCount" aria-live="polite">Loading catalog…</p>
           </div>
 
-          <div class="filters" id="filterList" aria-label="Filter skills by discipline"></div>
+          <div class="filters" id="filterList" aria-label="Filter the directory by discipline"></div>
           <div class="catalog-list" id="skillIndex" role="list"></div>
 
           <div class="empty-state" id="emptyState" hidden>
-            <p>No protocol matches that search.</p>
+            <p>No item matches that search.</p>
             <button type="button" id="clearSearch">Clear filters</button>
           </div>
         </div>
@@ -405,6 +297,34 @@
       "detailUrl": "./skills/tailwind/index.html",
       "sourceUrl": "https://github.com/labdotsa/skills/tree/master/skills/tailwind",
       "fileUrl": "https://github.com/labdotsa/skills/blob/master/skills/tailwind/SKILL.md"
+    }
+  ]
+}
+    </script>
+    <script id="recipes-data" type="application/json">
+{
+  "schemaVersion": 1,
+  "recipes": [
+    {
+      "index": 1,
+      "slug": "functional-prototype",
+      "title": "Functioning Prototype",
+      "description": "Guide a product from early discovery to a functioning prototype through four focused conversation layers: foundation, visuals, planning, and implementation. Use this recipe to gather and research product context, establish durable artifacts, define and reverse-engineer visual directions, create implementation-ready tickets, resolve human-in-the-loop decisions, and implement one tested task at a time.",
+      "category": "product-delivery",
+      "status": "draft",
+      "conversations": 4,
+      "relatedSkills": [
+        "wayfinder",
+        "grilling",
+        "research",
+        "build-product-artifacts",
+        "imagegen",
+        "deconstruct",
+        "to-tickets",
+        "tdd"
+      ],
+      "detailUrl": "./recipe.html",
+      "sourceUrl": "https://github.com/labdotsa/skills/blob/master/recipes/functional-prototype/RECIPE.md"
     }
   ]
 }

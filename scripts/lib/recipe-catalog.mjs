@@ -18,6 +18,11 @@ function conversationCount(source) {
   return [...source.matchAll(/^##\s+Conversation\b.*$/gim)].length;
 }
 
+function relatedSkillNames(source) {
+  const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] || "";
+  return [...frontmatter.matchAll(/^\s{4}- name:\s*([^\s#]+)\s*$/gm)].map((match) => match[1]);
+}
+
 export async function readRecipeCatalog(repositoryRoot) {
   const recipesDirectory = path.join(repositoryRoot, "recipes");
   const entries = await readdir(recipesDirectory, { withFileTypes: true });
@@ -41,6 +46,7 @@ export async function readRecipeCatalog(repositoryRoot) {
         category: frontmatter.metadata.category,
         status: frontmatter.metadata.status,
         conversations: conversationCount(source),
+        relatedSkills: relatedSkillNames(source),
         detailUrl: frontmatter.metadata["detail-url"],
         relativeRecipeFile,
       });
@@ -64,6 +70,7 @@ export function createRecipeSiteCatalog(recipes, repositoryUrl) {
       category: recipe.category,
       status: recipe.status,
       conversations: recipe.conversations,
+      relatedSkills: recipe.relatedSkills,
       detailUrl: recipe.detailUrl,
       sourceUrl: `${repositoryUrl}/blob/master/${recipe.relativeRecipeFile}`,
     })),
@@ -91,6 +98,9 @@ export function assertRecipeSiteCatalog(catalog) {
     }
     if (!Number.isInteger(recipe.conversations) || recipe.conversations < 1) {
       throw new TypeError(`${prefix}.conversations must be a positive integer.`);
+    }
+    if (!Array.isArray(recipe.relatedSkills) || recipe.relatedSkills.some((name) => typeof name !== "string")) {
+      throw new TypeError(`${prefix}.relatedSkills must be an array of skill names.`);
     }
     if (!recipe.detailUrl.startsWith("./") || recipe.detailUrl.includes("..")) {
       throw new TypeError(`${prefix}.detailUrl must be a local path beginning with ./.`);

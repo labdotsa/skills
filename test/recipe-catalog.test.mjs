@@ -21,6 +21,8 @@ test("derives recipe discovery data from RECIPE.md", async () => {
   assert.equal(prototype.category, "product-delivery");
   assert.equal(prototype.status, "draft");
   assert.equal(prototype.conversations, 4);
+  assert.ok(prototype.relatedSkills.includes("deconstruct"));
+  assert.ok(prototype.relatedSkills.includes("build-product-artifacts"));
   assert.equal(prototype.detailUrl, "./recipe.html");
 });
 

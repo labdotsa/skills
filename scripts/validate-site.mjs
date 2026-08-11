@@ -75,6 +75,16 @@ const jsonRecipes = assertRecipeSiteCatalog(
 if (JSON.stringify(embeddedRecipes) !== JSON.stringify(jsonRecipes)) {
   throw new Error("The embedded recipe catalog and site/recipes.json do not match.");
 }
+const homeRecipesMatch = indexHtml.match(
+  /<script id="recipes-data" type="application\/json">([\s\S]*?)<\/script>/,
+);
+if (!homeRecipesMatch) throw new Error("site/index.html does not contain embedded recipe data.");
+if (JSON.stringify(assertRecipeSiteCatalog(JSON.parse(homeRecipesMatch[1]))) !== JSON.stringify(jsonRecipes)) {
+  throw new Error("The homepage recipe catalog and site/recipes.json do not match.");
+}
+if (!indexHtml.includes('data-directory-kind="skills"') || !indexHtml.includes('data-directory-kind="recipes"')) {
+  throw new Error("The homepage does not expose the Skills and Recipes directory tabs.");
+}
 if (!recipesHtml.includes('src="./recipes.js"')) throw new Error("The recipe index does not load recipes.js.");
 if (recipesHtml.includes("/Users/")) throw new Error("The public recipe index contains a personal absolute path.");
 
@@ -111,8 +121,11 @@ for (const skill of embeddedCatalog.skills) {
   if (!detailHtml.includes("../../styles.css") || !detailHtml.includes("../../copy.js") || !detailHtml.includes("../../theme.js")) {
     throw new Error(`The detail page for ${skill.name} is missing shared assets.`);
   }
-  if (!detailHtml.includes('class="markdown-body"') || !detailHtml.includes("Protocol instructions")) {
+  if (!detailHtml.includes('class="markdown-body"') || !detailHtml.includes("Skill instructions")) {
     throw new Error(`The detail page for ${skill.name} is missing rendered Markdown.`);
+  }
+  if (!detailHtml.includes("Related skills &amp; recipes") || !detailHtml.includes("related-directory")) {
+    throw new Error(`The detail page for ${skill.name} is missing its related directory.`);
   }
   if (!detailHtml.includes('href="../../recipes.html"')) {
     throw new Error(`The detail page for ${skill.name} does not link to recipes.`);

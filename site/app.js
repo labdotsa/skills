@@ -1,61 +1,50 @@
 "use strict";
 
 const Catalog = globalThis.LabsCatalog;
-if (!Catalog) throw new Error("The LABs catalog model failed to load.");
+if (!Catalog) throw new Error("The LAB catalog model failed to load.");
+
+const recipeCategoryLabels = {
+  all: "All",
+  delivery: "Delivery",
+  design: "Design",
+  engineering: "Engineering",
+  growth: "Growth",
+  product: "Product",
+  "product-delivery": "Product delivery",
+};
 
 const state = {
+  kind: "skills",
   skills: [],
+  recipes: [],
   query: "",
   category: "all",
 };
 
-const audienceContent = {
-  founders: {
-    summary: "Make your idea profitable—less risk, more impact.",
-    benefits: {
-      research: "Get investor trust and market clarity before coding.",
-      design: "Build investor-ready prototypes in days.",
-      development: "Launch your MVP fast to get feedback and start earning.",
-      marketing: "Get early traction for your next funding round.",
-    },
-  },
-  startups: {
-    summary: "Speed up growth—spot opportunities and fix issues fast.",
-    benefits: {
-      research: "Spot opportunities and risks in one sprint.",
-      design: "Build UX users love from day one.",
-      development: "Scale tech smoothly as you grow.",
-      marketing: "Grow with organic and paid channels.",
-    },
-  },
-  enterprises: {
-    summary: "Innovate at scale—no downtime.",
-    benefits: {
-      research: "Get user insights without slowing you down.",
-      design: "Design experiences that match your brand.",
-      development: "Plug modern modules into your systems easily.",
-      marketing: "Use every channel for smooth rollouts.",
-    },
-  },
-};
-
 const selectors = {
   clearSearch: "#clearSearch",
+  directoryIntro: "#directoryIntro",
+  directoryTabs: "[data-directory-kind]",
   emptyState: "#emptyState",
   filterList: "#filterList",
   index: "#skillIndex",
+  recipeCount: "#recipeCount",
   resultCount: "#resultCount",
   search: "#skillSearch",
+  searchLabel: "#searchLabel",
   skillCount: "#skillCount",
 };
 
 const elements = Object.fromEntries(
-  Object.entries(selectors).map(([name, selector]) => [name, document.querySelector(selector)]),
+  Object.entries(selectors)
+    .filter(([name]) => name !== "directoryTabs")
+    .map(([name, selector]) => [name, document.querySelector(selector)]),
 );
-const missingElements = Object.entries(elements)
-  .filter(([, element]) => !element)
-  .map(([name]) => name);
+elements.directoryTabs = [...document.querySelectorAll(selectors.directoryTabs)];
 
+const missingElements = Object.entries(elements)
+  .filter(([, element]) => !element || (Array.isArray(element) && element.length === 0))
+  .map(([name]) => name);
 if (missingElements.length > 0) {
   throw new Error(`The site template is missing required elements: ${missingElements.join(", ")}.`);
 }
@@ -71,23 +60,53 @@ function formatNumber(value) {
   return String(value).padStart(2, "0");
 }
 
-function visibleSkills() {
-  return Catalog.filterSkills(state.skills, { query: state.query, category: state.category });
+function activeItems() {
+  return state.kind === "skills" ? state.skills : state.recipes;
+}
+
+function labelForCategory(category) {
+  return state.kind === "skills"
+    ? Catalog.labelForCategory(category)
+    : recipeCategoryLabels[category] || category.replaceAll("-", " ");
+}
+
+function pillarForCategory(category) {
+  if (category === "design") return "design";
+  if (["frontend", "integrations", "engineering", "delivery"].includes(category)) return "development";
+  if (["content", "growth", "marketing"].includes(category)) return "marketing";
+  return "research";
+}
+
+function matchesQuery(item) {
+  const query = state.query.trim().toLowerCase();
+  const categoryMatches = state.category === "all" || item.category === state.category;
+  if (!categoryMatches) return false;
+  if (!query) return true;
+
+  const text = state.kind === "skills"
+    ? `${item.name} ${item.description} ${item.category} ${item.files.join(" ")}`
+    : `${item.title} ${item.description} ${item.category} ${item.status}`;
+  return text.toLowerCase().includes(query);
+}
+
+function visibleItems() {
+  return activeItems().filter(matchesQuery);
 }
 
 function createFilters() {
-  const counts = Catalog.categoryCounts(state.skills);
+  const counts = new Map();
+  for (const item of activeItems()) counts.set(item.category, (counts.get(item.category) || 0) + 1);
   const categories = ["all", ...[...counts.keys()].sort()];
 
   elements.filterList.replaceChildren(
     ...categories.map((category) => {
       const button = document.createElement("button");
-      const count = category === "all" ? state.skills.length : counts.get(category);
+      const count = category === "all" ? activeItems().length : counts.get(category);
       button.type = "button";
       button.dataset.category = category;
       button.setAttribute("aria-pressed", String(state.category === category));
       button.append(
-        createTextElement("span", "", Catalog.labelForCategory(category)),
+        createTextElement("span", "", labelForCategory(category)),
         createTextElement("small", "", formatNumber(count)),
       );
       return button;
@@ -95,57 +114,82 @@ function createFilters() {
   );
 }
 
-function createSkillRow(skill) {
-  const item = document.createElement("article");
-  item.className = "catalog-item";
-  item.setAttribute("role", "listitem");
-  item.dataset.pillar =
-    skill.category === "design"
-      ? "design"
-      : ["frontend", "integrations"].includes(skill.category)
-        ? "development"
-        : ["content", "growth"].includes(skill.category)
-          ? "marketing"
-          : "research";
+function createLabLockup(pillar) {
+  const lockup = createTextElement("span", "row-lab-lockup font-heading", "");
+  lockup.append(createTextElement("span", "", pillar), createTextElement("strong", "", "LAB"));
+  return lockup;
+}
+
+function createDirectoryRow(item, index) {
+  const isSkill = state.kind === "skills";
+  const pillar = pillarForCategory(item.category);
+  const itemName = isSkill ? item.name : item.title;
+  const itemKind = isSkill ? "skill" : "recipe";
+
+  const article = document.createElement("article");
+  article.className = "catalog-item";
+  article.setAttribute("role", "listitem");
+  article.dataset.pillar = pillar;
 
   const link = document.createElement("a");
-  link.className = "catalog-row";
-  link.href = skill.detailUrl;
-  link.setAttribute("aria-label", `Open ${skill.name} protocol`);
+  link.className = `catalog-row ${isSkill ? "skill-row" : "recipe-row"}`;
+  link.href = item.detailUrl;
+  link.setAttribute("aria-label", `Open ${itemName} ${itemKind}`);
 
-  const number = createTextElement("span", "row-number", formatNumber(skill.index));
+  const number = createTextElement("span", "row-number", formatNumber(index + 1));
   number.setAttribute("aria-hidden", "true");
 
   const main = createTextElement("span", "row-main", "");
   const kicker = createTextElement("span", "row-kicker", "");
-  kicker.append(
-    createTextElement("span", "", Catalog.labelForCategory(skill.category)),
-    createTextElement("span", "", `${Catalog.packageFileCount(skill)} ${Catalog.packageFileCount(skill) === 1 ? "file" : "files"}`),
-  );
+  kicker.append(createTextElement("span", "", labelForCategory(item.category)));
+  if (isSkill) {
+    const fileCount = Catalog.packageFileCount(item);
+    kicker.append(createTextElement("span", "", `${fileCount} ${fileCount === 1 ? "file" : "files"}`));
+  } else {
+    kicker.append(
+      createTextElement("span", "", `${item.conversations} conversations`),
+      createTextElement("span", "recipe-status", item.status),
+    );
+  }
   main.append(
     kicker,
-    createTextElement("span", "row-heading", skill.name),
-    createTextElement("span", "row-description", skill.description),
+    createTextElement("span", "row-heading", itemName),
+    createTextElement("span", "row-description", item.description),
   );
 
   const access = createTextElement("span", "row-access", "");
-  access.append(createTextElement("span", "", "Open protocol"), createTextElement("span", "row-arrow", "→"));
+  access.append(createLabLockup(pillar), createTextElement("span", "row-arrow", "→"));
   access.setAttribute("aria-hidden", "true");
 
   link.append(number, main, access);
-  item.append(link);
-  return item;
+  article.append(link);
+  return article;
+}
+
+function updateDirectoryCopy() {
+  const isSkills = state.kind === "skills";
+  elements.directoryIntro.textContent = isSkills
+    ? "Focused instructions an agent can use directly."
+    : "Sequenced skill combinations for complete delivery outcomes.";
+  elements.search.placeholder = isSkills
+    ? "Search by name, purpose, or file"
+    : "Search by outcome, category, or status";
+  elements.searchLabel.textContent = isSkills ? "Search skills" : "Search recipes";
+  for (const tab of elements.directoryTabs) {
+    tab.setAttribute("aria-selected", String(tab.dataset.directoryKind === state.kind));
+  }
 }
 
 function renderCatalog() {
-  const skills = visibleSkills();
-  elements.index.replaceChildren(...skills.map(createSkillRow));
-  elements.index.hidden = skills.length === 0;
-  elements.emptyState.hidden = skills.length !== 0;
-  elements.resultCount.textContent = `${skills.length} of ${state.skills.length} protocols`;
+  const items = visibleItems();
+  elements.index.replaceChildren(...items.map(createDirectoryRow));
+  elements.index.hidden = items.length === 0;
+  elements.emptyState.hidden = items.length !== 0;
+  elements.resultCount.textContent = `${items.length} of ${activeItems().length} ${state.kind}`;
 }
 
 function render() {
+  updateDirectoryCopy();
   createFilters();
   renderCatalog();
 }
@@ -163,6 +207,16 @@ function bindEvents() {
     render();
   });
 
+  for (const tab of elements.directoryTabs) {
+    tab.addEventListener("click", () => {
+      state.kind = tab.dataset.directoryKind;
+      state.category = "all";
+      state.query = "";
+      elements.search.value = "";
+      render();
+    });
+  }
+
   elements.clearSearch.addEventListener("click", () => {
     state.query = "";
     state.category = "all";
@@ -179,46 +233,6 @@ function bindEvents() {
   });
 }
 
-function bindAudienceTabs() {
-  const tabs = [...document.querySelectorAll("[data-audience]")];
-  const summary = document.querySelector("#audienceSummary");
-  if (tabs.length === 0 || !summary) return;
-
-  for (const tab of tabs) {
-    tab.addEventListener("click", () => {
-      const content = audienceContent[tab.dataset.audience];
-      if (!content) return;
-      for (const candidate of tabs) candidate.setAttribute("aria-selected", String(candidate === tab));
-      for (const [pillar, benefit] of Object.entries(content.benefits)) {
-        const target = document.querySelector(`[data-audience-benefit="${pillar}"]`);
-        if (target) target.textContent = benefit;
-      }
-      summary.textContent = content.summary;
-    });
-  }
-}
-
-function bindCarousels() {
-  for (const carousel of document.querySelectorAll("[data-carousel]")) {
-    const track = carousel.querySelector(".service-track");
-    const previous = carousel.querySelector("[data-carousel-prev]");
-    const next = carousel.querySelector("[data-carousel-next]");
-    if (!track || !previous || !next) continue;
-
-    const update = () => {
-      previous.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-    };
-    const distance = () => Math.min(track.clientWidth * 0.72, 680);
-    previous.addEventListener("click", () => track.scrollBy({ left: -distance(), behavior: "smooth" }));
-    next.addEventListener("click", () => track.scrollBy({ left: distance(), behavior: "smooth" }));
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-    window.requestAnimationFrame(update);
-  }
-}
-
 function bindContactForm() {
   const form = document.querySelector("[data-contact-form]");
   if (!form) return;
@@ -228,31 +242,33 @@ function bindContactForm() {
   });
 }
 
-async function loadCatalog() {
-  const embeddedData = document.querySelector("#skills-data")?.textContent?.trim();
-  if (embeddedData) return Catalog.validateCatalog(JSON.parse(embeddedData));
-
-  const response = await fetch("./skills.json");
+async function loadJsonCatalog(id, fallbackUrl) {
+  const embedded = document.querySelector(id)?.textContent?.trim();
+  if (embedded) return JSON.parse(embedded);
+  const response = await fetch(fallbackUrl);
   if (!response.ok) throw new Error(`Catalog request failed with ${response.status}.`);
-  return Catalog.validateCatalog(await response.json());
+  return response.json();
 }
 
 function showCatalogError(error) {
-  elements.resultCount.textContent = "Catalog unavailable";
+  elements.resultCount.textContent = "Library unavailable";
   elements.index.hidden = true;
   elements.emptyState.hidden = false;
-  elements.emptyState.textContent = "The skill catalog could not be loaded. Refresh the page to try again.";
+  elements.emptyState.textContent = "The LAB library could not be loaded. Refresh the page to try again.";
   console.error(error);
 }
 
 async function initialize() {
   try {
-    const catalog = await loadCatalog();
-    state.skills = catalog.skills;
+    const [skillCatalog, recipeCatalog] = await Promise.all([
+      loadJsonCatalog("#skills-data", "./skills.json"),
+      loadJsonCatalog("#recipes-data", "./recipes.json"),
+    ]);
+    state.skills = Catalog.validateCatalog(skillCatalog).skills;
+    state.recipes = recipeCatalog.recipes;
     elements.skillCount.textContent = formatNumber(state.skills.length);
+    elements.recipeCount.textContent = formatNumber(state.recipes.length);
     bindEvents();
-    bindAudienceTabs();
-    bindCarousels();
     bindContactForm();
     render();
   } catch (error) {

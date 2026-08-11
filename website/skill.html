@@ -31,46 +31,44 @@
     </header>
 
     <main class="protocol-page" id="protocol">
-      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span aria-hidden="true">›</span><a href="../../index.html#catalog">Skills</a><span aria-hidden="true">›</span><span aria-current="page">{{SKILL_NAME}}</span></nav>
-
       <article class="protocol-sheet" data-category="{{CATEGORY}}">
-        <header class="protocol-hero">
-          <div class="protocol-intro">
-            <p class="protocol-lockup font-heading">skill<br /><strong>LAB</strong></p>
-            <h1>{{SKILL_NAME}}</h1>
-            <div class="protocol-actions">
-              <button type="button" data-copy-text="{{INSTALL_COMMAND}}">Install this skill <span aria-hidden="true">›</span></button>
-              <a href="{{SOURCE_URL}}">Browse source <span aria-hidden="true">↗</span></a>
+        <header class="skill-overview">
+          <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">LAB Skills</a><span aria-hidden="true">/</span><span aria-current="page">{{SKILL_NAME}}</span></nav>
+          <div class="skill-overview-grid">
+            <div class="protocol-intro">
+              <p class="eyebrow">{{CATEGORY}} / skill</p>
+              <h1>{{SKILL_NAME}}</h1>
+              <p class="protocol-description">{{DESCRIPTION}}</p>
             </div>
+            <aside class="install-panel" aria-labelledby="install-title">
+              <p class="eyebrow" id="install-title">Installation</p>
+              <div class="command-block protocol-command">
+                <span class="command-prompt" aria-hidden="true">$</span>
+                <code id="install-command">{{INSTALL_COMMAND}}</code>
+                <button type="button" data-copy-target="#install-command" aria-label="Copy install command">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                </button>
+              </div>
+              <a class="source-link" href="{{SOURCE_URL}}">Browse source on GitHub <span aria-hidden="true">↗</span></a>
+            </aside>
           </div>
-          <p class="protocol-description">{{DESCRIPTION}}</p>
         </header>
 
-        <section class="protocol-stats" aria-label="Skill package summary">
-          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">{{FILE_COUNT}}</strong><p>Maintained Package Files</p></div></div>
-          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">100%</strong><p>Public and Reusable</p></div><span class="stat-strip stat-strip-soft"></span></div>
-        </section>
-
         <section class="package-section" aria-labelledby="package-title">
-          <div class="section-heading"><div><p class="eyebrow">Everything included</p><h2 id="package-title">Package contents</h2></div><p>Open any file to inspect the source.</p></div>
+          <div class="section-heading"><div><p class="eyebrow">{{FILE_COUNT_LABEL}}</p><h2 id="package-title">Package contents</h2></div><p>Every maintained file included with this skill.</p></div>
           <div class="package-directory"><ol>{{FILE_LIST}}</ol></div>
         </section>
 
         <section class="markdown-section" aria-labelledby="instructions-title">
-          <div class="markdown-section-heading"><div><p class="eyebrow">Rendered from SKILL.md</p><h2 id="instructions-title">Protocol instructions</h2></div><a href="{{SKILL_FILE_URL}}">View raw source ↗</a></div>
+          <div class="markdown-section-heading"><div><p class="eyebrow">SKILL.md</p><h2 id="instructions-title">Skill instructions</h2></div><a href="{{SKILL_FILE_URL}}">View raw source ↗</a></div>
           <div class="markdown-body">{{MARKDOWN_CONTENT}}</div>
         </section>
 
         <section class="related-section" aria-labelledby="related-title">
-          <div><p class="eyebrow">Keep exploring</p><h2 id="related-title">Other skills</h2></div>
-          <div class="related-list">{{RELATED_LIST}}</div>
+          <div><p class="eyebrow">Continue with LAB</p><h2 id="related-title">Related skills &amp; recipes</h2></div>
+          <div class="catalog-directory related-directory"><div class="catalog-list" role="list">{{RELATED_ROWS}}</div></div>
         </section>
       </article>
-
-      <section class="contact-section" aria-labelledby="contact-title">
-        <div class="contact-copy"><p>Not sure where to begin?</p><h2 class="font-heading" id="contact-title">Let's talk!</h2><p>Book a free 30-minute<br />consultation to identify your needs.</p></div>
-        <form class="contact-form" action="https://lab.sa/contact/discovery-call"><label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/user.svg" alt="" /></span><span class="sr-only">Name</span><input autocomplete="name" placeholder="Name" /></label><label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/mail.svg" alt="" /></span><span class="sr-only">Email</span><input type="email" autocomplete="email" placeholder="Email" /></label><label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/phone.svg" alt="" /></span><span class="sr-only">Phone</span><input type="tel" autocomplete="tel" placeholder="Phone (+9665XXXXXXXX)" /></label><button type="submit">Book Now!</button><small><span aria-hidden="true">*</span> By submitting this form, you agree to our <a href="https://lab.sa/policy/privacy">Privacy Policy</a> and <a href="https://lab.sa/policy/tos">Terms of Service</a>.</small></form>
-      </section>
     </main>
 
     <footer class="site-footer">

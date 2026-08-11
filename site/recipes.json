@@ -9,6 +9,16 @@
       "category": "product-delivery",
       "status": "draft",
       "conversations": 4,
+      "relatedSkills": [
+        "wayfinder",
+        "grilling",
+        "research",
+        "build-product-artifacts",
+        "imagegen",
+        "deconstruct",
+        "to-tickets",
+        "tdd"
+      ],
       "detailUrl": "./recipe.html",
       "sourceUrl": "https://github.com/labdotsa/skills/blob/master/recipes/functional-prototype/RECIPE.md"
     }
