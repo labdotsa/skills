@@ -40,11 +40,15 @@ src/
   lib/
     components/
       ui/                        locally owned shadcn-svelte source components
-      shell/                     SiteHeader, MobileNav, SiteFooter, PageFrame
-      catalog/                   DirectoryWorkbench, filters, rows, empty state
-      content/                   MarkdownContent, CodePanel, PackageDirectory
-      recipe/                    RecipeNav, RecipePhase, RecipeStep, notices
-      shared/                    CopyButton, ThemeToggle, InstallCommand, Eyebrow
+      shared/                    product-neutral CopyButton, CodePanel, PageFrame, ThemeToggle
+      site/                      every Discovery Site-aware component
+        common/                  InstallCommand, PageHead
+        shell/                   SiteShell, SiteHeader, MobileNav, SiteFooter
+        directory/               DiscoveryPage, workbench, filters, rows, empty state
+        skill/                   SkillPage, hero, package directory, related Skills
+        recipe/                  Recipe pages, navigation, phases, steps, handoffs
+        rich-content/            typed RichDocument renderers
+        not-found/               useful shared-shell 404 screen
     domain/                      types and pure filtering/relationship functions
     server/                      filesystem-backed content readers
   routes/
@@ -76,31 +80,36 @@ There must be one implementation of catalog parsing, validation, relationships, 
 
 ## Component boundaries
 
-Use three layers:
+Use three component layers with a strict inward dependency direction:
 
 1. `ui/` contains owned shadcn-svelte primitives. These are low-level accessibility and interaction building blocks.
-2. `shared/`, `shell/`, `catalog/`, `content/`, and `recipe/` contain branded LAB components with typed product vocabulary.
-3. Route components arrange product sections and receive data from route loaders.
+2. `shared/` contains product-neutral LAB compositions reused by multiple site features.
+3. `site/` contains all product-aware screens, shell, common compositions, and feature folders. Route components receive
+   loader data and select one `site/` screen; they contain no product styling or interaction logic.
 
-Recommended shared components:
+Recommended component ownership:
 
-| Component | Responsibility |
-| --- | --- |
-| `SiteShell` | Header, main landmark, footer, toast host, page-wide tokens |
-| `PageFrame` | One responsive gutter and width contract |
-| `ThemeToggle` | System/light/dark preference and accessible labeling |
-| `CopyButton` | Clipboard fallback, loading/success state, live feedback |
-| `CodePanel` | Shared toolbar, code surface, copy control, wrapping policy |
-| `InstallCommand` | Prompt, install string, copy control, optional source link |
-| `DirectoryWorkbench` | Query, category, active directory, result count |
-| `CatalogRow` | Shared skill/recipe/related-item row anatomy |
-| `MarkdownContent` | Typed rich-document composition and editorial prose styling |
-| `PackageDirectory` | Skill package files and source links |
-| `RecipeNav` | Contents navigation and current-section state |
-| `RecipePhase` | Numbered phase header, steps, and handoff notice |
-| `RecipeStep` | Sticky index and composable step content |
+| Component | Layer | Responsibility |
+| --- | --- | --- |
+| `SiteShell` | `site/shell` | Header, main landmark, footer, toast host, page-wide tokens |
+| `PageFrame` | `shared` | One responsive gutter and width contract |
+| `ThemeToggle` | `shared` | System/light/dark preference and accessible labeling |
+| `CopyButton` | `shared` | Clipboard fallback, loading/success state, live feedback |
+| `CodePanel` | `shared` | Shared toolbar, code surface, copy control, wrapping policy |
+| `InstallCommand` | `site/common` | Prompt, install string, copy control, optional source link |
+| `DirectoryWorkbench` | `site/directory` | Query, category, active directory, result count |
+| `CatalogRow` | `site/directory` | Shared Skill/Recipe/related-item row anatomy |
+| `RichDocument` | `site/rich-content` | Typed rich-document composition and editorial prose styling |
+| `PackageDirectory` | `site/skill` | Skill package files and source links |
+| `RecipeNav` | `site/recipe` | Contents navigation and current-section state |
+| `RecipePhase` | `site/recipe` | Numbered phase header, steps, and handoff notice |
+| `RecipeStep` | `site/recipe` | Sticky index and composable step content |
 
 Components should receive data and callbacks; they should not read content files or fetch their own route data. Prefer typed variants such as `kind: "skill" | "recipe"` and `pillar: Pillar` to expanding collections of boolean props. Use Svelte snippets for optional component regions where a fixed data prop becomes awkward.
+
+The exact dependency rules, Svelte 5 composition APIs, reuse thresholds, shadcn acquisition/update policy, route
+ceiling, and vertical validation sequence are accepted in the
+[component-system contract](component-system-contract.md).
 
 ## shadcn-svelte scope
 
@@ -395,6 +404,9 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 6. One SvelteKit route graph produces validated canonical, preview, and Pages publication profiles; every real route is
    prerendered, dynamic entries are explicit, URL construction is base-aware, and a real static `404.html` replaces an
    SPA fallback. See the [portable static-hosting contract](portable-static-hosting-contract.md).
+7. The component system has exactly three layers: owned shadcn primitives in `ui/`, product-neutral compositions in
+   `shared/`, and every product-aware screen/feature component in `site/`; routes remain data/selection adapters. See
+   the [component-system and shadcn ownership contract](component-system-contract.md).
 
 ## Remaining decisions
 
