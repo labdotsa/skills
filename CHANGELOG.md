@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added a reproducible Discovery Site parity harness covering public output contracts, browser interactions, desktop and mobile captures, and CI artifacts.
 - Rebuilt the discovery site to match LAB's current product-innovation brand system across catalog, recipe, and skill-detail pages.
 - Consolidated homepage discovery into a toggleable Skills/Recipes directory, restored the original command-led hero in LAB styling, and simplified skill pages around installation, source content, and related items.
 - Refined detail pages with pillar gradients, vertical installation heroes, animated copy feedback, copyable Markdown blocks, collapsible instructions and package contents, device-aware light/dark theming, and side-entering directory hover states.

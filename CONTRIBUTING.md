@@ -42,6 +42,8 @@ Open a skill proposal before investing in a large contribution.
 - Treat each skill's `SKILL.md` as the source for its rendered protocol instructions; do not duplicate that content in website templates.
 - Run `npm run build` to refresh the deployable output.
 - Run `npm run validate`; this checks the catalog contract and browser-model tests in addition to generated-file freshness.
+- Run `npm run parity` when changing Discovery Site behavior or presentation; install Chromium once with
+  `npx playwright install chromium`.
 
 ## Pull request checklist
 

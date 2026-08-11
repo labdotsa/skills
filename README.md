@@ -10,6 +10,9 @@ Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The site incl
 
 For a local file preview, run `npm run site:build` and open `site/index.html`. Use `npm run site:watch` while editing skills or website source to keep the generated preview current.
 
+Run `npm run parity` to verify the public routes and browser interactions at the desktop and mobile QA viewports and to
+regenerate the ignored reference captures under `tmp/parity-captures/`.
+
 ## Catalog
 
 Stable skills are published from the flat [`skills/`](skills/) directory. Browse the generated [catalog](docs/catalog.md) for the current list.

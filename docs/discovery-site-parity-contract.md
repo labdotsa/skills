@@ -213,10 +213,11 @@ The completion gate is `npm run validate`. It currently proves:
 - catalog validation/filter/command behavior, Markdown rendering/safety, Recipe derivation, and theme resolution through
   nine Node tests.
 
-Current gaps are no component tests, browser automation, automated accessibility run, internal-link crawl, visual
-regression suite, Core Web Vitals budget, alternate-base build, or deployed-host smoke test. Those gaps are inputs to
-[the parity-harness implementation ticket](https://github.com/labdotsa/skills/issues/15), not evidence that the current
-site is broken.
+At inventory time, gaps included no component tests, browser automation, automated accessibility run, internal-link
+crawl, visual regression suite, Core Web Vitals budget, alternate-base build, or deployed-host smoke test. The
+[executable parity harness](discovery-site-parity-harness.md) now covers representative browser interactions, fixed-
+viewport captures, public route serving, and static output contracts. The remaining gaps belong to later quality and
+deployment tickets; they are not evidence that the legacy site is broken.
 
 ## Migration ledger
 

@@ -45,3 +45,14 @@ test("escapes raw HTML and fenced code", () => {
   assert.match(html, /data-copy-target="#markdown-code-0"/);
   assert.match(html, /<pre id="markdown-code-0"><code class="language-html">&lt;button&gt;Safe source&lt;\/button&gt;<\/code><\/pre>/);
 });
+
+test("neutralizes unsafe Markdown URL schemes", () => {
+  const html = renderMarkdown(`[Run code](javascript:alert(1))
+
+![Embedded data](data:text/html,unsafe)
+`);
+
+  assert.match(html, /<a href="#">Run code<\/a>/);
+  assert.match(html, /<img src="#" alt="Embedded data"/);
+  assert.doesNotMatch(html, /javascript:|data:text\/html/);
+});

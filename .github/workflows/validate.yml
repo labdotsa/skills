@@ -17,8 +17,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+      - run: npm ci
       - run: npm run build
       - name: Require generated files in pull requests
         if: github.event_name == 'pull_request'
         run: git diff --exit-code -- docs/catalog.md site
       - run: npm run validate
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run parity:capture
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parity-captures
+          path: tmp/parity-captures
+          if-no-files-found: error
+          retention-days: 14
