@@ -95,6 +95,7 @@ function renderSkillPage(skill, markdownSource) {
     "{{CANONICAL_URL}}": escapeHtml(canonicalUrl),
     "{{CATEGORY}}": escapeHtml(skill.category),
     "{{DESCRIPTION}}": escapeHtml(skill.description),
+    "{{FILE_COUNT}}": String(skill.files.length).padStart(2, "0"),
     "{{FILE_COUNT_LABEL}}": escapeHtml(fileCountLabel),
     "{{FILE_LIST}}": fileList,
     "{{INSTALL_COMMAND}}": escapeHtml(command),

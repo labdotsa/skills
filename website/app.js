@@ -9,6 +9,36 @@ const state = {
   category: "all",
 };
 
+const audienceContent = {
+  founders: {
+    summary: "Make your idea profitable—less risk, more impact.",
+    benefits: {
+      research: "Get investor trust and market clarity before coding.",
+      design: "Build investor-ready prototypes in days.",
+      development: "Launch your MVP fast to get feedback and start earning.",
+      marketing: "Get early traction for your next funding round.",
+    },
+  },
+  startups: {
+    summary: "Speed up growth—spot opportunities and fix issues fast.",
+    benefits: {
+      research: "Spot opportunities and risks in one sprint.",
+      design: "Build UX users love from day one.",
+      development: "Scale tech smoothly as you grow.",
+      marketing: "Grow with organic and paid channels.",
+    },
+  },
+  enterprises: {
+    summary: "Innovate at scale—no downtime.",
+    benefits: {
+      research: "Get user insights without slowing you down.",
+      design: "Design experiences that match your brand.",
+      development: "Plug modern modules into your systems easily.",
+      marketing: "Use every channel for smooth rollouts.",
+    },
+  },
+};
+
 const selectors = {
   clearSearch: "#clearSearch",
   emptyState: "#emptyState",
@@ -149,6 +179,55 @@ function bindEvents() {
   });
 }
 
+function bindAudienceTabs() {
+  const tabs = [...document.querySelectorAll("[data-audience]")];
+  const summary = document.querySelector("#audienceSummary");
+  if (tabs.length === 0 || !summary) return;
+
+  for (const tab of tabs) {
+    tab.addEventListener("click", () => {
+      const content = audienceContent[tab.dataset.audience];
+      if (!content) return;
+      for (const candidate of tabs) candidate.setAttribute("aria-selected", String(candidate === tab));
+      for (const [pillar, benefit] of Object.entries(content.benefits)) {
+        const target = document.querySelector(`[data-audience-benefit="${pillar}"]`);
+        if (target) target.textContent = benefit;
+      }
+      summary.textContent = content.summary;
+    });
+  }
+}
+
+function bindCarousels() {
+  for (const carousel of document.querySelectorAll("[data-carousel]")) {
+    const track = carousel.querySelector(".service-track");
+    const previous = carousel.querySelector("[data-carousel-prev]");
+    const next = carousel.querySelector("[data-carousel-next]");
+    if (!track || !previous || !next) continue;
+
+    const update = () => {
+      previous.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+    const distance = () => Math.min(track.clientWidth * 0.72, 680);
+    previous.addEventListener("click", () => track.scrollBy({ left: -distance(), behavior: "smooth" }));
+    next.addEventListener("click", () => track.scrollBy({ left: distance(), behavior: "smooth" }));
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    window.requestAnimationFrame(update);
+  }
+}
+
+function bindContactForm() {
+  const form = document.querySelector("[data-contact-form]");
+  if (!form) return;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    window.location.href = "https://lab.sa/contact/discovery-call";
+  });
+}
+
 async function loadCatalog() {
   const embeddedData = document.querySelector("#skills-data")?.textContent?.trim();
   if (embeddedData) return Catalog.validateCatalog(JSON.parse(embeddedData));
@@ -172,6 +251,9 @@ async function initialize() {
     state.skills = catalog.skills;
     elements.skillCount.textContent = formatNumber(state.skills.length);
     bindEvents();
+    bindAudienceTabs();
+    bindCarousels();
+    bindContactForm();
     render();
   } catch (error) {
     showCatalogError(error);

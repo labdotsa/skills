@@ -16,7 +16,7 @@
       content="Browse, inspect, and install the public agent protocols maintained by LAB."
     />
     <meta property="og:url" content="https://skills.lab.sa/" />
-    <meta property="og:image" content="https://skills.lab.sa/og.png" />
+    <meta property="og:image" content="https://lab.sa/thumbnail.png" />
     <meta property="og:image:width" content="1732" />
     <meta property="og:image:height" content="909" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -49,11 +49,12 @@
           <a href="https://lab.sa/services/marketing">Marketing</a>
         </nav>
         <div class="header-actions">
-          <a class="header-link is-active" href="#catalog">Skills</a>
-          <a class="header-link" href="./recipes.html">Recipes</a>
+          <a class="appearance-button" href="https://lab.sa" aria-label="Visit LAB in Arabic" title="العربية">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10m2-4h6" /></svg>
+          </a>
           <label class="theme-picker">
             <span class="sr-only">Theme</span>
-            <span class="theme-icon" aria-hidden="true">◐</span>
+            <span class="theme-icon theme-moon" aria-hidden="true">☾</span><span class="theme-icon theme-sun" aria-hidden="true">☼</span>
             <select data-theme-picker aria-label="Color theme">
               <option value="system">System</option>
               <option value="light">Light</option>
@@ -78,7 +79,7 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <h1 id="page-title"><span class="font-heading">LAB</span> Skills are reusable<br />instructions for better digital products.</h1>
+          <h1 id="page-title"><span class="font-heading">LAB</span> Skills are reusable<br /> instructions for better digital products.</h1>
           <p>We research, design, develop and market with <em>agent protocols</em> built from real delivery work.</p>
         </div>
         <div class="hero-actions">
@@ -89,30 +90,118 @@
         </div>
       </section>
 
-      <section class="labs-overview" aria-labelledby="labs-title">
-        <div class="section-tabs">
-          <h2 class="font-heading" id="labs-title">Built across every LAB</h2>
-          <p>Research <span>→</span> Design <span>→</span> Development <span>→</span> Marketing</p>
+      <section class="audience-section" aria-labelledby="audience-title">
+        <div class="audience-header">
+          <h2 class="font-heading" id="audience-title">We work with</h2>
+          <div class="audience-tabs" role="tablist" aria-label="Select an audience">
+            <button type="button" role="tab" aria-selected="false" data-audience="founders">Founders</button>
+            <button type="button" role="tab" aria-selected="true" data-audience="startups">Startups</button>
+            <button type="button" role="tab" aria-selected="false" data-audience="enterprises">Enterprises</button>
+          </div>
         </div>
-        <div class="lab-grid">
-          <a class="lab-card lab-research" href="https://lab.sa/services/research">
+        <div class="audience-grid" id="audienceGrid">
+          <a class="audience-card audience-research" href="https://lab.sa/services/research">
             <span class="lab-lockup font-heading">research<br /><strong>LAB</strong></span>
-            <p>Know before you build.</p>
+            <p data-audience-benefit="research">Spot opportunities and risks in one sprint.</p>
           </a>
-          <a class="lab-card lab-design" href="https://lab.sa/services/design">
+          <a class="audience-card audience-design" href="https://lab.sa/services/design">
             <span class="lab-lockup font-heading">design<br /><strong>LAB</strong></span>
-            <p>Design it to work, not just to look good.</p>
+            <p data-audience-benefit="design">Build UX users love from day one.</p>
           </a>
-          <a class="lab-card lab-development" href="https://lab.sa/services/development">
+          <a class="audience-card audience-development" href="https://lab.sa/services/development">
             <span class="lab-lockup font-heading">dev<br /><strong>LAB</strong></span>
-            <p>Build for today. Scale for tomorrow.</p>
+            <p data-audience-benefit="development">Scale tech smoothly as you grow.</p>
           </a>
-          <a class="lab-card lab-marketing" href="https://lab.sa/services/marketing">
+          <a class="audience-card audience-marketing" href="https://lab.sa/services/marketing">
             <span class="lab-lockup font-heading">marketing<br /><strong>LAB</strong></span>
-            <p>Turn attention into momentum.</p>
+            <p data-audience-benefit="marketing">Grow with organic and paid channels.</p>
           </a>
         </div>
-        <p class="labs-caption">One product team, four specialist disciplines, and a shared library that keeps the work consistent.</p>
+        <p class="audience-summary" id="audienceSummary">Speed up growth—spot opportunities and fix issues fast.</p>
+      </section>
+
+      <section class="lab-section" data-lab="research" style="--lab-accent: var(--research-lab)" aria-labelledby="research-lab-title">
+        <div class="lab-section-heading">
+          <h2 class="lab-title font-heading" id="research-lab-title">research<br /><strong>LAB</strong></h2>
+          <p>Know before you build.</p>
+          <a href="https://lab.sa/services/research">Learn more about ResearchLAB <span aria-hidden="true">›</span></a>
+        </div>
+        <div class="lab-stats">
+          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">06</strong><p>Public Product Protocols</p></div></div>
+          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">17</strong><p>Maintained Source Files</p></div><span class="stat-strip stat-strip-soft"></span></div>
+        </div>
+        <div class="service-carousel" data-carousel>
+          <div class="service-track">
+            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/network.svg" alt="" /></span><span class="service-copy"><strong>Information Architecture</strong><small>Structure product content, navigation, and findability before implementation begins.</small></span></a>
+            <a class="service-card" href="./skills/build-product-artifacts/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/notebook-tabs.svg" alt="" /></span><span class="service-copy"><strong>Product Artifacts</strong><small>Turn uncertain product context into traceable, durable sources of truth.</small></span></a>
+            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/scan-search.svg" alt="" /></span><span class="service-copy"><strong>Deconstruct</strong><small>Read visible evidence carefully and separate observation from inference.</small></span></a>
+            <a class="service-card" href="https://lab.sa/services/research"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/chart-bar.svg" alt="" /></span><span class="service-copy"><strong>ResearchLAB</strong><small>Explore LAB's complete research and product validation practice.</small></span></a>
+          </div>
+          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
+        </div>
+      </section>
+
+      <section class="lab-section" data-lab="design" style="--lab-accent: var(--design-lab)" aria-labelledby="design-lab-title">
+        <div class="lab-section-heading">
+          <h2 class="lab-title font-heading" id="design-lab-title">design<br /><strong>LAB</strong></h2>
+          <p>Design it to work, not just to look good.</p>
+          <a href="https://lab.sa/services/design">Learn more about DesignLAB <span aria-hidden="true">›</span></a>
+        </div>
+        <div class="lab-stats">
+          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">03</strong><p>Experience Design Protocols</p></div></div>
+          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">100%</strong><p>Inspectable Source</p></div><span class="stat-strip stat-strip-soft"></span></div>
+        </div>
+        <div class="service-carousel" data-carousel>
+          <div class="service-track">
+            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/layout-template.svg" alt="" /></span><span class="service-copy"><strong>Interface Deconstruction</strong><small>Translate visual evidence into responsibilities, contracts, and adaptive rules.</small></span></a>
+            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/blocks.svg" alt="" /></span><span class="service-copy"><strong>Information Architecture</strong><small>Design coherent structures for content-heavy digital products.</small></span></a>
+            <a class="service-card" href="./skills/copywriting/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/type.svg" alt="" /></span><span class="service-copy"><strong>Product Copywriting</strong><small>Shape clear, useful interface language with structured messaging systems.</small></span></a>
+            <a class="service-card" href="https://lab.sa/services/design"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/palette.svg" alt="" /></span><span class="service-copy"><strong>DesignLAB</strong><small>Explore LAB's complete product, interface, and brand design practice.</small></span></a>
+          </div>
+          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
+        </div>
+      </section>
+
+      <section class="lab-section" data-lab="development" style="--lab-accent: var(--development-lab)" aria-labelledby="development-lab-title">
+        <div class="lab-section-heading">
+          <h2 class="lab-title font-heading" id="development-lab-title">development<br /><strong>LAB</strong></h2>
+          <p>Build it right. Scale it fast.</p>
+          <a href="https://lab.sa/services/development">Learn more about DevelopmentLAB <span aria-hidden="true">›</span></a>
+        </div>
+        <div class="lab-stats">
+          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">04</strong><p>Engineering Reference Files</p></div></div>
+          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">09</strong><p>Automated Validation Checks</p></div><span class="stat-strip stat-strip-soft"></span></div>
+        </div>
+        <div class="service-carousel" data-carousel>
+          <div class="service-track">
+            <a class="service-card" href="./skills/tailwind/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/code-2.svg" alt="" /></span><span class="service-copy"><strong>Tailwind Engineering</strong><small>Adopt Tailwind v4 with responsive and localization-safe architecture.</small></span></a>
+            <a class="service-card" href="./skills/build-product-artifacts/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/workflow.svg" alt="" /></span><span class="service-copy"><strong>Delivery Artifacts</strong><small>Keep implementation anchored to approved journeys, states, and decisions.</small></span></a>
+            <a class="service-card" href="./skills/deconstruct/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/component.svg" alt="" /></span><span class="service-copy"><strong>Component Contracts</strong><small>Define stack-native boundaries before writing interface code.</small></span></a>
+            <a class="service-card" href="https://lab.sa/services/development"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/terminal-square.svg" alt="" /></span><span class="service-copy"><strong>DevelopmentLAB</strong><small>Explore LAB's complete software engineering and platform practice.</small></span></a>
+          </div>
+          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
+        </div>
+      </section>
+
+      <section class="lab-section" data-lab="marketing" style="--lab-accent: var(--marketing-lab)" aria-labelledby="marketing-lab-title">
+        <div class="lab-section-heading">
+          <h2 class="lab-title font-heading" id="marketing-lab-title">marketing<br /><strong>LAB</strong></h2>
+          <p>Don't just launch—grow.</p>
+          <a href="https://lab.sa/services/marketing">Learn more about MarketingLAB <span aria-hidden="true">›</span></a>
+        </div>
+        <div class="lab-stats">
+          <div class="stat-column stat-column-first"><span class="stat-strip"></span><div class="stat-card"><strong class="font-heading">02</strong><p>Growth-Focused Protocols</p></div></div>
+          <div class="stat-column stat-column-last"><div class="stat-card stat-card-soft"><strong class="font-heading">100%</strong><p>Reusable Delivery Logic</p></div><span class="stat-strip stat-strip-soft"></span></div>
+        </div>
+        <div class="service-carousel" data-carousel>
+          <div class="service-track">
+            <a class="service-card" href="./skills/seo-engine/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/trending-up.svg" alt="" /></span><span class="service-copy"><strong>SEO Engine</strong><small>Audit, plan, and execute search growth across technical and content layers.</small></span></a>
+            <a class="service-card" href="./skills/copywriting/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/file-text.svg" alt="" /></span><span class="service-copy"><strong>Copywriting</strong><small>Produce high-conversion messaging across ads, pages, email, and product.</small></span></a>
+            <a class="service-card" href="./skills/information-architecture/index.html"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/route.svg" alt="" /></span><span class="service-copy"><strong>Content Structure</strong><small>Make content systems discoverable, scalable, and ready for localization.</small></span></a>
+            <a class="service-card" href="https://lab.sa/services/marketing"><span class="service-icon"><img src="https://unpkg.com/lucide-static@latest/icons/megaphone.svg" alt="" /></span><span class="service-copy"><strong>MarketingLAB</strong><small>Explore LAB's complete go-to-market and growth practice.</small></span></a>
+          </div>
+          <div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous skills" disabled>‹</button><button type="button" data-carousel-next aria-label="Next skills">›</button></div>
+        </div>
       </section>
 
       <section class="workbench" id="catalog" aria-labelledby="catalog-title">
@@ -145,10 +234,19 @@
         </div>
       </section>
 
-      <section class="principles" aria-label="Repository principles">
-        <p><span>01</span><strong>Plain source.</strong> Every protocol starts with a readable <code>SKILL.md</code>.</p>
-        <p><span>02</span><strong>Built in practice.</strong> The library comes from real research, design, development, and marketing work.</p>
-        <p><span>03</span><strong>Open by default.</strong> Read the source, adapt the protocol, and improve the craft.</p>
+      <section class="contact-section" aria-labelledby="contact-title">
+        <div class="contact-copy">
+          <p>Not sure where to begin?</p>
+          <h2 class="font-heading" id="contact-title">Let's talk!</h2>
+          <p>Book a free 30-minute<br />consultation to identify your needs.</p>
+        </div>
+        <form class="contact-form" data-contact-form>
+          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/user.svg" alt="" /></span><span class="sr-only">Name</span><input name="name" autocomplete="name" placeholder="Name" /></label>
+          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/mail.svg" alt="" /></span><span class="sr-only">Email</span><input name="email" type="email" autocomplete="email" placeholder="Email" /></label>
+          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/phone.svg" alt="" /></span><span class="sr-only">Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="Phone (+9665XXXXXXXX)" /></label>
+          <button type="submit">Book Now!</button>
+          <small><span aria-hidden="true">*</span> By submitting this form, you agree to our <a href="https://lab.sa/policy/privacy">Privacy Policy</a> and <a href="https://lab.sa/policy/tos">Terms of Service</a>.</small>
+        </form>
       </section>
     </main>
 
@@ -161,19 +259,19 @@
           </a>
           <p>We are a product innovation company. Built to explore, design, develop, and scale what matters.</p>
           <div class="social-links">
-            <a href="https://bind.link/@labdotsa">Bindlink</a>
-            <a href="https://instagram.com/labdotsa">Instagram</a>
-            <a href="https://twitter.com/labdotsa">Twitter</a>
-            <a href="https://linkedin.com/company/labdotsa">LinkedIn</a>
+            <a href="https://bind.link/@labdotsa" aria-label="Bindlink"><span class="font-heading">B</span></a>
+            <a href="https://instagram.com/labdotsa" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></a>
+            <a href="https://twitter.com/labdotsa" aria-label="Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.8c-.7.3-1.5.5-2.3.6a4 4 0 0 0-7 2.7v.9A11.3 11.3 0 0 1 4.5 5.8s-3.6 8.1 4.5 11.7a11.7 11.7 0 0 1-7 2c8.1 4.5 18 0 18-10.4 0-.2 0-.4-.1-.6A8 8 0 0 0 22 5.8Z" /></svg></a>
+            <a href="https://linkedin.com/company/labdotsa" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg></a>
           </div>
         </div>
         <div class="footer-links">
           <section><h2>Company</h2><a href="https://lab.sa/about">About</a><a href="https://lab.sa/portfolio">Portfolio</a><a href="https://lab.sa/contact">Contact</a></section>
           <section><h2>Services</h2><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></section>
-          <section><h2>Explore</h2><a href="./index.html#catalog">Skills</a><a href="./recipes.html">Recipes</a><a href="https://github.com/labdotsa/skills">GitHub</a></section>
+          <section><h2>Legal</h2><a href="https://lab.sa/policy/privacy">Privacy Policy</a><a href="https://lab.sa/policy/tos">Terms of Service</a></section>
         </div>
       </div>
-      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><a href="#page-title">Back to top ↑</a></div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><a href="https://lab.sa">⌘ العربية</a><label class="footer-theme"><span class="theme-moon" aria-hidden="true">☾</span><span class="theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>
