@@ -2,8 +2,8 @@
 
 ## Visual truth
 
-- User references include the preceding full-width recipe review set plus `Screenshot 2026-08-11 at 1.19.52 PM.png` through `Screenshot 2026-08-11 at 1.23.58 PM.png`, covering copy alignment, sticky numbering, full-bleed navigation, border contrast, section insets, and code-header contrast.
-- Browser-rendered implementation captures include the prior recipe QA set plus `lab-recipe-sticky-rail-after.jpg`, `lab-recipe-code-dark-after.jpg`, `lab-recipe-code-light-after.jpg`, `lab-recipe-section-leading-final.jpg`, and the combined `recipe-fidelity-comparison.jpg` in the temporary QA workspace.
+- User references include the preceding full-width recipe review set plus `Screenshot 2026-08-11 at 1.19.52 PM.png` through `Screenshot 2026-08-11 at 1.23.58 PM.png`, and the handoff/notice comparison at `1.26.25 PM` and `1.26.48 PM`.
+- Browser-rendered implementation captures include the prior recipe QA set plus `lab-recipe-sticky-rail-after.jpg`, `lab-recipe-code-dark-after.jpg`, `lab-recipe-code-light-after.jpg`, `lab-recipe-section-leading-final.jpg`, `lab-recipe-handoff-notice-after.jpg`, and the combined fidelity comparison images in the temporary QA workspace.
 - Desktop CSS viewport: 1280 × 720 for the final consistency pass.
 - Responsive check: 390 × 844. No horizontal document overflow occurred.
 - Full-view and focused comparisons were normalized into 1596 × 449 side-by-side canvases.
@@ -27,6 +27,7 @@
 - Command, prompt, Markdown, and legacy command panels resolve to the same `#18181b` surface; outer borders resolve to `#27272a` in dark mode and `#f4f4f5` in light mode, while code-header text resolves to `#d4d4d8` and `#71717a` respectively.
 - Prompt copy controls contain only the icon and accessible label; tested button and icon centers match exactly on both axes, and the control reaches success/check state with the toast visible.
 - Conversation rule, phase title, step body, handoff, prototype gate, and source copy share the same desktop content-column x-position.
+- All four phase handoffs now share the guidance notice anatomy: 16 px × 20 px padding, 8 px radius, no border, and the theme surface token, with zero narrow-screen overflow.
 - Recipe contents links update an `aria-current="location"` state while scrolling and after clicks/hash loads; all six targets were exercised and matched their active link.
 - Mobile hero, blockquote, navigation, and skill-reference layout.
 - Browser console errors and warnings: none.
@@ -58,6 +59,7 @@
 | P1 | Recipe phase indices `01`–`04` remained small and gray while nested step indices such as `1.1` were larger and research-blue. | Applied one shared index selector and responsive typography treatment to phase and step indices. | Computed styles match exactly for `01`–`04` and `1.1`: research blue, 23 px/600 on desktop and 20 px/600 at 366 px, with zero horizontal overflow. |
 | P1 | Prompt buttons retained invisible text beside the icon, step numbers scrolled away, active navigation remained inset, and unnumbered sections escaped the main reading column. | Removed visual button text in favor of accessible labels, introduced a durable sticky step rail, made active links full-bleed, and aligned supporting sections to the numbered content column. | Button and icon centers match exactly; the copied state and toast pass; the step index remains at 124 px while scrolling; active-link and nav widths both equal 220 px; all measured content starts at x = 171.953 px. |
 | P1 | Multi-line code headers and panel borders used one contrast level in both themes. | Added separate theme tokens for header text, panel borders, dividers, and controls. | Header text computes to `rgb(212, 212, 216)` in dark mode and `rgb(113, 113, 122)` in light mode; panel borders compute to `rgb(39, 39, 42)` and `rgb(244, 244, 245)` respectively. |
+| P1 | Phase handoffs were presented as loose paragraphs separated only by a rule, while nearby operational guidance used a clear notice surface. | Reused the step-guidance notice grammar for every `.phase-output`, preserving the aligned reading column. | All four handoffs compute to 16 px × 20 px padding, 8 px radius, no border, `rgb(24, 24, 27)` in dark mode and `rgb(244, 244, 245)` in light mode; the focused comparison matches the supplied notice reference. |
 
 ## Final findings
 

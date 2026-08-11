@@ -4093,3 +4093,18 @@ html[data-theme="dark"] {
     gap: 12px;
   }
 }
+
+/* Phase handoffs use the same notice grammar as step guidance. */
+.phase-output {
+  padding: 16px 20px;
+  margin-top: 24px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 0;
+  border-radius: 8px;
+  line-height: 1.7;
+}
+
+.phase-output strong {
+  color: var(--foreground);
+}
