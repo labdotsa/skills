@@ -39,4 +39,6 @@ remain accepted sources.
 
 Parity comparisons use the base revision, deployed legacy artifact, the committed parity contract, and reproducible
 browser captures. Subsequent migration work changes only the SvelteKit source. `site/` may remain committed until its
-separate output-policy decision is resolved, but it remains generated and must pass freshness checks throughout.
+atomic cutover, but it remains generated and must pass freshness checks throughout. The accepted
+[cutover and rollback contract](../atomic-cutover-and-rollback-contract.md) removes tracked `site/` in the one cutover
+commit; both hosts then build ignored Publication Artifacts from the same source revision.

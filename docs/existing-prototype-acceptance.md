@@ -80,8 +80,10 @@ Implementation therefore proceeds through complete vertical journeys on the migr
 5. compare the resulting artifact with the immutable baseline evidence;
 6. atomically cut over the sole application source under the separately accepted migration policy.
 
-Intermediate work may exist on an isolated migration branch or worktree. It is not a second accepted application
-source and must never be deployed as a competing product implementation.
+Intermediate work may exist on the isolated migration branch after its first commit has atomically removed
+`website/`. It is not a second accepted application source and must never be deployed as a competing canonical product
+implementation. The exact branch, squash, tag, artifact, and rollback boundary is defined by the
+[atomic cutover and rollback contract](atomic-cutover-and-rollback-contract.md).
 
 ## Acceptance evidence
 

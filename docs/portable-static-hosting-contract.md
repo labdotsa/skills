@@ -203,8 +203,9 @@ The checked-in Netlify configuration later owns supported Node selection, contex
 command, and `site/` publish directory. It must not select `adapter-netlify` or add a catch-all rewrite. Provider smoke
 tests verify direct deep links, not-found status, assets, canonical/robots policy, theme, and hydrated interactions.
 
-Whether `site/` remains committed after cutover is a repository-distribution decision, not a routing dependency. Until
-that decision changes, commands must reproduce it exactly and agents must continue treating it as generated output.
+`site/` remains committed on the legacy branch only through parity proof. The accepted atomic cutover removes it from
+tracking and makes it an ignored CI/provider artifact; commands continue treating it as generated output in both
+states. See the [cutover and rollback contract](atomic-cutover-and-rollback-contract.md).
 
 ## Vertical TDD implementation sequence
 
