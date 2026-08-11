@@ -3877,3 +3877,34 @@ html[data-theme="dark"] .footer-brand img {
     font-size: 11px;
   }
 }
+
+/* Recipe skill installs reuse the exact command anatomy from skill detail pages. */
+.recipe-skill-install {
+  min-width: 0;
+}
+
+.recipe-skill-install > .eyebrow {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.recipe-skill-install .command-block {
+  width: 100%;
+}
+
+.recipe-skill-install .source-link {
+  margin-top: 10px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 560px) {
+  .recipe-skill-install > .eyebrow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

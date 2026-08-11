@@ -3,7 +3,7 @@
 ## Visual truth
 
 - User references include `Screenshot 2026-08-11 at 12.22.16 PM.png`, `Screenshot 2026-08-11 at 12.25.36 PM.png`, `Screenshot 2026-08-11 at 12.25.52 PM.png`, and `Screenshot 2026-08-11 at 12.26.37 PM.png`, in addition to the preceding full-width recipe review set.
-- Browser-rendered implementation captures: `lab-recipe-right-rail-final.jpg`, `lab-recipe-consistent-blocks-final-2.jpg`, and `lab-recipe-mobile-final.jpg` in the temporary QA workspace, plus the prior home and skill full-width captures.
+- Browser-rendered implementation captures: `lab-recipe-right-rail-final.jpg`, `lab-recipe-consistent-blocks-final-2.jpg`, `lab-recipe-research-install-final-3.jpg`, and `lab-recipe-mobile-final.jpg` in the temporary QA workspace, plus the prior home and skill full-width captures.
 - Desktop CSS viewport: 1280 × 720 for the final consistency pass.
 - Responsive check: 390 × 844. No horizontal document overflow occurred.
 - Full-view and focused comparisons were normalized into 1596 × 449 side-by-side canvases.
@@ -18,6 +18,7 @@
 - Vertical planning prompts, wrapped prompt content, and copyable approval command.
 - Copyable skill-install references and prompt controls; copied state reached `success` and displayed the toast.
 - Icon-only prompt controls remain 38 × 38 pixels while preserving their accessible copy label in the DOM.
+- Recipe skill references reuse the skill-detail installation component; the tested copy button is centered within the command and reaches its success/check state.
 - Recipe contents navigation occupies the right rail on desktop and returns above the article on narrow screens.
 - Mobile hero, blockquote, navigation, and skill-reference layout.
 - Browser console errors and warnings: none.
@@ -42,6 +43,7 @@
 | P2 | Catalog rows ended with repeated LAB pillar lockups. | Removed lockup generation from both the dynamic home renderer and generated related rows, retaining only the directional arrow. | Home and skill DOM checks return zero `.row-lab-lockup` elements. |
 | P1 | Prompt controls exposed a second “Copy prompt” label while install references used a different component anatomy. | Reduced prompt controls to the shared icon-only state and rebuilt skill references with the same title/source toolbar, copy slot, and code body used by prompts. | Final focused capture shows matching stacked code surfaces; computed controls are 38 × 38 pixels and the tested icon reached the check state. |
 | P2 | Step indices were visually detached, the feedback note used a second accent, and the contents rail sat opposite the desired reading edge. | Sized indices to the complete heading block, mapped notes to the recipe accent, and moved the desktop contents rail to the right. | Computed index size is 23 px across a 55.5 px heading, all recipe accents resolve to research blue, and the navigation x-position is greater than the article x-position. |
+| P1 | Recipe skill references still looked like generic two-row code panels and placed the copy icon in a detached top-right cell. | Reused the skill-detail install command anatomy: installation label, `$` prompt, LAB pillar stripe, inset copy button, and a separate source link. | The normalized before/after comparison shows the compact command hierarchy; the button and command vertical centers are identical and the control reaches the check state. |
 
 ## Final findings
 
