@@ -37,8 +37,14 @@ for (const [pageName, pageHtml] of [
     throw new Error(`The ${pageName} page is missing the shared theme control.`);
   }
 }
-if (!recipeHtml.includes("Four conversations, one shared workspace") || !recipeHtml.includes("Work one AFK issue per run")) {
+if (!recipeHtml.includes("Share files, not conversation history") || !recipeHtml.includes("Work one AFK issue per run")) {
   throw new Error("site/recipe.html is missing its core delivery structure.");
+}
+if (!recipeHtml.includes('<blockquote class="recipe-outcome">')) {
+  throw new Error("site/recipe.html must render the recipe rationale as a semantic blockquote.");
+}
+if (recipeHtml.includes('class="delivery-map"') || recipeHtml.includes('class="chat-roster')) {
+  throw new Error("site/recipe.html reintroduces a duplicated recipe summary.");
 }
 if (recipeHtml.includes("/Users/")) throw new Error("The public recipe contains a personal absolute path.");
 for (const section of ["foundation", "visuals", "planning", "implementation"]) {

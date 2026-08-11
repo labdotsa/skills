@@ -92,7 +92,7 @@ function renderRelatedRow({ href, title, description, category, kind }, index) {
                   <span class="row-heading">${escapeHtml(title)}</span>
                   <span class="row-description">${escapeHtml(description)}</span>
                 </span>
-                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>${pillar}</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
+                <span class="row-access" aria-hidden="true"><span class="row-arrow">→</span></span>
               </a>
             </article>`;
 }

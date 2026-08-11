@@ -59,30 +59,10 @@
           is structured for continued delivery. The workflow deliberately separates foundation, visuals, planning, and
           implementation so that discovery context does not compete with build context.
         </p>
-        <div class="recipe-outcome">
-          <span>Why separate conversations?</span>
-          <p>
-            Each layer asks a different kind of question. Durable artifacts carry decisions forward; raw transcripts and
-            temporary exploration stay behind.
-          </p>
-        </div>
+        <blockquote class="recipe-outcome">
+          <p><strong>Why separate conversations?</strong> Each layer asks a different kind of question. Durable artifacts carry decisions forward; raw transcripts and temporary exploration stay behind.</p>
+        </blockquote>
       </header>
-
-      <section class="delivery-map" aria-labelledby="delivery-map-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">The delivery line</p>
-            <h2 id="delivery-map-title">Four conversations, one shared workspace</h2>
-          </div>
-          <p>Finish the handoff before opening the next conversation.</p>
-        </div>
-        <ol class="conversation-line">
-          <li><a href="#foundation"><span>01</span><strong>Foundation</strong><small>Scope + artifacts</small></a></li>
-          <li><a href="#visuals"><span>02</span><strong>Visuals</strong><small>Direction + architecture</small></a></li>
-          <li><a href="#planning"><span>03</span><strong>Planning</strong><small>Tickets + decisions</small></a></li>
-          <li><a href="#implementation"><span>04</span><strong>Implementation</strong><small>Tracer bullets + commits</small></a></li>
-        </ol>
-      </section>
 
       <div class="recipe-layout">
         <aside class="recipe-nav" aria-label="Recipe contents">
@@ -104,12 +84,6 @@
               writes its approved decisions back there. When a layer is done, ask for a short handoff containing the files
               changed, decisions locked, assumptions still open, and the exact prompt for the next conversation.
             </p>
-            <div class="chat-roster chat-roster-four">
-              <div><span>01</span><strong>Foundation</strong><p>Understands the product, researches unknowns, and establishes its durable definition.</p></div>
-              <div><span>02</span><strong>Visuals</strong><p>Explores appearance, chooses a direction, and translates it into screen architecture.</p></div>
-              <div><span>03</span><strong>Planning</strong><p>Turns approved artifacts into dependency-aware tracer-bullet tickets and resolves HITL decisions.</p></div>
-              <div><span>04</span><strong>Implementation</strong><p>Works one approved AFK issue per run using vertical TDD cycles and verified commits.</p></div>
-            </div>
             <aside class="recipe-note">
               <strong>AFK means decisions are already settled.</strong>
               <p>
@@ -132,8 +106,8 @@
                 The goal is not to design or implement; it is to make the landscape visible and separate facts from guesses.
               </p>
               <div class="skill-stack" aria-label="Skills used for information gathering">
-                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/wayfinder">Matt Pocock · wayfinder</a>
-                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/grilling">Matt Pocock · grilling</a>
+                <div class="skill-reference"><a href="https://www.skills.sh/mattpocock/skills/wayfinder"><strong>wayfinder</strong><span>mattpocock/skills ↗</span></a><code id="skill-wayfinder">npx skills add mattpocock/skills --skill wayfinder</code><button type="button" data-copy-target="#skill-wayfinder" aria-label="Copy wayfinder install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+                <div class="skill-reference"><a href="https://www.skills.sh/mattpocock/skills/grilling"><strong>grilling</strong><span>mattpocock/skills ↗</span></a><code id="skill-grilling">npx skills add mattpocock/skills --skill grilling</code><button type="button" data-copy-target="#skill-grilling" aria-label="Copy grilling install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <p class="step-guidance">
                 Use <strong>wayfinder</strong> when the effort is too large or foggy for one session and unresolved decisions
@@ -162,7 +136,7 @@ End with a concise foundation handoff and recommend what needs focused research 
                 that investigation focused and write its findings into the shared workspace rather than expanding the chat.
               </p>
               <div class="skill-stack" aria-label="Skills used for research">
-                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/research">Matt Pocock · research</a>
+                <div class="skill-reference"><a href="https://www.skills.sh/mattpocock/skills/research"><strong>research</strong><span>mattpocock/skills ↗</span></a><code id="skill-research">npx skills add mattpocock/skills --skill research</code><button type="button" data-copy-target="#skill-research" aria-label="Copy research install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <div class="prompt-block">
                 <div><span>Research prompt</span><button type="button" data-copy-target="#prompt-research">Copy prompt</button></div>
@@ -184,7 +158,7 @@ Save the findings under artifacts/research/ using a descriptive Markdown filenam
                 traceable product documentation. These files become the context boundary for every later conversation.
               </p>
               <div class="skill-stack" aria-label="Skills used to establish artifacts">
-                <a data-owner="labs" href="./skills/build-product-artifacts/index.html">LABs · build-product-artifacts</a>
+                <div class="skill-reference"><a href="./skills/build-product-artifacts/index.html"><strong>build-product-artifacts</strong><span>labdotsa/skills ↗</span></a><code id="skill-build-product-artifacts">npx skills add labdotsa/skills --skill build-product-artifacts</code><button type="button" data-copy-target="#skill-build-product-artifacts" aria-label="Copy build-product-artifacts install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <div class="prompt-block">
                 <div><span>Artifact establishment prompt</span><button type="button" data-copy-target="#prompt-artifacts">Copy prompt</button></div>
@@ -250,7 +224,7 @@ Ask for a decision where the choice materially changes cost, architecture, risk,
                 project-bound outputs back into the workspace.
               </p>
               <div class="skill-stack" aria-label="Skills used to generate visuals">
-                <span data-owner="system">Codex · imagegen</span>
+                <div class="skill-reference"><span><strong>imagegen</strong><small>Codex built-in</small></span><code id="skill-imagegen">Use $imagegen</code><button type="button" data-copy-target="#skill-imagegen" aria-label="Copy imagegen invocation"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <div class="prompt-block">
                 <div><span>Visual-direction prompt</span><button type="button" data-copy-target="#prompt-imagegen">Copy prompt</button></div>
@@ -278,7 +252,7 @@ Do not add unsupported product features or invented claims. Save selected projec
                 behavior, and explicit uncertainty.
               </p>
               <div class="skill-stack" aria-label="Skills used to deconstruct screens">
-                <a data-owner="labs" href="./skills/deconstruct/index.html">LABs · deconstruct</a>
+                <div class="skill-reference"><a href="./skills/deconstruct/index.html"><strong>deconstruct</strong><span>labdotsa/skills ↗</span></a><code id="skill-deconstruct">npx skills add labdotsa/skills --skill deconstruct</code><button type="button" data-copy-target="#skill-deconstruct" aria-label="Copy deconstruct install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <div class="prompt-block">
                 <div><span>Deconstruction prompt</span><button type="button" data-copy-target="#prompt-deconstruct">Copy prompt</button></div>
@@ -307,7 +281,7 @@ Update the corresponding screen and interface artifacts. Preserve the selected v
                 block it. Draft and review the breakdown before publishing it.
               </p>
               <div class="skill-stack" aria-label="Skills used to prepare tickets">
-                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/to-tickets">Matt Pocock · to-tickets</a>
+                <div class="skill-reference"><a href="https://www.skills.sh/mattpocock/skills/to-tickets"><strong>to-tickets</strong><span>mattpocock/skills ↗</span></a><code id="skill-to-tickets">npx skills add mattpocock/skills --skill to-tickets</code><button type="button" data-copy-target="#skill-to-tickets" aria-label="Copy to-tickets install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <div class="prompt-block">
                 <div><span>Ticket-drafting prompt</span><button type="button" data-copy-target="#prompt-tickets">Copy prompt</button></div>
@@ -355,9 +329,10 @@ Do not implement the tickets.</code></pre>
 Distinguish recommendations supported by an existing decision or requirement from recommendations that remain judgment calls. Identify any option that requires fresh research before approval.</code></pre>
                 </div>
               </div>
-              <div class="approval-callout">
-                <span>When the breakdown and decisions are correct</span>
-                <code>LGTM. Update the affected artifacts and issues, then commit the approved planning state.</code>
+              <div class="skill-reference approval-command">
+                <span><strong>Approve the planning state</strong><small>Run after the decisions are settled</small></span>
+                <code id="planning-approval">LGTM. Update the affected artifacts and issues, then commit the approved planning state.</code>
+                <button type="button" data-copy-target="#planning-approval" aria-label="Copy planning approval command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button>
               </div>
             </div>
 
@@ -378,7 +353,7 @@ Distinguish recommendations supported by an existing decision or requirement fro
                 next run begins with a fresh implementation context.
               </p>
               <div class="skill-stack" aria-label="Skills used during implementation">
-                <a data-owner="external" href="https://www.skills.sh/mattpocock/skills/tdd">Matt Pocock · tdd</a>
+                <div class="skill-reference"><a href="https://www.skills.sh/mattpocock/skills/tdd"><strong>tdd</strong><span>mattpocock/skills ↗</span></a><code id="skill-tdd">npx skills add mattpocock/skills --skill tdd</code><button type="button" data-copy-target="#skill-tdd" aria-label="Copy tdd install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
               </div>
               <aside class="recipe-note">
                 <strong>Configure the feedback commands.</strong>

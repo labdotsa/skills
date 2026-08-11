@@ -7,6 +7,7 @@ Notable repository and skill changes are documented here.
 - Rebuilt the discovery site to match LAB's current product-innovation brand system across catalog, recipe, and skill-detail pages.
 - Consolidated homepage discovery into a toggleable Skills/Recipes directory, restored the original command-led hero in LAB styling, and simplified skill pages around installation, source content, and related items.
 - Refined detail pages with pillar gradients, vertical installation heroes, animated copy feedback, copyable Markdown blocks, collapsible instructions and package contents, device-aware light/dark theming, and side-entering directory hover states.
+- Unified home, skill, and recipe pages on a full-width LAB frame; simplified the recipe into a vertical blockquote-led reading flow with non-repetitive navigation, stacked prompts, and copyable skill-install references.
 - Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.

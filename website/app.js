@@ -114,12 +114,6 @@ function createFilters() {
   );
 }
 
-function createLabLockup(pillar) {
-  const lockup = createTextElement("span", "row-lab-lockup font-heading", "");
-  lockup.append(createTextElement("span", "", pillar), createTextElement("strong", "", "LAB"));
-  return lockup;
-}
-
 function createDirectoryRow(item, index) {
   const isSkill = state.kind === "skills";
   const pillar = pillarForCategory(item.category);
@@ -158,7 +152,7 @@ function createDirectoryRow(item, index) {
   );
 
   const access = createTextElement("span", "row-access", "");
-  access.append(createLabLockup(pillar), createTextElement("span", "row-arrow", "→"));
+  access.append(createTextElement("span", "row-arrow", "→"));
   access.setAttribute("aria-hidden", "true");
 
   link.append(number, main, access);
