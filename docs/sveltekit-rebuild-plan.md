@@ -372,6 +372,9 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 3. The canonical production build must satisfy the crawl, indexation, metadata, structured-data, internal-linking,
    content-intent, Core Web Vitals, measurement, and regression requirements in the
    [technical SEO contract](technical-seo-contract.md).
+4. Canonical LLM discovery uses one proposal-compatible `/llms.txt`, exact Markdown mirrors, versioned catalogs,
+   stable canonical identifiers, content digests, explicit MIT context, and an audited permissive crawler policy. The
+   Pages backup omits duplicate machine endpoints. See the [LLM discovery contract](llm-discovery-contract.md).
 
 ## Remaining decisions
 
