@@ -1,4 +1,18 @@
 (() => {
+  for (const step of document.querySelectorAll(".recipe-step")) {
+    const heading = step.querySelector(":scope > .step-heading");
+    const index = heading?.querySelector(":scope > span");
+    if (!heading || !index) continue;
+
+    const content = document.createElement("div");
+    content.className = "recipe-step-content";
+    index.className = "step-index";
+    index.remove();
+    while (step.firstChild) content.append(step.firstChild);
+    step.classList.add("has-sticky-index");
+    step.append(index, content);
+  }
+
   const nav = document.querySelector(".recipe-nav");
   if (!nav) return;
 

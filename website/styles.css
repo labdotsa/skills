@@ -3944,7 +3944,8 @@ html[data-theme="dark"] .footer-brand img {
 }
 
 .recipe-phase > header > span,
-.step-heading > span {
+.step-heading > span,
+.step-index {
   display: flex;
   align-items: flex-start;
   align-self: stretch;
@@ -3956,8 +3957,20 @@ html[data-theme="dark"] .footer-brand img {
 }
 
 @media (min-width: 821px) {
-  .recipe-step > :not(.step-heading) {
+  .recipe-section,
+  .recipe-sources {
+    padding-left: 90px;
+  }
+
+  .phase-output {
     margin-left: 90px;
+  }
+
+  .step-index {
+    position: sticky;
+    top: 124px;
+    align-self: start;
+    height: max-content;
   }
 }
 
@@ -3969,7 +3982,8 @@ html[data-theme="dark"] .footer-brand img {
   }
 
   .recipe-phase > header > span,
-  .step-heading > span {
+  .step-heading > span,
+  .step-index {
     font-size: 20px;
   }
 }
@@ -3979,15 +3993,17 @@ html[data-theme="dark"] .footer-brand img {
   --code-panel-background: #18181b;
   --code-panel-foreground: #f4f4f5;
   --code-panel-muted: #a1a1aa;
-  --code-panel-border: #3f3f46;
-  --code-panel-divider: #3f3f46;
-  --code-panel-control-border: #52525b;
+  --code-panel-header: #71717a;
+  --code-panel-border: #f4f4f5;
+  --code-panel-divider: #e4e4e7;
+  --code-panel-control-border: #d4d4d8;
 }
 
 html[data-theme="dark"] {
-  --code-panel-border: #a1a1aa;
-  --code-panel-divider: #71717a;
-  --code-panel-control-border: #a1a1aa;
+  --code-panel-header: #d4d4d8;
+  --code-panel-border: #27272a;
+  --code-panel-divider: #27272a;
+  --code-panel-control-border: #3f3f46;
 }
 
 .command-block,
@@ -4020,7 +4036,7 @@ html[data-theme="dark"] {
 
 .prompt-block > div:first-child,
 .code-block-toolbar {
-  color: var(--code-panel-muted);
+  color: var(--code-panel-header);
 }
 
 .command-block button,
@@ -4028,4 +4044,52 @@ html[data-theme="dark"] {
 .code-block-toolbar button,
 .skill-reference button {
   border-color: var(--code-panel-control-border);
+}
+
+/* Final recipe rhythm: full-bleed navigation states and durable numbered rails. */
+.recipe-nav a {
+  padding-inline: 20px;
+  margin-inline: -20px;
+}
+
+.recipe-step.has-sticky-index {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.recipe-step.has-sticky-index .recipe-step-content {
+  min-width: 0;
+}
+
+.step-index {
+  align-self: start;
+  height: max-content;
+}
+
+.recipe-step-content > .step-heading {
+  display: block;
+}
+
+.prompt-block > div:first-child button,
+.command-block button,
+.code-block-toolbar button,
+.skill-reference button {
+  line-height: 0;
+}
+
+.prompt-block > div:first-child button img,
+.command-block button img,
+.code-block-toolbar button img,
+.skill-reference button img {
+  display: block;
+  margin: auto;
+}
+
+@media (max-width: 560px) {
+  .recipe-step.has-sticky-index {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+  }
 }

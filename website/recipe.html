@@ -115,7 +115,7 @@
                 treated as understood.
               </p>
               <div class="prompt-block">
-                <div><span>Foundation kickoff</span><button type="button" data-copy-target="#prompt-foundation">Copy prompt</button></div>
+                <div><span>Foundation kickoff</span><button type="button" data-copy-target="#prompt-foundation" aria-label="Copy foundation kickoff prompt"></button></div>
                 <pre id="prompt-foundation"><code>We are defining a product before any design or implementation begins.
 
 Premise: [describe the idea]
@@ -139,7 +139,7 @@ End with a concise foundation handoff and recommend what needs focused research 
                 <div class="recipe-skill-install"><p class="eyebrow">Installation · research</p><div class="command-block protocol-command"><span class="command-prompt" aria-hidden="true">$</span><code id="skill-research">npx skills add mattpocock/skills --skill research</code><button type="button" data-copy-target="#skill-research" aria-label="Copy research install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div><a class="source-link" href="https://www.skills.sh/mattpocock/skills/research">Browse skill source <span aria-hidden="true">↗</span></a></div>
               </div>
               <div class="prompt-block">
-                <div><span>Research prompt</span><button type="button" data-copy-target="#prompt-research">Copy prompt</button></div>
+                <div><span>Research prompt</span><button type="button" data-copy-target="#prompt-research" aria-label="Copy research prompt"></button></div>
                 <pre id="prompt-research"><code>Use the research skill to investigate this unresolved foundation question:
 
 Question: [one precise question]
@@ -161,7 +161,7 @@ Save the findings under artifacts/research/ using a descriptive Markdown filenam
                 <div class="recipe-skill-install"><p class="eyebrow">Installation · build-product-artifacts</p><div class="command-block protocol-command"><span class="command-prompt" aria-hidden="true">$</span><code id="skill-build-product-artifacts">npx skills add labdotsa/skills --skill build-product-artifacts</code><button type="button" data-copy-target="#skill-build-product-artifacts" aria-label="Copy build-product-artifacts install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div><a class="source-link" href="./skills/build-product-artifacts/index.html">Browse skill source <span aria-hidden="true">↗</span></a></div>
               </div>
               <div class="prompt-block">
-                <div><span>Artifact establishment prompt</span><button type="button" data-copy-target="#prompt-artifacts">Copy prompt</button></div>
+                <div><span>Artifact establishment prompt</span><button type="button" data-copy-target="#prompt-artifacts" aria-label="Copy artifact establishment prompt"></button></div>
                 <pre id="prompt-artifacts"><code>Use build-product-artifacts to establish the product definition from this conversation and the research under artifacts/research/.
 
 Create or update the artifact system under artifacts/. Cover the product vision, phases, vocabulary, actors, domain model, journeys, workflows, business rules, capabilities, requirements, delivery scope, information architecture, screens, routes, technical architecture, integrations, assumptions, open questions, and decisions where the available evidence supports them.
@@ -178,7 +178,7 @@ Do not turn assumptions into facts. Cross-link related artifacts and report cont
                 decision with the human, then update the artifacts so the next conversation inherits the chosen direction.
               </p>
               <div class="prompt-block">
-                <div><span>Hardening prompt</span><button type="button" data-copy-target="#prompt-hardening">Copy prompt</button></div>
+                <div><span>Hardening prompt</span><button type="button" data-copy-target="#prompt-hardening" aria-label="Copy hardening prompt"></button></div>
                 <pre id="prompt-hardening"><code>Audit the current artifacts for weak or unsupported decisions in:
 - integrations,
 - technology stack,
@@ -227,7 +227,7 @@ Ask for a decision where the choice materially changes cost, architecture, risk,
                 <div class="recipe-skill-install"><p class="eyebrow">Invocation · imagegen</p><div class="command-block protocol-command"><span class="command-prompt" aria-hidden="true">$</span><code id="skill-imagegen">Use $imagegen</code><button type="button" data-copy-target="#skill-imagegen" aria-label="Copy imagegen invocation"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div></div>
               </div>
               <div class="prompt-block">
-                <div><span>Visual-direction prompt</span><button type="button" data-copy-target="#prompt-imagegen">Copy prompt</button></div>
+                <div><span>Visual-direction prompt</span><button type="button" data-copy-target="#prompt-imagegen" aria-label="Copy visual-direction prompt"></button></div>
                 <pre id="prompt-imagegen"><code>Use imagegen to visualize the prioritized screens defined under artifacts/.
 
 Read the product vision, primary journeys, information architecture, screen specifications, brand constraints, localization requirements, and chosen references first.
@@ -255,7 +255,7 @@ Do not add unsupported product features or invented claims. Save selected projec
                 <div class="recipe-skill-install"><p class="eyebrow">Installation · deconstruct</p><div class="command-block protocol-command"><span class="command-prompt" aria-hidden="true">$</span><code id="skill-deconstruct">npx skills add labdotsa/skills --skill deconstruct</code><button type="button" data-copy-target="#skill-deconstruct" aria-label="Copy deconstruct install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div><a class="source-link" href="./skills/deconstruct/index.html">Browse skill source <span aria-hidden="true">↗</span></a></div>
               </div>
               <div class="prompt-block">
-                <div><span>Deconstruction prompt</span><button type="button" data-copy-target="#prompt-deconstruct">Copy prompt</button></div>
+                <div><span>Deconstruction prompt</span><button type="button" data-copy-target="#prompt-deconstruct" aria-label="Copy deconstruction prompt"></button></div>
                 <pre id="prompt-deconstruct"><code>Use deconstruct on the selected visual directions under artifacts/visual-directions/ and the approved screen artifacts.
 
 For each screen, define visual regions, responsibility boundaries, reusable components, data and content contracts, responsive behavior, interaction states, localization behavior, and uncertainties that the image cannot prove.
@@ -284,7 +284,7 @@ Update the corresponding screen and interface artifacts. Preserve the selected v
                 <div class="recipe-skill-install"><p class="eyebrow">Installation · to-tickets</p><div class="command-block protocol-command"><span class="command-prompt" aria-hidden="true">$</span><code id="skill-to-tickets">npx skills add mattpocock/skills --skill to-tickets</code><button type="button" data-copy-target="#skill-to-tickets" aria-label="Copy to-tickets install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div><a class="source-link" href="https://www.skills.sh/mattpocock/skills/to-tickets">Browse skill source <span aria-hidden="true">↗</span></a></div>
               </div>
               <div class="prompt-block">
-                <div><span>Ticket-drafting prompt</span><button type="button" data-copy-target="#prompt-tickets">Copy prompt</button></div>
+                <div><span>Ticket-drafting prompt</span><button type="button" data-copy-target="#prompt-tickets" aria-label="Copy ticket-drafting prompt"></button></div>
                 <pre id="prompt-tickets"><code>Based on the approved artifacts/ and the current codebase, use to-tickets to draft implementation-ready tracer-bullet tickets.
 
 Each ticket must:
@@ -310,7 +310,7 @@ First present the numbered breakdown and blocking edges for review. Wait for app
               </p>
               <div class="prompt-grid">
                 <div class="prompt-block">
-                  <div><span>List the decisions</span><button type="button" data-copy-target="#prompt-hitl-list">Copy prompt</button></div>
+                  <div><span>List the decisions</span><button type="button" data-copy-target="#prompt-hitl-list" aria-label="Copy decision-list prompt"></button></div>
                   <pre id="prompt-hitl-list"><code>What HITL issues remain under issues/?
 
 For each one, explain:
@@ -323,7 +323,7 @@ For each one, explain:
 Do not implement the tickets.</code></pre>
                 </div>
                 <div class="prompt-block">
-                  <div><span>Recommend from the artifacts</span><button type="button" data-copy-target="#prompt-hitl-recommend">Copy prompt</button></div>
+                  <div><span>Recommend from the artifacts</span><button type="button" data-copy-target="#prompt-hitl-recommend" aria-label="Copy artifact-recommendation prompt"></button></div>
                   <pre id="prompt-hitl-recommend"><code>Based on the current artifacts/, recommend the best option for each unresolved HITL issue.
 
 Distinguish recommendations supported by an existing decision or requirement from recommendations that remain judgment calls. Identify any option that requires fresh research before approval.</code></pre>
@@ -363,7 +363,7 @@ Distinguish recommendations supported by an existing decision or requirement fro
                 </p>
               </aside>
               <div class="prompt-block prompt-block-tall">
-                <div><span>Codex long-running goal prompt</span><button type="button" data-copy-target="#prompt-implementation">Copy prompt</button></div>
+                <div><span>Codex long-running goal prompt</span><button type="button" data-copy-target="#prompt-implementation" aria-label="Copy Codex long-running goal prompt"></button></div>
                 <pre id="prompt-implementation"><code>/goal Review and implement the AFK issues under issues/, one issue per run. Use the issue files, current artifacts, repository state, and recent commits to determine what remains.
 
 # ISSUES
