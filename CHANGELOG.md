@@ -13,6 +13,7 @@ Notable repository and skill changes are documented here.
 - Stabilized recipe phase and step layouts on one numbered editorial grid, with aligned headings and bodies, top-aligned indices, safer wrapping, and a compact narrow-screen rail.
 - Unified command, prompt, and Markdown code panels on one background token, with darker light-mode borders and brighter dark-mode borders across panels and copy controls.
 - Added an accessible recipe scrollspy so the contents aside highlights the section currently owning the reading viewport and stays synchronized with hash navigation.
+- Matched every recipe phase index (`01`–`04`) to the step-index treatment, including the shared research accent, weight, line height, and responsive size.
 - Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.

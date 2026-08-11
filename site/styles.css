@@ -3943,9 +3943,16 @@ html[data-theme="dark"] .footer-brand img {
   overflow-wrap: anywhere;
 }
 
+.recipe-phase > header > span,
 .step-heading > span {
+  display: flex;
   align-items: flex-start;
+  align-self: stretch;
   padding-top: 2px;
+  color: var(--lab-accent);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 @media (min-width: 821px) {
@@ -3961,6 +3968,7 @@ html[data-theme="dark"] .footer-brand img {
     gap: 12px;
   }
 
+  .recipe-phase > header > span,
   .step-heading > span {
     font-size: 20px;
   }
