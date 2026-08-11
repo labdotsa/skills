@@ -22,6 +22,7 @@ if (!indexHtml.includes('href="#main-content"')) throw new Error("The root page 
 if (!indexHtml.includes('aria-label="LAB services"')) throw new Error("The root page is missing service navigation");
 await validateDirectory(indexHtml, outputDirectory);
 await validateRecipeIndexes(manifest, outputDirectory);
+await validateRecipePages(manifest, outputDirectory);
 await validateSkillPages(manifest, outputDirectory);
 if (!indexHtml.includes(`data-publication-profile="${profile.name}"`)) {
   throw new Error("The root page was built with the wrong publication profile");
@@ -142,6 +143,43 @@ async function validateSkillPages(publicationManifest, directory) {
     }
     for (const marker of ["Skill instructions", "data-rich-document", "Package contents", "Related skills &amp; recipes"]) {
       if (!html.includes(marker)) throw new Error(`${filename} is missing ${marker}`);
+    }
+    await validateLocalReferences(html, filename, directory);
+  }
+}
+
+async function validateRecipePages(publicationManifest, directory) {
+  const recipePages = publicationManifest.files
+    .map((file) => file.path)
+    .filter((filename) => /^recipes\/[^/]+\/index\.html$/.test(filename));
+
+  if (recipePages.length === 0) throw new Error("The publication contains no Recipe detail pages");
+  let compatibilityModel;
+  for (const filename of [...recipePages, "recipe.html"]) {
+    const html = await readFile(path.join(directory, filename), "utf8");
+    const slug = filename === "recipe.html" ? "functional-prototype" : filename.split("/")[1];
+    if ((html.match(/<h1(?:\s|>)/g) ?? []).length !== 1) {
+      throw new Error(`${filename} must contain exactly one primary heading`);
+    }
+    for (const marker of [
+      "data-recipe-page",
+      "data-recipe-phase",
+      "Recipe contents",
+      "Skills used in this Recipe",
+      "data-rich-document",
+      `https://skills.lab.sa/recipes/${slug}/`,
+    ]) {
+      if (!html.includes(marker)) throw new Error(`${filename} is missing ${marker}`);
+    }
+    const snapshot = html.match(/data-catalog-snapshot="([^"]+)"/)?.[1];
+    const phases = [...html.matchAll(/data-recipe-phase="([^"]+)"/g)].map((match) => match[1]);
+    if (!snapshot || phases.length === 0) throw new Error(`${filename} is missing its typed Recipe model markers`);
+    if (slug === "functional-prototype") {
+      const model = JSON.stringify({ snapshot, phases });
+      if (compatibilityModel !== undefined && model !== compatibilityModel) {
+        throw new Error("The canonical and compatibility Recipe pages use different view models");
+      }
+      compatibilityModel = model;
     }
     await validateLocalReferences(html, filename, directory);
   }

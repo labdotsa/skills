@@ -161,8 +161,29 @@ test("exposes deterministic route entries and plain immutable page views", async
     },
   ]);
   assert.deepEqual(first.skillPage("example").related.map((entry) => entry.kind), ["recipe", "skill"]);
-  assert.equal(first.recipePage("example").localSkills[0].slug, "example");
-  assert.equal(Object.isFrozen(first.recipePage("example")), true);
+  const recipePage = first.recipePage("example");
+  assert.equal(recipePage.localSkills[0].slug, "example");
+  assert.equal(recipePage.sourceUrl, "https://github.com/labdotsa/skills/tree/master/recipes/example");
+  assert.equal(recipePage.fileUrl, "https://github.com/labdotsa/skills/blob/master/recipes/example/RECIPE.md");
+  assert.deepEqual(recipePage.phases.map(({ id, slug, title, number }) => ({ id, slug, title, number })), [
+    {
+      id: "content-conversation-foundation",
+      slug: "foundation",
+      title: "Foundation",
+      number: 1,
+    },
+  ]);
+  assert.deepEqual(recipePage.phases[0].steps.map(({ id, title, number }) => ({ id, title, number })), [
+    { id: "content-step-begin", title: "Begin", number: 1 },
+  ]);
+  assert.equal(recipePage.phases[0].steps[0].document.children[0].type, "paragraph");
+  assert.deepEqual(recipePage.requirements.map(({ kind, name, installCommand }) => ({ kind, name, installCommand })), [
+    { kind: "local", name: "example", installCommand: "npx skills add labdotsa/skills --skill example" },
+    { kind: "external", name: "external", installCommand: "npx skills add example/skills --skill external" },
+    { kind: "builtin", name: "imagegen", installCommand: undefined },
+  ]);
+  assert.equal(Object.isFrozen(recipePage), true);
+  assert.equal(Object.isFrozen(recipePage.phases[0].steps[0].document), true);
   assert.equal(JSON.parse(JSON.stringify(first.skillPage("example"))).slug, "example");
   await assert.rejects(Promise.resolve().then(() => first.skillPage("missing")), /skill:missing \[PUBLICATION_PATH\]/);
 });

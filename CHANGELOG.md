@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Shipped complete prerendered Recipe reading pages from the shared typed Recipe model, including phase/step contents, sticky indices, handoffs, skill installation references, prompt copying, accessible hash navigation, a physical `/recipe.html` compatibility page, and canonical/GitHub Pages quality parity.
 - Shipped the complete prerendered Recipe discovery index at `/recipes/` with a physical `/recipes.html` compatibility page, searchable phase summaries, shared home/index filtering components, accessible no-JavaScript navigation, and canonical/Pages-project visual parity.
 - Shipped complete prerendered Skill reading pages with typed installation, source, rich-instruction, package, and related-content components; progressive overflow disclosures; resilient clipboard feedback; axe and visual regression coverage; and browser-verified canonical/Pages-project parity.
 - Shipped the prerendered SvelteKit discovery directory with one shared Skill/Recipe workbench, local query/category filtering, progressive no-JavaScript navigation, accessible keyboard controls, base-aware detail links, and responsive LAB rows.

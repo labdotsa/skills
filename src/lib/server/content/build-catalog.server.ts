@@ -1,7 +1,9 @@
 import { createHash } from "node:crypto";
 import type {
 	RecipeEntry,
+	RecipePagePhase,
 	RecipePageView,
+	RecipeRequirementView,
 	RelatedEntry,
 	ResourceCounts,
 	SkillEntry,
@@ -185,6 +187,8 @@ function recipePage(
 ): RecipePageView {
 	const recipe = recipesBySlug.get(slug);
 	if (!recipe) missingEntry("recipe", slug);
+	const encodedSlug = encodeURIComponent(recipe.slug);
+	const sourceRoot = "https://github.com/labdotsa/skills";
 	return deepFreeze({
 		kind: "recipe",
 		slug: recipe.slug,
@@ -195,14 +199,83 @@ function recipePage(
 		status: recipe.status,
 		author: recipe.author,
 		outcome: recipe.outcome,
+		sourceUrl: `${sourceRoot}/tree/master/recipes/${encodedSlug}`,
+		fileUrl: `${sourceRoot}/blob/master/recipes/${encodedSlug}/RECIPE.md`,
 		document: recipe.document,
+		introduction: recipeIntroduction(recipe),
 		outline: recipe.outline,
 		stages: recipe.stages,
 		skillRequirements: recipe.skillRequirements,
+		phases: recipePhases(recipe),
+		requirements: recipe.skillRequirements.map(recipeRequirement),
 		localSkills: recipe.skillRequirements.flatMap((requirement) =>
 			requirement.kind === "local" ? [related(skillsBySlug.get(requirement.name)!)] : []),
 		recommendedRecipes: recommendations([...recipesBySlug.values()], recipe, recommendationLimit),
 	});
+}
+
+function recipeIntroduction(recipe: RecipeEntry) {
+	const firstPhaseIndex = recipe.document.children.findIndex(
+		(node) => node.type === "heading" && node.id === recipe.stages[0]?.id,
+	);
+	const start = recipe.document.children[0]?.type === "heading" && recipe.document.children[0].depth === 1 ? 1 : 0;
+	return Object.freeze({
+		type: "root" as const,
+		children: recipe.document.children.slice(start, firstPhaseIndex < 0 ? undefined : firstPhaseIndex),
+	});
+}
+
+function recipePhases(recipe: RecipeEntry): readonly RecipePagePhase[] {
+	const nodes = recipe.document.children;
+	return recipe.stages.map((stage, phaseIndex) => {
+		const phaseStart = nodes.findIndex((node) => node.type === "heading" && node.id === stage.id);
+		const nextStage = recipe.stages[phaseIndex + 1];
+		const phaseEnd = nextStage
+			? nodes.findIndex((node) => node.type === "heading" && node.id === nextStage.id)
+			: nodes.length;
+		if (phaseStart < 0 || phaseEnd < 0) recipeProjectionMismatch(recipe, stage.id);
+
+		const stepStarts = stage.steps.map((step) => {
+			const index = nodes.findIndex(
+				(node, nodeIndex) => nodeIndex > phaseStart && nodeIndex < phaseEnd && node.type === "heading" && node.id === step.id,
+			);
+			if (index < 0) recipeProjectionMismatch(recipe, step.id);
+			return index;
+		});
+		const introductionEnd = stepStarts[0] ?? phaseEnd;
+		return {
+			id: stage.id,
+			slug: stage.slug,
+			title: stage.title,
+			number: phaseIndex + 1,
+			introduction: { type: "root" as const, children: nodes.slice(phaseStart + 1, introductionEnd) },
+			steps: stage.steps.map((step, stepIndex) => ({
+				...step,
+				number: stepIndex + 1,
+				document: {
+					type: "root" as const,
+					children: nodes.slice(stepStarts[stepIndex] + 1, stepStarts[stepIndex + 1] ?? phaseEnd),
+				},
+			})),
+		};
+	});
+}
+
+function recipeRequirement(requirement: RecipeEntry["skillRequirements"][number]): RecipeRequirementView {
+	if (requirement.kind === "builtin") return { ...requirement };
+	return {
+		...requirement,
+		installCommand: `npx skills add ${requirement.source} --skill ${requirement.name}`,
+	};
+}
+
+function recipeProjectionMismatch(recipe: RecipeEntry, id: string): never {
+	throw contentError(
+		"RECIPE_PROJECTION",
+		recipe.source.relativePath,
+		`The parsed Recipe document is missing structured heading ${JSON.stringify(id)}.`,
+		"Keep Recipe phase and step headings aligned with the validated outline.",
+	);
 }
 
 function recommendations<T extends SkillEntry | RecipeEntry>(entries: readonly T[], current: T, limit: number) {

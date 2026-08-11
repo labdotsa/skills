@@ -21,10 +21,29 @@ export type RecipeStage = Readonly<{
 	steps: readonly RecipeStep[];
 }>;
 
+export type RecipePageStep = RecipeStep & Readonly<{
+	number: number;
+	document: RichDocument;
+}>;
+
+export type RecipePagePhase = Readonly<{
+	id: string;
+	slug: string;
+	title: string;
+	number: number;
+	introduction: RichDocument;
+	steps: readonly RecipePageStep[];
+}>;
+
 export type SkillRequirement =
 	| Readonly<{ kind: "local"; name: string; skillId: string; source: "labdotsa/skills"; url: string }>
 	| Readonly<{ kind: "external"; name: string; source: string; url: string }>
 	| Readonly<{ kind: "builtin"; name: string; source: string; availability: "built-in" }>;
+
+export type RecipeRequirementView =
+	| Readonly<{ kind: "local"; name: string; source: "labdotsa/skills"; url: string; installCommand: string }>
+	| Readonly<{ kind: "external"; name: string; source: string; url: string; installCommand: string }>
+	| Readonly<{ kind: "builtin"; name: string; source: string; availability: "built-in"; installCommand?: undefined }>;
 
 type EntryBase = Readonly<{
 	kind: "skill" | "recipe";
@@ -109,10 +128,15 @@ export type RecipePageView = Readonly<{
 	status: "draft" | "stable";
 	author: string;
 	outcome: string;
+	sourceUrl: string;
+	fileUrl: string;
 	document: RichDocument;
+	introduction: RichDocument;
 	outline: readonly OutlineItem[];
 	stages: readonly RecipeStage[];
 	skillRequirements: readonly SkillRequirement[];
+	phases: readonly RecipePagePhase[];
+	requirements: readonly RecipeRequirementView[];
 	localSkills: readonly RelatedEntry[];
 	recommendedRecipes: readonly RelatedEntry[];
 }>;
