@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Accepted the single-source SvelteKit boundary and canonical URL policy: Netlify owns `skills.lab.sa`, GitHub Pages remains a non-indexable backup, and clean Recipe routes retain generated `.html` aliases.
 - Added a reproducible Discovery Site parity harness covering public output contracts, browser interactions, desktop and mobile captures, and CI artifacts.
 - Rebuilt the discovery site to match LAB's current product-innovation brand system across catalog, recipe, and skill-detail pages.
 - Consolidated homepage discovery into a toggleable Skills/Recipes directory, restored the original command-led hero in LAB styling, and simplified skill pages around installation, source content, and related items.

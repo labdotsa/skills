@@ -167,7 +167,9 @@ Continue producing `skills.json` and `recipes.json` as prerendered endpoints bec
 
 For Markdown, preserve the current safe behavior during the first pass. The current renderer escapes raw HTML and rejects unsafe URL schemes. If it is later replaced with a CommonMark pipeline, add explicit HTML sanitization before using Svelte's `{@html}`.
 
-Preserve current public URLs during parity. After cutover, a separate decision can move `recipes.html` and `recipe.html` to `/recipes/` and `/recipes/[slug]/`. GitHub Pages has no general redirect engine, so legacy aliases must remain generated pages if URLs change.
+Use `/recipes/` and `/recipes/[slug]/` as the canonical Recipe routes. Preserve `recipes.html` and `recipe.html` as
+generated compatibility pages during and after parity because GitHub Pages has no general redirect engine. The aliases
+render from the same Recipe model and canonicalize to the clean routes; they are not a second content source.
 
 ## SEO and LLM discovery
 
@@ -218,8 +220,9 @@ Use `$app/paths.resolve()` for internal routes and `asset()` for files in `stati
 Use a custom GitHub Actions workflow, not branch-based Jekyll publishing:
 
 1. Validate and build on `master`.
-2. Set `BASE_PATH="/skills"` for the normal `labdotsa.github.io/skills/` project URL.
-3. Set `BASE_PATH=""` if the repository has its own root custom domain such as `skills.lab.sa`.
+2. Set `BASE_PATH="/skills"` for the `labdotsa.github.io/skills/` backup URL.
+3. Set `SITE_ORIGIN="https://skills.lab.sa"` and `SITE_INDEXABLE="false"` so Pages points to the canonical Netlify
+   origin without competing in search.
 4. Upload `site/` with `actions/upload-pages-artifact`.
 5. Deploy it with `actions/deploy-pages` from a job with `pages: write` and `id-token: write`.
 6. Configure the custom domain in repository Pages settings when using Actions; do not rely on a committed `CNAME` file.
@@ -236,6 +239,8 @@ publish = "site"
 [build.environment]
 NODE_VERSION = "22"
 BASE_PATH = ""
+SITE_ORIGIN = "https://skills.lab.sa"
+SITE_INDEXABLE = "true"
 ```
 
 Do not add `@sveltejs/adapter-netlify` unless the product later requires runtime SSR, functions, form actions, or non-prerendered endpoints.
@@ -244,7 +249,8 @@ Do not add `@sveltejs/adapter-netlify` unless the product later requires runtime
 
 The same byte-for-byte artifact works when both hosts serve the app from the same URL base, typically `/`. A normal GitHub project site serves from `/skills`, while Netlify serves from `/`, so those targets should run the same source build twice with different `BASE_PATH` values.
 
-Choose one canonical production origin for SEO. Alternate provider URLs can carry canonical tags pointing to `https://skills.lab.sa/`; preview deployments should not become competing indexed copies.
+Netlify at `https://skills.lab.sa` is the canonical production origin. Its platform hostname redirects to that origin;
+deploy previews and the GitHub Pages backup emit `noindex,follow` while carrying canonical tags on `skills.lab.sa`.
 
 ## Build-output policy
 
@@ -353,13 +359,19 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 | URL changes break Pages links | Preserve existing URLs in the first release and generate legacy aliases before later cleanup. |
 | Provider-specific features split the architecture | Keep the production surface inside the common static-host capability set. |
 
-## Decisions to make before implementation
+## Accepted decisions
 
-1. Will GitHub Pages use `skills.lab.sa` at the root or the default `/skills` project path?
-2. Should `recipes.html` and `recipe.html` remain public URLs for the first release? Recommended: yes.
-3. Should generated `site/` remain committed after cutover? Recommended: no, but change that only after parity.
-4. Is visual parity the release requirement, or is a redesign included? Recommended: parity first.
-5. Which provider owns the canonical production domain, and which is preview/backup?
+1. `src/` is the sole application source; `skills/` and `recipes/` remain canonical Source Content; shared domain and
+   build-time readers live under `src/lib`; `site/` is generated only. See
+   [ADR 0001](adr/0001-single-source-static-discovery-site.md).
+2. Netlify owns canonical `https://skills.lab.sa`; GitHub Pages remains a non-indexable `/skills/` backup; clean Recipe
+   routes are canonical and the current `.html` routes remain generated aliases. See
+   [ADR 0002](adr/0002-canonical-origin-and-public-urls.md).
+
+## Remaining decisions
+
+1. Should generated `site/` remain committed after cutover? Recommended: no, but change that only after parity.
+2. Is visual parity the release requirement, or is a redesign included? Recommended: parity first.
 
 ## Primary references
 

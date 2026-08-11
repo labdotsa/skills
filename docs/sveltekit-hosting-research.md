@@ -21,7 +21,7 @@ Use the existing `site/` directory as generated output to preserve the repositor
 
 Dynamic routes such as `/skills/[name]` must either be found through links on prerendered pages or declare an `entries()` function. The latter is the safer contract for this repository: generate skill and recipe parameters from the same catalog readers used by the site. SvelteKit also permits prerendered `+server` routes, which suits `skills.json`, `recipes.json`, `sitemap.xml`, and `robots.txt`. Form actions cannot be prerendered. [Prerender entries and dynamic routes](https://svelte.dev/docs/kit/page-options#entries)
 
-For extensionless static routes, prefer `trailingSlash = "always"` so `/a/` emits `/a/index.html`; SvelteKit notes this is required on hosts that do not serve `/a.html` for `/a`. This matches the current canonical skill URLs. The current site also exposes `recipes.html` and `recipe.html`, so migration should preserve those physical URLs with explicit compatibility routes/pages before any later URL redesign; do not depend on Netlify-only rewrites because GitHub Pages must be able to serve the same paths. [SvelteKit trailing-slash guidance](https://svelte.dev/docs/kit/page-options#trailingSlash)
+For extensionless static routes, prefer `trailingSlash = "always"` so `/a/` emits `/a/index.html`; SvelteKit notes this is required on hosts that do not serve `/a.html` for `/a`. This matches the current canonical Skill URLs and the accepted clean Recipe routes. The current `recipes.html` and `recipe.html` URLs remain physical compatibility pages canonicalizing to `/recipes/` and `/recipes/functional-prototype/`; do not depend on Netlify-only rewrites because GitHub Pages must serve the same aliases. [SvelteKit trailing-slash guidance](https://svelte.dev/docs/kit/page-options#trailingSlash)
 
 ### Tailwind CSS v4
 
@@ -80,7 +80,7 @@ export default {
 
 Do not use the `404.html` fallback as a substitute for enumerating routes. SvelteKit warns that SPA fallbacks have substantial performance and SEO costs. Here it should only replace each host's generic not-found page after all real routes have been prerendered. Netlify automatically serves a root `404.html` for unresolved static paths. [Adapter fallback](https://svelte.dev/docs/kit/adapter-static#fallback), [Netlify custom 404 handling](https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling)
 
-The canonical origin is a separate build concern from the base path. Parameterize the origin used by canonical links, Open Graph metadata, robots, and the sitemap (for example `SITE_ORIGIN`). A GitHub custom domain mounted at `/` can use an empty base just like Netlify; confirm the final DNS/domain topology before setting production canonical URLs.
+The canonical origin is a separate build concern from the base path. The accepted policy sets `SITE_ORIGIN=https://skills.lab.sa` for both builds, makes the root Netlify artifact indexable, and makes the `/skills` GitHub Pages artifact non-indexable. Canonical links, Open Graph metadata, structured data, robots, and the sitemap derive from those build inputs.
 
 ## Deployment shapes
 
