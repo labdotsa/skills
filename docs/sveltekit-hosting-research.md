@@ -80,7 +80,7 @@ export default {
 
 Do not use the `404.html` fallback as a substitute for enumerating routes. SvelteKit warns that SPA fallbacks have substantial performance and SEO costs. Here it should only replace each host's generic not-found page after all real routes have been prerendered. Netlify automatically serves a root `404.html` for unresolved static paths. [Adapter fallback](https://svelte.dev/docs/kit/adapter-static#fallback), [Netlify custom 404 handling](https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling)
 
-The canonical origin is a separate build concern from the base path. The accepted policy sets `SITE_ORIGIN=https://skills.lab.sa` for both builds, makes the root Netlify artifact indexable, and makes the `/skills` GitHub Pages artifact non-indexable. Canonical links, Open Graph metadata, structured data, robots, and the sitemap derive from those build inputs.
+The canonical origin is a separate build concern from the base path. The accepted policy sets `SITE_ORIGIN=https://skills.lab.sa` for both builds, makes the root Netlify artifact indexable, and makes the `/skills` GitHub Pages artifact non-indexable. Canonical links, Open Graph metadata, structured data, robots, and the sitemap derive from those build inputs. Because a project-level `/skills/robots.txt` is not authoritative for the `labdotsa.github.io` host, Pages isolation relies on HTML `noindex`; duplicate non-HTML machine endpoints are omitted unless account-root robots control is available.
 
 ## Deployment shapes
 

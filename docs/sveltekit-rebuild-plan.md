@@ -223,9 +223,11 @@ Use a custom GitHub Actions workflow, not branch-based Jekyll publishing:
 2. Set `BASE_PATH="/skills"` for the `labdotsa.github.io/skills/` backup URL.
 3. Set `SITE_ORIGIN="https://skills.lab.sa"` and `SITE_INDEXABLE="false"` so Pages points to the canonical Netlify
    origin without competing in search.
-4. Upload `site/` with `actions/upload-pages-artifact`.
-5. Deploy it with `actions/deploy-pages` from a job with `pages: write` and `id-token: write`.
-6. Configure the custom domain in repository Pages settings when using Actions; do not rely on a committed `CNAME` file.
+4. Emit `noindex,follow` in every Pages HTML file and omit duplicate non-HTML machine endpoints unless the account-root
+   `labdotsa.github.io/robots.txt` can be controlled; a nested `/skills/robots.txt` is not authoritative.
+5. Upload `site/` with `actions/upload-pages-artifact`.
+6. Deploy it with `actions/deploy-pages` from a job with `pages: write` and `id-token: write`.
+7. Configure the custom domain in repository Pages settings when using Actions; do not rely on a committed `CNAME` file.
 
 ### Netlify
 
@@ -367,6 +369,9 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 2. Netlify owns canonical `https://skills.lab.sa`; GitHub Pages remains a non-indexable `/skills/` backup; clean Recipe
    routes are canonical and the current `.html` routes remain generated aliases. See
    [ADR 0002](adr/0002-canonical-origin-and-public-urls.md).
+3. The canonical production build must satisfy the crawl, indexation, metadata, structured-data, internal-linking,
+   content-intent, Core Web Vitals, measurement, and regression requirements in the
+   [technical SEO contract](technical-seo-contract.md).
 
 ## Remaining decisions
 

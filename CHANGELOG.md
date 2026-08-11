@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Defined the Discovery Site technical SEO and measurement contract, including crawl and canonical invariants, page-intent metadata, structured data, internal linking, Core Web Vitals, analytics, and regression gates.
 - Accepted the single-source SvelteKit boundary and canonical URL policy: Netlify owns `skills.lab.sa`, GitHub Pages remains a non-indexable backup, and clean Recipe routes retain generated `.html` aliases.
 - Added a reproducible Discovery Site parity harness covering public output contracts, browser interactions, desktop and mobile captures, and CI artifacts.
 - Rebuilt the discovery site to match LAB's current product-innovation brand system across catalog, recipe, and skill-detail pages.

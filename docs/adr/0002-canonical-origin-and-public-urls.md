@@ -22,8 +22,9 @@ GitHub Pages and external links continue to resolve. `/recipes.html` canonicaliz
 canonicalizes to `/recipes/functional-prototype/`. These aliases are generated views, never separate content sources.
 They remain until a later evidence-backed removal decision.
 
-Public machine-readable routes such as `/skills.json`, `/recipes.json`, `/sitemap.xml`, and `/robots.txt` keep their
-current paths. Any later LLM-discovery routes join this same route model rather than creating another catalog.
+On canonical production, public machine-readable routes such as `/skills.json`, `/recipes.json`, `/sitemap.xml`, and
+`/robots.txt` keep their current paths. Any later LLM-discovery routes join this same route model rather than creating
+another catalog. The non-indexable Pages build may omit these duplicate non-HTML endpoints as described below.
 
 The canonical origin never includes a deployment base path. Internal links and assets include the active build base,
 while canonical, Open Graph, structured-data, and sitemap URLs always resolve against `https://skills.lab.sa`.
@@ -35,8 +36,11 @@ while canonical, Open Graph, structured-data, and sitemap URLs always resolve ag
   `noindex,follow` and never become canonical.
 - GitHub Pages remains browsable at the `/skills/` project path but every HTML page emits `noindex,follow` and a canonical
   URL on `skills.lab.sa`.
-- The Pages robots file allows HTML crawling so crawlers can observe `noindex` and canonical metadata, while preventing
-  alternate-host catalog and machine-discovery endpoints from being indexed.
+- Pages HTML remains crawlable so crawlers can observe `noindex` and canonical metadata. A project file at
+  `/skills/robots.txt` cannot govern `labdotsa.github.io` because robots policy is host-root only.
+- The Pages build omits duplicate non-HTML catalog, sitemap, and machine-discovery endpoints unless the account-root
+  `https://labdotsa.github.io/robots.txt` can be controlled and verified. Page-level `noindex` remains the enforceable
+  isolation mechanism for backup HTML.
 - Not-found pages emit `noindex` and no self-canonical. Query strings and fragments never create distinct canonicals.
 
 Builds therefore accept separate `BASE_PATH`, `SITE_ORIGIN`, and `SITE_INDEXABLE` inputs without changing application
