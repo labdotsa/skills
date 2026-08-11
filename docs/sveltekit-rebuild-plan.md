@@ -124,13 +124,19 @@ The initial primitive inventory should cover at least:
 - `collapsible`
 - `breadcrumb`
 - `separator`
-- `sonner` or one local toast implementation
+- `sonner`
 - `tooltip`
-- `navigation-menu` where its behavior matches the service navigation
+
+Do not add `navigation-menu` initially: the service navigation is a list of links, not a composite menu. The exact
+primitive and dependency boundary is governed by the
+[LAB design-system and dependency contract](lab-design-system-dependency-contract.md).
 
 `CatalogRow`, `InstallCommand`, `CodePanel`, recipe sections, and the editorial reading layout remain custom LAB components, but they must compose the shadcn primitives instead of introducing separate control, focus, overlay, or state conventions. Use `@lucide/svelte` for interface icons and remove runtime icon-CDN requests.
 
-The current shadcn-svelte setup uses the SvelteKit CLI with Tailwind, a `components.json` file, and CSS-variable theming. Its dark-mode guide uses `mode-watcher`; adopting it can replace the custom early theme script while retaining system preference and preventing a theme flash.
+The current shadcn-svelte setup uses the SvelteKit CLI with Tailwind, a `components.json` file, and CSS-variable
+theming. The accepted design-system contract keeps the existing storage-safe system/light/dark behavior in one locally
+owned theme service; `mode-watcher@1.1.0` is not adopted because its published bootstrap and mounted component perform
+unguarded storage access.
 
 ## Tailwind strategy
 
@@ -255,7 +261,7 @@ command = "npm run build"
 publish = "site"
 
 [build.environment]
-NODE_VERSION = "22"
+NODE_VERSION = "24.19.0"
 
 [context.production.environment]
 PUBLICATION_PROFILE = "canonical"
@@ -407,6 +413,10 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 7. The component system has exactly three layers: owned shadcn primitives in `ui/`, product-neutral compositions in
    `shared/`, and every product-aware screen/feature component in `site/`; routes remain data/selection adapters. See
    the [component-system and shadcn ownership contract](component-system-contract.md).
+8. One Tailwind v4 Vite pipeline maps the preserved LAB palette into shadcn semantics; one storage-safe local theme
+   service, bundled Lucide imports, local licensed assets, nine initial primitives, six supporting runtime packages,
+   exact direct versions, and one npm lockfile govern every host build. See the
+   [LAB design-system and dependency contract](lab-design-system-dependency-contract.md).
 
 ## Remaining decisions
 
