@@ -6,6 +6,8 @@ Canonical planning map: [Wayfind the single-source SvelteKit Discovery Site rebu
 
 Current-state evidence: [Discovery Site parity contract](discovery-site-parity-contract.md)
 
+Accepted release gates: [Accessibility, performance, and interaction quality contract](accessibility-performance-quality-contract.md)
+
 ## Recommendation
 
 Rebuild the discovery experience as a fully prerendered SvelteKit application using Svelte 5, TypeScript, Tailwind CSS v4, locally owned shadcn-svelte primitives, and Lucide Svelte icons. Every interface surface should be a reusable LAB component composed on that foundation.
@@ -291,7 +293,9 @@ changelog together. See the [atomic cutover and rollback contract](atomic-cutove
 
 ## Validation and quality gates
 
-Preserve the current nine unit tests, then add:
+The [accessibility, performance, and interaction quality contract](accessibility-performance-quality-contract.md) is normative. It defines route and state coverage, automated and manual accessibility evidence, responsive, theme, motion, and no-JavaScript behavior, project transfer budgets, Core Web Vitals measurement, cross-browser and cross-profile coverage, and the exception policy.
+
+Preserve the current sixteen unit tests, then add:
 
 - `svelte-check` for type and compile-time accessibility checks.
 - Vitest tests for catalog filtering, relationship selection, view-model creation, and interaction state.
@@ -299,7 +303,9 @@ Preserve the current nine unit tests, then add:
 - Playwright tests for home, recipes, skill detail, recipe detail, 404 behavior, keyboard search, theme persistence, copy feedback, and mobile navigation.
 - Static-output tests asserting every catalog entry has a generated route, JSON contracts match route data, canonical URLs are valid, no personal paths leak, and sitemap entries resolve.
 - Screenshot baselines at the existing 1280 × 720 and 390 × 844 QA viewports.
-- An overflow assertion and a reduced-motion pass.
+- Overflow, text-spacing, 200% resize, 320-pixel reflow, reduced-motion, forced-colors, and no-JavaScript passes.
+- Three-run Lighthouse medians and exact JavaScript, CSS, font, image, request, and cold-transfer budgets.
+- Recorded keyboard, zoom, VoiceOver/Safari, and NVDA/Firefox-or-Chrome release evidence.
 
 Keep `npm run validate` as the one completion gate. A target script set is:
 
@@ -308,10 +314,10 @@ Keep `npm run validate` as the one completion gate. A target script set is:
   "dev": "vite dev",
   "build": "npm run catalog && vite build",
   "preview": "vite preview",
-  "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+  "typecheck": "svelte-kit sync && svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
   "test": "vitest run",
   "test:e2e": "playwright test",
-  "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && npm run check && npm test && npm run build && node scripts/validate-site.mjs"
+  "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && npm run typecheck && npm test && npm run build && node scripts/validate-site.mjs"
 }
 ```
 

@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Defined the WCAG 2.2 AA, keyboard and screen-reader, reduced-motion, theme, responsive/reflow, no-JavaScript, component-behavior, asset, transfer-budget, Core Web Vitals, cross-browser, visual-regression, and exception gates for the SvelteKit cutover.
 - Accepted an atomic SvelteKit cutover: isolate migration work behind a one-source boundary, squash the complete replacement into one reviewed commit, move generated `site/` to CI/provider artifacts, and preserve a checksummed tagged legacy rollback release.
 - Accepted the existing functioning Discovery Site as the representative prototype for a complete SvelteKit revamp, eliminating a separate throwaway UI while preserving the approved product experience and parity evidence.
 - Accepted the three-layer LAB component system: locally owned shadcn-svelte primitives, product-neutral shared compositions, product-aware feature components under `site/`, thin routes, typed Svelte 5 APIs, and explicit reuse and update rules.
