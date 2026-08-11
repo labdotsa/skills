@@ -32,18 +32,18 @@ process.stdout.write(vite.stdout);
 process.stderr.write(vite.stderr);
 if (vite.status !== 0) process.exit(vite.status ?? 1);
 
-const seo = spawnSync(process.execPath, [
+const machinePublication = spawnSync(process.execPath, [
   path.join(repositoryRoot, "node_modules/tsx/dist/cli.mjs"),
-  path.join(repositoryRoot, "scripts/generate-seo-publication.ts"),
+  path.join(repositoryRoot, "scripts/generate-machine-publication.ts"),
   profile.name,
   requestedOutput,
 ], {
   cwd: repositoryRoot,
   encoding: "utf8",
 });
-process.stdout.write(seo.stdout);
-process.stderr.write(seo.stderr);
-if (seo.status !== 0) process.exit(seo.status ?? 1);
+process.stdout.write(machinePublication.stdout);
+process.stderr.write(machinePublication.stderr);
+if (machinePublication.status !== 0) process.exit(machinePublication.status ?? 1);
 
 const files = (await filesUnder(outputDirectory))
   .map((filename) => ({
@@ -51,7 +51,7 @@ const files = (await filesUnder(outputDirectory))
     bytes: 0,
     sha256: "",
   }))
-  .sort((left, right) => left.path.localeCompare(right.path));
+  .sort((left, right) => compareCodePoints(left.path, right.path));
 
 for (const entry of files) {
   const bytes = await readFile(path.join(outputDirectory, entry.path));
@@ -97,4 +97,8 @@ if (validation.status !== 0) process.exit(validation.status ?? 1);
 async function filesUnder(directory) {
   const entries = await readdir(directory, { recursive: true, withFileTypes: true });
   return entries.filter((entry) => entry.isFile()).map((entry) => path.join(entry.parentPath, entry.name));
+}
+
+function compareCodePoints(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
 }

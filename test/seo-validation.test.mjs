@@ -28,6 +28,7 @@ const validHtml = `<!doctype html>
     <meta name="twitter:description" content="Complete example instructions.">
     <meta name="twitter:image" content="https://skills.lab.sa/brand/social.png">
     <link rel="canonical" href="${canonical}">
+    <link rel="alternate" type="text/markdown" href="https://skills.lab.sa/skills/example/index.md">
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","url":"${canonical}"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LAB Skills"}]}]}</script>
   </head>
   <body><header><nav><a href="../../">Skills</a></nav></header><main><h1>Example</h1></main><footer>LAB</footer></body>
@@ -40,12 +41,14 @@ test("validates a complete canonical document and returns its normalized SEO rec
     html: validHtml,
     profile: canonicalProfile,
     expectedCanonical: canonical,
+    expectedAlternate: "https://skills.lab.sa/skills/example/index.md",
     structuredData: "required",
   });
 
   assert.equal(record.title, "Example — LAB Skills");
   assert.equal(record.description, "Complete example instructions.");
   assert.equal(record.canonicalUrl, canonical);
+  assert.equal(record.alternateUrl, "https://skills.lab.sa/skills/example/index.md");
   assert.deepEqual(record.schemaTypes, ["WebPage", "BreadcrumbList", "ListItem"]);
 });
 
@@ -56,12 +59,17 @@ test("rejects missing, duplicated, invalid, unsafe, and profile-inconsistent SEO
     html,
     profile: canonicalProfile,
     expectedCanonical: canonical,
+    expectedAlternate: "https://skills.lab.sa/skills/example/index.md",
     structuredData: "required",
     ...overrides,
   });
 
   assert.throws(() => validate(validHtml.replace(/<meta name="description"[^>]+>/, "")), /description.*exactly once/i);
   assert.throws(() => validate(validHtml.replace("</title>", "</title><title>Duplicate</title>")), /title.*exactly once/i);
+  assert.throws(
+    () => validate(validHtml.replace("</head>", '<link rel="alternate" type="text/markdown" href="https://skills.lab.sa/other.md"></head>')),
+    /Markdown alternate.*exactly once/i,
+  );
   assert.throws(() => validate(validHtml.replaceAll(canonical, "http://example.test/unsafe/")), /canonical.*expected/i);
   assert.throws(() => validate(validHtml.replace("../../\">Skills", "javascript:alert(1)\">Skills")), /unsafe.*href/i);
   assert.throws(() => validate(validHtml.replace("<main>", "<div>")), /main landmark/i);

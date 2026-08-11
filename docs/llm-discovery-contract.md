@@ -1,6 +1,6 @@
 # Discovery Site LLM discovery and crawler-access contract
 
-This note resolves GitHub issue #8 for the planned, fully prerendered SvelteKit Discovery Site. It defines how public
+This note resolves GitHub issue #8 for the fully prerendered SvelteKit Discovery Site. It defines how public
 LAB Skills and Recipes are discovered, attributed, fetched, and verified by machine consumers without creating a
 second content source or claiming that any vendor will use a particular discovery file.
 
@@ -40,6 +40,21 @@ surfaces. Do not promise improved inclusion, citation, training, or ranking from
 
 This baseline does not satisfy the future contract below.
 
+## Implementation status — 2026-08-12
+
+GitHub issue #23 implements the static publication portion of this contract. One post-build generator reads one
+immutable Catalog snapshot and derives both the SEO files and LLM-readable files from it. The canonical profile now
+publishes the curated `llms.txt`, strict schema-version-2 catalogs, exact-byte Skill and Recipe Markdown mirrors, and
+the exact repository license. Detail HTML advertises its matching Markdown representation.
+
+The publication validator proves the complete source-to-HTML-to-machine graph, exact SHA-256 agreement, license and
+attribution identity, deterministic repeated output, approved canonical hosts, safe output, the exact machine route
+set, wildcard crawler policy, and omission from preview and both Pages profiles. Browser tests additionally prove the
+published media types and byte-identical responses for ordinary clients and representative crawler user agents.
+
+Netlify response-header policy (`X-Robots-Tag`, CORS, cache validators, and deployed HTTPS/status behavior) remains an
+explicit #25 deployment concern; #23 does not claim that an artifact-only test proves provider behavior.
+
 ## Canonical machine surface
 
 Only the canonical Netlify production build publishes machine-discovery endpoints. They are generated views over the
@@ -58,8 +73,8 @@ same validated Skill and Recipe sources used by HTML routes.
 
 The non-indexable GitHub Pages build must omit `/llms.txt`, Markdown mirrors, license mirror, JSON catalogs, and sitemap.
 A repository project cannot control `https://labdotsa.github.io/robots.txt`, and nested `/skills/robots.txt` rules are
-not authoritative for that host. This is a `SITE_INDEXABLE` publication difference, not a second implementation. Pages
-HTML remains available with its accepted `noindex` and canonical metadata.
+not authoritative for that host. This is a closed `publishMachineSurfaces` profile decision, not a second
+implementation. Pages HTML remains available with its accepted `noindex` and canonical metadata.
 
 Compatibility aliases and error pages do not receive independent machine representations. Machine URLs always use the
 clean canonical content identity.
@@ -316,7 +331,8 @@ activity from an unverified `User-Agent` alone.
 ## Downstream ownership
 
 - #9 defines the shared parser, schema version 2 model, digest calculation, URL validation, and safe generation APIs.
-- #23 publishes `/llms.txt`, Markdown and license mirrors, HTML alternates, catalogs, robots, and cross-surface tests.
+- #23 implements `/llms.txt`, Markdown and license mirrors, HTML alternates, catalogs, crawler-policy validation, and
+  static cross-surface tests.
 - #25 proves canonical Netlify headers, status, caching, CORS, and crawler access.
 - #26 proves Pages omission and HTML-only backup behavior.
 - #24 owns broader deployed accessibility/performance checks; it may reuse link and status smoke infrastructure but

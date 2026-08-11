@@ -15,6 +15,7 @@ export function validateSeoDocument({
   html,
   profile,
   expectedCanonical,
+  expectedAlternate,
   structuredData,
 }) {
   requireCount(filename, "doctype", html.match(/<!doctype html>/gi) ?? [], 1);
@@ -45,6 +46,19 @@ export function validateSeoDocument({
       throw new Error(`${filename}: canonical URL ${canonicalUrl} does not match expected ${expectedCanonical}`);
     }
     validateCanonicalUrl(filename, canonicalUrl, profile.canonicalOrigin);
+  }
+
+  const alternateTags = selectTags(html, "link", { rel: "alternate", type: "text/markdown" });
+  let alternateUrl;
+  if (expectedAlternate === undefined) {
+    requireCount(filename, "Markdown alternate", alternateTags, 0);
+  } else {
+    requireCount(filename, "Markdown alternate", alternateTags, 1);
+    alternateUrl = attribute(filename, "Markdown alternate", alternateTags[0], "href");
+    if (alternateUrl !== expectedAlternate) {
+      throw new Error(`${filename}: Markdown alternate ${alternateUrl} does not match expected ${expectedAlternate}`);
+    }
+    validateMarkdownUrl(filename, alternateUrl, profile.canonicalOrigin);
   }
 
   const requiredOpenGraph = [
@@ -150,6 +164,7 @@ export function validateSeoDocument({
     title,
     description,
     canonicalUrl,
+    alternateUrl,
     schemaTypes: Object.freeze(schemaTypes),
     links: Object.freeze(links.map((link) => tagAttributes(link).href)),
   });
@@ -239,6 +254,18 @@ function validateSocialImage(filename, value, canonicalOrigin) {
   }
   if (url.protocol !== "https:" || url.origin !== canonicalOrigin) {
     throw new Error(`${filename}: social image must use the canonical HTTPS origin`);
+  }
+}
+
+function validateMarkdownUrl(filename, value, canonicalOrigin) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch (error) {
+    throw new Error(`${filename}: Markdown alternate must be an absolute URL`, { cause: error });
+  }
+  if (url.protocol !== "https:" || url.origin !== canonicalOrigin || url.search || url.hash || !url.pathname.endsWith("/index.md")) {
+    throw new Error(`${filename}: Markdown alternate must be a clean canonical-origin index.md URL`);
   }
 }
 

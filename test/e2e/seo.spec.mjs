@@ -22,6 +22,10 @@ test("prerenders complete social metadata and truthful JSON-LD from the visible 
     "content",
     "https://skills.lab.sa/skills/tailwind/",
   );
+  await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveAttribute(
+    "href",
+    "https://skills.lab.sa/skills/tailwind/index.md",
+  );
   const skillGraph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(skillGraph["@graph"].map((node) => node["@type"])).toEqual([
     "WebPage",
@@ -41,6 +45,10 @@ test("keeps Recipe, alias, backup, and not-found metadata aligned with canonical
   );
 
   await page.goto("/recipes/functional-prototype/");
+  await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveAttribute(
+    "href",
+    "https://skills.lab.sa/recipes/functional-prototype/index.md",
+  );
   const canonicalGraph = await page.locator('script[type="application/ld+json"]').textContent();
   expect(JSON.parse(canonicalGraph)["@graph"].map((node) => node["@type"])).toEqual([
     "WebPage",
@@ -51,6 +59,10 @@ test("keeps Recipe, alias, backup, and not-found metadata aligned with canonical
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",
     "https://skills.lab.sa/recipes/functional-prototype/",
+  );
+  await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveAttribute(
+    "href",
+    "https://skills.lab.sa/recipes/functional-prototype/index.md",
   );
   expect(await page.locator('script[type="application/ld+json"]').textContent()).toBe(canonicalGraph);
 
@@ -65,6 +77,7 @@ test("keeps Recipe, alias, backup, and not-found metadata aligned with canonical
   await page.goto("/404.html");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex,follow");
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveCount(0);
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0);
 });
 

@@ -27,6 +27,10 @@ test("projects complete Skill metadata and truthful structured data from the pag
   const seo = skillSeo(skill, "https://skills.lab.sa", true);
 
   assert.equal(seo.canonicalUrl, "https://skills.lab.sa/skills/example/");
+  assert.deepEqual(seo.alternate, {
+    type: "text/markdown",
+    href: "https://skills.lab.sa/skills/example/index.md",
+  });
   assert.equal(seo.openGraph.type, "article");
   assert.equal(seo.openGraph.url, seo.canonicalUrl);
   assert.equal(seo.openGraph.image, "https://skills.lab.sa/brand/social.png");
@@ -129,6 +133,10 @@ test("describes a delivery Recipe as a WebPage without culinary schema", async (
   const seo = recipeSeo(recipe, "https://skills.lab.sa", true);
 
   assert.equal(seo.canonicalUrl, "https://skills.lab.sa/recipes/example/");
+  assert.deepEqual(seo.alternate, {
+    type: "text/markdown",
+    href: "https://skills.lab.sa/recipes/example/index.md",
+  });
   assert.equal(seo.openGraph.type, "article");
   assert.deepEqual(seo.structuredData["@graph"].map((node) => node["@type"]), [
     "WebPage",

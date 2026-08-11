@@ -26,6 +26,7 @@
 	<meta name="twitter:description" content={seo.twitter.description} />
 	<meta name="twitter:image" content={seo.twitter.image} />
 	{#if seo.canonicalUrl}<link rel="canonical" href={seo.canonicalUrl} />{/if}
+	{#if seo.alternate}<link rel="alternate" type={seo.alternate.type} href={seo.alternate.href} />{/if}
 	<link rel="icon" href={asset("/brand/favicon.svg")} />
 	<link rel="apple-touch-icon" href={asset("/brand/apple-touch-icon.png")} />
 	{#if structuredData}

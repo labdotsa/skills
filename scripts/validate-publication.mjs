@@ -8,6 +8,7 @@ import {
   validateSeoDocument,
   validateUniqueCanonicalMetadata,
 } from "./lib/seo-validation.mjs";
+import { validateLlmPublication } from "./lib/llm-validation.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const [profileName, requestedOutput] = process.argv.slice(2);
@@ -60,6 +61,7 @@ for (const filename of htmlFiles) {
     html,
     profile,
     expectedCanonical,
+    expectedAlternate: expectedMarkdownAlternateFor(filename, profile.canonicalOrigin),
     structuredData: profile.indexable && filename !== "404.html" ? "required" : "forbidden",
   }));
   await validateLocalReferences(html, filename, outputDirectory);
@@ -69,10 +71,10 @@ for (const filename of htmlFiles) {
 const cleanCanonicalRecords = seoRecords
   .filter((record) => !isAlias(record.filename) && record.filename !== "404.html")
   .sort((left, right) => canonicalPublicationOrder(left.filename) - canonicalPublicationOrder(right.filename)
-    || left.filename.localeCompare(right.filename));
+    || compareCodePoints(left.filename, right.filename));
 validateUniqueCanonicalMetadata(cleanCanonicalRecords);
 validateCanonicalLinkGraph(seoRecords);
-await validateMachineSurfaces(profile, manifest, cleanCanonicalRecords, outputDirectory);
+await validateMachineSurfaces(profile, manifest, cleanCanonicalRecords, seoRecords, outputDirectory);
 
 for (const asset of [
   "brand/logo.svg",
@@ -241,11 +243,21 @@ function isAlias(filename) {
   return filename === "recipes.html" || filename === "recipe.html";
 }
 
+function expectedMarkdownAlternateFor(filename, canonicalOrigin) {
+  if (filename === "recipe.html") return `${canonicalOrigin}/recipes/functional-prototype/index.md`;
+  const match = filename.match(/^(skills|recipes)\/([^/]+)\/index\.html$/);
+  return match ? `${canonicalOrigin}/${match[1]}/${encodeURIComponent(match[2])}/index.md` : undefined;
+}
+
 function canonicalPublicationOrder(filename) {
   if (filename === "index.html") return 0;
   if (filename.startsWith("skills/")) return 1;
   if (filename === "recipes/index.html") return 2;
   return 3;
+}
+
+function compareCodePoints(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 function validatePortablePresentationReferences(html, filename) {
@@ -261,7 +273,7 @@ function validatePortablePresentationReferences(html, filename) {
   }
 }
 
-async function validateMachineSurfaces(currentProfile, publicationManifest, canonicalRecords, directory) {
+async function validateMachineSurfaces(currentProfile, publicationManifest, canonicalRecords, allSeoRecords, directory) {
   const manifestPaths = new Set(publicationManifest.files.map((file) => file.path));
   const sitemapPath = path.join(directory, "sitemap.xml");
   const robotsPath = path.join(directory, "robots.txt");
@@ -271,29 +283,44 @@ async function validateMachineSurfaces(currentProfile, publicationManifest, cano
         throw new Error(`${currentProfile.name} must omit canonical-only ${filename}`);
       }
     }
-    return;
+  } else {
+    if (!manifestPaths.has("sitemap.xml") || !manifestPaths.has("robots.txt")) {
+      throw new Error("Canonical publication manifest must include sitemap.xml and robots.txt");
+    }
+    const sitemap = await readFile(sitemapPath, "utf8");
+    const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+    const expectedLocations = canonicalRecords.map((record) => record.canonicalUrl);
+    if (new Set(locations).size !== locations.length || JSON.stringify(locations) !== JSON.stringify(expectedLocations)) {
+      throw new Error("sitemap.xml must contain each clean canonical URL exactly once in publication order");
+    }
+    if (/\b(?:lastmod|recipes?\.html)\b/.test(sitemap)) {
+      throw new Error("sitemap.xml must omit synthetic lastmod values and compatibility aliases");
+    }
+    if (Buffer.byteLength(sitemap) > 50 * 1024 * 1024 || locations.length > 50_000) {
+      throw new Error("sitemap.xml exceeds protocol limits");
+    }
+    const robots = await readFile(robotsPath, "utf8");
+    const expectedRobots = `User-agent: *\nAllow: /\nSitemap: ${currentProfile.canonicalOrigin}/sitemap.xml\n`;
+    if (robots !== expectedRobots || Buffer.byteLength(robots) > 500 * 1024) {
+      throw new Error("robots.txt does not match the root-authoritative canonical policy");
+    }
   }
 
-  if (!manifestPaths.has("sitemap.xml") || !manifestPaths.has("robots.txt")) {
-    throw new Error("Canonical publication manifest must include sitemap.xml and robots.txt");
+  const llmFiles = new Map();
+  for (const filename of publicationManifest.files.map((file) => file.path)) {
+    if (/^(?:llms(?:-full)?\.txt|skills\.json|recipes\.json|LICENSE\.txt)$/.test(filename)
+      || /^(?:skills|recipes)\/.*\.md$/.test(filename)) {
+      llmFiles.set(filename, await readFile(path.join(directory, filename)));
+    }
   }
-  const sitemap = await readFile(sitemapPath, "utf8");
-  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  const expectedLocations = canonicalRecords.map((record) => record.canonicalUrl);
-  if (new Set(locations).size !== locations.length || JSON.stringify(locations) !== JSON.stringify(expectedLocations)) {
-    throw new Error("sitemap.xml must contain each clean canonical URL exactly once in publication order");
-  }
-  if (/\b(?:lastmod|recipes?\.html)\b/.test(sitemap)) {
-    throw new Error("sitemap.xml must omit synthetic lastmod values and compatibility aliases");
-  }
-  if (Buffer.byteLength(sitemap) > 50 * 1024 * 1024 || locations.length > 50_000) {
-    throw new Error("sitemap.xml exceeds protocol limits");
-  }
-  const robots = await readFile(robotsPath, "utf8");
-  const expectedRobots = `User-agent: *\nAllow: /\nSitemap: ${currentProfile.canonicalOrigin}/sitemap.xml\n`;
-  if (robots !== expectedRobots || Buffer.byteLength(robots) > 500 * 1024) {
-    throw new Error("robots.txt does not match the root-authoritative canonical policy");
-  }
+  validateLlmPublication({
+    profile: currentProfile,
+    files: llmFiles,
+    htmlAlternates: new Map(allSeoRecords
+      .filter((record) => record.alternateUrl)
+      .map((record) => [record.filename, record.alternateUrl])),
+    repositoryLicense: await readFile(path.join(repositoryRoot, "LICENSE")),
+  });
 }
 
 async function exists(filename) {

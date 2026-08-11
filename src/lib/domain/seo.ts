@@ -12,6 +12,7 @@ export type SeoPage = Readonly<{
 	title: string;
 	description: string;
 	canonicalUrl?: string;
+	alternate?: Readonly<{ type: "text/markdown"; href: string }>;
 	robots: "index,follow" | "noindex,follow";
 	openGraph: Readonly<{
 		title: string;
@@ -111,27 +112,14 @@ export function recipeIndexSeo(index: RecipeIndexPageView, canonicalOrigin: stri
 export function skillSeo(skill: SkillPageView, canonicalOrigin: string, indexable: boolean): SeoPage {
 	const canonicalUrl = canonicalUrlFor(canonicalOrigin, `/skills/${encodeURIComponent(skill.slug)}/`);
 	const title = `${skill.name} — LAB Skills`;
-	return deepFreeze({
+	return createSeoPage({
 		title,
 		description: skill.description,
 		canonicalUrl,
-		robots: indexable ? "index,follow" : "noindex,follow",
-		openGraph: {
-			title,
-			description: skill.description,
-			type: "article",
-			url: canonicalUrl,
-			image: socialImage,
-			imageAlt: socialImageAlt,
-			siteName,
-		},
-		twitter: {
-			card: "summary_large_image",
-			title,
-			description: skill.description,
-			image: socialImage,
-		},
-		...(indexable ? { structuredData: skillStructuredData(skill, canonicalUrl, canonicalOrigin) } : {}),
+		alternate: markdownAlternate(canonicalUrl),
+		indexable,
+		type: "article",
+		structuredData: skillStructuredData(skill, canonicalUrl, canonicalOrigin),
 	});
 }
 
@@ -143,6 +131,7 @@ export function recipeSeo(recipe: RecipePageView, canonicalOrigin: string, index
 		title,
 		description: recipe.description,
 		canonicalUrl,
+		alternate: markdownAlternate(canonicalUrl),
 		indexable,
 		type: "article",
 		structuredData: {
@@ -249,6 +238,7 @@ function createSeoPage(input: Readonly<{
 	title: string;
 	description: string;
 	canonicalUrl?: string;
+	alternate?: Readonly<{ type: "text/markdown"; href: string }>;
 	indexable: boolean;
 	type: "website" | "article";
 	structuredData?: StructuredData;
@@ -257,6 +247,7 @@ function createSeoPage(input: Readonly<{
 		title: input.title,
 		description: input.description,
 		...(input.canonicalUrl ? { canonicalUrl: input.canonicalUrl } : {}),
+		...(input.alternate ? { alternate: input.alternate } : {}),
 		robots: input.indexable ? "index,follow" : "noindex,follow",
 		openGraph: {
 			title: input.title,
@@ -275,6 +266,10 @@ function createSeoPage(input: Readonly<{
 		},
 		...(input.indexable && input.structuredData ? { structuredData: input.structuredData } : {}),
 	});
+}
+
+function markdownAlternate(canonicalUrl: string) {
+	return Object.freeze({ type: "text/markdown" as const, href: new URL("index.md", canonicalUrl).href });
 }
 
 function canonicalUrlFor(origin: string, pathname: string) {
