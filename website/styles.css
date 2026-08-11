@@ -3908,3 +3908,44 @@ html[data-theme="dark"] .footer-brand img {
     white-space: nowrap;
   }
 }
+
+/* Stabilize the recipe's numbered editorial grid. */
+.recipe-phase > header,
+.step-heading {
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.recipe-phase > header > div,
+.step-heading > div {
+  min-width: 0;
+}
+
+.recipe-phase > header h2,
+.step-heading h3,
+.step-heading p {
+  overflow-wrap: anywhere;
+}
+
+.step-heading > span {
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+@media (min-width: 821px) {
+  .recipe-step > :not(.step-heading) {
+    margin-left: 90px;
+  }
+}
+
+@media (max-width: 560px) {
+  .recipe-phase > header,
+  .step-heading {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .step-heading > span {
+    font-size: 20px;
+  }
+}
