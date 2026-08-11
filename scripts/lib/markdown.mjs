@@ -84,6 +84,8 @@ export function renderMarkdown(source, options = {}) {
   const html = [];
   const usedSlugs = new Map();
   const headingOffset = options.headingOffset || 0;
+  const codeIdPrefix = options.codeIdPrefix || "markdown-code";
+  let codeBlockIndex = 0;
 
   for (let index = 0; index < lines.length; ) {
     const line = lines[index];
@@ -103,7 +105,12 @@ export function renderMarkdown(source, options = {}) {
       }
       if (index < lines.length) index += 1;
       const languageClass = language ? ` class="language-${escapeHtml(language)}"` : "";
-      html.push(`<pre><code${languageClass}>${escapeHtml(code.join("\n"))}</code></pre>`);
+      const codeId = `${codeIdPrefix}-${codeBlockIndex}`;
+      codeBlockIndex += 1;
+      html.push(`<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>${escapeHtml(language || "code")}</span><button type="button" data-copy-target="#${codeId}" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="${codeId}"><code${languageClass}>${escapeHtml(code.join("\n"))}</code></pre>
+      </div>`);
       continue;
     }
 

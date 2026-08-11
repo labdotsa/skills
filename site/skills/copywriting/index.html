@@ -26,12 +26,12 @@
       <div class="header-inner">
         <a class="brand" href="../../index.html" aria-label="LAB Skills home"><img src="https://lab.sa/assets/logos/lab.svg" alt="LAB" /></a>
         <nav class="pillar-nav" aria-label="LAB services"><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></nav>
-        <div class="header-actions"><a class="appearance-button" href="https://lab.sa" aria-label="Visit LAB in Arabic" title="العربية"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10m2-4h6" /></svg></a><label class="theme-picker"><span class="sr-only">Theme</span><span class="theme-icon theme-moon" aria-hidden="true">☾</span><span class="theme-icon theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
-        <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="https://lab.sa/services/research">Research <span>↗</span></a><a href="https://lab.sa/services/design">Design <span>↗</span></a><a href="https://lab.sa/services/development">Development <span>↗</span></a><a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a></nav></details>
+        <div class="header-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme"><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /></button></div>
+        <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="https://lab.sa/services/research">Research <span>↗</span></a><a href="https://lab.sa/services/design">Design <span>↗</span></a><a href="https://lab.sa/services/development">Development <span>↗</span></a><a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a><button class="mobile-theme-toggle theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button></nav></details>
       </div>
     </header>
 
-    <main class="protocol-page" id="protocol">
+    <main class="protocol-page detail-service-canvas" id="protocol" data-category="content">
       <article class="protocol-sheet" data-category="content">
         <header class="skill-overview">
           <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">LAB Skills</a><span aria-hidden="true">/</span><span aria-current="page">copywriting</span></nav>
@@ -46,27 +46,16 @@
               <div class="command-block protocol-command">
                 <span class="command-prompt" aria-hidden="true">$</span>
                 <code id="install-command">npx skills add labdotsa/skills --skill copywriting</code>
-                <button type="button" data-copy-target="#install-command" aria-label="Copy install command">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-                </button>
+                <button type="button" data-copy-target="#install-command" aria-label="Copy install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button>
               </div>
               <a class="source-link" href="https://github.com/labdotsa/skills/tree/master/skills/copywriting">Browse source on GitHub <span aria-hidden="true">↗</span></a>
             </aside>
           </div>
         </header>
 
-        <section class="package-section" aria-labelledby="package-title">
-          <div class="section-heading"><div><p class="eyebrow">1 file</p><h2 id="package-title">Package contents</h2></div><p>Every maintained file included with this skill.</p></div>
-          <div class="package-directory"><ol>
-                <li data-kind="root">
-                  <span>01</span>
-                  <a href="https://github.com/labdotsa/skills/blob/master/skills/copywriting/SKILL.md"><code>SKILL.md</code><span>Open ↗</span></a>
-                </li></ol></div>
-        </section>
-
-        <section class="markdown-section" aria-labelledby="instructions-title">
+        <section class="markdown-section collapsible-section" aria-labelledby="instructions-title" data-collapsible>
           <div class="markdown-section-heading"><div><p class="eyebrow">SKILL.md</p><h2 id="instructions-title">Skill instructions</h2></div><a href="https://github.com/labdotsa/skills/blob/master/skills/copywriting/SKILL.md">View raw source ↗</a></div>
-          <div class="markdown-body"><h2 id="copywriting">Copywriting</h2>
+          <div class="collapsible-region instructions-region" data-collapsible-content><div class="markdown-body"><h2 id="copywriting">Copywriting</h2>
 <p>Write clear. Persuade ethically. Convert consistently.</p>
 <hr />
 <h3 id="when-to-use-this-skill">When to Use This Skill</h3>
@@ -78,7 +67,9 @@
 <p>Not writing exercise. Decision system.</p>
 <hr />
 <h3 id="workflow">Workflow</h3>
-<pre><code class="language-mermaid">flowchart TD
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>mermaid</span><button type="button" data-copy-target="#markdown-code-0" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-0"><code class="language-mermaid">flowchart TD
   A[User Request] --&gt; B[Build Brief]
   B --&gt; C[Select Framework]
   C --&gt; D[Generate Copy]
@@ -86,10 +77,13 @@
   E --&gt; F{Pass?}
   F --&gt;|No| G[Refine]
   F --&gt;|Yes| H[Deliver + Variants]</code></pre>
+      </div>
 <hr />
 <h3 id="step-1-build-brief">Step 1 — Build Brief</h3>
 <p>Minimum required:</p>
-<pre><code class="language-yaml">goal: &quot;conversion | awareness | retention&quot;
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>yaml</span><button type="button" data-copy-target="#markdown-code-1" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-1"><code class="language-yaml">goal: &quot;conversion | awareness | retention&quot;
 audience:
   who: &quot;&quot;
   context: &quot;&quot;
@@ -106,6 +100,7 @@ channel:
   constraints: &quot;&quot;
 language: &quot;&quot;
 locale: &quot;&quot;</code></pre>
+      </div>
 <p>If missing → ask. No guessing.</p>
 <hr />
 <h3 id="step-2-select-framework">Step 2 — Select Framework</h3>
@@ -133,9 +128,12 @@ locale: &quot;&quot;</code></pre>
 <p>Test dimensions:</p>
 <ul><li>Hook</li><li>Proof</li><li>CTA</li><li>Tone</li><li>Structure</li></ul>
 <p>Example:</p>
-<pre><code>V2:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-2" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-2"><code>V2:
 Change: CTA
 Hypothesis: stronger verb → higher CTR</code></pre>
+      </div>
 <hr />
 <h3 id="step-5-evaluation">Step 5 — Evaluation</h3>
 <p>Score 0–5 each:</p>
@@ -148,10 +146,13 @@ Hypothesis: stronger verb → higher CTR</code></pre>
 <p>Every claim must be:</p>
 <ul><li>True</li><li>Verifiable</li><li>Non-misleading</li></ul>
 <p>If proof missing:</p>
-<pre><code>Rewrite:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-3" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-3"><code>Rewrite:
 &quot;designed to help&quot;
 &quot;can improve&quot;
 &quot;typically&quot;</code></pre>
+      </div>
 <p>Never invent numbers.</p>
 <hr />
 <h3 id="step-7-localization">Step 7 — Localization</h3>
@@ -163,7 +164,9 @@ Hypothesis: stronger verb → higher CTR</code></pre>
 <hr />
 <h3 id="prompt-templates">Prompt Templates</h3>
 <h4 id="generate-copy">Generate Copy</h4>
-<pre><code>Write conversion-focused copy:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-4" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-4"><code>Write conversion-focused copy:
 
 Product: {product}
 Audience: {audience}
@@ -176,39 +179,52 @@ Output:
 - Primary version
 - 3 variants
 - Hypothesis per variant</code></pre>
+      </div>
 <hr />
 <h4 id="a-b-variants">A/B Variants</h4>
-<pre><code>Generate 5 variants.
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-5" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-5"><code>Generate 5 variants.
 
 Rules:
 - 1 change per variant
 - Include hypothesis
 - Target: {metric}</code></pre>
+      </div>
 <hr />
 <h4 id="product-description">Product Description</h4>
-<pre><code>Convert specs into:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-6" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-6"><code>Convert specs into:
 
 - Value proposition
 - 5 bullet benefits
 - Feature → benefit mapping
 - CTA</code></pre>
+      </div>
 <hr />
 <h4 id="ux-microcopy">UX Microcopy</h4>
-<pre><code>Write UX copy for {flow}:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-7" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-7"><code>Write UX copy for {flow}:
 
 - Title
 - Helper text
 - CTA
 - 2 errors
 - Success message</code></pre>
+      </div>
 <hr />
 <h4 id="localization">Localization</h4>
-<pre><code>Adapt for {locale}:
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>code</span><button type="button" data-copy-target="#markdown-code-8" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-8"><code>Adapt for {locale}:
 
 - Remove idioms
 - Adjust tone
 - Keep intent
 - Provide change log</code></pre>
+      </div>
 <hr />
 <h3 id="safety-rules">Safety Rules</h3>
 <h4 id="never">Never:</h4>
@@ -217,7 +233,9 @@ Rules:
 <ul><li>Be honest</li><li>Be clear</li><li>Respect user autonomy</li></ul>
 <hr />
 <h3 id="output-format">Output Format</h3>
-<pre><code class="language-yaml">framework: &quot;&quot;
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>yaml</span><button type="button" data-copy-target="#markdown-code-9" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-9"><code class="language-yaml">framework: &quot;&quot;
 copy:
   primary: {}
   variants: []
@@ -227,18 +245,23 @@ score: {}
 notes:
   localization: []
   accessibility: []</code></pre>
+      </div>
 <hr />
 <h3 id="usage-notes">Usage Notes</h3>
 <ul><li>Start with brief → always</li><li>One framework → clarity</li><li>Variants → learning, not noise</li><li>Clarity &gt; cleverness</li><li>Proof &gt; persuasion tricks</li></ul>
 <hr />
 <h3 id="version">Version</h3>
-<pre><code class="language-yaml">version: 1.0.0
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>yaml</span><button type="button" data-copy-target="#markdown-code-10" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-10"><code class="language-yaml">version: 1.0.0
 status: stable</code></pre>
+      </div>
 <hr />
 <h3 id="summary">Summary</h3>
 <p>This skill turns copywriting into:</p>
 <p><strong>System → Not guesswork</strong></p>
-<ul><li>Structured input</li><li>Framework-driven output</li><li>Measurable quality</li><li>Ethical persuasion</li><li>Global readiness</li></ul></div>
+<ul><li>Structured input</li><li>Framework-driven output</li><li>Measurable quality</li><li>Ethical persuasion</li><li>Global readiness</li></ul></div></div>
+          <button class="collapse-toggle" type="button" data-collapse-toggle aria-expanded="false">Show more</button>
         </section>
 
         <section class="related-section" aria-labelledby="related-title">
@@ -277,12 +300,22 @@ status: stable</code></pre>
               </a>
             </article></div></div>
         </section>
+
+        <section class="package-section collapsible-section" aria-labelledby="package-title" data-collapsible>
+          <div class="section-heading"><div><p class="eyebrow">1 file</p><h2 id="package-title">Package contents</h2></div><p>Every maintained file included with this skill.</p></div>
+          <div class="collapsible-region package-region" data-collapsible-content><div class="package-directory"><ol>
+                <li data-kind="root">
+                  <span>01</span>
+                  <a href="https://github.com/labdotsa/skills/blob/master/skills/copywriting/SKILL.md"><code>SKILL.md</code><span>Open ↗</span></a>
+                </li></ol></div></div>
+          <button class="collapse-toggle" type="button" data-collapse-toggle aria-expanded="false">Show more</button>
+        </section>
       </article>
     </main>
 
     <footer class="site-footer">
       <div class="footer-main"><div class="footer-brand"><a href="https://lab.sa" aria-label="LAB home"><img src="https://lab.sa/assets/logos/lab.svg" alt="" /><span class="font-heading">LAB</span></a><p>We are a product innovation company. Built to explore, design, develop, and scale what matters.</p><div class="social-links"><a href="https://bind.link/@labdotsa" aria-label="Bindlink"><span class="font-heading">B</span></a><a href="https://instagram.com/labdotsa" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></a><a href="https://twitter.com/labdotsa" aria-label="Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.8c-.7.3-1.5.5-2.3.6a4 4 0 0 0-7 2.7v.9A11.3 11.3 0 0 1 4.5 5.8s-3.6 8.1 4.5 11.7a11.7 11.7 0 0 1-7 2c8.1 4.5 18 0 18-10.4 0-.2 0-.4-.1-.6A8 8 0 0 0 22 5.8Z" /></svg></a><a href="https://linkedin.com/company/labdotsa" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg></a></div></div><div class="footer-links"><section><h2>Company</h2><a href="https://lab.sa/about">About</a><a href="https://lab.sa/portfolio">Portfolio</a><a href="https://lab.sa/contact">Contact</a></section><section><h2>Services</h2><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></section><section><h2>Legal</h2><a href="https://lab.sa/policy/privacy">Privacy Policy</a><a href="https://lab.sa/policy/tos">Terms of Service</a></section></div></div>
-      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><a href="https://lab.sa">⌘ العربية</a><label class="footer-theme"><span class="theme-moon" aria-hidden="true">☾</span><span class="theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><button class="footer-theme theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button></div></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>

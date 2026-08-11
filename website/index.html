@@ -49,18 +49,7 @@
           <a href="https://lab.sa/services/marketing">Marketing</a>
         </nav>
         <div class="header-actions">
-          <a class="appearance-button" href="https://lab.sa" aria-label="Visit LAB in Arabic" title="العربية">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10m2-4h6" /></svg>
-          </a>
-          <label class="theme-picker">
-            <span class="sr-only">Theme</span>
-            <span class="theme-icon theme-moon" aria-hidden="true">☾</span><span class="theme-icon theme-sun" aria-hidden="true">☼</span>
-            <select data-theme-picker aria-label="Color theme">
-              <option value="system">System</option>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
-          </label>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme"><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /></button>
         </div>
         <details class="mobile-menu">
           <summary aria-label="Open navigation"><span></span><span></span></summary>
@@ -71,6 +60,7 @@
             <a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a>
             <a href="#catalog">Skills</a>
             <a href="./recipes.html">Recipes</a>
+            <button class="mobile-theme-toggle theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button>
           </nav>
         </details>
       </div>
@@ -86,9 +76,7 @@
         <div class="command-block hero-command" aria-label="Install the LAB Skills collection">
           <span class="command-prompt" aria-hidden="true">$</span>
           <code id="collection-command">npx skills add labdotsa/skills</code>
-          <button type="button" data-copy-target="#collection-command" data-copy-message="Install command copied" aria-label="Copy install command">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-          </button>
+          <button type="button" data-copy-target="#collection-command" data-copy-message="Install command copied" aria-label="Copy install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button>
         </div>
       </section>
 
@@ -126,20 +114,6 @@
         </div>
       </section>
 
-      <section class="contact-section" aria-labelledby="contact-title">
-        <div class="contact-copy">
-          <p>Not sure where to begin?</p>
-          <h2 class="font-heading" id="contact-title">Let's talk!</h2>
-          <p>Book a free 30-minute<br />consultation to identify your needs.</p>
-        </div>
-        <form class="contact-form" data-contact-form>
-          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/user.svg" alt="" /></span><span class="sr-only">Name</span><input name="name" autocomplete="name" placeholder="Name" /></label>
-          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/mail.svg" alt="" /></span><span class="sr-only">Email</span><input name="email" type="email" autocomplete="email" placeholder="Email" /></label>
-          <label><span aria-hidden="true"><img src="https://unpkg.com/lucide-static@latest/icons/phone.svg" alt="" /></span><span class="sr-only">Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="Phone (+9665XXXXXXXX)" /></label>
-          <button type="submit">Book Now!</button>
-          <small><span aria-hidden="true">*</span> By submitting this form, you agree to our <a href="https://lab.sa/policy/privacy">Privacy Policy</a> and <a href="https://lab.sa/policy/tos">Terms of Service</a>.</small>
-        </form>
-      </section>
     </main>
 
     <footer class="site-footer">
@@ -163,7 +137,7 @@
           <section><h2>Legal</h2><a href="https://lab.sa/policy/privacy">Privacy Policy</a><a href="https://lab.sa/policy/tos">Terms of Service</a></section>
         </div>
       </div>
-      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><a href="https://lab.sa">⌘ العربية</a><label class="footer-theme"><span class="theme-moon" aria-hidden="true">☾</span><span class="theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><button class="footer-theme theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button></div></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>

@@ -26,12 +26,12 @@
       <div class="header-inner">
         <a class="brand" href="../../index.html" aria-label="LAB Skills home"><img src="https://lab.sa/assets/logos/lab.svg" alt="LAB" /></a>
         <nav class="pillar-nav" aria-label="LAB services"><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></nav>
-        <div class="header-actions"><a class="appearance-button" href="https://lab.sa" aria-label="Visit LAB in Arabic" title="العربية"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6m-7 0 6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10m2-4h6" /></svg></a><label class="theme-picker"><span class="sr-only">Theme</span><span class="theme-icon theme-moon" aria-hidden="true">☾</span><span class="theme-icon theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div>
-        <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="https://lab.sa/services/research">Research <span>↗</span></a><a href="https://lab.sa/services/design">Design <span>↗</span></a><a href="https://lab.sa/services/development">Development <span>↗</span></a><a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a></nav></details>
+        <div class="header-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme"><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /></button></div>
+        <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="https://lab.sa/services/research">Research <span>↗</span></a><a href="https://lab.sa/services/design">Design <span>↗</span></a><a href="https://lab.sa/services/development">Development <span>↗</span></a><a href="https://lab.sa/services/marketing">Marketing <span>↗</span></a><a href="../../index.html#catalog">Skills</a><a href="../../recipes.html">Recipes</a><button class="mobile-theme-toggle theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button></nav></details>
       </div>
     </header>
 
-    <main class="protocol-page" id="protocol">
+    <main class="protocol-page detail-service-canvas" id="protocol" data-category="product">
       <article class="protocol-sheet" data-category="product">
         <header class="skill-overview">
           <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">LAB Skills</a><span aria-hidden="true">/</span><span aria-current="page">build-product-artifacts</span></nav>
@@ -46,18 +46,98 @@
               <div class="command-block protocol-command">
                 <span class="command-prompt" aria-hidden="true">$</span>
                 <code id="install-command">npx skills add labdotsa/skills --skill build-product-artifacts</code>
-                <button type="button" data-copy-target="#install-command" aria-label="Copy install command">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
-                </button>
+                <button type="button" data-copy-target="#install-command" aria-label="Copy install command"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button>
               </div>
               <a class="source-link" href="https://github.com/labdotsa/skills/tree/master/skills/build-product-artifacts">Browse source on GitHub <span aria-hidden="true">↗</span></a>
             </aside>
           </div>
         </header>
 
-        <section class="package-section" aria-labelledby="package-title">
+        <section class="markdown-section collapsible-section" aria-labelledby="instructions-title" data-collapsible>
+          <div class="markdown-section-heading"><div><p class="eyebrow">SKILL.md</p><h2 id="instructions-title">Skill instructions</h2></div><a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/SKILL.md">View raw source ↗</a></div>
+          <div class="collapsible-region instructions-region" data-collapsible-content><div class="markdown-body"><h2 id="build-product-artifacts">Build Product Artifacts</h2>
+<p>Convert incomplete product context into a durable source of truth. Preserve the difference between stakeholder facts, agent assumptions, unresolved questions, and accepted decisions while keeping all affected artifacts synchronized.</p>
+<h3 id="select-the-operating-mode">Select the operating mode</h3>
+<p>Classify the request before acting:</p>
+<ul><li><strong>Bootstrap</strong> — no coherent artifact system exists; create it sequentially from the brief.</li><li><strong>Expand</strong> — the foundation exists but an artifact layer such as journeys, screens, requirements, or architecture is missing.</li><li><strong>Update</strong> — a new fact or decision changes existing artifacts; perform impact analysis and update every affected owner.</li><li><strong>Audit</strong> — inspect completeness, consistency, or current state without writing unless the user also asks for changes.</li></ul>
+<p>Treat requests to explain, review, list, or report as Audit. Do not infer authorization to edit or commit from them.</p>
+<h3 id="establish-context">Establish context</h3>
+<ol><li>Inspect repository instructions, the artifact index, existing decision records, and worktree status.</li><li>Use <code>rg</code> and <code>rg --files</code> to find current terminology, IDs, routes, vendors, phases, and references.</li><li>Preserve unrelated or concurrent changes. Never replace a user&#39;s artifact merely to impose this skill&#39;s default structure.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/classification-rules.md">classification-rules.md</a> before Bootstrap, Expand, or Update.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/artifact-map.md">artifact-map.md</a> for Bootstrap or when deciding which layer is missing.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/impact-mapping.md">impact-mapping.md</a> for every Update.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/review-gates.md">review-gates.md</a> before completing Bootstrap or a substantial Expand.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/artifact-writing-standards.md">artifact-writing-standards.md</a> before creating new artifact files.</li></ol>
+<p>Use available specialist skills for product design, information architecture, domain modeling, data, security, or a selected technology when their trigger applies. Verify temporally unstable vendor and technology claims against current primary documentation. Keep product facts independent from implementation choices.</p>
+<h3 id="build-in-dependency-order">Build in dependency order</h3>
+<p>For Bootstrap, proceed in this order. For Expand, begin at the earliest missing prerequisite and reuse accepted work.</p>
+<ol><li><strong>Capture and classify</strong> — extract actors, outcomes, offerings, workflows, rules, phases, constraints, uncertainties, and explicit technology choices. Build an internal fact/assumption/question/decision ledger.</li><li><strong>Normalize vocabulary</strong> — establish canonical terms and identify overloaded concepts before modeling them.</li><li><strong>Establish product foundation</strong> — define vision, boundaries, phases, principles, and glossary.</li><li><strong>Model the domain</strong> — define actors, permissions, entities, relationships, taxonomies, configurable policies, and lifecycle states. Separate concepts that vary independently.</li><li><strong>Describe journeys</strong> — create one journey per major actor and transaction type, including preconditions, main flow, alternatives, failures, state transitions, notifications, operational intervention, and completion.</li><li><strong>Extract platform capabilities</strong> — identify shared authentication, payments, files, notifications, moderation, configuration, audit, trust, safety, and dispute responsibilities.</li><li><strong>Write requirements and delivery scope</strong> — derive stable requirements from the domain and journeys; define explicit phase inclusions, exclusions, dependencies, and exit criteria.</li><li><strong>Design experience architecture</strong> — map journeys to information architecture, screen inventory, screen contracts, navigation, routes, permissions, and loading/empty/ready/error states.</li><li><strong>Define technical architecture</strong> — only after product behavior is stable enough; document deployables, packages, API, data, authentication authority, storage, background work, integrations, deployment, and security boundaries.</li><li><strong>Record decisions</strong> — capture cross-cutting accepted, proposed, rejected, and superseded decisions with rationale, owner, date, and affected artifacts. Keep unresolved matters in open questions.</li><li><strong>Index and cross-link</strong> — make the artifact root explain product shape, artifact ownership, and document conventions.</li></ol>
+<p>Do not manufacture false completeness. A rough future phase should remain an outline with visible assumptions and open questions rather than receiving invented precision.</p>
+<h3 id="update-existing-artifacts">Update existing artifacts</h3>
+<p>For Update mode:</p>
+<ol><li>State the new fact or decision in canonical terms.</li><li>Locate its owning artifact and record it in the decision log when it affects more than one concern.</li><li>Build an impact set using <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/impact-mapping.md">impact-mapping.md</a>.</li><li>Search the full artifact tree for the old term, rule, vendor, boundary, status, or count.</li><li>Update owners first, then derived journeys, screens, routes, requirements, architecture, integrations, and indexes.</li><li>Preserve historical decisions; mark them superseded instead of deleting them.</li><li>Search again for stale references and contradictions.</li><li>Report what changed, what did not need to change, and any remaining open decision.</li></ol>
+<p>Never treat an amended document as sufficient evidence that all downstream artifacts are synchronized.</p>
+<h3 id="write-atomized-artifacts">Write atomized artifacts</h3>
+<ul><li>Give each file one primary concern and clear ownership.</li><li>Prefer cohesive prose, tables, state diagrams, and concise lists over a single giant specification.</li><li>Use stable, language-neutral identifiers for requirements and decisions.</li><li>Cross-link source and derived artifacts instead of duplicating long definitions.</li><li>Keep business rules configurable when the brief says operations/admin can change them.</li><li>Snapshot mutable policies on transactions when later changes must not rewrite an existing agreement.</li><li>Describe user-visible async states for every data-backed screen or meaningful section.</li><li>Avoid presenting vendor recommendations as confirmed until stakeholders accept them.</li></ul>
+<p>Use the files under <code>assets/artifact-templates/</code> as starting structures, not mandatory filler. Remove irrelevant sections rather than leaving empty headings.</p>
+<h3 id="validate-before-completion">Validate before completion</h3>
+<ol><li>Check semantic alignment using the appropriate gate in <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/review-gates.md">review-gates.md</a>.</li><li>Run the deterministic validator from the directory containing this SKILL.md:</li></ol>
+<div class="markdown-code-block">
+        <div class="code-block-toolbar"><span>sh</span><button type="button" data-copy-target="#markdown-code-0" data-copy-message="Code copied" aria-label="Copy code"><img data-copy-icon src="https://unpkg.com/lucide-static@latest/icons/copy.svg" alt="" aria-hidden="true" /></button></div>
+        <pre id="markdown-code-0"><code class="language-sh">   python3 scripts/validate_artifacts.py &lt;artifact-root&gt;</code></pre>
+      </div>
+<p>Add <code>--fail-placeholders</code> for a release-quality artifact set.</p>
+<ol><li>Run project-specific checks for runnable artifacts, schemas, generated clients, or diagrams.</li><li>Review <code>git diff --check</code>, changed-file scope, and worktree status.</li><li>Commit or amend only when the user explicitly requests it.</li></ol>
+<p>Lead the final response with the achieved artifact outcome. Mention validation, material assumptions, remaining open questions, and the commit identifier when applicable.</p></div></div>
+          <button class="collapse-toggle" type="button" data-collapse-toggle aria-expanded="false">Show more</button>
+        </section>
+
+        <section class="related-section" aria-labelledby="related-title">
+          <div><p class="eyebrow">Continue with LAB</p><h2 id="related-title">Related skills &amp; recipes</h2></div>
+          <div class="catalog-directory related-directory"><div class="catalog-list" role="list"><article class="catalog-item" data-pillar="research" role="listitem">
+              <a class="catalog-row related-row" href="../../recipe.html" aria-label="Open related recipe: Functioning Prototype">
+                <span class="row-number" aria-hidden="true">01</span>
+                <span class="row-main">
+                  <span class="row-kicker"><span>product delivery</span><span>recipe</span></span>
+                  <span class="row-heading">Functioning Prototype</span>
+                  <span class="row-description">Guide a product from early discovery to a functioning prototype through four focused conversation layers: foundation, visuals, planning, and implementation. Use this recipe to gather and research product context, establish durable artifacts, define and reverse-engineer visual directions, create implementation-ready tickets, resolve human-in-the-loop decisions, and implement one tested task at a time.</span>
+                </span>
+                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>research</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
+              </a>
+            </article>
+            <article class="catalog-item" data-pillar="research" role="listitem">
+              <a class="catalog-row related-row" href="../information-architecture/index.html" aria-label="Open related skill: information-architecture">
+                <span class="row-number" aria-hidden="true">02</span>
+                <span class="row-main">
+                  <span class="row-kicker"><span>product</span><span>skill</span></span>
+                  <span class="row-heading">information-architecture</span>
+                  <span class="row-description">Design and structure information architecture (IA) for digital products. Covers content organization, taxonomy, navigation systems, content models, metadata, and findability optimization. Use when user needs to organize complex content, improve navigation, or define scalable structure.</span>
+                </span>
+                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>research</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
+              </a>
+            </article>
+            <article class="catalog-item" data-pillar="marketing" role="listitem">
+              <a class="catalog-row related-row" href="../copywriting/index.html" aria-label="Open related skill: copywriting">
+                <span class="row-number" aria-hidden="true">03</span>
+                <span class="row-main">
+                  <span class="row-kicker"><span>content</span><span>skill</span></span>
+                  <span class="row-heading">copywriting</span>
+                  <span class="row-description">Production-grade copywriting system. Turns structured briefs into high-conversion, channel-specific copy using proven frameworks (AIDA, PAS, FAB, JTBD). Includes variants, hypotheses, evaluation rubric, localization readiness, and strict safety/compliance guardrails. Use when writing ads, landing pages, emails, product descriptions, or UX copy.</span>
+                </span>
+                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>marketing</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
+              </a>
+            </article>
+            <article class="catalog-item" data-pillar="design" role="listitem">
+              <a class="catalog-row related-row" href="../deconstruct/index.html" aria-label="Open related skill: deconstruct">
+                <span class="row-number" aria-hidden="true">04</span>
+                <span class="row-main">
+                  <span class="row-kicker"><span>design</span><span>skill</span></span>
+                  <span class="row-heading">deconstruct</span>
+                  <span class="row-description">Deconstruct UI sources into hierarchical, reusable, customizable component systems. Use when a screenshot, mockup, design file, live interface, or existing UI code must be analyzed into visual regions, responsibility boundaries, stack-native contracts, adaptive layouts, interaction states, and explicit uncertainties before implementation.</span>
+                </span>
+                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>design</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
+              </a>
+            </article></div></div>
+        </section>
+
+        <section class="package-section collapsible-section" aria-labelledby="package-title" data-collapsible>
           <div class="section-heading"><div><p class="eyebrow">13 files</p><h2 id="package-title">Package contents</h2></div><p>Every maintained file included with this skill.</p></div>
-          <div class="package-directory"><ol>
+          <div class="collapsible-region package-region" data-collapsible-content><div class="package-directory"><ol>
                 <li data-kind="root">
                   <span>01</span>
                   <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/SKILL.md"><code>SKILL.md</code><span>Open ↗</span></a>
@@ -109,92 +189,15 @@
                 <li data-kind="support">
                   <span>13</span>
                   <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/scripts/validate_artifacts.py"><code>scripts/validate_artifacts.py</code><span>Open ↗</span></a>
-                </li></ol></div>
-        </section>
-
-        <section class="markdown-section" aria-labelledby="instructions-title">
-          <div class="markdown-section-heading"><div><p class="eyebrow">SKILL.md</p><h2 id="instructions-title">Skill instructions</h2></div><a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/SKILL.md">View raw source ↗</a></div>
-          <div class="markdown-body"><h2 id="build-product-artifacts">Build Product Artifacts</h2>
-<p>Convert incomplete product context into a durable source of truth. Preserve the difference between stakeholder facts, agent assumptions, unresolved questions, and accepted decisions while keeping all affected artifacts synchronized.</p>
-<h3 id="select-the-operating-mode">Select the operating mode</h3>
-<p>Classify the request before acting:</p>
-<ul><li><strong>Bootstrap</strong> — no coherent artifact system exists; create it sequentially from the brief.</li><li><strong>Expand</strong> — the foundation exists but an artifact layer such as journeys, screens, requirements, or architecture is missing.</li><li><strong>Update</strong> — a new fact or decision changes existing artifacts; perform impact analysis and update every affected owner.</li><li><strong>Audit</strong> — inspect completeness, consistency, or current state without writing unless the user also asks for changes.</li></ul>
-<p>Treat requests to explain, review, list, or report as Audit. Do not infer authorization to edit or commit from them.</p>
-<h3 id="establish-context">Establish context</h3>
-<ol><li>Inspect repository instructions, the artifact index, existing decision records, and worktree status.</li><li>Use <code>rg</code> and <code>rg --files</code> to find current terminology, IDs, routes, vendors, phases, and references.</li><li>Preserve unrelated or concurrent changes. Never replace a user&#39;s artifact merely to impose this skill&#39;s default structure.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/classification-rules.md">classification-rules.md</a> before Bootstrap, Expand, or Update.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/artifact-map.md">artifact-map.md</a> for Bootstrap or when deciding which layer is missing.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/impact-mapping.md">impact-mapping.md</a> for every Update.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/review-gates.md">review-gates.md</a> before completing Bootstrap or a substantial Expand.</li><li>Read <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/artifact-writing-standards.md">artifact-writing-standards.md</a> before creating new artifact files.</li></ol>
-<p>Use available specialist skills for product design, information architecture, domain modeling, data, security, or a selected technology when their trigger applies. Verify temporally unstable vendor and technology claims against current primary documentation. Keep product facts independent from implementation choices.</p>
-<h3 id="build-in-dependency-order">Build in dependency order</h3>
-<p>For Bootstrap, proceed in this order. For Expand, begin at the earliest missing prerequisite and reuse accepted work.</p>
-<ol><li><strong>Capture and classify</strong> — extract actors, outcomes, offerings, workflows, rules, phases, constraints, uncertainties, and explicit technology choices. Build an internal fact/assumption/question/decision ledger.</li><li><strong>Normalize vocabulary</strong> — establish canonical terms and identify overloaded concepts before modeling them.</li><li><strong>Establish product foundation</strong> — define vision, boundaries, phases, principles, and glossary.</li><li><strong>Model the domain</strong> — define actors, permissions, entities, relationships, taxonomies, configurable policies, and lifecycle states. Separate concepts that vary independently.</li><li><strong>Describe journeys</strong> — create one journey per major actor and transaction type, including preconditions, main flow, alternatives, failures, state transitions, notifications, operational intervention, and completion.</li><li><strong>Extract platform capabilities</strong> — identify shared authentication, payments, files, notifications, moderation, configuration, audit, trust, safety, and dispute responsibilities.</li><li><strong>Write requirements and delivery scope</strong> — derive stable requirements from the domain and journeys; define explicit phase inclusions, exclusions, dependencies, and exit criteria.</li><li><strong>Design experience architecture</strong> — map journeys to information architecture, screen inventory, screen contracts, navigation, routes, permissions, and loading/empty/ready/error states.</li><li><strong>Define technical architecture</strong> — only after product behavior is stable enough; document deployables, packages, API, data, authentication authority, storage, background work, integrations, deployment, and security boundaries.</li><li><strong>Record decisions</strong> — capture cross-cutting accepted, proposed, rejected, and superseded decisions with rationale, owner, date, and affected artifacts. Keep unresolved matters in open questions.</li><li><strong>Index and cross-link</strong> — make the artifact root explain product shape, artifact ownership, and document conventions.</li></ol>
-<p>Do not manufacture false completeness. A rough future phase should remain an outline with visible assumptions and open questions rather than receiving invented precision.</p>
-<h3 id="update-existing-artifacts">Update existing artifacts</h3>
-<p>For Update mode:</p>
-<ol><li>State the new fact or decision in canonical terms.</li><li>Locate its owning artifact and record it in the decision log when it affects more than one concern.</li><li>Build an impact set using <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/impact-mapping.md">impact-mapping.md</a>.</li><li>Search the full artifact tree for the old term, rule, vendor, boundary, status, or count.</li><li>Update owners first, then derived journeys, screens, routes, requirements, architecture, integrations, and indexes.</li><li>Preserve historical decisions; mark them superseded instead of deleting them.</li><li>Search again for stale references and contradictions.</li><li>Report what changed, what did not need to change, and any remaining open decision.</li></ol>
-<p>Never treat an amended document as sufficient evidence that all downstream artifacts are synchronized.</p>
-<h3 id="write-atomized-artifacts">Write atomized artifacts</h3>
-<ul><li>Give each file one primary concern and clear ownership.</li><li>Prefer cohesive prose, tables, state diagrams, and concise lists over a single giant specification.</li><li>Use stable, language-neutral identifiers for requirements and decisions.</li><li>Cross-link source and derived artifacts instead of duplicating long definitions.</li><li>Keep business rules configurable when the brief says operations/admin can change them.</li><li>Snapshot mutable policies on transactions when later changes must not rewrite an existing agreement.</li><li>Describe user-visible async states for every data-backed screen or meaningful section.</li><li>Avoid presenting vendor recommendations as confirmed until stakeholders accept them.</li></ul>
-<p>Use the files under <code>assets/artifact-templates/</code> as starting structures, not mandatory filler. Remove irrelevant sections rather than leaving empty headings.</p>
-<h3 id="validate-before-completion">Validate before completion</h3>
-<ol><li>Check semantic alignment using the appropriate gate in <a href="https://github.com/labdotsa/skills/blob/master/skills/build-product-artifacts/references/review-gates.md">review-gates.md</a>.</li><li>Run the deterministic validator from the directory containing this SKILL.md:</li></ol>
-<pre><code class="language-sh">   python3 scripts/validate_artifacts.py &lt;artifact-root&gt;</code></pre>
-<p>Add <code>--fail-placeholders</code> for a release-quality artifact set.</p>
-<ol><li>Run project-specific checks for runnable artifacts, schemas, generated clients, or diagrams.</li><li>Review <code>git diff --check</code>, changed-file scope, and worktree status.</li><li>Commit or amend only when the user explicitly requests it.</li></ol>
-<p>Lead the final response with the achieved artifact outcome. Mention validation, material assumptions, remaining open questions, and the commit identifier when applicable.</p></div>
-        </section>
-
-        <section class="related-section" aria-labelledby="related-title">
-          <div><p class="eyebrow">Continue with LAB</p><h2 id="related-title">Related skills &amp; recipes</h2></div>
-          <div class="catalog-directory related-directory"><div class="catalog-list" role="list"><article class="catalog-item" data-pillar="research" role="listitem">
-              <a class="catalog-row related-row" href="../../recipe.html" aria-label="Open related recipe: Functioning Prototype">
-                <span class="row-number" aria-hidden="true">01</span>
-                <span class="row-main">
-                  <span class="row-kicker"><span>product delivery</span><span>recipe</span></span>
-                  <span class="row-heading">Functioning Prototype</span>
-                  <span class="row-description">Guide a product from early discovery to a functioning prototype through four focused conversation layers: foundation, visuals, planning, and implementation. Use this recipe to gather and research product context, establish durable artifacts, define and reverse-engineer visual directions, create implementation-ready tickets, resolve human-in-the-loop decisions, and implement one tested task at a time.</span>
-                </span>
-                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>research</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
-              </a>
-            </article>
-            <article class="catalog-item" data-pillar="research" role="listitem">
-              <a class="catalog-row related-row" href="../information-architecture/index.html" aria-label="Open related skill: information-architecture">
-                <span class="row-number" aria-hidden="true">02</span>
-                <span class="row-main">
-                  <span class="row-kicker"><span>product</span><span>skill</span></span>
-                  <span class="row-heading">information-architecture</span>
-                  <span class="row-description">Design and structure information architecture (IA) for digital products. Covers content organization, taxonomy, navigation systems, content models, metadata, and findability optimization. Use when user needs to organize complex content, improve navigation, or define scalable structure.</span>
-                </span>
-                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>research</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
-              </a>
-            </article>
-            <article class="catalog-item" data-pillar="marketing" role="listitem">
-              <a class="catalog-row related-row" href="../copywriting/index.html" aria-label="Open related skill: copywriting">
-                <span class="row-number" aria-hidden="true">03</span>
-                <span class="row-main">
-                  <span class="row-kicker"><span>content</span><span>skill</span></span>
-                  <span class="row-heading">copywriting</span>
-                  <span class="row-description">Production-grade copywriting system. Turns structured briefs into high-conversion, channel-specific copy using proven frameworks (AIDA, PAS, FAB, JTBD). Includes variants, hypotheses, evaluation rubric, localization readiness, and strict safety/compliance guardrails. Use when writing ads, landing pages, emails, product descriptions, or UX copy.</span>
-                </span>
-                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>marketing</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
-              </a>
-            </article>
-            <article class="catalog-item" data-pillar="design" role="listitem">
-              <a class="catalog-row related-row" href="../deconstruct/index.html" aria-label="Open related skill: deconstruct">
-                <span class="row-number" aria-hidden="true">04</span>
-                <span class="row-main">
-                  <span class="row-kicker"><span>design</span><span>skill</span></span>
-                  <span class="row-heading">deconstruct</span>
-                  <span class="row-description">Deconstruct UI sources into hierarchical, reusable, customizable component systems. Use when a screenshot, mockup, design file, live interface, or existing UI code must be analyzed into visual regions, responsibility boundaries, stack-native contracts, adaptive layouts, interaction states, and explicit uncertainties before implementation.</span>
-                </span>
-                <span class="row-access" aria-hidden="true"><span class="row-lab-lockup font-heading"><span>design</span><strong>LAB</strong></span><span class="row-arrow">→</span></span>
-              </a>
-            </article></div></div>
+                </li></ol></div></div>
+          <button class="collapse-toggle" type="button" data-collapse-toggle aria-expanded="false">Show more</button>
         </section>
       </article>
     </main>
 
     <footer class="site-footer">
       <div class="footer-main"><div class="footer-brand"><a href="https://lab.sa" aria-label="LAB home"><img src="https://lab.sa/assets/logos/lab.svg" alt="" /><span class="font-heading">LAB</span></a><p>We are a product innovation company. Built to explore, design, develop, and scale what matters.</p><div class="social-links"><a href="https://bind.link/@labdotsa" aria-label="Bindlink"><span class="font-heading">B</span></a><a href="https://instagram.com/labdotsa" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></a><a href="https://twitter.com/labdotsa" aria-label="Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.8c-.7.3-1.5.5-2.3.6a4 4 0 0 0-7 2.7v.9A11.3 11.3 0 0 1 4.5 5.8s-3.6 8.1 4.5 11.7a11.7 11.7 0 0 1-7 2c8.1 4.5 18 0 18-10.4 0-.2 0-.4-.1-.6A8 8 0 0 0 22 5.8Z" /></svg></a><a href="https://linkedin.com/company/labdotsa" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg></a></div></div><div class="footer-links"><section><h2>Company</h2><a href="https://lab.sa/about">About</a><a href="https://lab.sa/portfolio">Portfolio</a><a href="https://lab.sa/contact">Contact</a></section><section><h2>Services</h2><a href="https://lab.sa/services/research">Research</a><a href="https://lab.sa/services/design">Design</a><a href="https://lab.sa/services/development">Development</a><a href="https://lab.sa/services/marketing">Marketing</a></section><section><h2>Legal</h2><a href="https://lab.sa/policy/privacy">Privacy Policy</a><a href="https://lab.sa/policy/tos">Terms of Service</a></section></div></div>
-      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><a href="https://lab.sa">⌘ العربية</a><label class="footer-theme"><span class="theme-moon" aria-hidden="true">☾</span><span class="theme-sun" aria-hidden="true">☼</span><select data-theme-picker aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></div>
+      <div class="footer-bottom"><a href="https://lab.sa">© 2026 LAB LLC. All rights reserved.</a><div class="footer-controls"><button class="footer-theme theme-toggle" type="button" data-theme-toggle><img data-theme-icon src="https://unpkg.com/lucide-static@latest/icons/moon.svg" alt="" aria-hidden="true" /><span data-theme-label>Dark</span></button></div></div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>

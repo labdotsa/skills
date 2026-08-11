@@ -3,6 +3,7 @@
 ((root) => {
   const storageKey = "labs-color-theme";
   const preferences = new Set(["system", "light", "dark"]);
+  const iconBase = "https://unpkg.com/lucide-static@latest/icons";
 
   function normalizePreference(value) {
     return preferences.has(value) ? value : "system";
@@ -27,6 +28,18 @@
     preference = "system";
   }
 
+  function updateControls(resolved) {
+    const nextTheme = resolved === "dark" ? "light" : "dark";
+    for (const control of document.querySelectorAll("[data-theme-toggle]")) {
+      control.dataset.resolvedTheme = resolved;
+      control.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+      const icon = control.querySelector("[data-theme-icon]");
+      const label = control.querySelector("[data-theme-label]");
+      if (icon) icon.src = `${iconBase}/${nextTheme === "dark" ? "moon" : "sun"}.svg`;
+      if (label) label.textContent = nextTheme[0].toUpperCase() + nextTheme.slice(1);
+    }
+  }
+
   function applyTheme() {
     const resolved = resolvePreference(preference, Boolean(media?.matches));
     document.documentElement.dataset.theme = resolved;
@@ -34,11 +47,7 @@
     document.documentElement.style.colorScheme = resolved;
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) themeColor.content = resolved === "dark" ? "#09090b" : "#f4f4f5";
-
-    for (const picker of document.querySelectorAll("[data-theme-picker]")) {
-      picker.value = preference;
-      picker.dataset.resolvedTheme = resolved;
-    }
+    updateControls(resolved);
   }
 
   function savePreference(value) {
@@ -51,22 +60,23 @@
     applyTheme();
   }
 
-  function bindPickers() {
-    for (const picker of document.querySelectorAll("[data-theme-picker]")) {
-      picker.addEventListener("change", (event) => savePreference(event.currentTarget.value));
+  function bindControls() {
+    for (const control of document.querySelectorAll("[data-theme-toggle]")) {
+      control.addEventListener("click", () => {
+        const resolved = resolvePreference(preference, Boolean(media?.matches));
+        savePreference(resolved === "dark" ? "light" : "dark");
+      });
     }
     applyTheme();
   }
 
   applyTheme();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindControls, { once: true });
+  else bindControls();
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindPickers, { once: true });
-  else bindPickers();
-
-  const handleSystemChange = () => {
+  media?.addEventListener?.("change", () => {
     if (preference === "system") applyTheme();
-  };
-  media?.addEventListener?.("change", handleSystemChange);
+  });
   root.addEventListener?.("storage", (event) => {
     if (event.key !== storageKey) return;
     preference = normalizePreference(event.newValue);

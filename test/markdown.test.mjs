@@ -41,5 +41,7 @@ test("escapes raw HTML and fenced code", () => {
 
   assert.doesNotMatch(html, /<script>/);
   assert.match(html, /&lt;script&gt;alert/);
-  assert.match(html, /<pre><code class="language-html">&lt;button&gt;Safe source&lt;\/button&gt;<\/code><\/pre>/);
+  assert.match(html, /class="markdown-code-block"/);
+  assert.match(html, /data-copy-target="#markdown-code-0"/);
+  assert.match(html, /<pre id="markdown-code-0"><code class="language-html">&lt;button&gt;Safe source&lt;\/button&gt;<\/code><\/pre>/);
 });

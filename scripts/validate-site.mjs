@@ -33,7 +33,7 @@ for (const [pageName, pageHtml] of [
   ["recipe index", recipesHtml],
   ["recipe detail", recipeHtml],
 ]) {
-  if (!pageHtml.includes('src="./theme.js"') || !pageHtml.includes("data-theme-picker")) {
+  if (!pageHtml.includes('src="./theme.js"') || !pageHtml.includes("data-theme-toggle")) {
     throw new Error(`The ${pageName} page is missing the shared theme control.`);
   }
 }
