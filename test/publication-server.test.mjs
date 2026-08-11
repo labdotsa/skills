@@ -5,13 +5,13 @@ import path from "node:path";
 import test from "node:test";
 import { createPublicationServer } from "../scripts/lib/publication-server.mjs";
 
-async function fixture(context) {
+async function fixture(context, options = {}) {
   const root = await mkdtemp(path.join(tmpdir(), "lab-skills-publication-"));
   await mkdir(path.join(root, "nested"));
   await writeFile(path.join(root, "index.html"), "<h1>Home</h1>");
   await writeFile(path.join(root, "nested", "index.html"), "<h1>Nested</h1>");
   await writeFile(path.join(root, "404.html"), "<h1>Missing</h1>");
-  const server = createPublicationServer({ rootDirectory: root });
+  const server = createPublicationServer({ rootDirectory: root, ...options });
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(0, "127.0.0.1", resolve);
@@ -32,4 +32,14 @@ test("returns the prerendered 404 surface with an HTTP 404", async (context) => 
   const response = await fetch(`${origin}/missing`);
   assert.equal(response.status, 404);
   assert.match(await response.text(), /Missing/);
+});
+
+test("mounts a Pages publication at its project base without exposing it at root", async (context) => {
+  const origin = await fixture(context, { basePath: "/skills" });
+  const mounted = await fetch(`${origin}/skills/nested/`);
+  const unmounted = await fetch(`${origin}/nested/`);
+
+  assert.equal(mounted.status, 200);
+  assert.match(await mounted.text(), /Nested/);
+  assert.equal(unmounted.status, 404);
 });

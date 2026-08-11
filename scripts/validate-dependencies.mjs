@@ -15,6 +15,7 @@ const expectedRuntime = [
   "tailwind-variants",
 ];
 const expectedDevelopment = [
+  "@axe-core/playwright",
   "@playwright/test",
   "@sveltejs/adapter-static",
   "@sveltejs/kit",

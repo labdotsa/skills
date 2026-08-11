@@ -145,7 +145,22 @@ test("exposes deterministic route entries and plain immutable page views", async
   assert.deepEqual(first.catalogSummary(), { skillCount: 2, recipeCount: 1 });
   assert.equal(first.snapshotId, second.snapshotId);
   assert.equal(first.skillPage("alpha").recommendedSkills[0].slug, "example");
+  assert.equal(first.skillPage("alpha").recommendedSkills[0].title, "example");
   assert.equal(first.skillPage("example").relatedRecipes[0].slug, "example");
+  assert.equal(first.skillPage("example").installCommand, "npx skills add labdotsa/skills --skill example");
+  assert.deepEqual(first.skillPage("example").packageFiles, [
+    {
+      path: "SKILL.md",
+      kind: "root",
+      sourceUrl: "https://github.com/labdotsa/skills/blob/master/skills/example/SKILL.md",
+    },
+    {
+      path: "references/guide.md",
+      kind: "reference",
+      sourceUrl: "https://github.com/labdotsa/skills/blob/master/skills/example/references/guide.md",
+    },
+  ]);
+  assert.deepEqual(first.skillPage("example").related.map((entry) => entry.kind), ["recipe", "skill"]);
   assert.equal(first.recipePage("example").localSkills[0].slug, "example");
   assert.equal(Object.isFrozen(first.recipePage("example")), true);
   assert.equal(JSON.parse(JSON.stringify(first.skillPage("example"))).slug, "example");

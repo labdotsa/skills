@@ -69,6 +69,12 @@ export type RelatedEntry = Readonly<{
 	category: string;
 }>;
 
+export type SkillPackageFile = Readonly<{
+	path: string;
+	kind: "root" | "reference" | "support";
+	sourceUrl: string;
+}>;
+
 export type SkillPageView = Readonly<{
 	kind: "skill";
 	slug: string;
@@ -81,12 +87,16 @@ export type SkillPageView = Readonly<{
 	compatibility?: string;
 	allowedTools?: string;
 	metadata: Readonly<Record<string, string>>;
-	packageFiles: readonly string[];
+	installCommand: string;
+	sourceUrl: string;
+	fileUrl: string;
+	packageFiles: readonly SkillPackageFile[];
 	resourceCounts: ResourceCounts;
 	document: RichDocument;
 	outline: readonly OutlineItem[];
 	relatedRecipes: readonly RelatedEntry[];
 	recommendedSkills: readonly RelatedEntry[];
+	related: readonly RelatedEntry[];
 }>;
 
 export type RecipePageView = Readonly<{

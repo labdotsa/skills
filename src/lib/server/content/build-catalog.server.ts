@@ -145,6 +145,9 @@ function skillPage(
 	const skill = skillsBySlug.get(slug);
 	if (!skill) missingEntry("skill", slug);
 	const relatedRecipes = (skillToRecipes[slug] ?? []).map((recipeSlug) => related(recipesBySlug.get(recipeSlug)!));
+	const recommendedSkills = recommendations([...skillsBySlug.values()], skill, recommendationLimit);
+	const encodedSlug = encodeURIComponent(skill.slug);
+	const sourceRoot = "https://github.com/labdotsa/skills";
 	return deepFreeze({
 		kind: "skill",
 		slug: skill.slug,
@@ -157,12 +160,20 @@ function skillPage(
 		...(skill.compatibility ? { compatibility: skill.compatibility } : {}),
 		...(skill.allowedTools ? { allowedTools: skill.allowedTools } : {}),
 		metadata: { ...skill.metadata },
-		packageFiles: [...skill.packageFiles],
+		installCommand: `npx skills add labdotsa/skills --skill ${skill.slug}`,
+		sourceUrl: `${sourceRoot}/tree/master/skills/${encodedSlug}`,
+		fileUrl: `${sourceRoot}/blob/master/skills/${encodedSlug}/SKILL.md`,
+		packageFiles: skill.packageFiles.map((file) => ({
+			path: file,
+			kind: file === "SKILL.md" ? "root" as const : file.startsWith("references/") ? "reference" as const : "support" as const,
+			sourceUrl: `${sourceRoot}/blob/master/skills/${encodedSlug}/${file.split("/").map(encodeURIComponent).join("/")}`,
+		})),
 		resourceCounts: { ...skill.resourceCounts },
 		document: skill.document,
 		outline: skill.outline,
 		relatedRecipes,
-		recommendedSkills: recommendations([...skillsBySlug.values()], skill, recommendationLimit),
+		recommendedSkills,
+		related: [...relatedRecipes, ...recommendedSkills],
 	});
 }
 
@@ -208,7 +219,13 @@ function recommendations<T extends SkillEntry | RecipeEntry>(entries: readonly T
 }
 
 function related(entry: SkillEntry | RecipeEntry): RelatedEntry {
-	return Object.freeze({ kind: entry.kind, slug: entry.slug, title: entry.title, description: entry.description, category: entry.category });
+	return Object.freeze({
+		kind: entry.kind,
+		slug: entry.slug,
+		title: entry.kind === "skill" ? entry.name : entry.title,
+		description: entry.description,
+		category: entry.category,
+	});
 }
 
 function missingEntry(kind: "skill" | "recipe", slug: string): never {

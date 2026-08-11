@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CheckIcon from "@lucide/svelte/icons/check";
 	import CopyIcon from "@lucide/svelte/icons/copy";
+	import LoaderCircleIcon from "@lucide/svelte/icons/loader-circle";
 	import { toast } from "svelte-sonner";
 	import { Button } from "$lib/components/ui/button/index.js";
 
@@ -65,7 +66,9 @@
 	data-copy-state={state}
 	onclick={copy}
 >
-	{#if state === "success"}
+	{#if state === "busy"}
+		<LoaderCircleIcon data-icon="busy" class="animate-spin motion-reduce:animate-none" aria-hidden="true" />
+	{:else if state === "success"}
 		<CheckIcon aria-hidden="true" />
 	{:else}
 		<CopyIcon aria-hidden="true" />

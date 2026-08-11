@@ -15,14 +15,20 @@ const contentTypes = new Map([
   [".xml", "application/xml; charset=utf-8"],
 ]);
 
-export function createPublicationServer({ rootDirectory }) {
+export function createPublicationServer({ rootDirectory, basePath = "" }) {
   const root = path.resolve(rootDirectory);
+  const mount = normalizeBasePath(basePath);
 
   return createServer(async (request, response) => {
     const pathname = new URL(request.url || "/", "http://localhost").pathname;
+    const mountedPathname = stripBasePath(pathname, mount);
+    if (mountedPathname === undefined) {
+      await sendNotFound(root, response);
+      return;
+    }
     let relativePath;
     try {
-      relativePath = decodeURIComponent(pathname).replace(/^\/+/, "");
+      relativePath = decodeURIComponent(mountedPathname).replace(/^\/+/, "");
     } catch {
       response.writeHead(400, { "content-type": "text/plain; charset=utf-8" }).end("Malformed path");
       return;
@@ -42,15 +48,31 @@ export function createPublicationServer({ rootDirectory }) {
         .end(contents);
     } catch (error) {
       if (error.code === "ENOENT") {
-        try {
-          const notFound = await readFile(path.join(root, "404.html"));
-          response.writeHead(404, { "content-type": "text/html; charset=utf-8" }).end(notFound);
-        } catch (notFoundError) {
-          response.writeHead(500, { "content-type": "text/plain; charset=utf-8" }).end(notFoundError.message);
-        }
+        await sendNotFound(root, response);
         return;
       }
       response.writeHead(500, { "content-type": "text/plain; charset=utf-8" }).end(error.message);
     }
   });
+}
+
+function normalizeBasePath(value) {
+  const trimmed = String(value).trim().replace(/^\/+|\/+$/g, "");
+  return trimmed ? `/${trimmed}` : "";
+}
+
+function stripBasePath(pathname, basePath) {
+  if (!basePath) return pathname;
+  if (pathname === basePath || pathname === `${basePath}/`) return "/";
+  if (!pathname.startsWith(`${basePath}/`)) return undefined;
+  return pathname.slice(basePath.length);
+}
+
+async function sendNotFound(root, response) {
+  try {
+    const notFound = await readFile(path.join(root, "404.html"));
+    response.writeHead(404, { "content-type": "text/html; charset=utf-8" }).end(notFound);
+  } catch (error) {
+    response.writeHead(500, { "content-type": "text/plain; charset=utf-8" }).end(error.message);
+  }
 }

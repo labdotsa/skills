@@ -3,6 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "test/e2e",
   outputDir: "tmp/playwright-results",
+  snapshotPathTemplate: "{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}",
   reporter: "line",
   retries: process.env.CI ? 2 : 0,
   use: {
@@ -13,7 +14,7 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "npm run build:e2e && node scripts/serve-publication.mjs .artifacts/e2e",
+    command: "node scripts/serve-e2e-publications.mjs",
     reuseExistingServer: !process.env.CI,
     url: "http://127.0.0.1:4173/",
   },

@@ -21,6 +21,7 @@ if (!indexHtml.includes('<main id="main-content"')) throw new Error("The root pa
 if (!indexHtml.includes('href="#main-content"')) throw new Error("The root page is missing skip navigation");
 if (!indexHtml.includes('aria-label="LAB services"')) throw new Error("The root page is missing service navigation");
 await validateDirectory(indexHtml, outputDirectory);
+await validateSkillPages(manifest, outputDirectory);
 if (!indexHtml.includes(`data-publication-profile="${profile.name}"`)) {
   throw new Error("The root page was built with the wrong publication profile");
 }
@@ -78,5 +79,46 @@ async function validateDirectory(html, directory) {
   }
   for (const href of [...skillLinks, ...recipeLinks]) {
     await access(path.join(directory, href.slice(2), "index.html"));
+  }
+}
+
+async function validateSkillPages(publicationManifest, directory) {
+  const skillPages = publicationManifest.files
+    .map((file) => file.path)
+    .filter((filename) => /^skills\/[^/]+\/index\.html$/.test(filename));
+
+  if (skillPages.length === 0) throw new Error("The publication contains no Skill detail pages");
+  for (const filename of skillPages) {
+    const html = await readFile(path.join(directory, filename), "utf8");
+    const slug = filename.split("/")[1];
+    if ((html.match(/<h1(?:\s|>)/g) ?? []).length !== 1) {
+      throw new Error(`${filename} must contain exactly one primary heading`);
+    }
+    if (!html.includes(`npx skills add labdotsa/skills --skill ${slug}`)) {
+      throw new Error(`${filename} is missing its Skill-specific install command`);
+    }
+    for (const marker of ["Skill instructions", "data-rich-document", "Package contents", "Related skills &amp; recipes"]) {
+      if (!html.includes(marker)) throw new Error(`${filename} is missing ${marker}`);
+    }
+    await validateLocalReferences(html, filename, directory);
+  }
+}
+
+async function validateLocalReferences(html, filename, directory) {
+  const pageDirectory = path.dirname(path.join(directory, filename));
+  const references = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
+  for (const reference of references) {
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(reference)) continue;
+    if (reference.startsWith("/")) throw new Error(`${filename} contains a root-relative local reference`);
+    const cleanReference = reference.split(/[?#]/, 1)[0];
+    if (!cleanReference) continue;
+    const decodedReference = decodeURIComponent(cleanReference);
+    let target = path.resolve(pageDirectory, decodedReference);
+    if (cleanReference.endsWith("/")) target = path.join(target, "index.html");
+    const relativeTarget = path.relative(directory, target);
+    if (relativeTarget.startsWith("..") || path.isAbsolute(relativeTarget)) {
+      throw new Error(`${filename} contains a local reference outside its publication`);
+    }
+    await access(target);
   }
 }

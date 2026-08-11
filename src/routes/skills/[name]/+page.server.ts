@@ -14,6 +14,6 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 	return {
 		page,
-		sourceUrl: `https://github.com/labdotsa/skills/tree/master/skills/${encodeURIComponent(params.name)}`,
+		catalogSnapshotId: snapshot.snapshotId,
 	};
 };

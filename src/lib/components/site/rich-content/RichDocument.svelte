@@ -5,13 +5,14 @@
 	interface Props {
 		document: RichDocument;
 		class?: string;
+		headingOffset?: 0 | 1;
 	}
 
-	let { document, class: className }: Props = $props();
+	let { document, class: className, headingOffset = 0 }: Props = $props();
 </script>
 
 <div class={className} data-rich-document>
 	{#each document.children as node, index (`${node.type}-${index}`)}
-		<RichNode {node} />
+		<RichNode {node} {headingOffset} />
 	{/each}
 </div>
