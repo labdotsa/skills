@@ -1888,9 +1888,14 @@ html[data-theme="dark"] .contact-form label > span:first-child img {
 }
 
 .hero-command,
+.install-panel,
+.protocol-command {
+  width: fit-content;
+  max-width: 100%;
+}
+
 .install-panel {
-  width: 100%;
-  max-width: none;
+  justify-self: start;
 }
 
 .skill-overview-grid {
@@ -4163,4 +4168,46 @@ html[data-theme="dark"] {
   width: 18px;
   height: 18px;
   flex: 0 0 18px;
+}
+
+/* Copy controls share one visual footprint across single- and multi-line code. */
+.command-block button,
+.prompt-block > div:first-child button,
+.code-block-toolbar button,
+.skill-reference button {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  place-items: center;
+}
+
+@media (max-width: 560px) {
+  .command-block button,
+  .prompt-block > div:first-child button,
+  .code-block-toolbar button,
+  .skill-reference button {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+  }
+}
+
+/* Hero install commands are intrinsic on desktop and bounded by the viewport. */
+.hero > .hero-command,
+.skill-overview .install-panel,
+.skill-overview .install-panel .protocol-command {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.hero > .hero-command {
+  align-self: flex-start;
+}
+
+.skill-overview .install-panel {
+  justify-self: start;
 }

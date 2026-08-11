@@ -18,6 +18,8 @@ Notable repository and skill changes are documented here.
 - Presented every recipe phase handoff as the same padded, rounded notice surface used for step guidance.
 - Moved recipe skill-source links onto the installation metadata row, right-aligned above the full-width command with a compact narrow-screen label.
 - Standardized every copy glyph on one 18 px box across single-line commands, multi-line code headers, and their loading and success states.
+- Moved the AFK/HITL classification notice from the opening conversation rule to Planning step 3.1, where tickets are first classified for implementation.
+- Placed package contents before related recommendations on skill pages, sized hero installation commands to their content with responsive width limits, and unified copy-control footprints across command and code headers.
 - Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.
