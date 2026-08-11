@@ -3949,3 +3949,59 @@ html[data-theme="dark"] .footer-brand img {
     font-size: 20px;
   }
 }
+
+/* One code surface, with inverse border contrast per theme. */
+:root {
+  --code-panel-background: #18181b;
+  --code-panel-foreground: #f4f4f5;
+  --code-panel-muted: #a1a1aa;
+  --code-panel-border: #3f3f46;
+  --code-panel-divider: #3f3f46;
+  --code-panel-control-border: #52525b;
+}
+
+html[data-theme="dark"] {
+  --code-panel-border: #a1a1aa;
+  --code-panel-divider: #71717a;
+  --code-panel-control-border: #a1a1aa;
+}
+
+.command-block,
+.prompt-block,
+.markdown-code-block,
+.skill-reference {
+  color: var(--code-panel-foreground);
+  background: var(--code-panel-background);
+  border-color: var(--code-panel-border);
+}
+
+.prompt-block > div:first-child,
+.prompt-block pre,
+.markdown-code-block pre,
+.markdown-body pre,
+.code-block-toolbar,
+.skill-reference > a,
+.skill-reference > span,
+.skill-reference > code {
+  color: var(--code-panel-foreground);
+  background: var(--code-panel-background);
+}
+
+.prompt-block > div:first-child,
+.code-block-toolbar,
+.skill-reference > a,
+.skill-reference > span {
+  border-bottom-color: var(--code-panel-divider);
+}
+
+.prompt-block > div:first-child,
+.code-block-toolbar {
+  color: var(--code-panel-muted);
+}
+
+.command-block button,
+.prompt-block > div:first-child button,
+.code-block-toolbar button,
+.skill-reference button {
+  border-color: var(--code-panel-control-border);
+}

@@ -11,6 +11,7 @@ Notable repository and skill changes are documented here.
 - Standardized recipe steps on one LAB accent and one reusable code surface, with icon-only copy controls, readable step indices, and right-side page navigation.
 - Replaced recipe skill-reference panels with the same compact LAB-striped install command used on skill detail pages, keeping source links separate and copy controls centered inside the command.
 - Stabilized recipe phase and step layouts on one numbered editorial grid, with aligned headings and bodies, top-aligned indices, safer wrapping, and a compact narrow-screen rail.
+- Unified command, prompt, and Markdown code panels on one background token, with darker light-mode borders and brighter dark-mode borders across panels and copy controls.
 - Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.
