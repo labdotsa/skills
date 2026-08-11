@@ -24,7 +24,7 @@
     "site:build": "npm run build:canonical",
     "site:serve": "npm run preview",
     "test": "tsx --test test/*.test.mjs",
-    "test:e2e": "playwright test test/e2e/foundation.spec.mjs",
+    "test:e2e": "playwright test",
     "typecheck": "node scripts/typecheck.mjs",
     "validate": "bash scripts/validate-skills.sh && tsx scripts/generate-catalog.ts --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run build:matrix && npm run test:e2e"
   },

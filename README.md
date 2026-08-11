@@ -6,7 +6,7 @@ This repository is intentionally small at the start. Stable skills will be publi
 
 ## Website
 
-Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The site includes generated indexes for protocols and [recipes](https://skills.lab.sa/recipes.html), beginning with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `master` rebuilds the site on Netlify.
+Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The SvelteKit directory prerenders the complete Skill and Recipe catalog, then adds fast local search and category filtering without another content request. The collection begins with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `master` rebuilds the site on Netlify.
 
 Use the checked runtime in [`.nvmrc`](.nvmrc), install with `npm ci`, and run `npm run dev` for local development. `npm run build:matrix` verifies the same fully prerendered route graph at both the canonical root and the GitHub Pages project base. `npm run test:e2e` exercises the public shell at desktop and mobile viewports.
 

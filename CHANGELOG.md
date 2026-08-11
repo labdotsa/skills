@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Shipped the prerendered SvelteKit discovery directory with one shared Skill/Recipe workbench, local query/category filtering, progressive no-JavaScript navigation, accessible keyboard controls, base-aware detail links, and responsive LAB rows.
 - Replaced the ad hoc catalog parser with one exact-byte, strict YAML/Zod, GFM-to-typed-rich-content Catalog snapshot shared by SvelteKit loaders and deterministic v2/publication projections.
 - Established the source-exclusive SvelteKit 5 application foundation with Tailwind CSS v4, locally owned shadcn-svelte primitives, concrete Lucide icons, reusable `ui → shared → site` components, a storage-safe theme controller, local LAB assets, a real prerendered 404, and canonical/GitHub Pages publication profiles from one route graph.
 - Published and audited the dependency-aware SvelteKit implementation graph as native GitHub sub-issues, and reconciled stale downstream ticket ownership in the hosting and design-system contracts.

@@ -1,17 +1,18 @@
 <script lang="ts">
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
 	import CopyButton from "$lib/components/shared/CopyButton.svelte";
+	import type { DirectoryPageView } from "$lib/domain/directory.js";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
+	import DirectoryWorkbench from "./DirectoryWorkbench.svelte";
 
 	interface Props {
 		canonicalOrigin: string;
 		indexable: boolean;
 		catalogSnapshotId: string;
-		skillCount: number;
-		recipeCount: number;
+		directory: DirectoryPageView;
 	}
 
-	let { canonicalOrigin, indexable, catalogSnapshotId, skillCount, recipeCount }: Props = $props();
+	let { canonicalOrigin, indexable, catalogSnapshotId, directory }: Props = $props();
 	const installCommand = "npx skills add labdotsa/skills";
 </script>
 
@@ -23,7 +24,7 @@
 />
 
 <PageFrame class="py-12 sm:py-18">
-	<section class="grid items-end gap-10 border-b pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]" aria-labelledby="page-title">
+	<section class="grid items-end gap-10 pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]" aria-labelledby="page-title" data-catalog-snapshot={catalogSnapshotId}>
 		<div>
 			<p class="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">LAB Skills / public working knowledge</p>
 			<h1 id="page-title" class="max-w-3xl text-5xl font-bold leading-[0.98] tracking-[-0.04em] sm:text-7xl">
@@ -39,14 +40,5 @@
 			<CopyButton text={installCommand} label="Copy install command" message="Install command copied" />
 		</div>
 	</section>
-	<section class="py-12" aria-labelledby="foundation-title" data-catalog-snapshot={catalogSnapshotId}>
-		<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">SvelteKit foundation</p>
-		<p class="mt-3 font-mono text-sm text-muted-foreground">
-			{skillCount} {skillCount === 1 ? "Skill" : "Skills"} · {recipeCount} {recipeCount === 1 ? "Recipe" : "Recipes"}
-		</p>
-		<h2 id="foundation-title" class="mt-3 text-3xl font-bold tracking-tight">One source. Portable static output.</h2>
-		<p class="mt-4 max-w-2xl leading-7 text-muted-foreground">
-			Browse a growing collection of practical protocols for research, design, development, and marketing—from one fast, portable library.
-		</p>
-	</section>
+	<DirectoryWorkbench {directory} />
 </PageFrame>
