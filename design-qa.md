@@ -2,10 +2,10 @@
 
 ## Visual truth
 
-- User references: `Screenshot 2026-08-11 at 11.46.17 AM.png`, `Screenshot 2026-08-11 at 11.47.21 AM.png`, `Screenshot 2026-08-11 at 11.48.13 AM.png`, `Screenshot 2026-08-11 at 11.49.02 AM.png`, `Screenshot 2026-08-11 at 11.49.42 AM.png`, `Screenshot 2026-08-11 at 11.51.13 AM.png`, and `Screenshot 2026-08-11 at 11.52.23 AM.png`.
-- Browser-rendered implementation captures: `lab-home-full-width-final.png`, `lab-skill-full-width-final.png`, `lab-recipe-full-width-final.png`, `lab-recipe-planning-prompts-focus.png`, and `lab-recipe-mobile-final.png` in the temporary QA workspace.
-- Desktop CSS viewport: 1600 px wide; implementation screenshots are 1596 × 898 pixels at device scale 1 after browser scrollbar allocation.
-- Responsive check: requested 390 × 844; the in-app browser reported an effective 487 px CSS width. No horizontal document overflow occurred on home, skill, or recipe pages.
+- User references include `Screenshot 2026-08-11 at 12.22.16 PM.png`, `Screenshot 2026-08-11 at 12.25.36 PM.png`, `Screenshot 2026-08-11 at 12.25.52 PM.png`, and `Screenshot 2026-08-11 at 12.26.37 PM.png`, in addition to the preceding full-width recipe review set.
+- Browser-rendered implementation captures: `lab-recipe-right-rail-final.jpg`, `lab-recipe-consistent-blocks-final-2.jpg`, and `lab-recipe-mobile-final.jpg` in the temporary QA workspace, plus the prior home and skill full-width captures.
+- Desktop CSS viewport: 1280 × 720 for the final consistency pass.
+- Responsive check: 390 × 844. No horizontal document overflow occurred.
 - Full-view and focused comparisons were normalized into 1596 × 449 side-by-side canvases.
 
 ## States and interactions checked
@@ -17,6 +17,8 @@
 - Recipe navigation with duplicated delivery-map and roster summaries removed.
 - Vertical planning prompts, wrapped prompt content, and copyable approval command.
 - Copyable skill-install references and prompt controls; copied state reached `success` and displayed the toast.
+- Icon-only prompt controls remain 38 × 38 pixels while preserving their accessible copy label in the DOM.
+- Recipe contents navigation occupies the right rail on desktop and returns above the article on narrow screens.
 - Mobile hero, blockquote, navigation, and skill-reference layout.
 - Browser console errors and warnings: none.
 
@@ -38,6 +40,8 @@
 | P1 | Step 3.2 rendered two prompt blocks side by side, clipping long code and producing visible scrollbars. | Stacked prompts vertically, matched the shared dark code-toolbar surface, and enabled readable pre-wrapping. | Focused planning comparison shows two full-width vertical prompts and no document overflow. |
 | P2 | Referenced skills were small pills that linked away but could not be copied or installed directly. | Replaced every skill pill with a reusable source/install block and animated copy control; added a copyable planning approval command. | Nine recipe skill/command references are present and the tested control reached its success state. |
 | P2 | Catalog rows ended with repeated LAB pillar lockups. | Removed lockup generation from both the dynamic home renderer and generated related rows, retaining only the directional arrow. | Home and skill DOM checks return zero `.row-lab-lockup` elements. |
+| P1 | Prompt controls exposed a second “Copy prompt” label while install references used a different component anatomy. | Reduced prompt controls to the shared icon-only state and rebuilt skill references with the same title/source toolbar, copy slot, and code body used by prompts. | Final focused capture shows matching stacked code surfaces; computed controls are 38 × 38 pixels and the tested icon reached the check state. |
+| P2 | Step indices were visually detached, the feedback note used a second accent, and the contents rail sat opposite the desired reading edge. | Sized indices to the complete heading block, mapped notes to the recipe accent, and moved the desktop contents rail to the right. | Computed index size is 23 px across a 55.5 px heading, all recipe accents resolve to research blue, and the navigation x-position is greater than the article x-position. |
 
 ## Final findings
 
