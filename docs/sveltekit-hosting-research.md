@@ -11,6 +11,11 @@ Rebuild the discovery site as one **static-first SvelteKit application** using S
 
 This is simpler than switching adapters and preserves feature parity. Netlify explicitly supports `adapter-static` for fully static SvelteKit sites; `adapter-netlify` is only needed when the application gains request-time SSR or functions. GitHub Pages is a static host, so those server-only features cannot be part of a dual-host baseline. [SvelteKit static adapter](https://svelte.dev/docs/kit/adapter-static), [Netlify's SvelteKit guide](https://docs.netlify.com/build/frameworks/framework-setup-guides/sveltekit/), [GitHub Pages overview](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 
+The later [portable static-hosting contract](portable-static-hosting-contract.md) accepts this architecture while
+replacing the loose `BASE_PATH`/indexability inputs below with one validated `PUBLICATION_PROFILE` tuple. It also
+supersedes the original fallback recommendation with an explicit prerendered `404.html` page. Treat that contract as
+normative; examples below remain the evidence trail that led to it.
+
 Use the existing `site/` directory as generated output to preserve the repository convention. Treat `src/` as the only application source and `site/` strictly as a reproducible Publication Artifact. The later single-source constraint supersedes an alongside migration: parity comparisons must use the base branch, deployed artifact, screenshots, and QA records rather than keeping `website/` and `src/` as simultaneous authoring trees. The current contract is visible in [`scripts/build-site.mjs`](../scripts/build-site.mjs), [`scripts/validate-site.mjs`](../scripts/validate-site.mjs), and [`package.json`](../package.json).
 
 ## Verified stack guidance
@@ -68,7 +73,6 @@ export default {
     adapter: adapter({
       pages: 'site',
       assets: 'site',
-      fallback: '404.html',
       strict: true
     }),
     paths: { base, relative: true }
@@ -78,7 +82,7 @@ export default {
 
 `paths.relative` already defaults to `true` and makes generated asset paths more portable, but it does not make hard-coded root-relative links safe. Generate route hrefs with `resolve()` and static-file URLs with `asset()` from `$app/paths`; these APIs apply the configured base path and require SvelteKit 2.26 or newer. [Path configuration](https://svelte.dev/docs/kit/configuration#paths), [`$app/paths`](https://svelte.dev/docs/kit/%24app-paths)
 
-Do not use the `404.html` fallback as a substitute for enumerating routes. SvelteKit warns that SPA fallbacks have substantial performance and SEO costs. Here it should only replace each host's generic not-found page after all real routes have been prerendered. Netlify automatically serves a root `404.html` for unresolved static paths. [Adapter fallback](https://svelte.dev/docs/kit/adapter-static#fallback), [Netlify custom 404 handling](https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling)
+Omit the adapter `fallback` option. SvelteKit generates it through its SPA fallback machinery and skips the adapter's strict dynamic-route check whenever a fallback exists, which weakens the fully prerendered contract. Instead, prerender an explicit `/404.html` page with route-local `trailingSlash = "never"`; it emits the artifact-root `404.html` that GitHub Pages and Netlify automatically display for unresolved paths. The document must contain useful `noindex` content, omit a canonical, and remain outside navigation and the sitemap. This correction supersedes the earlier fallback recommendation while preserving a real host-level `404` response for unknown URLs. [Adapter fallback](https://svelte.dev/docs/kit/adapter-static#fallback), [GitHub Pages custom 404](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site), [Netlify custom 404 handling](https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling)
 
 The canonical origin is a separate build concern from the base path. The accepted policy sets `SITE_ORIGIN=https://skills.lab.sa` for both builds, makes the root Netlify artifact indexable, and makes the `/skills` GitHub Pages artifact non-indexable. Canonical links, Open Graph metadata, structured data, robots, and the sitemap derive from those build inputs. Because a project-level `/skills/robots.txt` is not authoritative for the `labdotsa.github.io` host, Pages isolation relies on HTML `noindex`; duplicate non-HTML machine endpoints are omitted unless account-root robots control is available.
 

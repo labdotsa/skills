@@ -192,23 +192,23 @@ LLM-friendly output must not become a second content source. Text, JSON, sitemap
 
 ## Static-host configuration
 
-Use one adapter configuration with an environment-specific base path:
+Use one adapter configuration with a validated publication profile:
 
 ```js
 import adapter from "@sveltejs/adapter-static";
+import { publicationProfile } from "./src/lib/config/publication-profile.js";
 
-const base = process.env.BASE_PATH ?? "";
+const publication = publicationProfile(process.env.PUBLICATION_PROFILE);
 
 export default {
   kit: {
     adapter: adapter({
       pages: "site",
       assets: "site",
-      fallback: "404.html",
       strict: true
     }),
     paths: {
-      base,
+      base: publication.base,
       relative: true
     }
   }
@@ -217,14 +217,19 @@ export default {
 
 Use `$app/paths.resolve()` for internal routes and `asset()` for files in `static/`. Do not hand-build root-relative URLs.
 
+Do not configure an adapter fallback. Prerender an explicit `/404.html` page with route-local
+`trailingSlash = "never"` so both hosts receive a useful, noindex artifact-root error document while the adapter keeps
+strict route enumeration enabled. The root layout uses `trailingSlash = "always"`; the `.html` compatibility routes
+override it with `"never"` so their physical filenames remain exact.
+
 ### GitHub Pages
 
 Use a custom GitHub Actions workflow, not branch-based Jekyll publishing:
 
 1. Validate and build on `master`.
-2. Set `BASE_PATH="/skills"` for the `labdotsa.github.io/skills/` backup URL.
-3. Set `SITE_ORIGIN="https://skills.lab.sa"` and `SITE_INDEXABLE="false"` so Pages points to the canonical Netlify
-   origin without competing in search.
+2. Select `PUBLICATION_PROFILE="pages-project"` for the `labdotsa.github.io/skills/` backup URL, or `"pages-root"`
+   only for an explicitly root-mounted Pages deployment.
+3. Derive canonical origin, base path, indexability, and machine-surface policy from that closed profile tuple.
 4. Emit `noindex,follow` in every Pages HTML file and omit duplicate non-HTML machine endpoints unless the account-root
    `labdotsa.github.io/robots.txt` can be controlled; a nested `/skills/robots.txt` is not authoritative.
 5. Upload `site/` with `actions/upload-pages-artifact`.
@@ -242,16 +247,22 @@ publish = "site"
 
 [build.environment]
 NODE_VERSION = "22"
-BASE_PATH = ""
-SITE_ORIGIN = "https://skills.lab.sa"
-SITE_INDEXABLE = "true"
+
+[context.production.environment]
+PUBLICATION_PROFILE = "canonical"
+
+[context.deploy-preview.environment]
+PUBLICATION_PROFILE = "preview"
+
+[context.branch-deploy.environment]
+PUBLICATION_PROFILE = "preview"
 ```
 
 Do not add `@sveltejs/adapter-netlify` unless the product later requires runtime SSR, functions, form actions, or non-prerendered endpoints.
 
 ### One artifact or two
 
-The same byte-for-byte artifact works when both hosts serve the app from the same URL base, typically `/`. A normal GitHub project site serves from `/skills`, while Netlify serves from `/`, so those targets should run the same source build twice with different `BASE_PATH` values.
+The same byte-for-byte artifact works when both hosts serve the app from the same URL base and publication policy. A normal GitHub project site serves from `/skills`, while Netlify serves from `/`, and the backup is non-indexable, so those targets run the same source revision under different validated publication profiles. They are distinct generated artifacts, never distinct application sources.
 
 Netlify at `https://skills.lab.sa` is the canonical production origin. Its platform hostname redirects to that origin;
 deploy previews and the GitHub Pages backup emit `noindex,follow` while carrying canonical tags on `skills.lab.sa`.
@@ -353,7 +364,7 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 
 | Risk | Mitigation |
 | --- | --- |
-| Base-path failures on Pages | Build both `BASE_PATH=""` and `BASE_PATH="/skills"` in CI; use `resolve()` and `asset()` everywhere. |
+| Base-path failures on Pages | Build both canonical and `pages-project` profiles in CI; use `resolve()` and `asset()` everywhere. |
 | Visual drift while replacing 4,200 lines of CSS | Migrate by vertical slice and use the existing QA viewports as screenshot baselines. |
 | Unsafe Markdown HTML | Preserve visible escaping through the typed rich-document renderer; never pass Source Content to `{@html}`. |
 | Missing dynamic pages | Export `entries()` and keep adapter-static `strict: true`. |
@@ -381,6 +392,9 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
    Markdown AST, resolves relationships once, and derives all human and machine projections. Rich content is rendered
    through typed Svelte components without source `{@html}`. See the
    [shared content pipeline contract](content-pipeline-contract.md).
+6. One SvelteKit route graph produces validated canonical, preview, and Pages publication profiles; every real route is
+   prerendered, dynamic entries are explicit, URL construction is base-aware, and a real static `404.html` replaces an
+   SPA fallback. See the [portable static-hosting contract](portable-static-hosting-contract.md).
 
 ## Remaining decisions
 

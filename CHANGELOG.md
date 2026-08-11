@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Defined the portable static-hosting contract: one SvelteKit route graph, validated publication profiles, complete prerendering, base-aware URLs, exact legacy aliases, and a real static 404 for Netlify and GitHub Pages.
 - Defined the single-read shared content pipeline, typed Skill/Recipe model, component-rendered rich-content boundary, deterministic publication graph, and vertical implementation gates.
 - Defined canonical LLM discovery, Markdown, catalog identity, license, crawler-access, and validation contracts without introducing a second content source or treating `llms.txt` as a standard.
 - Defined the Discovery Site technical SEO and measurement contract, including crawl and canonical invariants, page-intent metadata, structured data, internal linking, Core Web Vitals, analytics, and regression gates.
