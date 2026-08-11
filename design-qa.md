@@ -2,8 +2,8 @@
 
 ## Visual truth
 
-- User references include the preceding full-width recipe review set plus `Screenshot 2026-08-11 at 1.19.52 PM.png` through `Screenshot 2026-08-11 at 1.23.58 PM.png`, the handoff/notice comparison at `1.26.25 PM` and `1.26.48 PM`, and the install/source-row reference at `1.27.32 PM`.
-- Browser-rendered implementation captures include the prior recipe QA set plus `lab-recipe-sticky-rail-after.jpg`, `lab-recipe-code-dark-after.jpg`, `lab-recipe-code-light-after.jpg`, `lab-recipe-section-leading-final.jpg`, `lab-recipe-handoff-notice-after.jpg`, `lab-recipe-install-meta-after.jpg`, and the combined fidelity comparison images in the temporary QA workspace.
+- User references include the preceding full-width recipe review set plus `Screenshot 2026-08-11 at 1.19.52 PM.png` through `Screenshot 2026-08-11 at 1.23.58 PM.png`, the handoff/notice comparison at `1.26.25 PM` and `1.26.48 PM`, the install/source-row reference at `1.27.32 PM`, and the copy-icon consistency reference at `1.39.47 PM`.
+- Browser-rendered implementation captures include the prior recipe QA set plus `lab-recipe-sticky-rail-after.jpg`, `lab-recipe-code-dark-after.jpg`, `lab-recipe-code-light-after.jpg`, `lab-recipe-section-leading-final.jpg`, `lab-recipe-handoff-notice-after.jpg`, `lab-recipe-install-meta-after.jpg`, `lab-recipe-copy-icons-after.jpg`, `lab-recipe-copy-icons-comparison.jpg`, and the combined fidelity comparison images in the temporary QA workspace.
 - Desktop CSS viewport: 1280 × 720 for the final consistency pass.
 - Responsive check: 390 × 844. No horizontal document overflow occurred.
 - Full-view and focused comparisons were normalized into 1596 × 449 side-by-side canvases.
@@ -29,6 +29,7 @@
 - Conversation rule, phase title, step body, handoff, prototype gate, and source copy share the same desktop content-column x-position.
 - All four phase handoffs now share the guidance notice anatomy: 16 px × 20 px padding, 8 px radius, no border, and the theme surface token, with zero narrow-screen overflow.
 - All seven skill-source links share the installation-label baseline and align their right edge to the command edge; at narrow widths the visible label contracts to “Source” while retaining the complete accessible link text.
+- All 19 single-line command and multi-line code copy icons resolve to one 18 × 18 px base box with zero horizontal or vertical center delta; copy, loading, and success states retain that shared geometry, including at 366 px with no overflow.
 - Recipe contents links update an `aria-current="location"` state while scrolling and after clicks/hash loads; all six targets were exercised and matched their active link.
 - Mobile hero, blockquote, navigation, and skill-reference layout.
 - Browser console errors and warnings: none.
@@ -62,6 +63,7 @@
 | P1 | Multi-line code headers and panel borders used one contrast level in both themes. | Added separate theme tokens for header text, panel borders, dividers, and controls. | Header text computes to `rgb(212, 212, 216)` in dark mode and `rgb(113, 113, 122)` in light mode; panel borders compute to `rgb(39, 39, 42)` and `rgb(244, 244, 245)` respectively. |
 | P1 | Phase handoffs were presented as loose paragraphs separated only by a rule, while nearby operational guidance used a clear notice surface. | Reused the step-guidance notice grammar for every `.phase-output`, preserving the aligned reading column. | All four handoffs compute to 16 px × 20 px padding, 8 px radius, no border, `rgb(24, 24, 27)` in dark mode and `rgb(244, 244, 245)` in light mode; the focused comparison matches the supplied notice reference. |
 | P1 | Skill-source links sat below installation commands, creating a detached third line and uneven vertical rhythm. | Converted each install reference into a two-row grid with installation metadata and source access sharing the first baseline, then made the command span the second row. | Seven source links align to the command’s right edge; label and link differ by only 0.5 px vertically, desktop has zero overflow, and the 366 px layout remains overflow-free with the compact source label. |
+| P1 | Single-line install commands inherited a larger copy glyph than multi-line prompt headers, making identical controls look inconsistent. | Applied one explicit 18 px icon box to every copy surface and state while preserving each control's existing dimensions. | All 19 copy glyphs return the single computed size `18x18`; icon/button centers differ by 0 px on both axes, and the 366 px layout remains overflow-free. |
 
 ## Final findings
 

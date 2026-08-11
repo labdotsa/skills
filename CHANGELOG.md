@@ -17,6 +17,7 @@ Notable repository and skill changes are documented here.
 - Refined recipe reading mechanics with centered icon-only copy controls, sticky step-number rails, full-bleed active navigation, theme-aware code borders and headers, and one consistent content-column inset for handoffs and closing sections.
 - Presented every recipe phase handoff as the same padded, rounded notice surface used for step guidance.
 - Moved recipe skill-source links onto the installation metadata row, right-aligned above the full-width command with a compact narrow-screen label.
+- Standardized every copy glyph on one 18 px box across single-line commands, multi-line code headers, and their loading and success states.
 - Fixed folded YAML frontmatter parsing so recipe descriptions render as their full text in discovery cards.
 - Establish the initial public repository structure.
 - Publish the initial skill collection: `build-product-artifacts`, `copywriting`, `deconstruct`, `information-architecture`, `seo-engine`, and `tailwind`.

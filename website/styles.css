@@ -4153,3 +4153,14 @@ html[data-theme="dark"] {
     font-size: 10px;
   }
 }
+
+/* Every copy state uses one glyph box across command and code surfaces. */
+.command-block [data-copy-icon],
+.prompt-block [data-copy-icon],
+.markdown-code-block [data-copy-icon],
+.code-block-toolbar [data-copy-icon],
+.skill-reference [data-copy-icon] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
