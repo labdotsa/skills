@@ -4108,3 +4108,48 @@ html[data-theme="dark"] {
 .phase-output strong {
   color: var(--foreground);
 }
+
+/* Install metadata shares one baseline above the full-width command. */
+.recipe-skill-install {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 16px;
+  align-items: baseline;
+}
+
+.recipe-skill-install > .eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.recipe-skill-install .command-block {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.recipe-skill-install .source-link {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: baseline;
+  justify-self: end;
+  margin: 0 0 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .recipe-skill-install .source-link {
+    gap: 4px;
+    font-size: 0;
+  }
+
+  .recipe-skill-install .source-link::before {
+    content: "Source";
+    font-size: 10px;
+  }
+
+  .recipe-skill-install .source-link span {
+    font-size: 10px;
+  }
+}
