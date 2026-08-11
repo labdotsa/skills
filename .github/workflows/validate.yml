@@ -16,20 +16,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
+      - run: npm install --global npm@11.17.0
       - run: npm ci
-      - run: npm run build
-      - name: Require generated files in pull requests
+      - name: Require generated catalog in pull requests
         if: github.event_name == 'pull_request'
-        run: git diff --exit-code -- docs/catalog.md site
-      - run: npm run validate
+        run: npm run catalog && git diff --exit-code -- docs/catalog.md
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - run: npm run parity:capture
-      - uses: actions/upload-artifact@v4
-        with:
-          name: parity-captures
-          path: tmp/parity-captures
-          if-no-files-found: error
-          retention-days: 14
+      - run: npm run validate

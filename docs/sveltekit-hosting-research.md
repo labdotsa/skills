@@ -16,7 +16,7 @@ replacing the loose `BASE_PATH`/indexability inputs below with one validated `PU
 supersedes the original fallback recommendation with an explicit prerendered `404.html` page. Treat that contract as
 normative; examples below remain the evidence trail that led to it.
 
-Use the existing `site/` directory as generated output to preserve the repository convention. Treat `src/` as the only application source and `site/` strictly as a reproducible Publication Artifact. The later single-source constraint supersedes an alongside migration: parity comparisons must use the base branch, deployed artifact, screenshots, and QA records rather than keeping `website/` and `src/` as simultaneous authoring trees. The current contract is visible in [`scripts/build-site.mjs`](../scripts/build-site.mjs), [`scripts/validate-site.mjs`](../scripts/validate-site.mjs), and [`package.json`](../package.json).
+Use the existing `site/` directory as generated output to preserve the repository convention. Treat `src/` as the only application source and `site/` strictly as a reproducible Publication Artifact. The later single-source constraint supersedes an alongside migration: parity comparisons must use the base branch, deployed artifact, screenshots, and QA records rather than keeping `website/` and `src/` as simultaneous authoring trees. The legacy `scripts/build-site.mjs` and `scripts/validate-site.mjs` implementations were retired by the source cutover; current commands live in [`package.json`](../package.json).
 
 ## Verified stack guidance
 

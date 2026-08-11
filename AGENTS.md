@@ -25,14 +25,16 @@ This is a public Agent Skills repository. Optimize for portability, clarity, and
 - Run `npm run catalog` after adding, renaming, or removing a stable skill.
 - Add a `metadata.category` value for every stable skill so discovery filters stay useful.
 - Keep recipe discovery metadata in `recipes/<name>/RECIPE.md`; each `metadata.detail-url` must resolve inside the generated site.
-- Edit discovery-site source only under `website/`; `site/` is generated output.
-- Run `npm run site:build` after changing stable skill metadata, recipe source, or files under `website/`.
-- The Pages workflow runs `npm run build` before validation so deployed discovery data always reflects the current `skills/` directory.
-- Use `npm run site:watch` when maintaining the catalog beside a local file preview.
+- Edit discovery-site source only under `src/` and locally served static assets under `static/`; `site/` is generated output.
+- Keep routes thin and compose the site through `ui → shared → site` components under `src/lib/components/`.
+- Run `npm run catalog` after changing stable skill metadata, and use `npm run dev` for the local Discovery Site.
+- Run `npm run build:matrix` after changing application source, publication profiles, or static assets.
+- The Pages and Netlify workflows build the same SvelteKit route graph with an explicit publication profile.
 - Run `npm run validate` before considering a change complete.
 - Update `CHANGELOG.md` for behavioral, lifecycle, or distribution changes.
 - Keep generated catalog content synchronized with skill frontmatter.
-- Keep website source dependency-free and GitHub Pages-compatible; skill data is generated, not hand-maintained.
+- Keep the SvelteKit application fully prerenderable and base-path portable; skill data is generated, not hand-maintained.
+- Add UI through the pinned local shadcn-svelte workflow, use concrete Lucide icon subpaths, and do not load presentation assets from runtime CDNs.
 - Do not add tool-specific plugin manifests until there is at least one stable skill to distribute.
 
 ## Agent skills

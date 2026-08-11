@@ -22,8 +22,8 @@ the generated output for those seven entries.
 | --- | --- | --- | --- |
 | [Stable Skills](../skills/) | `skills/<name>/SKILL.md` plus package files | Canonical Skill Source Content and package inventory | **Preserve** as Source Content |
 | [Recipes](../recipes/) | `recipes/<slug>/RECIPE.md` | Canonical Recipe discovery metadata and workflow source | **Preserve** as Source Content |
-| [Website templates and scripts](../website/) | Four HTML templates, six browser scripts, one stylesheet, one image | Editable application source | **Retire** atomically when SvelteKit becomes the sole application source |
-| [Site builder](../scripts/build-site.mjs) | Build-time orchestration and page rendering | Reads Source Content, injects catalogs, renders Skill Markdown, and writes the Publication Artifact | **Retire** as a page assembler; preserve required behavior in shared modules and thin commands |
+| Legacy `website/` templates and scripts | Four HTML templates, six browser scripts, one stylesheet, one image | Former editable application source | **Retired** atomically when SvelteKit became the sole application source |
+| Legacy `scripts/build-site.mjs` | Build-time orchestration and page rendering | Former page assembler | **Retired**; preserve required behavior in shared modules and thin commands |
 | [Generated site](../site/) | Reproducible output | Committed Publication Artifact and Netlify publish directory | **Decide** whether it remains committed after cutover; never treat it as source |
 | [Generated documentation catalog](catalog.md) | [Catalog generator](../scripts/generate-catalog.mjs) | Human-readable list derived from stable Skills | **Preserve** as a generated view over the shared model |
 
@@ -35,16 +35,16 @@ Recipe-index templates to their generated equivalents.
 
 - Global header, desktop/mobile navigation, footer, theme controls, and toast markup are repeated across all four HTML
   templates.
-- Catalog validation and Skill-domain behavior exist in both
-  [the build model](../scripts/lib/site-catalog.mjs) and [the browser model](../website/catalog.js).
-- Home-directory behavior in [app.js](../website/app.js) and Recipe-index behavior in
-  [recipes.js](../website/recipes.js) separately implement filtering, category counts, rows, empty states, and `/` search.
+- Catalog validation and Skill-domain behavior existed in both the legacy `scripts/lib/site-catalog.mjs` build model
+  and `website/catalog.js` browser model.
+- Home-directory behavior in legacy `website/app.js` and Recipe-index behavior in `website/recipes.js` separately
+  implemented filtering, category counts, rows, empty states, and `/` search.
 - Category labels and category-to-LAB-pillar mappings are repeated across browser and build modules.
 - The Recipe catalog is derived from `RECIPE.md`, but the complete Recipe reading page is independently hand-authored in
-  [recipe.html](../website/recipe.html). The source and visible workflow can therefore drift.
-- [build-site.mjs](../scripts/build-site.mjs) mixes filesystem reads, domain relationships, Markdown rendering, SEO,
+  legacy `website/recipe.html`. The source and visible workflow could therefore drift.
+- Legacy `scripts/build-site.mjs` mixed filesystem reads, domain relationships, Markdown rendering, SEO,
   HTML assembly, asset copying, sitemap/robots generation, and stale-output checking.
-- [styles.css](../website/styles.css) is a 4,213-line global cascade shared by every page.
+- Legacy `website/styles.css` was a 4,213-line global cascade shared by every page.
 - Page-wide scripts locate controls through global IDs and `data-*` selectors instead of component ownership.
 
 All of these implementation duplications are **Retire** items. The rebuild must retain one content/domain pipeline and
@@ -123,7 +123,7 @@ Identical Recipe data is embedded in the home and Recipe-index pages and is also
 
 ### Markdown rendering and safety
 
-Skill instructions are rendered at build time by [markdown.mjs](../scripts/lib/markdown.mjs). The supported subset
+Skill instructions were rendered at build time by legacy `scripts/lib/markdown.mjs`. The supported subset
 includes headings with stable duplicate-safe IDs, paragraphs, emphasis, strong text, deletion, inline/fenced code,
 links, images, horizontal rules, blockquotes, ordered/unordered/task lists, and tables.
 

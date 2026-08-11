@@ -8,10 +8,7 @@ This repository is intentionally small at the start. Stable skills will be publi
 
 Explore the collection at [skills.lab.sa](https://skills.lab.sa/). The site includes generated indexes for protocols and [recipes](https://skills.lab.sa/recipes.html), beginning with a functioning-prototype delivery path that combines LABs and external skills through focused chat handoffs. Every push to `master` rebuilds the site on Netlify.
 
-For a local file preview, run `npm run site:build` and open `site/index.html`. Use `npm run site:watch` while editing skills or website source to keep the generated preview current.
-
-Run `npm run parity` to verify the public routes and browser interactions at the desktop and mobile QA viewports and to
-regenerate the ignored reference captures under `tmp/parity-captures/`.
+Use the checked runtime in [`.nvmrc`](.nvmrc), install with `npm ci`, and run `npm run dev` for local development. `npm run build:matrix` verifies the same fully prerendered route graph at both the canonical root and the GitHub Pages project base. `npm run test:e2e` exercises the public shell at desktop and mobile viewports.
 
 ## Catalog
 
@@ -38,14 +35,15 @@ The skills follow the [Agent Skills specification](https://agentskills.io/specif
 | [`docs/`](docs/) | Human-facing catalog and repository documentation |
 | [`templates/`](templates/) | Starting point for new skills |
 | [`scripts/`](scripts/) | Catalog generation and repository validation |
-| [`website/`](website/) | Editable source for the discovery experience |
-| [`site/`](site/) | Generated GitHub Pages output; do not edit directly |
+| [`src/`](src/) | Sole SvelteKit application source, composed as `ui → shared → site` |
+| [`static/`](static/) | Locally served brand and machine-readable assets |
+| [`site/`](site/) | Generated publication output; never an application source |
 
 ## Website architecture
 
-The discovery site remains a zero-dependency static application. `website/` owns the skill and recipe indexes, detail-page sources, presentation, browser behavior, and social image. `scripts/build-site.mjs` derives discovery data from `skills/*/SKILL.md` and `recipes/*/RECIPE.md`, then writes the deployable pages plus one detail route per skill to `site/`. Each skill detail route renders its `SKILL.md` at build time, including headings, lists, tables, links, task lists, blockquotes, and fenced code without requiring browser-side dependencies.
+The discovery site is one SvelteKit application in `src/`, fully prerendered with `adapter-static`. Publication profiles change only deployment facts such as the base path and indexing policy: `canonical` targets `skills.lab.sa`, while `pages-project` targets the `/skills` GitHub Pages backup. Both use the same routes, components, content, and lockfile.
 
-Catalog data has an explicit, versioned contract shared by the generator, validation scripts, and browser model. `npm run validate` checks skill structure, generated-file freshness, catalog integrity, package-file links, and browser-model behavior.
+The UI is built from locally owned shadcn-svelte primitives, reusable shared compositions, feature-specific site components, concrete Lucide icon imports, Tailwind CSS v4, and bundled brand/font assets. `npm run validate` checks repository structure, the one-source boundary, dependencies, types, unit behavior, both publication profiles, and public browser behavior.
 
 ## Lifecycle
 

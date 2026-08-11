@@ -31,19 +31,20 @@ Open a skill proposal before investing in a large contribution.
 3. Replace the template metadata and instructions.
 4. Remove any unused optional directories.
 5. Add realistic evaluation cases when the outcome can be tested.
-6. Run `npm run catalog`, `npm run site:build`, and `npm run validate`.
+6. Run `npm run catalog` and `npm run validate`.
 7. Add a short entry under `Unreleased` in `CHANGELOG.md`.
 
 ## Changing the discovery site
 
-- Edit source files under `website/`, never generated files under `site/`.
+- Edit application source under `src/` and locally served assets under `static/`; never treat generated `site/` output as source.
+- Keep routes thin. Compose components through `src/lib/components/ui/`, then `shared/`, then feature-specific `site/` directories.
+- Acquire primitives one at a time with the pinned local shadcn-svelte CLI, review the copied source, and use concrete Lucide icon subpath imports.
 - Treat each `recipes/<name>/RECIPE.md` frontmatter block as the discovery source for the Recipes index; its `metadata.detail-url` must point to a generated or copied local detail page.
-- Keep the site usable when opened directly from the filesystem as well as from GitHub Pages.
+- Keep every route fully prerenderable and use SvelteKit's base-aware path helpers so one source works at the canonical root and the GitHub Pages project base.
 - Treat each skill's `SKILL.md` as the source for its rendered protocol instructions; do not duplicate that content in website templates.
-- Run `npm run build` to refresh the deployable output.
-- Run `npm run validate`; this checks the catalog contract and browser-model tests in addition to generated-file freshness.
-- Run `npm run parity` when changing Discovery Site behavior or presentation; install Chromium once with
-  `npx playwright install chromium`.
+- Run `npm run build:matrix` to verify canonical and GitHub Pages publication profiles.
+- Run `npm run validate`; this checks source boundaries, dependencies, types, unit behavior, both static builds, and browser behavior.
+- Install Chromium once with `npx playwright install chromium` before running browser checks locally.
 
 ## Pull request checklist
 
@@ -54,7 +55,7 @@ Open a skill proposal before investing in a large contribution.
 - [ ] Scripts are narrowly scoped, safe, and document their dependencies.
 - [ ] Links resolve and sources are attributed where appropriate.
 - [ ] The generated catalog is current.
-- [ ] Generated GitHub Pages output is current when website source changed.
+- [ ] Both canonical and GitHub Pages project-base builds pass when application source changed.
 - [ ] `npm run validate` passes.
 
 By contributing, you agree that your contribution is licensed under this repository's MIT license.

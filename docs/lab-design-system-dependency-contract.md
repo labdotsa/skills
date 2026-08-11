@@ -465,10 +465,11 @@ share the exact version.
 
 ## shadcn acquisition and update workflow
 
-`components.json` is committed with `typescript: true`, style `new-york`, Tailwind CSS at `src/app.css`, and aliases
+`components.json` is committed with `typescript: true`, style `nova`, Tailwind CSS at `src/app.css`, and aliases
 `$lib`, `$lib/utils`, `$lib/components`, `$lib/components/ui`, and `$lib/hooks`. The neutral `baseColor` is only a CLI
 schema input; generated color values never replace the LAB graph. The file is required only for the CLI and controls
-where copied source lands
+where copied source lands. The pinned `shadcn-svelte@1.5.0` CLI no longer accepts the retired `new-york` registry
+style and resolves it to `nova`; the owned wrappers still replace generated neutral styling with the LAB token graph.
 ([components.json](https://shadcn-svelte.com/docs/components-json)).
 
 For the initial acquisition:

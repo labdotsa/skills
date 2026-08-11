@@ -1,10 +1,14 @@
 # Discovery Site parity harness
 
-The parity harness makes the pre-SvelteKit Discovery Site contract executable. It complements the
+The parity harness made the pre-SvelteKit Discovery Site contract executable. It complements the
 [current-state inventory](discovery-site-parity-contract.md) with public-interface checks that can be rerun before and
 after each migration slice.
 
-## Setup and commands
+> **Archived baseline:** the commands and test files below describe the accepted legacy snapshot from issue #15. They
+> retired when `src/` became the sole application source. Current foundation checks run through `npm run validate`;
+> historical comparisons use the pre-cutover revision or its preserved evidence, never a second source tree.
+
+## Historical setup and commands
 
 ```bash
 npm ci

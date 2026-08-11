@@ -13,9 +13,9 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "node scripts/serve-site.mjs",
+    command: "npm run build:e2e && node scripts/serve-publication.mjs .artifacts/e2e",
     reuseExistingServer: !process.env.CI,
-    url: "http://127.0.0.1:4173/index.html",
+    url: "http://127.0.0.1:4173/",
   },
   projects: [
     {

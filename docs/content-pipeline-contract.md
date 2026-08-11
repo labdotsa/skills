@@ -35,13 +35,13 @@ The existing implementation proves behavior worth preserving, but not the future
 
 - [skill-catalog.mjs](../scripts/lib/skill-catalog.mjs) contains an ad hoc frontmatter scalar parser, walks Skill
   packages, invents missing description/category fallbacks, and returns a Skill-only model.
-- [recipe-catalog.mjs](../scripts/lib/recipe-catalog.mjs) reuses that parser but extracts Recipe titles, conversation
+- Legacy `scripts/lib/recipe-catalog.mjs` reused that parser but extracted Recipe titles, conversation
   counts, and related Skill names with separate regular expressions. Skill and Recipe catalogs have separate version 1
   validators.
-- [build-site.mjs](../scripts/build-site.mjs) rereads Skill sources, derives related rows, renders Markdown, constructs
+- Legacy `scripts/build-site.mjs` reread Skill sources, derived related rows, rendered Markdown, constructed
   URLs, serializes catalogs, and assembles HTML in one command. Routes and generators therefore do not consume one
   validated snapshot.
-- [markdown.mjs](../scripts/lib/markdown.mjs) correctly escapes raw HTML and fenced code and neutralizes explicit unsafe
+- Legacy `scripts/lib/markdown.mjs` correctly escaped raw HTML and fenced code and neutralized explicit unsafe
   schemes. Existing tests lock those safety outcomes, but the hand-written parser is not a full CommonMark/GFM parser.
 - Current catalog tests require stable source ordering, `SKILL.md` first in package inventories, matching Recipe
   directory/frontmatter names, one-based catalog positions, unique names, and identical embedded/public JSON.

@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(html[data-theme="dark"], html[data-theme="dark"] *));
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("./lib/assets/fonts/ibm-plex-sans-arabic/regular.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("./lib/assets/fonts/ibm-plex-sans-arabic/medium.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("./lib/assets/fonts/ibm-plex-sans-arabic/semibold.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("./lib/assets/fonts/ibm-plex-sans-arabic/bold.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+:root {
+  --lab-canvas: #fafafa;
+  --lab-ink: #09090b;
+  --lab-surface: #f4f4f5;
+  --lab-surface-raised: #ffffff;
+  --lab-surface-strong: #e4e4e7;
+  --lab-text-muted: #3f3f46;
+  --lab-text-subtle: #71717a;
+  --lab-border: #e4e4e7;
+  --lab-border-strong: #a1a1aa;
+  --lab-main: #b5afff;
+  --lab-research: #00bfff;
+  --lab-design: #f9c431;
+  --lab-development: #ff6b6b;
+  --lab-marketing: #01a26b;
+  --lab-on-accent: #18181b;
+  --lab-code: #18181b;
+  --lab-code-ink: #f4f4f5;
+  --lab-selection: rgb(129 140 248 / 25%);
+  --lab-focus-ring: #6d5ce7;
+  --lab-danger: #dc2626;
+  --lab-on-danger: #ffffff;
+  --lab-content-max: 64rem;
+  --lab-site-max: 80rem;
+  --lab-radius-control: 0.4375rem;
+  --lab-radius-field: 0.5rem;
+  --lab-radius-panel: 1rem;
+  --lab-font-body: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --lab-font-display: "Arial Black", ui-sans-serif, sans-serif;
+  --lab-font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  --motion-duration-fast: 160ms;
+  --motion-duration-standard: 180ms;
+  --motion-duration-emphasis: 220ms;
+  --motion-duration-disclosure: 240ms;
+  --motion-duration-editorial: 620ms;
+  --motion-ease-standard: ease;
+  --motion-ease-expressive: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-linear: linear;
+  --background: var(--lab-canvas);
+  --foreground: var(--lab-ink);
+  --card: var(--lab-surface-raised);
+  --card-foreground: var(--lab-ink);
+  --popover: var(--lab-surface-raised);
+  --popover-foreground: var(--lab-ink);
+  --primary: var(--lab-main);
+  --primary-foreground: var(--lab-on-accent);
+  --secondary: var(--lab-surface);
+  --secondary-foreground: var(--lab-ink);
+  --muted: var(--lab-surface);
+  --muted-foreground: var(--lab-text-muted);
+  --accent: var(--lab-surface-strong);
+  --accent-foreground: var(--lab-ink);
+  --destructive: var(--lab-danger);
+  --destructive-foreground: var(--lab-on-danger);
+  --border: var(--lab-border);
+  --input: var(--lab-border-strong);
+  --ring: var(--lab-focus-ring);
+  --radius: var(--lab-radius-field);
+}
+
+html[data-theme="dark"] {
+  --lab-canvas: #09090b;
+  --lab-ink: #fafafa;
+  --lab-surface: #18181b;
+  --lab-surface-raised: #101010;
+  --lab-surface-strong: #27272a;
+  --lab-text-muted: #d4d4d8;
+  --lab-text-subtle: #a1a1aa;
+  --lab-border: #27272a;
+  --lab-border-strong: #52525b;
+  --lab-code: #f4f4f5;
+  --lab-code-ink: #18181b;
+  --lab-focus-ring: #b5afff;
+  --lab-danger: #f87171;
+  --lab-on-danger: #18181b;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme-preference="system"] {
+    --lab-canvas: #09090b;
+    --lab-ink: #fafafa;
+    --lab-surface: #18181b;
+    --lab-surface-raised: #101010;
+    --lab-surface-strong: #27272a;
+    --lab-text-muted: #d4d4d8;
+    --lab-text-subtle: #a1a1aa;
+    --lab-border: #27272a;
+    --lab-border-strong: #52525b;
+    --lab-code: #f4f4f5;
+    --lab-code-ink: #18181b;
+    --lab-focus-ring: #b5afff;
+    --lab-danger: #f87171;
+    --lab-on-danger: #18181b;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-subtle: var(--lab-text-subtle);
+  --color-border-strong: var(--lab-border-strong);
+  --color-research: var(--lab-research);
+  --color-design: var(--lab-design);
+  --color-development: var(--lab-development);
+  --color-marketing: var(--lab-marketing);
+  --color-code: var(--lab-code);
+  --color-code-foreground: var(--lab-code-ink);
+  --font-sans: var(--lab-font-body);
+  --font-display: var(--lab-font-display);
+  --font-mono: var(--lab-font-mono);
+  --radius-sm: var(--lab-radius-control);
+  --radius-md: var(--lab-radius-field);
+  --radius-lg: var(--lab-radius-panel);
+  --container-content: var(--lab-content-max);
+  --container-site: var(--lab-site-max);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+
+  html {
+    min-width: 20rem;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--lab-font-body);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--lab-selection);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

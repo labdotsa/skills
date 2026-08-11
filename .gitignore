@@ -9,3 +9,5 @@ tmp/
 
 # Local Netlify folder
 .netlify
+.artifacts/
+.svelte-kit/

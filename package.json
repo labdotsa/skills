@@ -4,20 +4,50 @@
   "private": true,
   "description": "Public agent skills and playbooks from labdotsa",
   "type": "module",
+  "packageManager": "npm@11.17.0",
+  "engines": {
+    "node": "24.19.0",
+    "npm": "11.17.0"
+  },
   "scripts": {
-    "build": "npm run catalog && npm run site:build",
+    "build": "npm run catalog && npm run build:canonical",
+    "build:canonical": "node scripts/build-publication.mjs canonical site",
+    "build:e2e": "node scripts/build-publication.mjs canonical .artifacts/e2e",
+    "build:matrix": "node scripts/build-publication-matrix.mjs",
+    "build:pages": "node scripts/build-publication.mjs pages-project site",
+    "build:pages-root": "node scripts/build-publication.mjs pages-root site",
+    "build:preview": "node scripts/build-publication.mjs preview site",
     "catalog": "node scripts/generate-catalog.mjs",
-    "parity": "npm run build && npm test && npm run test:e2e && npm run parity:capture",
-    "parity:capture": "playwright test test/e2e/captures.spec.mjs",
-    "site:build": "node scripts/build-site.mjs",
-    "site:serve": "node scripts/serve-site.mjs",
-    "site:watch": "node --watch --watch-preserve-output --watch-path=skills --watch-path=recipes --watch-path=website scripts/build-site.mjs",
+    "dev": "node scripts/run-vite.mjs dev canonical",
+    "dev:pages": "node scripts/run-vite.mjs dev pages-project",
+    "preview": "node scripts/run-vite.mjs preview canonical",
+    "site:build": "npm run build:canonical",
+    "site:serve": "npm run preview",
     "test": "node --test test/*.test.mjs",
-    "test:e2e": "playwright test test/e2e/parity.spec.mjs",
-    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/build-site.mjs --check && node scripts/validate-site.mjs && npm test"
+    "test:e2e": "playwright test test/e2e/foundation.spec.mjs",
+    "typecheck": "node scripts/typecheck.mjs",
+    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run build:matrix && npm run test:e2e"
   },
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.62.1"
+    "@playwright/test": "1.62.1",
+    "@sveltejs/adapter-static": "3.0.10",
+    "@sveltejs/kit": "2.70.2",
+    "@sveltejs/vite-plugin-svelte": "7.3.0",
+    "@tailwindcss/vite": "4.3.3",
+    "shadcn-svelte": "1.5.0",
+    "svelte": "5.56.8",
+    "svelte-check": "4.7.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "vite": "8.2.1"
+  },
+  "dependencies": {
+    "@lucide/svelte": "1.31.0",
+    "bits-ui": "2.18.1",
+    "clsx": "2.1.1",
+    "svelte-sonner": "1.1.1",
+    "tailwind-merge": "3.6.0",
+    "tailwind-variants": "3.3.1"
   }
 }
