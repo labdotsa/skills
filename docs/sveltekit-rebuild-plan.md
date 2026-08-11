@@ -38,7 +38,7 @@ The SvelteKit migration should preserve the current design and public behavior f
 skills/                         source content; unchanged
 recipes/                        source content; unchanged
 scripts/
-  generate-catalog.*            thin command importing the shared source model
+  generate-catalog.ts           thin command importing the shared source model
   validate-skills.*             thin command importing the shared source model
 src/
   app.html

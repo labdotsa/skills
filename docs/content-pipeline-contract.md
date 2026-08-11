@@ -33,7 +33,7 @@ the [LLM discovery contract](llm-discovery-contract.md).
 
 The existing implementation proves behavior worth preserving, but not the future architecture:
 
-- [skill-catalog.mjs](../scripts/lib/skill-catalog.mjs) contains an ad hoc frontmatter scalar parser, walks Skill
+- The retired `scripts/lib/skill-catalog.mjs` contained an ad hoc frontmatter scalar parser, walked Skill
   packages, invents missing description/category fallbacks, and returns a Skill-only model.
 - Legacy `scripts/lib/recipe-catalog.mjs` reused that parser but extracted Recipe titles, conversation
   counts, and related Skill names with separate regular expressions. Skill and Recipe catalogs have separate version 1

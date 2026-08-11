@@ -77,10 +77,12 @@ for (const entry of await readdir(repositoryRoot, { withFileTypes: true })) {
 
 for (const retiredPath of [
   "scripts/build-site.mjs",
+  "scripts/generate-catalog.mjs",
   "scripts/serve-site.mjs",
   "scripts/validate-site.mjs",
   "scripts/lib/markdown.mjs",
   "scripts/lib/recipe-catalog.mjs",
+  "scripts/lib/skill-catalog.mjs",
   "scripts/lib/site-catalog.mjs",
   "scripts/lib/static-site-server.mjs",
 ]) {

@@ -17,16 +17,16 @@
     "build:pages": "node scripts/build-publication.mjs pages-project site",
     "build:pages-root": "node scripts/build-publication.mjs pages-root site",
     "build:preview": "node scripts/build-publication.mjs preview site",
-    "catalog": "node scripts/generate-catalog.mjs",
+    "catalog": "tsx scripts/generate-catalog.ts",
     "dev": "node scripts/run-vite.mjs dev canonical",
     "dev:pages": "node scripts/run-vite.mjs dev pages-project",
     "preview": "node scripts/run-vite.mjs preview canonical",
     "site:build": "npm run build:canonical",
     "site:serve": "npm run preview",
-    "test": "node --test test/*.test.mjs",
+    "test": "tsx --test test/*.test.mjs",
     "test:e2e": "playwright test test/e2e/foundation.spec.mjs",
     "typecheck": "node scripts/typecheck.mjs",
-    "validate": "bash scripts/validate-skills.sh && node scripts/generate-catalog.mjs --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run build:matrix && npm run test:e2e"
+    "validate": "bash scripts/validate-skills.sh && tsx scripts/generate-catalog.ts --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run build:matrix && npm run test:e2e"
   },
   "license": "MIT",
   "devDependencies": {
@@ -35,12 +35,19 @@
     "@sveltejs/kit": "2.70.2",
     "@sveltejs/vite-plugin-svelte": "7.3.0",
     "@tailwindcss/vite": "4.3.3",
+    "@types/node": "24.13.3",
+    "remark-gfm": "4.0.1",
+    "remark-parse": "11.0.0",
     "shadcn-svelte": "1.5.0",
     "svelte": "5.56.8",
     "svelte-check": "4.7.5",
     "tailwindcss": "4.3.3",
+    "tsx": "4.23.12",
     "typescript": "6.0.3",
-    "vite": "8.2.1"
+    "unified": "11.0.5",
+    "vite": "8.2.1",
+    "yaml": "2.9.0",
+    "zod": "4.4.3"
   },
   "dependencies": {
     "@lucide/svelte": "1.31.0",

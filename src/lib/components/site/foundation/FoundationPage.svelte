@@ -6,9 +6,12 @@
 	interface Props {
 		canonicalOrigin: string;
 		indexable: boolean;
+		catalogSnapshotId: string;
+		skillCount: number;
+		recipeCount: number;
 	}
 
-	let { canonicalOrigin, indexable }: Props = $props();
+	let { canonicalOrigin, indexable, catalogSnapshotId, skillCount, recipeCount }: Props = $props();
 	const installCommand = "npx skills add labdotsa/skills";
 </script>
 
@@ -36,8 +39,11 @@
 			<CopyButton text={installCommand} label="Copy install command" message="Install command copied" />
 		</div>
 	</section>
-	<section class="py-12" aria-labelledby="foundation-title">
+	<section class="py-12" aria-labelledby="foundation-title" data-catalog-snapshot={catalogSnapshotId}>
 		<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">SvelteKit foundation</p>
+		<p class="mt-3 font-mono text-sm text-muted-foreground">
+			{skillCount} {skillCount === 1 ? "Skill" : "Skills"} · {recipeCount} {recipeCount === 1 ? "Recipe" : "Recipes"}
+		</p>
 		<h2 id="foundation-title" class="mt-3 text-3xl font-bold tracking-tight">One source. Portable static output.</h2>
 		<p class="mt-4 max-w-2xl leading-7 text-muted-foreground">
 			Browse a growing collection of practical protocols for research, design, development, and marketing—from one fast, portable library.

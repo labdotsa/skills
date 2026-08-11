@@ -25,7 +25,7 @@ the generated output for those seven entries.
 | Legacy `website/` templates and scripts | Four HTML templates, six browser scripts, one stylesheet, one image | Former editable application source | **Retired** atomically when SvelteKit became the sole application source |
 | Legacy `scripts/build-site.mjs` | Build-time orchestration and page rendering | Former page assembler | **Retired**; preserve required behavior in shared modules and thin commands |
 | [Generated site](../site/) | Reproducible output | Committed Publication Artifact and Netlify publish directory | **Decide** whether it remains committed after cutover; never treat it as source |
-| [Generated documentation catalog](catalog.md) | [Catalog generator](../scripts/generate-catalog.mjs) | Human-readable list derived from stable Skills | **Preserve** as a generated view over the shared model |
+| [Generated documentation catalog](catalog.md) | [Catalog generator](../scripts/generate-catalog.ts) | Human-readable list derived from stable Skills | **Preserve** as a generated view over the shared model |
 
 The current build removes and recreates only generated Skill detail directories, then overwrites known site files. It
 does not treat `site/` as an authoring location. A source-preview redirect sends direct filesystem opens of the home and

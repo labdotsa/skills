@@ -20,12 +20,19 @@ const expectedDevelopment = [
   "@sveltejs/kit",
   "@sveltejs/vite-plugin-svelte",
   "@tailwindcss/vite",
+  "@types/node",
   "shadcn-svelte",
   "svelte",
   "svelte-check",
   "tailwindcss",
+  "tsx",
   "typescript",
+  "unified",
   "vite",
+  "yaml",
+  "zod",
+  "remark-gfm",
+  "remark-parse",
 ];
 
 assertKeys(packageJson.dependencies, expectedRuntime, "runtime dependencies");
@@ -81,6 +88,9 @@ for (const filename of await filesUnder(path.join(repositoryRoot, "src"))) {
 
   if (source.includes("mode-watcher") || source.includes("lucide-static") || source.includes("@latest")) {
     throw new Error(`${relative} imports a forbidden runtime design dependency`);
+  }
+  if (source.includes("{@html")) {
+    throw new Error(`${relative} must render typed content nodes instead of source HTML`);
   }
   for (const match of source.matchAll(/from\s+["'](@lucide\/svelte[^"']*)["']/g)) {
     if (!match[1].startsWith("@lucide/svelte/icons/")) {

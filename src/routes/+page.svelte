@@ -8,4 +8,7 @@
 <FoundationPage
 	canonicalOrigin={data.publication.canonicalOrigin}
 	indexable={data.publication.indexable}
+	catalogSnapshotId={data.catalogSnapshotId}
+	skillCount={data.catalogSummary.skillCount}
+	recipeCount={data.catalogSummary.recipeCount}
 />

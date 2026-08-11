@@ -13,6 +13,8 @@ test("renders the complete server-prerendered shell without remote presentation 
 
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Working knowledge/ })).toBeVisible();
+  await expect(page.getByText("6 Skills · 1 Recipe")).toBeVisible();
+  await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
   await expect(page.locator('img[src*="brand/logo.svg"]').first()).toBeVisible();
   expect(pageErrors).toEqual([]);
