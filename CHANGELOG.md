@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Accepted the existing functioning Discovery Site as the representative prototype for a complete SvelteKit revamp, eliminating a separate throwaway UI while preserving the approved product experience and parity evidence.
 - Accepted the three-layer LAB component system: locally owned shadcn-svelte primitives, product-neutral shared compositions, product-aware feature components under `site/`, thin routes, typed Svelte 5 APIs, and explicit reuse and update rules.
 - Defined the portable static-hosting contract: one SvelteKit route graph, validated publication profiles, complete prerendering, base-aware URLs, exact legacy aliases, and a real static 404 for Netlify and GitHub Pages.
 - Defined the single-read shared content pipeline, typed Skill/Recipe model, component-rendered rich-content boundary, deterministic publication graph, and vertical implementation gates.

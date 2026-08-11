@@ -326,15 +326,17 @@ autofixer, repository validation, component tests, both static builds, and the b
 - A legacy CSS region is removed when its named light/dark/responsive states pass against the parity evidence.
 - No route may land with page-specific interaction code as a temporary exception.
 
-The user separately selected a full end-to-end revamp for issue #11. That prototype must exercise this architecture
-across the complete route set rather than weakening the ownership rules to accelerate a throwaway slice.
+The user selected a full end-to-end revamp and accepted the functioning Discovery Site as the representative product
+prototype. No second throwaway UI is required: implementation must exercise this architecture across the complete
+route set while reproducing the accepted experience. See the
+[existing-prototype acceptance](existing-prototype-acceptance.md).
 
 ## Downstream ownership
 
 - **#6** selects exact LAB token mappings, theme initialization, Lucide usage, fonts, motion, utilities, primitive list,
   and dependency/update versions within this component boundary.
-- **#11** proves the accepted component system across the full end-to-end revamp and records human visual/interaction
-  acceptance; it may expose component-state defects but does not create parallel page-specific architecture.
+- **#11** accepts the existing functioning site as the product prototype and defines full end-to-end SvelteKit
+  replacement—not a parallel prototype or a new visual direction.
 - **#12** turns semantic, keyboard, screen-reader, theme, motion, responsive, hydration, and performance expectations
   into release gates.
 - **#13** records the already selected atomic cutover, rollback artifact, and evidence/approval boundary.

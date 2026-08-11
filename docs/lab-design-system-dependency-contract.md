@@ -535,7 +535,7 @@ tighten accessibility and performance budgets but may not remove any row above.
 | Risk | Required handling / owner |
 | --- | --- |
 | 4,213-line cascade hides accidental dependencies | #11 and #19 migrate by complete route journey; remove a legacy CSS region only after named theme/viewport captures pass |
-| Maax license does not permit public redistribution or both hosts | Default to the deterministic open/system display stack; #11 records human visual acceptance or supplies license evidence—never fetch the font remotely as a workaround |
+| Maax license does not permit public redistribution or both hosts | Default to the deterministic open/system display stack; #17 records license evidence when available and #24 proves the accepted hierarchy with the fallback—never fetch the font remotely as a workaround |
 | shadcn neutral defaults erase LAB identity | #17 installs the token graph before primitives; #19 accepts only token-driven local source |
 | theme flashes or fails in hardened storage | #17 implements bootstrap truth-table tests; #12 adds browser first-paint/storage-denial evidence |
 | Tailwind misses data-driven classes | #19 uses closed literal variant maps or `--lab-accent`; static scan rejects interpolation |
@@ -547,8 +547,8 @@ tighten accessibility and performance budgets but may not remove any row above.
 
 Downstream boundaries are:
 
-- **#11** uses the user's selected full end-to-end revamp to obtain human visual/interaction acceptance, including the
-  licensed-display-font choice; it does not invent another component or token system.
+- **#11** accepts the functioning Discovery Site as the product prototype and requires the full SvelteKit revamp to
+  reproduce it through this component/token system; it does not invent a second prototype or visual direction.
 - **#12** adds accessibility, forced-colors, performance, bundle-size, first-paint, and dependency-security release
   thresholds on top of this mandatory matrix.
 - **#13/#24** use the user's selected atomic cutover and rollback artifact; the cutover cannot retain `website/` or a

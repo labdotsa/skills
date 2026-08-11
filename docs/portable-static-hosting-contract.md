@@ -236,7 +236,8 @@ branch. The later quality-gate ticket #12 may add accessibility/performance budg
 
 ## Downstream ownership
 
-- #11 composes the representative route slice from shared shadcn-svelte/LAB components; it does not revisit routing.
+- #11 accepts the existing functioning site as the representative product prototype; the complete SvelteKit rebuild
+  uses shared shadcn-svelte/LAB components without revisiting routing.
 - #12 adds accessibility, performance, interaction, and responsive gates on top of the artifact matrix.
 - #16 defines the final component architecture while preserving thin routes and the shared shell used by `404.html`.
 - #17 creates the SvelteKit foundation and implements the profile/configuration boundary.

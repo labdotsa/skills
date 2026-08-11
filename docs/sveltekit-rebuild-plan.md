@@ -417,11 +417,14 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
    service, bundled Lucide imports, local licensed assets, nine initial primitives, six supporting runtime packages,
    exact direct versions, and one npm lockfile govern every host build. See the
    [LAB design-system and dependency contract](lab-design-system-dependency-contract.md).
+9. The current functioning Discovery Site is the approved representative product prototype. The full end-to-end
+   revamp replaces its implementation with the accepted SvelteKit/component architecture while preserving its product
+   direction and contract-bounded behavior. No parallel throwaway UI is required. See the
+   [existing-prototype acceptance](existing-prototype-acceptance.md).
 
 ## Remaining decisions
 
 1. Should generated `site/` remain committed after cutover? Recommended: no, but change that only after parity.
-2. Is visual parity the release requirement, or is a redesign included? Recommended: parity first.
 
 ## Primary references
 
