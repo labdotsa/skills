@@ -4,13 +4,12 @@
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
 	import { Button } from "$lib/components/ui/button/index.js";
+	import { notFoundSeo } from "$lib/domain/seo.js";
+
+	const seo = notFoundSeo();
 </script>
 
-<PageHead
-	title="Page not found — LAB Skills"
-	description="The requested LAB Skills page does not exist."
-	indexable={false}
-/>
+<PageHead {seo} />
 
 <PageFrame class="py-20 sm:py-28">
 	<section class="max-w-2xl" aria-labelledby="not-found-title">

@@ -1,25 +1,34 @@
 <script lang="ts">
 	import { asset } from "$app/paths";
+	import { serializeJsonLd, type SeoPage } from "$lib/domain/seo.js";
 
 	interface Props {
-		title: string;
-		description: string;
-		canonicalUrl?: string;
-		indexable?: boolean;
+		seo: SeoPage;
 	}
 
-	let { title, description, canonicalUrl, indexable = true }: Props = $props();
+	let { seo }: Props = $props();
+	let structuredData = $derived(seo.structuredData ? serializeJsonLd(seo.structuredData) : undefined);
 </script>
 
 <svelte:head>
-	<title>{title}</title>
-	<meta name="description" content={description} />
-	<meta name="robots" content={indexable ? "index,follow" : "noindex,follow"} />
-	<meta property="og:title" content={title} />
-	<meta property="og:description" content={description} />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content="https://skills.lab.sa/brand/social.png" />
-	{#if canonicalUrl}<link rel="canonical" href={canonicalUrl} />{/if}
+	<title>{seo.title}</title>
+	<meta name="description" content={seo.description} />
+	<meta name="robots" content={seo.robots} />
+	<meta property="og:title" content={seo.openGraph.title} />
+	<meta property="og:description" content={seo.openGraph.description} />
+	<meta property="og:type" content={seo.openGraph.type} />
+	{#if seo.openGraph.url}<meta property="og:url" content={seo.openGraph.url} />{/if}
+	<meta property="og:image" content={seo.openGraph.image} />
+	<meta property="og:image:alt" content={seo.openGraph.imageAlt} />
+	<meta property="og:site_name" content={seo.openGraph.siteName} />
+	<meta name="twitter:card" content={seo.twitter.card} />
+	<meta name="twitter:title" content={seo.twitter.title} />
+	<meta name="twitter:description" content={seo.twitter.description} />
+	<meta name="twitter:image" content={seo.twitter.image} />
+	{#if seo.canonicalUrl}<link rel="canonical" href={seo.canonicalUrl} />{/if}
 	<link rel="icon" href={asset("/brand/favicon.svg")} />
 	<link rel="apple-touch-icon" href={asset("/brand/apple-touch-icon.png")} />
+	{#if structuredData}
+		<svelte:element this={"script"} type="application/ld+json">{structuredData}</svelte:element>
+	{/if}
 </svelte:head>

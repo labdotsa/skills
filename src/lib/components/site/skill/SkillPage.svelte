@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { SkillPageView } from "$lib/domain/catalog.js";
 	import { pillarForCategory } from "$lib/domain/directory.js";
+	import { skillSeo } from "$lib/domain/seo.js";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
 	import PackageDirectory from "./PackageDirectory.svelte";
 	import RelatedContent from "./RelatedContent.svelte";
@@ -15,11 +16,11 @@
 	}
 
 	let { skill, catalogSnapshotId, canonicalOrigin, indexable }: Props = $props();
-	let canonicalUrl = $derived(`${canonicalOrigin}/skills/${encodeURIComponent(skill.slug)}/`);
+	let seo = $derived(skillSeo(skill, canonicalOrigin, indexable));
 	let pillar = $derived(pillarForCategory(skill.category));
 </script>
 
-<PageHead title={`${skill.name} — LAB Skills`} description={skill.description} {canonicalUrl} {indexable} />
+<PageHead {seo} />
 
 <article
 	class="relative isolate overflow-hidden"

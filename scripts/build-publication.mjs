@@ -32,6 +32,19 @@ process.stdout.write(vite.stdout);
 process.stderr.write(vite.stderr);
 if (vite.status !== 0) process.exit(vite.status ?? 1);
 
+const seo = spawnSync(process.execPath, [
+  path.join(repositoryRoot, "node_modules/tsx/dist/cli.mjs"),
+  path.join(repositoryRoot, "scripts/generate-seo-publication.ts"),
+  profile.name,
+  requestedOutput,
+], {
+  cwd: repositoryRoot,
+  encoding: "utf8",
+});
+process.stdout.write(seo.stdout);
+process.stderr.write(seo.stderr);
+if (seo.status !== 0) process.exit(seo.status ?? 1);
+
 const files = (await filesUnder(outputDirectory))
   .map((filename) => ({
     path: path.relative(outputDirectory, filename).split(path.sep).join("/"),

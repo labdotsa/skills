@@ -7,7 +7,9 @@ import { fileURLToPath } from "node:url";
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const builds = [
   ["canonical", ".artifacts/canonical"],
+  ["preview", ".artifacts/preview"],
   ["pages-project", ".artifacts/pages-project"],
+  ["pages-root", ".artifacts/pages-root"],
 ];
 
 for (const [profile, output] of builds) {
@@ -32,8 +34,8 @@ const humanFiles = manifests.map((manifest) =>
     .sort(),
 );
 
-if (JSON.stringify(humanFiles[0]) !== JSON.stringify(humanFiles[1])) {
-  throw new Error("Canonical and Pages-project builds emitted different human route or brand asset sets");
+if (humanFiles.some((files) => JSON.stringify(files) !== JSON.stringify(humanFiles[0]))) {
+  throw new Error("Publication profiles emitted different human route or brand asset sets");
 }
 
-console.log("Canonical and Pages-project publication profiles are structurally equivalent.");
+console.log("Canonical, preview, Pages-project, and Pages-root profiles are structurally equivalent.");

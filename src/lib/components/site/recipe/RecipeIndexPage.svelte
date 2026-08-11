@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { RecipeIndexPageView } from "$lib/domain/directory.js";
+	import { recipeIndexSeo } from "$lib/domain/seo.js";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
 	import RecipeDirectory from "./RecipeDirectory.svelte";
 	import RecipeFlow from "./RecipeFlow.svelte";
@@ -13,14 +14,10 @@
 	}
 
 	let { index, catalogSnapshotId, canonicalOrigin, indexable }: Props = $props();
+	let seo = $derived(recipeIndexSeo(index, canonicalOrigin, indexable));
 </script>
 
-<PageHead
-	title="LAB Recipes — Skills assembled into delivery workflows"
-	description="Repeatable delivery recipes with focused prompts, skills, artifacts, and deliberate handoffs."
-	canonicalUrl={`${canonicalOrigin}/recipes/`}
-	{indexable}
-/>
+<PageHead {seo} />
 
 <div data-catalog-snapshot={catalogSnapshotId} data-recipe-index>
 	<RecipeIndexHero />

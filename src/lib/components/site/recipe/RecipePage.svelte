@@ -2,6 +2,7 @@
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
 	import type { RecipePageView } from "$lib/domain/catalog.js";
+	import { recipeSeo } from "$lib/domain/seo.js";
 	import RecipeHero from "./RecipeHero.svelte";
 	import RecipeNav from "./RecipeNav.svelte";
 	import RecipePhase from "./RecipePhase.svelte";
@@ -16,10 +17,10 @@
 	}
 
 	let { recipe, catalogSnapshotId, canonicalOrigin, indexable }: Props = $props();
-	let canonicalUrl = $derived(`${canonicalOrigin}/recipes/${encodeURIComponent(recipe.slug)}/`);
+	let seo = $derived(recipeSeo(recipe, canonicalOrigin, indexable));
 </script>
 
-<PageHead title={`${recipe.title} Recipe — LAB Skills`} description={recipe.description} {canonicalUrl} {indexable} />
+<PageHead {seo} />
 
 <article data-recipe-page data-catalog-snapshot={catalogSnapshotId}>
 	<RecipeHero {recipe} />

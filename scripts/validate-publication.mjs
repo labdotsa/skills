@@ -3,6 +3,11 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { publicationProfile } from "../src/lib/config/publication-profile.ts";
+import {
+  validateCanonicalLinkGraph,
+  validateSeoDocument,
+  validateUniqueCanonicalMetadata,
+} from "./lib/seo-validation.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const [profileName, requestedOutput] = process.argv.slice(2);
@@ -42,6 +47,33 @@ if (manifest.profile.name !== profile.name || manifest.profile.base !== profile.
   throw new Error("Publication manifest profile does not match the build");
 }
 
+const htmlFiles = manifest.files
+  .map((file) => file.path)
+  .filter((filename) => filename.endsWith(".html"))
+  .sort();
+const seoRecords = [];
+for (const filename of htmlFiles) {
+  const html = await readFile(path.join(outputDirectory, filename), "utf8");
+  const expectedCanonical = expectedCanonicalFor(filename, profile.canonicalOrigin);
+  seoRecords.push(validateSeoDocument({
+    filename,
+    html,
+    profile,
+    expectedCanonical,
+    structuredData: profile.indexable && filename !== "404.html" ? "required" : "forbidden",
+  }));
+  await validateLocalReferences(html, filename, outputDirectory);
+  validatePortablePresentationReferences(html, filename);
+}
+
+const cleanCanonicalRecords = seoRecords
+  .filter((record) => !isAlias(record.filename) && record.filename !== "404.html")
+  .sort((left, right) => canonicalPublicationOrder(left.filename) - canonicalPublicationOrder(right.filename)
+    || left.filename.localeCompare(right.filename));
+validateUniqueCanonicalMetadata(cleanCanonicalRecords);
+validateCanonicalLinkGraph(seoRecords);
+await validateMachineSurfaces(profile, manifest, cleanCanonicalRecords, outputDirectory);
+
 for (const asset of [
   "brand/logo.svg",
   "brand/favicon.svg",
@@ -51,18 +83,9 @@ for (const asset of [
 ]) {
   await access(path.join(outputDirectory, asset));
 }
-
-for (const html of [indexHtml, notFoundHtml]) {
-  if (
-    /<script[^>]+src=["']https?:\/\//i.test(html) ||
-    /<img[^>]+src=["']https?:\/\//i.test(html) ||
-    /<link[^>]+rel=["'](?:stylesheet|icon|apple-touch-icon|preload)["'][^>]+href=["']https?:\/\//i.test(html)
-  ) {
-    throw new Error("Publication HTML loads a runtime presentation asset from an external origin");
-  }
-  if (/\b(?:src|href)=["']\/(?!\/)/i.test(html)) {
-    throw new Error("Publication HTML contains a root-relative local URL that can escape a project base");
-  }
+const socialImage = await readFile(path.join(outputDirectory, "brand/social.png"));
+if (!socialImage.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+  throw new Error("brand/social.png is not a valid PNG social image");
 }
 
 console.log(`Publication ${profile.name} is valid at ${requestedOutput}.`);
@@ -201,5 +224,83 @@ async function validateLocalReferences(html, filename, directory) {
       throw new Error(`${filename} contains a local reference outside its publication`);
     }
     await access(target);
+  }
+}
+
+function expectedCanonicalFor(filename, canonicalOrigin) {
+  if (filename === "404.html") return undefined;
+  if (filename === "index.html") return `${canonicalOrigin}/`;
+  if (filename === "recipes.html" || filename === "recipes/index.html") return `${canonicalOrigin}/recipes/`;
+  if (filename === "recipe.html") return `${canonicalOrigin}/recipes/functional-prototype/`;
+  const match = filename.match(/^(skills|recipes)\/([^/]+)\/index\.html$/);
+  if (match) return `${canonicalOrigin}/${match[1]}/${encodeURIComponent(match[2])}/`;
+  throw new Error(`No canonical URL policy exists for emitted HTML file ${filename}`);
+}
+
+function isAlias(filename) {
+  return filename === "recipes.html" || filename === "recipe.html";
+}
+
+function canonicalPublicationOrder(filename) {
+  if (filename === "index.html") return 0;
+  if (filename.startsWith("skills/")) return 1;
+  if (filename === "recipes/index.html") return 2;
+  return 3;
+}
+
+function validatePortablePresentationReferences(html, filename) {
+  if (
+    /<script[^>]+src=["']https?:\/\//i.test(html) ||
+    /<img[^>]+src=["']https?:\/\//i.test(html) ||
+    /<link[^>]+rel=["'](?:stylesheet|icon|apple-touch-icon|preload)["'][^>]+href=["']https?:\/\//i.test(html)
+  ) {
+    throw new Error(`${filename} loads a runtime presentation asset from an external origin`);
+  }
+  if (/\b(?:src|href)=["']\/(?!\/)/i.test(html)) {
+    throw new Error(`${filename} contains a root-relative local URL that can escape a project base`);
+  }
+}
+
+async function validateMachineSurfaces(currentProfile, publicationManifest, canonicalRecords, directory) {
+  const manifestPaths = new Set(publicationManifest.files.map((file) => file.path));
+  const sitemapPath = path.join(directory, "sitemap.xml");
+  const robotsPath = path.join(directory, "robots.txt");
+  if (!currentProfile.publishMachineSurfaces) {
+    for (const [filename, pathname] of [["sitemap.xml", sitemapPath], ["robots.txt", robotsPath]]) {
+      if (manifestPaths.has(filename) || await exists(pathname)) {
+        throw new Error(`${currentProfile.name} must omit canonical-only ${filename}`);
+      }
+    }
+    return;
+  }
+
+  if (!manifestPaths.has("sitemap.xml") || !manifestPaths.has("robots.txt")) {
+    throw new Error("Canonical publication manifest must include sitemap.xml and robots.txt");
+  }
+  const sitemap = await readFile(sitemapPath, "utf8");
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const expectedLocations = canonicalRecords.map((record) => record.canonicalUrl);
+  if (new Set(locations).size !== locations.length || JSON.stringify(locations) !== JSON.stringify(expectedLocations)) {
+    throw new Error("sitemap.xml must contain each clean canonical URL exactly once in publication order");
+  }
+  if (/\b(?:lastmod|recipes?\.html)\b/.test(sitemap)) {
+    throw new Error("sitemap.xml must omit synthetic lastmod values and compatibility aliases");
+  }
+  if (Buffer.byteLength(sitemap) > 50 * 1024 * 1024 || locations.length > 50_000) {
+    throw new Error("sitemap.xml exceeds protocol limits");
+  }
+  const robots = await readFile(robotsPath, "utf8");
+  const expectedRobots = `User-agent: *\nAllow: /\nSitemap: ${currentProfile.canonicalOrigin}/sitemap.xml\n`;
+  if (robots !== expectedRobots || Buffer.byteLength(robots) > 500 * 1024) {
+    throw new Error("robots.txt does not match the root-authoritative canonical policy");
+  }
+}
+
+async function exists(filename) {
+  try {
+    await access(filename);
+    return true;
+  } catch {
+    return false;
   }
 }

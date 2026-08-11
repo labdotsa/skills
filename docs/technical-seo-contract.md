@@ -116,8 +116,8 @@ The backup's HTML-level `noindex` is therefore the enforceable control available
 Non-HTML Pages copies such as `skills.json`, `recipes.json`, and `sitemap.xml` cannot receive a meta robots rule, and
 GitHub Pages cannot attach a per-file `X-Robots-Tag`. The non-indexable build must omit those duplicate machine endpoints
 unless the owner of `https://labdotsa.github.io/robots.txt` adds and verifies rules for `/skills/`. This is an
-indexability difference controlled by `SITE_INDEXABLE`, not a second application source. The canonical Netlify build
-remains the sole publisher of those public machine contracts.
+indexability difference controlled by the closed publication profile, not a second application source. The canonical
+Netlify build remains the sole publisher of those public machine contracts.
 
 ## Metadata contract
 
@@ -156,19 +156,20 @@ markup ([general structured-data guidelines](https://developers.google.com/searc
 
 | Page type | JSON-LD graph |
 | --- | --- |
-| Home | One `WebSite` node with `name: "LAB Skills"` and canonical root `url`; the page node may reference the catalog `ItemList` |
-| Skill catalog | `CollectionPage` whose `mainEntity` is an `ItemList` containing every visible Skill in rendered order |
-| Skill detail | `TechArticle` with canonical `url`/`mainEntityOfPage`, source-backed name and description, category/keywords when present, and license/source URL when visible |
+| Home / Skill catalog | One `WebSite`, one `CollectionPage`, and an `ItemList` containing every visible Skill in rendered order |
+| Skill detail | `WebPage` with source-backed name and description, a `BreadcrumbList`, and `SoftwareSourceCode` for the visible repository-backed Skill package |
 | Recipe index | `CollectionPage` whose `mainEntity` is an `ItemList` containing every visible Recipe in rendered order |
-| Recipe detail | `HowTo` with canonical identity and ordered `HowToStep` values generated from the same visible stage model |
-| Skill and Recipe detail | A `BreadcrumbList` matching the visible, crawlable breadcrumb path |
-| Alias, 404, Pages, preview | No independent primary-entity graph; aliases may repeat the target graph only if every URL identifies the canonical entity |
+| Recipe detail | `WebPage` with source-backed name and description plus a `BreadcrumbList` matching the visible, crawlable path |
+| Canonical compatibility alias | Repeat the clean target's graph with only canonical entity URLs; never create an alias entity |
+| 404, Pages, preview | No JSON-LD graph |
 
-Schema.org defines a `TechArticle` as technical procedural or specification content, a `HowTo` as instructions that
-achieve a result through steps, a `CollectionPage` as a collection page, and an `ItemList` as a list of entities
-([TechArticle](https://schema.org/TechArticle), [HowTo](https://schema.org/HowTo),
-[CollectionPage](https://schema.org/CollectionPage), [ItemList](https://schema.org/ItemList)). The project term Recipe
-must **never** emit `schema.org/Recipe`; that type describes culinary content and would misrepresent the page.
+Schema.org defines a `WebPage` as a web page, `SoftwareSourceCode` as source code, a `CollectionPage` as a collection
+page, and an `ItemList` as a list of entities ([WebPage](https://schema.org/WebPage),
+[SoftwareSourceCode](https://schema.org/SoftwareSourceCode), [CollectionPage](https://schema.org/CollectionPage),
+[ItemList](https://schema.org/ItemList)). The accepted primary semantics are closed to `WebSite`, `CollectionPage`,
+`ItemList`, `WebPage`, `BreadcrumbList`, and `SoftwareSourceCode`; `ListItem` is permitted only as the structural child
+of an accepted list. A LAB Recipe is a delivery playbook, so it must **never** emit culinary `schema.org/Recipe`, nor
+should it claim a `HowTo` rich-result type that the accepted publication model does not support.
 
 The home `WebSite` node must live only on the canonical home page and include Google's required `name` and `url`
 properties ([site-name guidance](https://developers.google.com/search/docs/appearance/site-names)). Detail breadcrumbs
@@ -219,6 +220,12 @@ Chrome classifies Lighthouse scores from 90 to 100 as good and mobile TBT from 0
 cannot measure INP without real interaction; Chrome recommends TBT only as a lab proxy
 ([Web Vitals tools](https://web.dev/articles/vitals)). Use a pinned browser/Lighthouse version and consistent CI hardware
 to reduce variance, and review the raw metrics rather than passing on score alone.
+
+**Implementation boundary:** `evaluateSeoMeasurement` accepts exactly three Lighthouse results, evaluates the median
+Performance, SEO, LCP, CLS, and TBT values against these thresholds, and labels TBT only as a `lab-proxy`. It reports
+field p75 LCP, INP, and CLS separately for mobile and desktop over a 28-day window; absent eligible traffic is
+`no-data`, never a synthetic zero or pass. Issue #24 owns the pinned browser runner and retained raw Lighthouse/field
+evidence that feed this shared evaluator.
 
 **Recommendation:** Collect canonical-production RUM with the official `web-vitals` library once an analytics endpoint
 and privacy treatment are approved. Report LCP, INP, and CLS with metric ID, page type, route, device class, and release;
@@ -302,16 +309,16 @@ The build must fail for deterministic output violations. Variable Lighthouse res
 three-run median misses a guardrail. Search Console, CrUX, and traffic changes create an investigation ticket with the
 affected dates, pages, device, and release; they do not rewrite source or roll back automatically.
 
-## Prioritized backlog mapped to future tickets
+## Implementation ownership
 
-1. **P0 — one typed SEO model and head component:** derive titles, descriptions, canonicals, social metadata, robots,
-   and JSON-LD from the validated route/content model and `SITE_ORIGIN`/`SITE_INDEXABLE`.
-2. **P0 — crawlable prerendered catalogs:** server-load the Catalog so the initial HTML contains every Skill and Recipe
-   link; keep client filtering as enhancement.
-3. **P0 — canonical route outputs:** generate clean Recipe routes, compatibility aliases, exact canonical sitemap, real
-   404, canonical robots, and non-indexable Pages/preview artifacts according to the URL matrix.
-4. **P0 — static SEO verifier:** implement the deterministic route, metadata, link, sitemap, robots, JSON-LD, and backup
-   assertions in one public-output test path.
+1. **Completed in #22 — typed SEO model and head component:** titles, descriptions, canonicals, social metadata,
+   robots, and JSON-LD derive from the validated route/content model and publication profile.
+2. **Completed in #19–#21 — crawlable prerendered catalogs and details:** initial HTML contains every Skill and Recipe
+   link plus complete source-backed content; client filtering remains an enhancement.
+3. **Completed in #22 — canonical route outputs:** clean Recipe routes, compatibility aliases, exact canonical sitemap,
+   real 404, canonical robots, and non-indexable Pages/preview artifacts follow the URL matrix.
+4. **Completed in #22 — static SEO verifier:** one public-output path enforces route, metadata, link, sitemap, robots,
+   JSON-LD, social-image, and profile isolation assertions on every emitted HTML file across all four profiles.
 5. **P1 — structured-data fixtures:** validate representative page graphs locally and retain pre-release evidence from
    Schema Markup Validator and Rich Results Test.
 6. **P1 — Lighthouse CI:** pin tooling and add the five template fixtures and three-run median guardrails.
@@ -319,9 +326,8 @@ affected dates, pages, device, and release; they do not rewrite source or roll b
 8. **HITL operations:** deploy the Pages backup, verify Search Console/DNS ownership, submit the sitemap, approve any
    analytics/RUM provider and privacy treatment, and record the day-28 baseline.
 
-Each numbered item is one future-ticket boundary. Items 1–4 are the release-blocking technical SEO tranche; items 5–7
-are independently grabbable verification tickets after the SvelteKit route foundation exists; item 8 remains HITL and
-must not be assigned to an autonomous implementation run.
+Items 5–7 remain verification work owned by #24–#26; item 8 remains HITL and must not be assigned to an autonomous
+implementation run.
 
 ## Official primary sources
 
@@ -342,8 +348,8 @@ The contract above cites claims at the point of use. These are the governing pri
   [site names](https://developers.google.com/search/docs/appearance/site-names),
   [breadcrumbs](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb), and the Schema.org
   definitions for [WebSite](https://schema.org/WebSite), [CollectionPage](https://schema.org/CollectionPage),
-  [ItemList](https://schema.org/ItemList), [TechArticle](https://schema.org/TechArticle),
-  [HowTo](https://schema.org/HowTo), and [BreadcrumbList](https://schema.org/BreadcrumbList).
+  [ItemList](https://schema.org/ItemList), [WebPage](https://schema.org/WebPage),
+  [SoftwareSourceCode](https://schema.org/SoftwareSourceCode), and [BreadcrumbList](https://schema.org/BreadcrumbList).
 - Social metadata: [Open Graph protocol](https://ogp.me/).
 - Performance: [Core Web Vitals](https://web.dev/articles/vitals),
   [threshold methodology](https://web.dev/articles/defining-core-web-vitals-thresholds),
@@ -365,5 +371,5 @@ The contract above cites claims at the point of use. These are the governing pri
 - Search Console plus deterministic output and Lighthouse gates form the launch measurement baseline. Client analytics
   and RUM are conditional on explicit provider/privacy approval and run only on canonical production.
 - Core Web Vitals pass at mobile and desktop p75: LCP `<=2.5 s`, INP `<=200 ms`, CLS `<=0.1`.
-- `TechArticle`, `HowTo`, `CollectionPage`/`ItemList`, `WebSite`, and `BreadcrumbList` describe visible project content;
-  `schema.org/Recipe` is forbidden because a LAB Recipe is not culinary content.
+- `WebPage`, `SoftwareSourceCode`, `CollectionPage`/`ItemList`, `WebSite`, and `BreadcrumbList` describe visible project
+  content; `schema.org/Recipe` is forbidden because a LAB Recipe is not culinary content.

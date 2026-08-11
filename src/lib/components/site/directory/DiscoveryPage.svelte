@@ -2,6 +2,7 @@
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
 	import CopyButton from "$lib/components/shared/CopyButton.svelte";
 	import type { DirectoryPageView } from "$lib/domain/directory.js";
+	import { homeSeo } from "$lib/domain/seo.js";
 	import PageHead from "$lib/components/site/common/PageHead.svelte";
 	import DirectoryWorkbench from "./DirectoryWorkbench.svelte";
 
@@ -13,15 +14,11 @@
 	}
 
 	let { canonicalOrigin, indexable, catalogSnapshotId, directory }: Props = $props();
+	let seo = $derived(homeSeo(directory, canonicalOrigin, indexable));
 	const installCommand = "npx skills add labdotsa/skills";
 </script>
 
-<PageHead
-	title="LAB Skills — Public agent protocols"
-	description="Reusable instructions shaped by how LAB researches, designs, develops, and markets digital products."
-	canonicalUrl={`${canonicalOrigin}/`}
-	{indexable}
-/>
+<PageHead {seo} />
 
 <PageFrame class="py-12 sm:py-18">
 	<section class="grid items-end gap-10 pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.8fr)]" aria-labelledby="page-title" data-catalog-snapshot={catalogSnapshotId}>
