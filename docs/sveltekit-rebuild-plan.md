@@ -4,6 +4,8 @@ Status: wayfinding
 
 Canonical planning map: [Wayfind the single-source SvelteKit Discovery Site rebuild](https://github.com/labdotsa/skills/issues/1)
 
+Current-state evidence: [Discovery Site parity contract](discovery-site-parity-contract.md)
+
 ## Recommendation
 
 Rebuild the discovery experience as a fully prerendered SvelteKit application using Svelte 5, TypeScript, Tailwind CSS v4, locally owned shadcn-svelte primitives, and Lucide Svelte icons. Every interface surface should be a reusable LAB component composed on that foundation.
