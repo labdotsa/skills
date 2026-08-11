@@ -21,6 +21,7 @@ if (!indexHtml.includes('<main id="main-content"')) throw new Error("The root pa
 if (!indexHtml.includes('href="#main-content"')) throw new Error("The root page is missing skip navigation");
 if (!indexHtml.includes('aria-label="LAB services"')) throw new Error("The root page is missing service navigation");
 await validateDirectory(indexHtml, outputDirectory);
+await validateRecipeIndexes(manifest, outputDirectory);
 await validateSkillPages(manifest, outputDirectory);
 if (!indexHtml.includes(`data-publication-profile="${profile.name}"`)) {
   throw new Error("The root page was built with the wrong publication profile");
@@ -79,6 +80,48 @@ async function validateDirectory(html, directory) {
   }
   for (const href of [...skillLinks, ...recipeLinks]) {
     await access(path.join(directory, href.slice(2), "index.html"));
+  }
+}
+
+async function validateRecipeIndexes(publicationManifest, directory) {
+  const filenames = ["recipes/index.html", "recipes.html"];
+  const routeCount = publicationManifest.files
+    .map((file) => file.path)
+    .filter((filename) => /^recipes\/[^/]+\/index\.html$/.test(filename))
+    .length;
+  const pages = await Promise.all(filenames.map(async (filename) => ({
+    filename,
+    html: await readFile(path.join(directory, filename), "utf8"),
+  })));
+  let expectedSnapshot;
+  let expectedLabels;
+
+  for (const { filename, html } of pages) {
+    const expectedCount = Number(html.match(/data-recipe-count="(\d+)"/)?.[1]);
+    const labels = [...html.matchAll(/aria-label="Open ([^"]+) recipe"/g)].map((match) => match[1]);
+    const snapshot = html.match(/data-catalog-snapshot="([^"]+)"/)?.[1];
+    if (!Number.isInteger(expectedCount) || labels.length !== expectedCount) {
+      throw new Error(`${filename} contains ${labels.length} of ${expectedCount} Recipe rows`);
+    }
+    if (expectedCount !== routeCount) {
+      throw new Error(`${filename} exposes ${expectedCount} rows for ${routeCount} emitted Recipe routes`);
+    }
+    if ((html.match(/<h1(?:\s|>)/g) ?? []).length !== 1) {
+      throw new Error(`${filename} must contain exactly one primary heading`);
+    }
+    for (const marker of ["Search recipes", "data-recipe-phase-summary", "https://skills.lab.sa/recipes/"]) {
+      if (!html.includes(marker)) throw new Error(`${filename} is missing ${marker}`);
+    }
+    if (!snapshot) throw new Error(`${filename} is missing its Catalog snapshot identity`);
+    if (expectedSnapshot !== undefined && snapshot !== expectedSnapshot) {
+      throw new Error("The canonical and compatibility Recipe indexes use different Catalog snapshots");
+    }
+    if (expectedLabels !== undefined && JSON.stringify(labels) !== JSON.stringify(expectedLabels)) {
+      throw new Error("The canonical and compatibility Recipe indexes expose different rows");
+    }
+    expectedSnapshot = snapshot;
+    expectedLabels = labels;
+    await validateLocalReferences(html, filename, directory);
   }
 }
 

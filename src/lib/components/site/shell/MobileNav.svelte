@@ -37,6 +37,7 @@
 		</Sheet.Header>
 		<nav aria-label="Mobile navigation" class="grid gap-1 py-5">
 			<a class="rounded-sm px-3 py-3 font-semibold hover:bg-muted" href={resolve("/")}>Skills</a>
+			<a class="rounded-sm px-3 py-3 font-semibold hover:bg-muted" href={resolve("/recipes/")}>Recipes</a>
 			{#each services as service (service[0])}
 				<a class="rounded-sm px-3 py-3 hover:bg-muted" href={service[1]}>{service[0]} <span aria-hidden="true">↗</span></a>
 			{/each}

@@ -21,6 +21,7 @@ export type RecipeDirectoryItem = DirectoryItemBase & Readonly<{
 	kind: "recipe";
 	status: "draft" | "stable";
 	conversations: number;
+	phases: readonly string[];
 }>;
 
 export type DirectoryItem = SkillDirectoryItem | RecipeDirectoryItem;
@@ -28,6 +29,15 @@ export type DirectoryItem = SkillDirectoryItem | RecipeDirectoryItem;
 export type DirectoryPageView = Readonly<{
 	skills: readonly SkillDirectoryItem[];
 	recipes: readonly RecipeDirectoryItem[];
+}>;
+
+export type RecipeIndexPageView = Readonly<{
+	recipes: readonly RecipeDirectoryItem[];
+}>;
+
+export type DirectoryCollection = Readonly<{
+	kind: DirectoryKind;
+	items: readonly DirectoryItem[];
 }>;
 
 export type DirectoryFilter = Readonly<{
@@ -70,17 +80,12 @@ export function createDirectoryPageView(
 			pillar: pillarForCategory(skill.category),
 			files: [...skill.packageFiles],
 		})),
-		recipes: recipes.map((recipe) => ({
-			kind: "recipe" as const,
-			slug: recipe.slug,
-			title: recipe.title,
-			description: recipe.description,
-			category: recipe.category,
-			pillar: pillarForCategory(recipe.category),
-			status: recipe.status,
-			conversations: recipe.stages.length,
-		})),
+		recipes: createRecipeDirectoryItems(recipes),
 	});
+}
+
+export function createRecipeIndexPageView(recipes: readonly RecipeEntry[]): RecipeIndexPageView {
+	return deepFreeze({ recipes: createRecipeDirectoryItems(recipes) });
 }
 
 export function filterDirectoryItems<T extends DirectoryItem>(
@@ -91,7 +96,9 @@ export function filterDirectoryItems<T extends DirectoryItem>(
 	return items.filter((item) => {
 		if (filter.category !== "all" && item.category !== filter.category) return false;
 		if (query.length === 0) return true;
-		const details = item.kind === "skill" ? item.files.join(" ") : `${item.status} ${item.conversations}`;
+		const details = item.kind === "skill"
+			? item.files.join(" ")
+			: `${item.status} ${item.conversations} ${item.phases.join(" ")}`;
 		return `${item.title} ${item.description} ${item.category} ${details}`
 			.toLocaleLowerCase("en-US")
 			.includes(query);
@@ -122,6 +129,20 @@ export function pillarForCategory(category: string): DirectoryPillar {
 
 function compareCodePoints(left: string, right: string) {
 	return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function createRecipeDirectoryItems(recipes: readonly RecipeEntry[]): readonly RecipeDirectoryItem[] {
+	return recipes.map((recipe) => ({
+		kind: "recipe" as const,
+		slug: recipe.slug,
+		title: recipe.title,
+		description: recipe.description,
+		category: recipe.category,
+		pillar: pillarForCategory(recipe.category),
+		status: recipe.status,
+		conversations: recipe.stages.length,
+		phases: recipe.stages.map((stage) => stage.title),
+	}));
 }
 
 function deepFreeze<T>(value: T): T {

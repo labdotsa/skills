@@ -6,9 +6,10 @@
 	interface Props {
 		item: DirectoryItem;
 		index: number;
+		detail?: "summary" | "phases";
 	}
 
-	let { item, index }: Props = $props();
+	let { item, index, detail = "summary" }: Props = $props();
 	let itemKind = $derived(item.kind === "skill" ? "skill" : "recipe");
 	let sourceLabel = $derived(item.kind === "skill"
 		? `${item.files.length} ${item.files.length === 1 ? "file" : "files"}`
@@ -30,6 +31,9 @@
 			</span>
 			<span class="mt-2 block break-words text-xl font-bold tracking-tight sm:text-2xl">{item.title}</span>
 			<span class="mt-2 line-clamp-3 max-w-4xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">{item.description}</span>
+			{#if item.kind === "recipe" && detail === "phases"}
+				<span class="mt-4 block break-words font-mono text-xs leading-6 text-muted-foreground" data-recipe-phase-summary>{item.phases.join(" → ")}</span>
+			{/if}
 		</span>
 		<span class="flex size-8 items-center justify-center rounded-full border border-border-strong transition-transform group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true">
 			<ArrowRightIcon class="size-4" />

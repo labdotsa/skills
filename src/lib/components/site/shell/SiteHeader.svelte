@@ -26,12 +26,16 @@
 			<img class="h-9 w-auto dark:invert" src={asset("/brand/logo.svg")} alt="" width="146" height="195" />
 			<span>LAB</span>
 		</a>
-		<nav class="ml-auto hidden items-center gap-5 text-sm lg:flex" aria-label="LAB services">
+		<nav class="ml-auto hidden items-center gap-5 text-sm lg:flex" aria-label="Discovery">
+			<a class="no-underline hover:underline" href={resolve("/")}>Skills</a>
+			<a class="no-underline hover:underline" href={resolve("/recipes/")}>Recipes</a>
+		</nav>
+		<nav class="hidden items-center gap-5 text-sm lg:flex" aria-label="LAB services">
 			{#each services as service (service[0])}
 				<a class="no-underline hover:underline" href={service[1]}>{service[0]}</a>
 			{/each}
 		</nav>
-		<div class="ml-auto hidden lg:block">
+		<div class="hidden lg:block">
 			<ThemeToggle {preference} {resolved} {onPreferenceChange} compact />
 		</div>
 		<MobileNav {preference} {resolved} {onPreferenceChange} />
