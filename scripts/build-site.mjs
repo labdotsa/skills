@@ -174,7 +174,7 @@ for (const skill of catalog.skills) {
   outputs.set(`skills/${skill.name}/index.html`, renderSkillPage(skill, markdownSource));
 }
 
-for (const filename of ["catalog.js", "app.js", "copy.js", "recipes.js", "theme.js", "styles.css", "og.png"]) {
+for (const filename of ["catalog.js", "app.js", "copy.js", "recipe.js", "recipes.js", "theme.js", "styles.css", "og.png"]) {
   outputs.set(filename, await readFile(path.join(sourceDirectory, filename)));
 }
 
