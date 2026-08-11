@@ -94,7 +94,7 @@ Recommended shared components:
 | `InstallCommand` | Prompt, install string, copy control, optional source link |
 | `DirectoryWorkbench` | Query, category, active directory, result count |
 | `CatalogRow` | Shared skill/recipe/related-item row anatomy |
-| `MarkdownContent` | Sanitized generated HTML and editorial prose styling |
+| `MarkdownContent` | Typed rich-document composition and editorial prose styling |
 | `PackageDirectory` | Skill package files and source links |
 | `RecipeNav` | Contents navigation and current-section state |
 | `RecipePhase` | Numbered phase header, steps, and handoff notice |
@@ -165,7 +165,9 @@ Read repository files only in server-only loaders during the build. Return seria
 
 Continue producing `skills.json` and `recipes.json` as prerendered endpoints because they are useful public contracts and validation targets.
 
-For Markdown, preserve the current safe behavior during the first pass. The current renderer escapes raw HTML and rejects unsafe URL schemes. If it is later replaced with a CommonMark pipeline, add explicit HTML sanitization before using Svelte's `{@html}`.
+For Markdown, parse once into the accepted typed rich-document union and render through Svelte components. Preserve the
+current visible escaping of raw HTML and reject unsafe URL schemes and broken local targets. Source-derived HTML and
+`{@html}` are forbidden; see the shared content pipeline contract.
 
 Use `/recipes/` and `/recipes/[slug]/` as the canonical Recipe routes. Preserve `recipes.html` and `recipe.html` as
 generated compatibility pages during and after parity because GitHub Pages has no general redirect engine. The aliases
@@ -353,7 +355,7 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 | --- | --- |
 | Base-path failures on Pages | Build both `BASE_PATH=""` and `BASE_PATH="/skills"` in CI; use `resolve()` and `asset()` everywhere. |
 | Visual drift while replacing 4,200 lines of CSS | Migrate by vertical slice and use the existing QA viewports as screenshot baselines. |
-| Unsafe Markdown HTML | Preserve the current escaping contract or adopt an explicit sanitizer before `{@html}`. |
+| Unsafe Markdown HTML | Preserve visible escaping through the typed rich-document renderer; never pass Source Content to `{@html}`. |
 | Missing dynamic pages | Export `entries()` and keep adapter-static `strict: true`. |
 | shadcn styling erases LAB identity | Treat shadcn as owned primitives and map its semantic tokens to LAB variables. |
 | Tailwind misses data-driven classes | Use static variant maps or CSS variables; never concatenate class fragments. |
@@ -375,6 +377,10 @@ Exit: no legacy architecture is required to build, validate, preview, or deploy.
 4. Canonical LLM discovery uses one proposal-compatible `/llms.txt`, exact Markdown mirrors, versioned catalogs,
    stable canonical identifiers, content digests, explicit MIT context, and an audited permissive crawler policy. The
    Pages backup omits duplicate machine endpoints. See the [LLM discovery contract](llm-discovery-contract.md).
+5. One build-scoped Catalog snapshot reads exact Source Content bytes once, uses strict YAML/runtime schemas and one
+   Markdown AST, resolves relationships once, and derives all human and machine projections. Rich content is rendered
+   through typed Svelte components without source `{@html}`. See the
+   [shared content pipeline contract](content-pipeline-contract.md).
 
 ## Remaining decisions
 

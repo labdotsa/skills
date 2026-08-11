@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Defined the single-read shared content pipeline, typed Skill/Recipe model, component-rendered rich-content boundary, deterministic publication graph, and vertical implementation gates.
 - Defined canonical LLM discovery, Markdown, catalog identity, license, crawler-access, and validation contracts without introducing a second content source or treating `llms.txt` as a standard.
 - Defined the Discovery Site technical SEO and measurement contract, including crawl and canonical invariants, page-intent metadata, structured data, internal linking, Core Web Vitals, analytics, and regression gates.
 - Accepted the single-source SvelteKit boundary and canonical URL policy: Netlify owns `skills.lab.sa`, GitHub Pages remains a non-indexable backup, and clean Recipe routes retain generated `.html` aliases.
