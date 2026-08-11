@@ -240,15 +240,16 @@ branch. The later quality-gate ticket #12 may add accessibility/performance budg
 - #11 accepts the existing functioning site as the representative product prototype; the complete SvelteKit rebuild
   uses shared shadcn-svelte/LAB components without revisiting routing.
 - #12 adds accessibility, performance, interaction, and responsive gates on top of the artifact matrix.
-- #16 defines the final component architecture while preserving thin routes and the shared shell used by `404.html`.
-- #17 creates the SvelteKit foundation and implements the profile/configuration boundary.
-- #18 implements shared content readers and explicit dynamic entries.
-- #19 implements the component shell and human routes, including aliases and not-found content.
-- #20 implements SEO and machine endpoints under the profile policy.
-- #22 expands the shared parity/quality harness to both build profiles.
-- #24 proves cutover readiness from isolated artifacts built at one commit.
+- #16 creates the source-exclusive SvelteKit foundation, profile/configuration boundary, and shared component shell.
+- #17 implements shared content readers, the validated Catalog snapshot, and deterministic publication projections.
+- #18 through #21 implement the human Skill and Recipe routes from that shared model with explicit dynamic entries.
+- #22 implements canonical SEO, aliases, sitemap, robots, metadata, and not-found behavior under the profile policy.
+- #23 implements canonical-host-only LLM and machine-readable discovery surfaces.
+- #24 expands the shared parity and quality harness to both build profiles and proves cutover readiness from isolated
+  artifacts built at one commit.
 - #25 owns Netlify configuration and root/profile deployment smoke tests.
 - #26 owns the Pages Actions workflow, project/root modes, permissions, and deployment smoke tests.
+- #27 owns the final immutable cross-host proof, rollback release, squash cutover, and post-deploy verification.
 
 Reopening this contract is required if a feature needs request-time state, an unbounded route space, authentication,
 form actions, provider functions, a second canonical origin, or a deployment base that cannot be selected at build time.

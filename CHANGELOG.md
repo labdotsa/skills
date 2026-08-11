@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Published and audited the dependency-aware SvelteKit implementation graph as native GitHub sub-issues, and reconciled stale downstream ticket ownership in the hosting and design-system contracts.
 - Defined the WCAG 2.2 AA, keyboard and screen-reader, reduced-motion, theme, responsive/reflow, no-JavaScript, component-behavior, asset, transfer-budget, Core Web Vitals, cross-browser, visual-regression, and exception gates for the SvelteKit cutover.
 - Accepted an atomic SvelteKit cutover: isolate migration work behind a one-source boundary, squash the complete replacement into one reviewed commit, move generated `site/` to CI/provider artifacts, and preserve a checksummed tagged legacy rollback release.
 - Accepted the existing functioning Discovery Site as the representative prototype for a complete SvelteKit revamp, eliminating a separate throwaway UI while preserving the approved product experience and parity evidence.

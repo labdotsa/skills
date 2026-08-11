@@ -534,16 +534,16 @@ tighten accessibility and performance budgets but may not remove any row above.
 
 | Risk | Required handling / owner |
 | --- | --- |
-| 4,213-line cascade hides accidental dependencies | #11 and #19 migrate by complete route journey; remove a legacy CSS region only after named theme/viewport captures pass |
-| Maax license does not permit public redistribution or both hosts | Default to the deterministic open/system display stack; #17 records license evidence when available and #24 proves the accepted hierarchy with the fallback—never fetch the font remotely as a workaround |
-| shadcn neutral defaults erase LAB identity | #17 installs the token graph before primitives; #19 accepts only token-driven local source |
-| theme flashes or fails in hardened storage | #17 implements bootstrap truth-table tests; #12 adds browser first-paint/storage-denial evidence |
-| Tailwind misses data-driven classes | #19 uses closed literal variant maps or `--lab-accent`; static scan rejects interpolation |
-| hidden icon/font CDN survives in rich content or metadata | #20/#22 crawl HTML, CSS, manifests, and browser requests in both bases |
-| excessive primitive/dependency acquisition | #17 starts with the exact nine; later tickets add one only with a failing public test and update this contract |
+| 4,213-line cascade hides accidental dependencies | #11 fixes the baseline; #16 and #18–#21 migrate complete journeys and remove legacy CSS only after named theme/viewport captures pass |
+| Maax license does not permit public redistribution or both hosts | Default to the deterministic open/system display stack; #16 records license evidence when available and #24 proves the accepted hierarchy with the fallback—never fetch the font remotely as a workaround |
+| shadcn neutral defaults erase LAB identity | #16 installs the token graph before primitives; #18–#21 accept only token-driven local source |
+| theme flashes or fails in hardened storage | #16 implements bootstrap truth-table tests; #12 adds browser first-paint/storage-denial evidence |
+| Tailwind misses data-driven classes | #18–#21 use closed literal variant maps or `--lab-accent`; static scan rejects interpolation |
+| hidden icon/font CDN survives in rich content or metadata | #22/#24 crawl HTML, CSS, manifests, and browser requests in both bases |
+| excessive primitive/dependency acquisition | #16 starts with the exact nine; later tickets add one only with a failing public test and update this contract |
 | headless/CLI update overwrites owned APIs | Isolated generation plus hand-merge policy; no overwrite command |
-| package cohort becomes incompatible | #17 pins the reviewed baseline and lock; #12/CI runs peer/install/type/build gates before merge |
-| provider artifact diverges visually | #22 compares normalized output/assets; #25/#26 smoke the same immutable commit on each host |
+| package cohort becomes incompatible | #16 pins the reviewed baseline and lock; #12/CI runs peer/install/type/build gates before merge |
+| provider artifact diverges visually | #24 compares normalized output/assets; #25/#26 smoke the same immutable commit on each host |
 
 Downstream boundaries are:
 
@@ -551,14 +551,14 @@ Downstream boundaries are:
   reproduce it through this component/token system; it does not invent a second prototype or visual direction.
 - **#12** adds accessibility, forced-colors, performance, bundle-size, first-paint, and dependency-security release
   thresholds on top of this mandatory matrix.
-- **#13/#24** use the user's selected atomic cutover and rollback artifact; the cutover cannot retain `website/` or a
+- **#13/#27** use the user's selected atomic cutover and rollback artifact; the cutover cannot retain `website/` or a
   remote asset path as a fallback source.
-- **#17** owns project scaffolding, pinned dependencies, `components.json`, the CSS/token graph, theme bootstrap, local
+- **#16** owns project scaffolding, pinned dependencies, `components.json`, the CSS/token graph, theme bootstrap, local
   assets, and the initial primitive acquisition.
-- **#19** owns the route-visible shared/site compositions and any additional primitive request justified by a failing
+- **#18–#21** own the route-visible shared/site compositions and any additional primitive request justified by a failing
   vertical test.
-- **#20** owns canonical metadata/social URLs while referencing the same local assets.
-- **#22** owns dual-base static/network/dependency validation and normalized artifact comparison.
+- **#22** owns canonical metadata/social URLs while referencing the same local assets.
+- **#24** owns dual-base static/network/dependency validation and normalized artifact comparison.
 - **#25/#26** select publication profiles only; they cannot select design dependencies or CDN fallbacks.
 
 Reopen this contract only if an accepted user journey cannot be expressed through the layered component system and the

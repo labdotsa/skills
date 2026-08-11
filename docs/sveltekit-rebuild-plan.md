@@ -1,8 +1,12 @@
 # SvelteKit discovery-site rebuild plan
 
-Status: wayfinding
+Status: implementation-ready
 
 Canonical planning map: [Wayfind the single-source SvelteKit Discovery Site rebuild](https://github.com/labdotsa/skills/issues/1)
+
+Implementation graph: GitHub issues [#16](https://github.com/labdotsa/skills/issues/16) through
+[#27](https://github.com/labdotsa/skills/issues/27), published as native sub-issues with blocking relationships under
+the canonical map.
 
 Current-state evidence: [Discovery Site parity contract](discovery-site-parity-contract.md)
 
