@@ -13,13 +13,15 @@
 	}
 
 	let { preference, resolved, onPreferenceChange, compact = false }: Props = $props();
+	const instanceId = $props.id();
+	const labelId = `theme-label-${instanceId}`;
 </script>
 
 <div class="grid gap-1.5" data-theme-control>
-	<span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground" id="theme-label">
+	<span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground" id={labelId}>
 		Appearance
 	</span>
-	<div class="flex flex-wrap gap-1" role="group" aria-labelledby="theme-label">
+	<div class="flex flex-wrap gap-1" role="group" aria-labelledby={labelId}>
 		<Button
 			variant="ghost"
 			size={compact ? "icon" : "sm"}

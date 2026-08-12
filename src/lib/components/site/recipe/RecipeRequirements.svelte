@@ -32,8 +32,6 @@
 							<!-- Axe requires keyboard access for horizontal scrolling. -->
 							<code
 								class="min-w-0 flex-1 overflow-x-auto px-2 py-2 font-mono text-xs"
-								role="region"
-								aria-label={`${requirement.name} install command`}
 								tabindex="0"
 							>{requirement.installCommand}</code>
 							<CopyButton

@@ -13,5 +13,5 @@
 	{document}
 	codeCopyLabel="Copy prompt"
 	codeCopyMessage="Prompt copied"
-	class="min-w-0 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8 [&_a]:break-words [&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:decoration-primary [&_a]:decoration-2 [&_a]:underline-offset-4 [&_strong]:text-foreground"
+	class="min-w-0 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8 [&_a]:break-words [&_a]:font-semibold [&_a]:text-foreground [&_a]:underline [&_a]:decoration-primary [&_a]:decoration-2 [&_a]:underline-offset-4 [&_strong]:text-foreground"
 />

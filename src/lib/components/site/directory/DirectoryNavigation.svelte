@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div class="grid grid-cols-2 gap-2" role={enhanced ? "tablist" : undefined} aria-label="Browse the LAB library">
+<div class="grid grid-cols-2 gap-2" role={enhanced ? "tablist" : undefined} aria-label={enhanced ? "Browse the LAB library" : undefined}>
 	{#each collections as collection, index (collection.kind)}
 		<Button
 			id={`${collection.kind}-${idPrefix}-tab`}

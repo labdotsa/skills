@@ -28,6 +28,16 @@ test("serves prerendered directory routes", async (context) => {
   assert.match(await response.text(), /Nested/);
 });
 
+test("serves compressible publication bytes with negotiated gzip", async (context) => {
+  const origin = await fixture(context);
+  const response = await fetch(`${origin}/`, { headers: { "accept-encoding": "gzip" } });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-encoding"), "gzip");
+  assert.equal(response.headers.get("vary"), "accept-encoding");
+  assert.equal(await response.text(), "<h1>Home</h1>");
+});
+
 test("returns the prerendered 404 surface with an HTTP 404", async (context) => {
   const origin = await fixture(context);
   const response = await fetch(`${origin}/missing`);

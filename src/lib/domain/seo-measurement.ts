@@ -1,6 +1,8 @@
 export type LighthouseSeoRun = Readonly<{
 	performance: number;
+	accessibility: number;
 	seo: number;
+	bestPractices: number;
 	lcpMs: number;
 	cls: number;
 	tbtMs: number;
@@ -25,7 +27,9 @@ type MeasurementInput = Readonly<{
 
 const labThresholds = Object.freeze({
 	performance: 0.9,
+	accessibility: 1,
 	seo: 0.9,
+	bestPractices: 0.95,
 	lcpMs: 2_500,
 	cls: 0.1,
 	tbtMs: 200,
@@ -40,12 +44,14 @@ export function evaluateSeoMeasurement(input: MeasurementInput) {
 
 	const median = Object.freeze({
 		performance: medianOf(input.lighthouseRuns.map((run) => run.performance)),
+		accessibility: medianOf(input.lighthouseRuns.map((run) => run.accessibility)),
 		seo: medianOf(input.lighthouseRuns.map((run) => run.seo)),
+		bestPractices: medianOf(input.lighthouseRuns.map((run) => run.bestPractices)),
 		lcpMs: medianOf(input.lighthouseRuns.map((run) => run.lcpMs)),
 		cls: medianOf(input.lighthouseRuns.map((run) => run.cls)),
 		tbtMs: medianOf(input.lighthouseRuns.map((run) => run.tbtMs)),
 	});
-	const labFailures = failures(median, labThresholds, new Set(["performance", "seo"]));
+	const labFailures = failures(median, labThresholds, new Set(["performance", "accessibility", "seo", "bestPractices"]));
 	const field = input.fieldData ? reportedField(input.fieldData) : Object.freeze({ status: "no-data" as const });
 
 	return deepFreeze({
@@ -104,7 +110,7 @@ function failures<T extends Readonly<Record<string, number>>>(
 }
 
 function validateLighthouseRun(run: LighthouseSeoRun) {
-	for (const metric of ["performance", "seo"] as const) {
+	for (const metric of ["performance", "accessibility", "seo", "bestPractices"] as const) {
 		if (!Number.isFinite(run[metric]) || run[metric] < 0 || run[metric] > 1) {
 			throw new Error(`Lighthouse ${metric} must be a finite score from 0 to 1`);
 		}

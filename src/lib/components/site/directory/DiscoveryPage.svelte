@@ -31,7 +31,7 @@
 				Reusable instructions shaped by how LAB researches, designs, develops, and markets digital products.
 			</p>
 		</div>
-		<div class="flex min-w-0 items-center gap-3 rounded-lg border bg-code p-3 text-code-foreground shadow-[6px_6px_0_var(--lab-main)]" aria-label="Install the LAB Skills collection">
+		<div class="flex min-w-0 items-center gap-3 rounded-lg border bg-code p-3 text-code-foreground shadow-[6px_6px_0_var(--lab-main)]" role="group" aria-label="Install the LAB Skills collection">
 			<span class="font-mono text-primary" aria-hidden="true">$</span>
 			<code class="min-w-0 flex-1 overflow-x-auto py-2 font-mono text-sm">{installCommand}</code>
 			<CopyButton text={installCommand} label="Copy install command" message="Install command copied" />

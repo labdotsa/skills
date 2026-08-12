@@ -1,0 +1,42 @@
+{
+  "color-contrast": {
+    "rationale": "Axe cannot sample colors when sticky, collapsed, or horizontally clipped elements obscure its pixel probe. An independent browser computation resolves the rendered foreground and ancestor background colors for every affected node and must meet the ratio axe requested.",
+    "owner": "labdotsa",
+    "issue": "https://github.com/labdotsa/skills/issues/24",
+    "toolVersion": "4.13.0",
+    "expires": "2026-09-10",
+    "removalCriteria": "Remove when axe can measure the unchanged sticky, collapsed, and overflow layouts without an incomplete result.",
+    "scopes": [
+      "a11y-desktop|canonical|home|default",
+      "a11y-desktop|canonical|home|filtered",
+      "a11y-desktop|canonical|skill|default",
+      "a11y-desktop|canonical|skill|disclosure-open",
+      "a11y-desktop|canonical|recipe-index|default",
+      "a11y-desktop|canonical|recipe|default",
+      "a11y-desktop|canonical|not-found|default",
+      "a11y-desktop|pages-project|home|default",
+      "a11y-desktop|pages-project|home|filtered",
+      "a11y-desktop|pages-project|skill|default",
+      "a11y-desktop|pages-project|skill|disclosure-open",
+      "a11y-desktop|pages-project|recipe-index|default",
+      "a11y-desktop|pages-project|recipe|default",
+      "a11y-desktop|pages-project|not-found|default",
+      "a11y-mobile|canonical|home|default",
+      "a11y-mobile|canonical|home|filtered",
+      "a11y-mobile|canonical|home|sheet-open",
+      "a11y-mobile|canonical|skill|default",
+      "a11y-mobile|canonical|skill|disclosure-open",
+      "a11y-mobile|canonical|recipe-index|default",
+      "a11y-mobile|canonical|recipe|default",
+      "a11y-mobile|canonical|not-found|default",
+      "a11y-mobile|pages-project|home|default",
+      "a11y-mobile|pages-project|home|filtered",
+      "a11y-mobile|pages-project|home|sheet-open",
+      "a11y-mobile|pages-project|skill|default",
+      "a11y-mobile|pages-project|skill|disclosure-open",
+      "a11y-mobile|pages-project|recipe-index|default",
+      "a11y-mobile|pages-project|recipe|default",
+      "a11y-mobile|pages-project|not-found|default"
+    ]
+  }
+}

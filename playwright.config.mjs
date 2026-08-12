@@ -5,7 +5,7 @@ export default defineConfig({
   outputDir: "tmp/playwright-results",
   snapshotPathTemplate: "{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}",
   reporter: "line",
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   use: {
     baseURL: "http://127.0.0.1:4173",
     colorScheme: "light",

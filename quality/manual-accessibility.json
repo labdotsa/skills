@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "testedRevision": null,
+  "checks": [
+    {
+      "id": "keyboard",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    },
+    {
+      "id": "zoom-200",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    },
+    {
+      "id": "zoom-400",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    },
+    {
+      "id": "forced-colors",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    },
+    {
+      "id": "voiceover-safari",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    },
+    {
+      "id": "nvda-browser",
+      "status": "pending",
+      "tester": null,
+      "testedAt": null,
+      "environment": null,
+      "coverage": []
+    }
+  ]
+}

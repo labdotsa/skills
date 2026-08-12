@@ -20,6 +20,7 @@ const config = {
       base: publication.base,
       relative: true,
     },
+    inlineStyleThreshold: 75_000,
   },
 };
 

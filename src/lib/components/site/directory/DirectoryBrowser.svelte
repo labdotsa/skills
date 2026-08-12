@@ -104,7 +104,7 @@
 	{/if}
 
 	<div class="grid gap-4 border-b p-4 sm:p-5 lg:grid-cols-[minmax(18rem,1fr)_auto] lg:items-center">
-		<label class="relative block min-w-0" for={searchId}>
+		<label class="relative block min-w-0">
 			<span class="sr-only">{searchLabel}</span>
 			<SearchIcon class="pointer-events-none absolute start-3 top-1/2 z-10 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
 			<Input
@@ -112,7 +112,6 @@
 				bind:value={query}
 				id={searchId}
 				type="search"
-				aria-label={searchLabel}
 				placeholder={searchPlaceholder}
 				autocomplete="off"
 				class="h-11 ps-10 pe-12"
@@ -124,7 +123,7 @@
 		</p>
 	</div>
 
-	<div class="flex min-w-0 gap-2 overflow-x-auto border-b p-4 sm:flex-wrap sm:p-5" aria-label={`Filter ${activeKind} by category`}>
+	<div class="flex min-w-0 gap-2 overflow-x-auto border-b p-4 sm:flex-wrap sm:p-5" role="group" aria-label={`Filter ${activeKind} by category`}>
 		{#each categories as option (option.value)}
 			<Button
 				variant={category === option.value ? "secondary" : "ghost"}
@@ -147,12 +146,12 @@
 			aria-labelledby={enhanced && collections.length > 1 ? `${collection.kind}-${idPrefix}-tab` : `${collection.kind}-${idPrefix}-title`}
 			hidden={enhanced && collection.kind !== activeKind}
 		>
-			<h3 id={`${collection.kind}-${idPrefix}-title`} class="sr-only">{collection.kind === "skills" ? "Skills" : "Recipes"}</h3>
-			<div role="list">
+			<h3 id={`${collection.kind}-${idPrefix}-title`} class="sr-only">{collection.kind === "skills" ? "Skill directory" : "Recipe directory"}</h3>
+			<ul class="m-0 list-none p-0">
 				{#each rowsFor(collection) as item, index (item.slug)}
 					<CatalogRow {item} {index} detail={rowDetail} />
 				{/each}
-			</div>
+			</ul>
 		</section>
 	{/each}
 

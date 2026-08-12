@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onMount, type Snippet } from "svelte";
-	import { Toaster } from "$lib/components/ui/sonner/index.js";
+	import { onMount, tick, type Component, type Snippet } from "svelte";
+	import type { NotificationKind } from "$lib/notifications.js";
 	import {
 		createThemeController,
 		type ThemePreference,
@@ -17,6 +17,7 @@
 	let { children, publicationProfile }: Props = $props();
 	let theme = $state<ThemeSnapshot>({ preference: "system", resolved: "light" });
 	let setPreference = $state<(preference: ThemePreference) => void>(() => undefined);
+	let ToasterComponent = $state<Component<{ theme: ThemeSnapshot["resolved"]; richColors: boolean; closeButton: boolean }> | null>(null);
 
 	onMount(() => {
 		const controller = createThemeController(document, window, (snapshot) => {
@@ -24,7 +25,21 @@
 		});
 		theme = controller.snapshot;
 		setPreference = controller.setPreference;
-		return controller.destroy;
+		const handleNotification = async (event: Event) => {
+			const { kind, message } = (event as CustomEvent<{ kind: NotificationKind; message: string }>).detail;
+			const [{ Toaster }, { toast }] = await Promise.all([
+				import("$lib/components/ui/sonner/index.js"),
+				import("svelte-sonner"),
+			]);
+			ToasterComponent = Toaster;
+			await tick();
+			toast[kind](message);
+		};
+		window.addEventListener("lab:notification", handleNotification);
+		return () => {
+			controller.destroy();
+			window.removeEventListener("lab:notification", handleNotification);
+		};
 	});
 </script>
 
@@ -41,5 +56,7 @@
 		{@render children()}
 	</main>
 	<SiteFooter />
-	<Toaster theme={theme.resolved} richColors closeButton />
+	{#if ToasterComponent}
+		<ToasterComponent theme={theme.resolved} richColors closeButton />
+	{/if}
 </div>

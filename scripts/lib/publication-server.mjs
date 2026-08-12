@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
+import { gzipSync } from "node:zlib";
 
 const contentTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -24,7 +25,7 @@ export function createPublicationServer({ rootDirectory, basePath = "" }) {
     const pathname = new URL(request.url || "/", "http://localhost").pathname;
     const mountedPathname = stripBasePath(pathname, mount);
     if (mountedPathname === undefined) {
-      await sendNotFound(root, response);
+      await sendNotFound(root, request, response);
       return;
     }
     let relativePath;
@@ -44,12 +45,10 @@ export function createPublicationServer({ rootDirectory, basePath = "" }) {
 
     try {
       const contents = await readFile(filePath);
-      response
-        .writeHead(200, { "content-type": contentTypes.get(path.extname(filePath)) || "application/octet-stream" })
-        .end(contents);
+      sendFile(request, response, 200, contents, contentTypes.get(path.extname(filePath)) || "application/octet-stream");
     } catch (error) {
       if (error.code === "ENOENT") {
-        await sendNotFound(root, response);
+        await sendNotFound(root, request, response);
         return;
       }
       response.writeHead(500, { "content-type": "text/plain; charset=utf-8" }).end(error.message);
@@ -69,11 +68,25 @@ function stripBasePath(pathname, basePath) {
   return pathname.slice(basePath.length);
 }
 
-async function sendNotFound(root, response) {
+async function sendNotFound(root, request, response) {
   try {
     const notFound = await readFile(path.join(root, "404.html"));
-    response.writeHead(404, { "content-type": "text/html; charset=utf-8" }).end(notFound);
+    sendFile(request, response, 404, notFound, "text/html; charset=utf-8");
   } catch (error) {
     response.writeHead(500, { "content-type": "text/plain; charset=utf-8" }).end(error.message);
   }
+}
+
+function sendFile(request, response, status, contents, contentType) {
+  const acceptsGzip = /(?:^|,)\s*gzip\s*(?:;|,|$)/i.test(request.headers["accept-encoding"] || "");
+  const compressible = contentType.startsWith("text/")
+    || /^(?:application\/(?:json|manifest\+json|xml))|(?:image\/svg\+xml)/.test(contentType);
+  const body = acceptsGzip && compressible ? gzipSync(contents) : contents;
+  const headers = {
+    "content-type": contentType,
+    "content-length": body.byteLength,
+    vary: "accept-encoding",
+  };
+  if (body !== contents) headers["content-encoding"] = "gzip";
+  response.writeHead(status, headers).end(body);
 }

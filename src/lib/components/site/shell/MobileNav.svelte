@@ -1,18 +1,18 @@
 <script lang="ts">
-	import MenuIcon from "@lucide/svelte/icons/menu";
 	import { resolve } from "$app/paths";
 	import ThemeToggle from "$lib/components/shared/ThemeToggle.svelte";
-	import { Button } from "$lib/components/ui/button/index.js";
 	import * as Sheet from "$lib/components/ui/sheet/index.js";
 	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
 
 	interface Props {
+		open: boolean;
+		trigger: HTMLButtonElement | null;
 		preference: ThemePreference;
 		resolved: ResolvedTheme;
 		onPreferenceChange: (preference: ThemePreference) => void;
 	}
 
-	let { preference, resolved, onPreferenceChange }: Props = $props();
+	let { open = $bindable(false), trigger, preference, resolved, onPreferenceChange }: Props = $props();
 
 	const services = [
 		["Research", "https://lab.sa/services/research"],
@@ -22,15 +22,15 @@
 	] as const;
 </script>
 
-<Sheet.Root>
-	<Sheet.Trigger>
-		{#snippet child({ props })}
-			<Button {...props} variant="outline" size="icon" class="size-11 lg:hidden" aria-label="Open navigation">
-				<MenuIcon aria-hidden="true" />
-			</Button>
-		{/snippet}
-	</Sheet.Trigger>
-	<Sheet.Content class="w-[min(24rem,90vw)] p-6" aria-label="Mobile navigation">
+<Sheet.Root bind:open>
+	<Sheet.Content
+		class="w-[min(24rem,90vw)] p-6"
+		aria-label="Mobile navigation"
+		onCloseAutoFocus={(event) => {
+			event.preventDefault();
+			trigger?.focus();
+		}}
+	>
 		<Sheet.Header>
 			<Sheet.Title>LAB Skills</Sheet.Title>
 			<Sheet.Description>Public working knowledge and LAB services.</Sheet.Description>

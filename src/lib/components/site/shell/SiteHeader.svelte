@@ -2,7 +2,7 @@
 	import { asset, resolve } from "$app/paths";
 	import ThemeToggle from "$lib/components/shared/ThemeToggle.svelte";
 	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
-	import MobileNav from "./MobileNav.svelte";
+	import LazyMobileNav from "./LazyMobileNav.svelte";
 
 	interface Props {
 		preference: ThemePreference;
@@ -38,6 +38,6 @@
 		<div class="hidden lg:block">
 			<ThemeToggle {preference} {resolved} {onPreferenceChange} compact />
 		</div>
-		<MobileNav {preference} {resolved} {onPreferenceChange} />
+		<LazyMobileNav {preference} {resolved} {onPreferenceChange} />
 	</div>
 </header>

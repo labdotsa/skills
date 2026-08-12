@@ -15,11 +15,11 @@
 		<PageFrame class="py-16 sm:py-24">
 			<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Continue with LAB</p>
 			<h2 id="related-title" class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Related skills &amp; recipes</h2>
-			<div class="mt-8 border-t" role="list">
+			<ul class="mt-8 list-none border-t p-0">
 				{#each entries as entry, index (`${entry.kind}-${entry.slug}`)}
 					<RelatedRow {entry} {index} />
 				{/each}
-			</div>
+			</ul>
 		</PageFrame>
 	</section>
 {/if}

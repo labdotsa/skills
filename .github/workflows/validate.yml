@@ -23,5 +23,19 @@ jobs:
       - name: Require generated catalog in pull requests
         if: github.event_name == 'pull_request'
         run: npm run catalog && git diff --exit-code -- docs/catalog.md
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run validate
+      - name: Upload quality evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-evidence-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            .artifacts/quality
+            tmp/playwright-results
+            tmp/playwright-browser-quality-results
+            tmp/playwright-a11y-results
+            tmp/playwright-component-results
+            tmp/playwright-visual-results

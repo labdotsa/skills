@@ -16,7 +16,7 @@
 		: `${item.conversations} conversations`);
 </script>
 
-<article role="listitem" data-pillar={item.pillar}>
+<li data-pillar={item.pillar}>
 	<a
 		class="group grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_2rem] items-start gap-3 border-b border-s-4 border-b-border border-s-[var(--row-accent)] px-3 py-5 no-underline transition-colors hover:bg-muted/70 focus-visible:bg-muted/70 sm:grid-cols-[3.25rem_minmax(0,1fr)_2.5rem] sm:gap-5 sm:px-5 sm:py-6 motion-reduce:transition-none"
 		href={resolve(item.kind === "skill" ? `/skills/${item.slug}/` : `/recipes/${item.slug}/`)}
@@ -39,7 +39,7 @@
 			<ArrowRightIcon class="size-4" />
 		</span>
 	</a>
-</article>
+</li>
 
 <style>
 	[data-pillar="research"] { --row-accent: var(--lab-research); }

@@ -170,7 +170,7 @@ test("keeps Recipe contents and code usable at 320px and 366px without page over
     await expect(page.getByRole("navigation", { name: "Recipe contents" })).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: "Implementation" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
-    await expect(page.getByRole("region", { name: "Copy prompt content" }).first()).toHaveAttribute("tabindex", "0");
+    await expect(page.getByRole("region", { name: /^Copy prompt content / }).first()).toHaveAttribute("tabindex", "0");
   }
 
   await page.setViewportSize({ width: 800, height: 800 });

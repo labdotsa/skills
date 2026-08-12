@@ -21,6 +21,6 @@
 
 <div class={className} data-rich-document>
 	{#each document.children as node, index (`${node.type}-${index}`)}
-		<RichNode {node} {headingOffset} {codeCopyLabel} {codeCopyMessage} />
+		<RichNode {node} nodePath={`${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />
 	{/each}
 </div>

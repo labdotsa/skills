@@ -2,8 +2,8 @@
 	import CheckIcon from "@lucide/svelte/icons/check";
 	import CopyIcon from "@lucide/svelte/icons/copy";
 	import LoaderCircleIcon from "@lucide/svelte/icons/loader-circle";
-	import { toast } from "svelte-sonner";
 	import { Button } from "$lib/components/ui/button/index.js";
+	import { notify } from "$lib/notifications.js";
 
 	interface Props {
 		text: string;
@@ -45,10 +45,10 @@
 		try {
 			await writeClipboard(text);
 			state = "success";
-			toast.success(message);
+			notify("success", message);
 		} catch {
 			state = "error";
-			toast.error("Copy failed. Select and copy the command manually.");
+			notify("error", "Copy failed. Select and copy the command manually.");
 		}
 
 		resetTimer = setTimeout(() => {

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "origin": "https://skills.lab.sa",
+  "checkedAt": "2026-08-12T01:00:00.000Z",
+  "source": "Chrome UX Report",
+  "status": "no-data",
+  "reason": "This SvelteKit revision has not been deployed, so origin-level field data cannot be attributed to the release candidate. Recheck the 28-day mobile and desktop p75 window after cutover."
+}

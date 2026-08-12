@@ -9,6 +9,7 @@ import {
   validateUniqueCanonicalMetadata,
 } from "./lib/seo-validation.mjs";
 import { validateLlmPublication } from "./lib/llm-validation.mjs";
+import { validateHtmlQuality } from "./lib/html-quality.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const [profileName, requestedOutput] = process.argv.slice(2);
@@ -55,6 +56,7 @@ const htmlFiles = manifest.files
 const seoRecords = [];
 for (const filename of htmlFiles) {
   const html = await readFile(path.join(outputDirectory, filename), "utf8");
+  validateHtmlQuality(filename, html);
   const expectedCanonical = expectedCanonicalFor(filename, profile.canonicalOrigin);
   seoRecords.push(validateSeoDocument({
     filename,
