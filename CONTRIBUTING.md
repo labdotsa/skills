@@ -36,7 +36,7 @@ Open a skill proposal before investing in a large contribution.
 
 ## Changing the discovery site
 
-- Edit application source under `src/` and locally served assets under `static/`; never treat generated `site/` output as source.
+- Edit application source under `src/` and locally served assets under `static/`; generated `site/` output is ignored and must never be treated as source or committed.
 - Keep routes thin. Compose components through `src/lib/components/ui/`, then `shared/`, then feature-specific `site/` directories.
 - Acquire primitives one at a time with the pinned local shadcn-svelte CLI, review the copied source, and use concrete Lucide icon subpath imports.
 - Treat each `recipes/<name>/RECIPE.md` frontmatter block as the discovery source for the Recipes index; its `metadata.detail-url` must point to a generated or copied local detail page.

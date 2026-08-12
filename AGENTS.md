@@ -25,7 +25,7 @@ This is a public Agent Skills repository. Optimize for portability, clarity, and
 - Run `npm run catalog` after adding, renaming, or removing a stable skill.
 - Add a `metadata.category` value for every stable skill so discovery filters stay useful.
 - Keep recipe discovery metadata in `recipes/<name>/RECIPE.md`; each `metadata.detail-url` must resolve inside the generated site.
-- Edit discovery-site source only under `src/` and locally served static assets under `static/`; `site/` is generated output.
+- Edit discovery-site source only under `src/` and locally served static assets under `static/`; `site/` is ignored generated output and must not be committed.
 - Keep routes thin and compose the site through `ui → shared → site` components under `src/lib/components/`.
 - Run `npm run catalog` after changing stable skill metadata, and use `npm run dev` for the local Discovery Site.
 - Run `npm run build:matrix` after changing application source, publication profiles, or static assets.

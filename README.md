@@ -37,7 +37,7 @@ The skills follow the [Agent Skills specification](https://agentskills.io/specif
 | [`scripts/`](scripts/) | Catalog generation and repository validation |
 | [`src/`](src/) | Sole SvelteKit application source, composed as `ui → shared → site` |
 | [`static/`](static/) | Locally served brand and machine-readable assets |
-| [`site/`](site/) | Generated publication output; never an application source |
+| `site/` | Ignored, reproducible publication output; never an application source or committed artifact |
 
 ## Website architecture
 

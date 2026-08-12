@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Enforced the atomic cutover boundary by removing tracked `site/` output, ignoring all regenerated publication bytes, and validating both the sole npm lockfile and generated-output policy.
 - Added the single-source GitHub Pages backup workflow with project/root profile selection, least-required deployment permissions, exact-byte artifacts including `.nojekyll`, normalized canonical comparison, immutable run records, and shared deployed HTTP/browser smoke evidence.
 - Added the single-source Netlify publication path: locked supported tooling, context-bound canonical/preview profiles, validated staging-to-`site/` materialization, immutable and machine-response headers, provenance records, and deployed HTTP/browser smoke evidence.
 - Added the cross-profile publication quality gate: exhaustive static HTML checks, shadcn component contracts, WCAG axe scans, browser resilience and reflow coverage, pinned visual baselines, transfer budgets, three-run Lighthouse evidence, and explicit human/field evidence records.

@@ -11,3 +11,4 @@ tmp/
 .netlify
 .artifacts/
 .svelte-kit/
+/site/

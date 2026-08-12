@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -65,6 +66,29 @@ if (hasSvelteSource === hasLegacySource) {
   throw new Error("Exactly one application source must exist: src/ or website/");
 }
 if (!hasSvelteSource) throw new Error("The migration branch requires src/ as its application source");
+
+const trackedPublication = spawnSync("git", ["-C", repositoryRoot, "ls-files", "--", "site"], {
+  encoding: "utf8",
+});
+if (trackedPublication.status === 0 && trackedPublication.stdout.trim()) {
+  throw new Error("Tracked generated publication output detected under site/");
+}
+
+const ignoreRules = (await readFile(path.join(repositoryRoot, ".gitignore"), "utf8"))
+  .split(/\r?\n/u)
+  .map((line) => line.trim());
+if (!ignoreRules.includes("/site/")) {
+  throw new Error("Generated publication output must be ignored with /site/");
+}
+
+const lockfileCandidates = ["package-lock.json", "bun.lock", "bun.lockb", "pnpm-lock.yaml", "yarn.lock"];
+const lockfiles = [];
+for (const filename of lockfileCandidates) {
+  if (await exists(filename)) lockfiles.push(filename);
+}
+if (JSON.stringify(lockfiles) !== JSON.stringify(["package-lock.json"])) {
+  throw new Error(`Exactly one npm lockfile is required; found ${lockfiles.join(", ") || "none"}`);
+}
 
 for (const entry of await readdir(repositoryRoot, { withFileTypes: true })) {
   if (!entry.isDirectory() || excludedCompatibilityRoots.has(entry.name)) continue;
