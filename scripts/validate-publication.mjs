@@ -85,10 +85,10 @@ for (const asset of [
   "brand/favicon.svg",
   "brand/apple-touch-icon.png",
   "brand/social.png",
-  ".nojekyll",
 ]) {
   await access(path.join(outputDirectory, asset));
 }
+if (profile.name.startsWith("pages-")) await access(path.join(outputDirectory, ".nojekyll"));
 const socialImage = await readFile(path.join(outputDirectory, "brand/social.png"));
 if (!socialImage.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
   throw new Error("brand/social.png is not a valid PNG social image");

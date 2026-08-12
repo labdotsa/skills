@@ -45,6 +45,10 @@ process.stdout.write(machinePublication.stdout);
 process.stderr.write(machinePublication.stderr);
 if (machinePublication.status !== 0) process.exit(machinePublication.status ?? 1);
 
+if (!profile.name.startsWith("pages-")) {
+  await rm(path.join(outputDirectory, ".nojekyll"), { force: true });
+}
+
 const files = (await filesUnder(outputDirectory))
   .map((filename) => ({
     path: path.relative(outputDirectory, filename).split(path.sep).join("/"),
