@@ -2,17 +2,16 @@
 	import { resolve } from "$app/paths";
 	import ThemeToggle from "$lib/components/shared/ThemeToggle.svelte";
 	import * as Sheet from "$lib/components/ui/sheet/index.js";
-	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
+	import type { ResolvedTheme } from "$lib/theme/theme.js";
 
 	interface Props {
 		open: boolean;
 		trigger: HTMLButtonElement | null;
-		preference: ThemePreference;
-		resolved: ResolvedTheme;
-		onPreferenceChange: (preference: ThemePreference) => void;
+		theme: ResolvedTheme;
+		onThemeChange: (theme: ResolvedTheme) => void;
 	}
 
-	let { open = $bindable(false), trigger, preference, resolved, onPreferenceChange }: Props = $props();
+	let { open = $bindable(false), trigger, theme, onThemeChange }: Props = $props();
 
 	const services = [
 		["Research", "https://lab.sa/services/research"],
@@ -42,6 +41,9 @@
 				<a class="rounded-sm px-3 py-3 hover:bg-muted" href={service[1]}>{service[0]} <span aria-hidden="true">↗</span></a>
 			{/each}
 		</nav>
-		<ThemeToggle {preference} {resolved} {onPreferenceChange} />
+		<div class="flex items-center justify-between border-t pt-4">
+			<span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Appearance</span>
+			<ThemeToggle {theme} {onThemeChange} />
+		</div>
 	</Sheet.Content>
 </Sheet.Root>

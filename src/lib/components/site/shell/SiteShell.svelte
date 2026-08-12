@@ -15,7 +15,7 @@
 	}
 
 	let { children, publicationProfile }: Props = $props();
-	let theme = $state<ThemeSnapshot>({ preference: "system", resolved: "light" });
+	let theme = $state<ThemeSnapshot>({ preference: "light", resolved: "light" });
 	let setPreference = $state<(preference: ThemePreference) => void>(() => undefined);
 	let ToasterComponent = $state<Component<{ theme: ThemeSnapshot["resolved"]; richColors: boolean; closeButton: boolean }> | null>(null);
 
@@ -48,9 +48,8 @@
 		Skip to main content
 	</a>
 	<SiteHeader
-		preference={theme.preference}
-		resolved={theme.resolved}
-		onPreferenceChange={setPreference}
+		theme={theme.resolved}
+		onThemeChange={setPreference}
 	/>
 	<main id="main-content" tabindex="-1" class="flex-1">
 		{@render children()}

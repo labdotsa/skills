@@ -163,13 +163,13 @@ test("theme first paint and interaction survive denied storage", async ({ browse
     try {
       const homePath = profile.basePath ? `${profile.basePath}/` : "/";
       await page.goto(`${profile.origin}${homePath}`, { waitUntil: "networkidle" });
-      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-      await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#09090b");
-      expect(await page.evaluate(() => window.__themeAtDomContentLoaded)).toEqual({ theme: "dark", color: "#09090b" });
-
-      await page.getByRole("button", { name: "Use light appearance" }).click();
       await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-      await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#f4f4f5");
+      await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#f8f8f6");
+      expect(await page.evaluate(() => window.__themeAtDomContentLoaded)).toEqual({ theme: "light", color: "#f8f8f6" });
+
+      await page.getByRole("button", { name: "Switch to dark appearance" }).click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+      await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0b0b0c");
       expect(errors, `${profile.name} denied-storage errors`).toEqual([]);
     } finally {
       await context.close();
@@ -224,13 +224,12 @@ test("critical interactions acknowledge input within the deterministic budget", 
       () => expect(page.getByText("1 of 6 skills")).toBeVisible(),
       `${profile.name} search`);
     await acknowledgeWithinBudget(page,
-      () => page.getByRole("tab", { name: /Recipes/ }).click(),
-      () => expect(page.getByRole("searchbox", { name: "Search recipes" })).toBeVisible(),
-      `${profile.name} tab`);
-    await acknowledgeWithinBudget(page,
-      () => page.getByRole("button", { name: "Use dark appearance" }).click(),
+      () => page.getByRole("button", { name: "Switch to dark appearance" }).click(),
       () => expect(page.locator("html")).toHaveAttribute("data-theme", "dark"),
       `${profile.name} theme`);
+    await page.getByRole("link", { name: "Recipes", exact: true }).first().click();
+    await expect(page.getByRole("searchbox", { name: "Search recipes" })).toBeVisible();
+    await page.goBack({ waitUntil: "networkidle" });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "networkidle" });

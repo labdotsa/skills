@@ -6,6 +6,7 @@ test("prerenders the complete Skill reading journey from one typed view", async 
 
   await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("LAB Skills");
   await expect(page.getByRole("heading", { level: 1, name: "tailwind" })).toBeVisible();
+  await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
   await expect(page.getByText("npx skills add labdotsa/skills --skill tailwind")).toBeVisible();
   await expect(page.getByRole("link", { name: "Browse source on GitHub" })).toHaveAttribute(
     "href",
@@ -14,6 +15,8 @@ test("prerenders the complete Skill reading journey from one typed view", async 
   await expect(page.getByRole("heading", { level: 2, name: "Skill instructions" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Tailwind Engineering" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Package contents" })).toBeVisible();
+  await expect(page.getByRole("table", { name: "Maintained files included with this skill" })).toBeVisible();
+  await expect(page.getByRole("columnheader", { name: "File" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Open SKILL\.md source/ })).toBeVisible();
   await expect(page.getByRole("link", { name: "Open references/localizable-layout.md source" })).toHaveAttribute(
     "href",
@@ -93,9 +96,8 @@ test("collapses only overflowing sections and preserves trigger focus", async ({
   await page.goto("/skills/tailwind/");
 
   const instructions = page.getByRole("button", { name: "Expand Skill instructions" });
-  const packageContents = page.getByRole("button", { name: "Expand Package contents" });
   await expect(instructions).toHaveAttribute("aria-expanded", "false");
-  await expect(packageContents).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByRole("button", { name: /Package contents/ })).toHaveCount(0);
   const clippedTabStops = await page.locator('[data-overflow-disclosure] [data-slot="collapsible-content"]').first().evaluate(
     (region) => {
       const edge = region.getBoundingClientRect().bottom + 1;
@@ -201,7 +203,7 @@ test("matches the representative light and dark Skill views", async ({ page, isM
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
 
@@ -231,7 +233,7 @@ test("matches the same Skill journey and visual baselines at the Pages project b
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
   await expect(page).toHaveScreenshot("skill-tailwind-dark.png", {

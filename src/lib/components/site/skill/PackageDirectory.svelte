@@ -13,7 +13,7 @@
 </script>
 
 <section class="border-b" aria-labelledby="package-title">
-	<PageFrame class="py-16 sm:py-24">
+	<PageFrame class="py-14 sm:py-20">
 		<div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,0.6fr)] sm:items-end">
 			<div>
 				<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{fileCountLabel}</p>
@@ -22,21 +22,37 @@
 			<p class="leading-7 text-muted-foreground">Every maintained file included with this skill.</p>
 		</div>
 
-		<div class="mt-8">
-			<OverflowDisclosure label="Package contents" collapsedHeight={300}>
-				<ol class="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{#each files as file, index (file.path)}
-						<li class="flex min-h-64 min-w-0 flex-col overflow-hidden rounded-lg border bg-card" data-kind={file.kind}>
-							<span class="flex min-h-32 items-center justify-center bg-[var(--skill-accent)] font-display text-5xl font-black text-[var(--lab-on-accent)]" aria-hidden="true">
-								{String(index + 1).padStart(2, "0")}
-							</span>
-							<a class="flex min-w-0 flex-1 flex-col items-start justify-between gap-6 p-5 no-underline hover:bg-muted/60 focus-visible:bg-muted/60" href={file.sourceUrl} aria-label={`Open ${file.path} source`}>
-								<code class="max-w-full break-words whitespace-normal font-sans text-base font-bold">{file.path}</code>
-								<span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Open <ExternalLinkIcon class="size-4" aria-hidden="true" /></span>
-							</a>
-						</li>
-					{/each}
-				</ol>
+		<div class="mt-8 overflow-hidden rounded-lg border bg-card">
+			<OverflowDisclosure label="Package contents" collapsedHeight={420}>
+				<div class="overflow-x-auto" data-package-table>
+					<table class="w-full min-w-[42rem] border-collapse text-start">
+						<caption class="sr-only">Maintained files included with this skill</caption>
+						<thead>
+							<tr class="border-b text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+								<th class="w-20 px-4 py-3 text-start font-semibold sm:px-5" scope="col">No.</th>
+								<th class="px-4 py-3 text-start font-semibold sm:px-5" scope="col">File</th>
+								<th class="w-36 px-4 py-3 text-start font-semibold sm:px-5" scope="col">Role</th>
+								<th class="w-36 px-4 py-3 text-end font-semibold sm:px-5" scope="col">Source</th>
+							</tr>
+						</thead>
+						<tbody>
+							{#each files as file, index (file.path)}
+								<tr class="group border-b last:border-b-0 hover:bg-muted/70" data-kind={file.kind}>
+									<td class="px-4 py-3.5 font-mono text-xs text-subtle sm:px-5">{String(index + 1).padStart(2, "0")}</td>
+									<th class="px-4 py-3.5 text-start sm:px-5" scope="row">
+										<code class="break-all font-mono text-sm font-semibold text-foreground">{file.path}</code>
+									</th>
+									<td class="px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:px-5">{file.kind}</td>
+									<td class="px-4 py-3.5 text-end sm:px-5">
+										<a class="inline-flex min-h-9 items-center gap-2 font-semibold underline decoration-[var(--skill-accent)] decoration-2 underline-offset-4" href={file.sourceUrl} aria-label={`Open ${file.path} source`}>
+											Open <ExternalLinkIcon class="size-4" aria-hidden="true" />
+										</a>
+									</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
 			</OverflowDisclosure>
 		</div>
 	</PageFrame>

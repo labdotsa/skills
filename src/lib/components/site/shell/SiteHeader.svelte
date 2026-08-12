@@ -1,43 +1,50 @@
 <script lang="ts">
-	import { asset, resolve } from "$app/paths";
+	import { resolve } from "$app/paths";
+	import { page } from "$app/state";
+	import LabWordmark from "$lib/components/shared/LabWordmark.svelte";
 	import ThemeToggle from "$lib/components/shared/ThemeToggle.svelte";
-	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
+	import type { ResolvedTheme } from "$lib/theme/theme.js";
 	import LazyMobileNav from "./LazyMobileNav.svelte";
 
 	interface Props {
-		preference: ThemePreference;
-		resolved: ResolvedTheme;
-		onPreferenceChange: (preference: ThemePreference) => void;
+		theme: ResolvedTheme;
+		onThemeChange: (theme: ResolvedTheme) => void;
 	}
 
-	let { preference, resolved, onPreferenceChange }: Props = $props();
+	let { theme, onThemeChange }: Props = $props();
 
-	const services = [
-		["Research", "https://lab.sa/services/research"],
-		["Design", "https://lab.sa/services/design"],
-		["Development", "https://lab.sa/services/development"],
-		["Marketing", "https://lab.sa/services/marketing"],
-	] as const;
+	let skillsActive = $derived(!page.url.pathname.includes("/recipes"));
+	let recipesActive = $derived(page.url.pathname.includes("/recipes"));
 </script>
 
-<header class="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
-	<div class="mx-auto flex min-h-18 w-full max-w-site items-center gap-5 px-4 py-2 sm:px-6 lg:px-8">
-		<a class="flex items-center gap-2 font-display text-xl font-black no-underline" href={resolve("/")} aria-label="LAB Skills home">
-			<img class="h-9 w-auto dark:invert" src={asset("/brand/logo.svg")} alt="" width="146" height="195" />
-			<span>LAB</span>
+<header class="sticky top-0 z-40 border-b bg-background/95 backdrop-blur" data-site-header>
+	<div class="mx-auto flex min-h-20 w-full max-w-site items-center gap-5 px-4 sm:px-6 lg:px-8">
+		<a class="no-underline" href={resolve("/")} aria-label="LAB Skills home">
+			<LabWordmark class="text-2xl" />
 		</a>
-		<nav class="ml-auto hidden items-center gap-5 text-sm lg:flex" aria-label="Discovery">
-			<a class="no-underline hover:underline" href={resolve("/")}>Skills</a>
-			<a class="no-underline hover:underline" href={resolve("/recipes/")}>Recipes</a>
+		<nav class="ms-auto hidden h-20 items-stretch text-sm font-semibold lg:flex" aria-label="Discovery">
+			<a class="site-nav-link" class:active={skillsActive} aria-current={skillsActive ? "page" : undefined} href={resolve("/")}>Skills</a>
+			<a class="site-nav-link" class:active={recipesActive} aria-current={recipesActive ? "page" : undefined} href={resolve("/recipes/")}>Recipes</a>
 		</nav>
-		<nav class="hidden items-center gap-5 text-sm lg:flex" aria-label="LAB services">
-			{#each services as service (service[0])}
-				<a class="no-underline hover:underline" href={service[1]}>{service[0]}</a>
-			{/each}
-		</nav>
-		<div class="hidden lg:block">
-			<ThemeToggle {preference} {resolved} {onPreferenceChange} compact />
+		<div class="hidden border-s ps-3 lg:block">
+			<ThemeToggle {theme} {onThemeChange} />
 		</div>
-		<LazyMobileNav {preference} {resolved} {onPreferenceChange} />
+		<LazyMobileNav {theme} {onThemeChange} />
 	</div>
 </header>
+
+<style>
+	.site-nav-link {
+		display: inline-flex;
+		align-items: center;
+		border-block-end: 3px solid transparent;
+		padding-inline: 1.25rem;
+		text-decoration: none;
+	}
+
+	.site-nav-link:hover,
+	.site-nav-link:focus-visible,
+	.site-nav-link.active {
+		border-block-end-color: var(--lab-research);
+	}
+</style>

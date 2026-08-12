@@ -6,29 +6,21 @@ const Theme = await import("../src/lib/theme/theme.ts");
 test("normalizes stored theme preferences", () => {
   assert.equal(Theme.normalizePreference("light"), "light");
   assert.equal(Theme.normalizePreference("dark"), "dark");
-  assert.equal(Theme.normalizePreference("system"), "system");
-  assert.equal(Theme.normalizePreference("unexpected"), "system");
-  assert.equal(Theme.normalizePreference(null), "system");
+  assert.equal(Theme.normalizePreference("system"), "light");
+  assert.equal(Theme.normalizePreference("unexpected"), "light");
+  assert.equal(Theme.normalizePreference(null), "light");
 });
 
-test("resolves system, light, and dark themes", () => {
-  assert.equal(Theme.resolvePreference("system", true), "dark");
-  assert.equal(Theme.resolvePreference("system", false), "light");
-  assert.equal(Theme.resolvePreference("light", true), "light");
-  assert.equal(Theme.resolvePreference("dark", false), "dark");
+test("toggles only between light and dark", () => {
+  assert.equal(Theme.oppositeTheme("light"), "dark");
+  assert.equal(Theme.oppositeTheme("dark"), "light");
 });
 
-function themeEnvironment({ stored, storageThrows = false, systemDark = false } = {}) {
+function themeEnvironment({ stored, storageThrows = false } = {}) {
   const root = { dataset: {}, style: {} };
   const meta = { content: "", setAttribute(_name, value) { this.content = value; } };
-  const mediaListeners = new Map();
   const windowListeners = new Map();
   const writes = [];
-  const media = {
-    matches: systemDark,
-    addEventListener(type, listener) { mediaListeners.set(type, listener); },
-    removeEventListener(type) { mediaListeners.delete(type); },
-  };
   const storage = {
     getItem() { return stored ?? null; },
     setItem(key, value) {
@@ -37,7 +29,6 @@ function themeEnvironment({ stored, storageThrows = false, systemDark = false } 
     },
   };
   const window = {
-    matchMedia() { return media; },
     addEventListener(type, listener) { windowListeners.set(type, listener); },
     removeEventListener(type) { windowListeners.delete(type); },
     get localStorage() {
@@ -49,48 +40,46 @@ function themeEnvironment({ stored, storageThrows = false, systemDark = false } 
     documentElement: root,
     querySelector() { return meta; },
   };
-  return { document, media, mediaListeners, meta, root, window, windowListeners, writes };
+  return { document, meta, root, window, windowListeners, writes };
 }
 
-test("applies a resolved theme and theme-color to the document", () => {
-  const environment = themeEnvironment({ systemDark: true });
-  const snapshot = Theme.applyTheme(environment.document, "system", true);
+test("applies a selected theme and theme-color to the document", () => {
+  const environment = themeEnvironment();
+  const snapshot = Theme.applyTheme(environment.document, "dark");
 
-  assert.deepEqual(snapshot, { preference: "system", resolved: "dark" });
+  assert.deepEqual(snapshot, { preference: "dark", resolved: "dark" });
   assert.equal(environment.root.dataset.theme, "dark");
-  assert.equal(environment.root.dataset.themePreference, "system");
+  assert.equal(environment.root.dataset.themePreference, "dark");
   assert.equal(environment.root.style.colorScheme, "dark");
-  assert.equal(environment.meta.content, "#09090b");
+  assert.equal(environment.meta.content, "#0b0b0c");
 });
 
-test("theme controller follows system changes and persists explicit choices", () => {
+test("theme controller persists explicit choices and synchronizes other tabs", () => {
   const environment = themeEnvironment();
-  environment.root.dataset.themePreference = "system";
+  environment.root.dataset.themePreference = "light";
   const snapshots = [];
   const controller = Theme.createThemeController(environment.document, environment.window, (snapshot) => snapshots.push(snapshot));
 
-  environment.media.matches = true;
-  environment.mediaListeners.get("change")();
-  controller.setPreference("light");
+  controller.setPreference("dark");
+  environment.windowListeners.get("storage")({ key: Theme.THEME_STORAGE_KEY, newValue: "light" });
 
   assert.deepEqual(snapshots, [
-    { preference: "system", resolved: "dark" },
+    { preference: "dark", resolved: "dark" },
     { preference: "light", resolved: "light" },
   ]);
-  assert.deepEqual(environment.writes, [[Theme.THEME_STORAGE_KEY, "light"]]);
+  assert.deepEqual(environment.writes, [[Theme.THEME_STORAGE_KEY, "dark"]]);
   controller.destroy();
-  assert.equal(environment.mediaListeners.size, 0);
   assert.equal(environment.windowListeners.size, 0);
 });
 
 test("theme controller tolerates invalid state and unavailable storage", () => {
-  const environment = themeEnvironment({ storageThrows: true, systemDark: true });
+  const environment = themeEnvironment({ storageThrows: true });
   environment.root.dataset.themePreference = "invalid";
   const snapshots = [];
 
   const controller = Theme.createThemeController(environment.document, environment.window, (snapshot) => snapshots.push(snapshot));
-  assert.deepEqual(controller.snapshot, { preference: "system", resolved: "dark" });
-  assert.doesNotThrow(() => controller.setPreference("light"));
-  assert.deepEqual(snapshots.at(-1), { preference: "light", resolved: "light" });
+  assert.deepEqual(controller.snapshot, { preference: "light", resolved: "light" });
+  assert.doesNotThrow(() => controller.setPreference("dark"));
+  assert.deepEqual(snapshots.at(-1), { preference: "dark", resolved: "dark" });
   controller.destroy();
 });

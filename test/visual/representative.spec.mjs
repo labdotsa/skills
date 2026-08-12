@@ -11,6 +11,8 @@ test("pins equivalent representative light and dark publication views", async ({
     await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
     for (const profile of profiles) {
       const routes = await loadRepresentativeRoutes(profile.root, profile.basePath);
+      await page.goto(`${profile.origin}${routes.find((route) => route.id === "home").pathname}`, { waitUntil: "networkidle" });
+      await page.evaluate((selectedTheme) => localStorage.setItem("labs-color-theme", selectedTheme), theme);
       for (const route of routes) {
         const response = await page.goto(`${profile.origin}${route.pathname}`, { waitUntil: "networkidle" });
         expect(response?.status()).toBe(route.id === "not-found" ? 404 : 200);
@@ -33,6 +35,8 @@ test("pins the meaningful empty directory state", async ({ page }) => {
       const routes = await loadRepresentativeRoutes(profile.root, profile.basePath);
       const home = routes.find((route) => route.id === "home");
       await page.goto(`${profile.origin}${home.pathname}`, { waitUntil: "networkidle" });
+      await page.evaluate((selectedTheme) => localStorage.setItem("labs-color-theme", selectedTheme), theme);
+      await page.reload({ waitUntil: "networkidle" });
       await page.getByRole("searchbox", { name: "Search skills" }).fill("nothing-in-this-library");
       await expect(page.getByText("No item matches that search.")).toBeVisible();
       await page.evaluate(() => document.activeElement?.blur());
@@ -53,6 +57,8 @@ test("pins the open mobile navigation state", async ({ page }, testInfo) => {
       const routes = await loadRepresentativeRoutes(profile.root, profile.basePath);
       const home = routes.find((route) => route.id === "home");
       await page.goto(`${profile.origin}${home.pathname}`, { waitUntil: "networkidle" });
+      await page.evaluate((selectedTheme) => localStorage.setItem("labs-color-theme", selectedTheme), theme);
+      await page.reload({ waitUntil: "networkidle" });
       await page.getByRole("button", { name: "Open navigation" }).click();
       await expect(page.getByRole("dialog", { name: "LAB Skills" })).toBeVisible();
       await page.evaluate(() => document.fonts.ready);

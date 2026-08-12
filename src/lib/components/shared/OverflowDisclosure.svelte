@@ -81,7 +81,7 @@
 			{@render children()}
 		</Collapsible.Content>
 		{#if enhanced && overflow && !open}
-			<div class="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" aria-hidden="true"></div>
+			<div class="pointer-events-none absolute inset-x-0 bottom-0 h-12 border-t bg-background/95" aria-hidden="true"></div>
 		{/if}
 	</div>
 	{#if enhanced && overflow}

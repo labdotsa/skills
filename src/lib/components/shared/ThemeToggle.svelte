@@ -1,63 +1,32 @@
 <script lang="ts">
-	import MonitorIcon from "@lucide/svelte/icons/monitor";
 	import MoonIcon from "@lucide/svelte/icons/moon";
 	import SunIcon from "@lucide/svelte/icons/sun";
 	import { Button } from "$lib/components/ui/button/index.js";
-	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
+	import { oppositeTheme, type ResolvedTheme } from "$lib/theme/theme.js";
 
 	interface Props {
-		preference: ThemePreference;
-		resolved: ResolvedTheme;
-		onPreferenceChange: (preference: ThemePreference) => void;
-		compact?: boolean;
+		theme: ResolvedTheme;
+		onThemeChange: (theme: ResolvedTheme) => void;
 	}
 
-	let { preference, resolved, onPreferenceChange, compact = false }: Props = $props();
-	const instanceId = $props.id();
-	const labelId = `theme-label-${instanceId}`;
+	let { theme, onThemeChange }: Props = $props();
+	let nextTheme = $derived(oppositeTheme(theme));
+	let actionLabel = $derived(`Switch to ${nextTheme} appearance`);
 </script>
 
-<div class="grid gap-1.5" data-theme-control>
-	<span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground" id={labelId}>
-		Appearance
-	</span>
-	<div class="flex flex-wrap gap-1" role="group" aria-labelledby={labelId}>
-		<Button
-			variant="ghost"
-			size={compact ? "icon" : "sm"}
-			aria-label={compact ? "Use system appearance" : undefined}
-			aria-pressed={preference === "system"}
-			class="min-h-11 data-[pressed=true]:bg-primary data-[pressed=true]:text-primary-foreground"
-			data-pressed={preference === "system"}
-			onclick={() => onPreferenceChange("system")}
-		>
-			<MonitorIcon aria-hidden="true" />
-			{#if !compact}<span>System</span>{/if}
-		</Button>
-		<Button
-			variant="ghost"
-			size={compact ? "icon" : "sm"}
-			aria-label={compact ? "Use light appearance" : undefined}
-			aria-pressed={preference === "light"}
-			class="min-h-11 data-[pressed=true]:bg-primary data-[pressed=true]:text-primary-foreground"
-			data-pressed={preference === "light"}
-			onclick={() => onPreferenceChange("light")}
-		>
-			<SunIcon aria-hidden="true" />
-			{#if !compact}<span>Light</span>{/if}
-		</Button>
-		<Button
-			variant="ghost"
-			size={compact ? "icon" : "sm"}
-			aria-label={compact ? "Use dark appearance" : undefined}
-			aria-pressed={preference === "dark"}
-			class="min-h-11 data-[pressed=true]:bg-primary data-[pressed=true]:text-primary-foreground"
-			data-pressed={preference === "dark"}
-			onclick={() => onPreferenceChange("dark")}
-		>
-			<MoonIcon aria-hidden="true" />
-			{#if !compact}<span>Dark</span>{/if}
-		</Button>
-	</div>
-	<span class="sr-only" role="status">{preference} appearance, resolved {resolved}</span>
-</div>
+<Button
+	variant="ghost"
+	size="icon"
+	class="size-11 rounded-full border border-transparent hover:border-border-strong hover:bg-transparent"
+	aria-label={actionLabel}
+	title={actionLabel}
+	data-theme-toggle
+	data-current-theme={theme}
+	onclick={() => onThemeChange(nextTheme)}
+>
+	{#if theme === "light"}
+		<MoonIcon class="size-5" aria-hidden="true" />
+	{:else}
+		<SunIcon class="size-5" aria-hidden="true" />
+	{/if}
+</Button>

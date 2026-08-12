@@ -10,6 +10,7 @@ test("prerenders the complete Recipe index from the shared Catalog", async ({ pa
   await page.goto("/recipes/");
 
   await expect(page.getByRole("heading", { level: 1, name: /LAB Recipes turn focused skills into complete delivery/ })).toBeVisible();
+  await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
   await expect(page.getByRole("link", { name: "Browse the recipes" })).toHaveAttribute("href", "#recipe-catalog");
   await expect(page.getByRole("link", { name: "Explore skills" })).toHaveAttribute("href", "/#catalog");
   await expect(page.getByRole("heading", { level: 2, name: "Recipes" })).toBeVisible();
@@ -18,6 +19,7 @@ test("prerenders the complete Recipe index from the shared Catalog", async ({ pa
     "href",
     "/recipes/functional-prototype/",
   );
+  await expect(page.locator("#recipe-catalog")).toHaveCSS("overflow", "hidden");
   await expect(page.getByText("Foundation → Visuals → Planning → Implementation")).toBeVisible();
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://skills.lab.sa/recipes/");
   expect(catalogRequests).toEqual([]);
@@ -138,7 +140,7 @@ test("matches the representative light and dark Recipe-index views", async ({ pa
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
 
@@ -168,7 +170,7 @@ test("matches the same Recipe index and alias at the Pages project base", async 
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
   await expect(page).toHaveScreenshot("recipe-index-dark.png", {

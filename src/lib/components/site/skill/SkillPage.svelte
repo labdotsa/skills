@@ -27,7 +27,6 @@
 	data-pillar={pillar}
 	data-catalog-snapshot={catalogSnapshotId}
 >
-	<div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[44rem] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--skill-accent)_11%,transparent),transparent)]" aria-hidden="true"></div>
 	<SkillHero {skill} />
 	<SkillInstructions {skill} />
 	<PackageDirectory files={skill.packageFiles} />

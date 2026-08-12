@@ -2,79 +2,58 @@
 
 ## Visual truth
 
-- User references include the preceding full-width recipe review set plus `Screenshot 2026-08-11 at 1.19.52 PM.png` through `Screenshot 2026-08-11 at 1.23.58 PM.png`, the handoff/notice comparison at `1.26.25 PM` and `1.26.48 PM`, the install/source-row reference at `1.27.32 PM`, the copy-icon consistency reference at `1.39.47 PM`, the early AFK/HITL notice reference at `1.41.01 PM`, the skill ordering/install-width references at `3.05.50 PM` and `3.06.40 PM`, and the recipe copy-control comparison at `3.09.51 PM` and `3.09.58 PM`.
-- Browser-rendered implementation captures include the prior recipe QA set plus `lab-recipe-sticky-rail-after.jpg`, `lab-recipe-code-dark-after.jpg`, `lab-recipe-code-light-after.jpg`, `lab-recipe-section-leading-final.jpg`, `lab-recipe-handoff-notice-after.jpg`, `lab-recipe-install-meta-after.jpg`, `lab-recipe-copy-icons-after.jpg`, `lab-recipe-copy-icons-comparison.jpg`, `lab-recipe-afk-planning-after.jpg`, `lab-afk-placement-comparison.jpg`, `lab-skill-fit-install-after.jpg`, `lab-skill-package-before-related-after.jpg`, `lab-recipe-unified-copy-controls-after.jpg`, `lab-install-fit-comparison.jpg`, `lab-skill-order-comparison.jpg`, `lab-copy-controls-comparison.jpg`, and the combined fidelity comparison images in the temporary QA workspace.
-- Desktop CSS viewport: 1280 × 720 for the final consistency pass.
-- Responsive check: 390 × 844. No horizontal document overflow occurred.
-- Full-view and focused comparisons were normalized into 1596 × 449 side-by-side canvases.
+The refinement review used the six supplied screenshots as the source of truth. Browser-rendered implementation captures use a 1440 × 900 CSS viewport and live under the untracked `.artifacts/design-qa/refinement/` directory.
+
+| Reference | Pixels | Requested correction | Same-canvas evidence |
+| --- | ---: | --- | --- |
+| Screenshot 1 | 1824 × 346 | Replace the clipped handoff container with a compact Markdown-style blockquote. | `comparison-1-handoff.png` |
+| Screenshot 2 | 2256 × 1632 | Replace the oversized two-column requirement cards with a compact table. | `comparison-2-requirements.png` |
+| Screenshot 3 | 708 × 534 | Remove the redundant Outcome panel and integrate useful metadata into the Recipe hero. | `comparison-3-recipe-details.png` |
+| Screenshot 4 | 2446 × 576 | Complete the directory perimeter and corner treatment. | `comparison-4-directory.png` |
+| Screenshot 5 | 2382 × 1034 | Establish the home hero as one reusable LAB composition. | `comparison-5-home-hero.png` |
+| Screenshot 6 | 2390 × 698 | Bring the Recipe index hero onto the same composition, rhythm, and type scale. | `comparison-6-recipes-hero.png` |
+
+Each comparison places the supplied reference above the implementation, separated by a LAB research-blue rule. Focused implementation crops were used for the handoff, requirements, Recipe metadata, and directory comparisons; the hero comparisons use complete viewport captures.
 
 ## States and interactions checked
 
-- Dark home, skill detail, and recipe detail hero states.
-- Full-width home hero/command and catalog frame.
-- Full-width skill hero, description, installation command, and instruction frame.
-- Vertical recipe hero and semantic rationale blockquote.
-- Recipe navigation with duplicated delivery-map and roster summaries removed.
-- Vertical planning prompts, wrapped prompt content, and copyable approval command.
-- Copyable skill-install references and prompt controls; copied state reached `success` and displayed the toast.
-- Icon-only prompt controls remain 38 × 38 pixels while preserving their accessible copy label in the DOM.
-- Recipe skill references reuse the skill-detail installation component; the tested copy button is centered within the command and reaches its success/check state.
-- Recipe contents navigation occupies the right rail on desktop and returns above the article on narrow screens.
-- Phase and step headings share the same index/content columns; desktop step bodies and controls continue on that content column, while the narrow layout uses a 44 px index rail without overflow.
-- Phase indices `01`–`04` and step indices use the same research-blue treatment: 23 px/600 weight/23 px line height on desktop and 20 px/600 weight/20 px line height at 366 px, with identical alignment and no overflow.
-- Step indices remain pinned at the same 124 px reading offset as the sticky contents rail while their owning step is active; the narrow layout returns them to normal flow.
-- Active contents links cover the complete 220 px rail width with no outer inset.
-- Command, prompt, Markdown, and legacy command panels resolve to the same `#18181b` surface; outer borders resolve to `#27272a` in dark mode and `#f4f4f5` in light mode, while code-header text resolves to `#d4d4d8` and `#71717a` respectively.
-- Prompt copy controls contain only the icon and accessible label; tested button and icon centers match exactly on both axes, and the control reaches success/check state with the toast visible.
-- Conversation rule, phase title, step body, handoff, prototype gate, and source copy share the same desktop content-column x-position.
-- All four phase handoffs now share the guidance notice anatomy: 16 px × 20 px padding, 8 px radius, no border, and the theme surface token, with zero narrow-screen overflow.
-- All seven skill-source links share the installation-label baseline and align their right edge to the command edge; at narrow widths the visible label contracts to “Source” while retaining the complete accessible link text.
-- All 19 single-line command and multi-line code copy icons resolve to one 18 × 18 px base box with zero horizontal or vertical center delta; copy, loading, and success states retain that shared geometry, including at 366 px with no overflow.
-- The AFK/HITL notice appears exactly once inside Planning step 3.1, immediately after ticket drafting is introduced and before the ticket-classification prompt; the opening conversation rule now stays focused on file-based handoffs.
-- All six skill detail pages place package contents before related skills and recipes. Desktop detail commands resolve between 514 px and 649 px by content, the homepage command resolves to 371 px, and narrow commands cap at the available 330 px without overflow. Command, prompt, Markdown, and reference copy controls share a 48 px desktop footprint and a 42 px narrow footprint; copy/loading/success states retain matching geometry.
-- Recipe contents links update an `aria-current="location"` state while scrolling and after clicks/hash loads; all six targets were exercised and matched their active link.
-- Mobile hero, blockquote, navigation, and skill-reference layout.
-- Browser console errors and warnings: none.
+- Desktop light home, Skills directory, Recipe index, Recipe detail hero, compact requirements table, and in-document handoff at 1440 × 900.
+- Recipe detail at 390px: the shared hero stacks, the requirements table scrolls within its own frame, and the page itself has no horizontal overflow (`scrollWidth` and `clientWidth` both 390px).
+- Home and Recipe index now expose one `data-lab-hero` composition with the same accent rail, eyebrow, display-title scale, description rhythm, and optional right-side action slot.
+- Recipe detail no longer repeats the generic Outcome label; its bounded details panel keeps phase, Skill, author, and source information together.
+- Every handoff is a semantic `blockquote` with one complete accent rail and no decorative half-border.
+- Recipe requirements render as one semantic table with eight rows, row-level copy actions, an explicit built-in state, and a locally scrollable command region.
+- Skills and Recipe directories use complete rounded borders with clipped children, so search, filters, and entries read as one bounded workbench.
+- Light/dark appearance, global Skills/Recipes navigation, search, filters, mobile navigation, copy actions, and deep Recipe contents remain wired to the existing interaction model.
 
-## Required fidelity surfaces
+## Fidelity findings
 
-- Fonts and typography: LAB display and body fonts retain the established hierarchy; the full-width frames reduce forced title and paragraph wrapping without changing font tokens.
-- Spacing and layout: home, skill, and recipe primary frames now use the full viewport with shared responsive gutters; recipe phases use consistent dividers instead of nested summary cards.
-- Colors and tokens: service gradients and research-blue recipe accents remain mapped to LAB tokens in both themes.
-- Image and icon fidelity: the live LAB mark and live icon-library assets remain in use; no placeholder or handcrafted image substitutes were introduced.
-- Copy and content: duplicated phase summaries were removed while the useful on-page navigation, phase instructions, handoffs, and prototype gate remain.
-
-## Comparison history
-
-| Severity | Difference found | Correction | Post-fix visual evidence |
+| Severity | Difference found | Correction | Post-fix evidence |
 | --- | --- | --- | --- |
-| P1 | Home and detail heroes were constrained by independent 1024 px, 840 px, and 760 px maximum widths. | Replaced the competing containers with one full-width LAB frame and responsive page gutters; title, description, and install command now occupy the same frame. | Home, skill, and recipe screenshots measure effectively the full 1600 px viewport with no overflow. |
-| P1 | Recipe rationale was a detached side card and broke the vertical reading flow. | Rebuilt the recipe hero as a vertical stack and rendered the rationale as a semantic blockquote with the LAB research accent. | Recipe full-view comparison shows one continuous hero and blockquote. |
-| P1 | Recipe phase names appeared in a delivery map, a second roster, navigation, and the actual phase sections. | Removed the delivery map and roster; retained one navigation layer and the actual separated phase sections. | DOM checks return zero `.delivery-map` and `.chat-roster` elements. |
-| P1 | Step 3.2 rendered two prompt blocks side by side, clipping long code and producing visible scrollbars. | Stacked prompts vertically, matched the shared dark code-toolbar surface, and enabled readable pre-wrapping. | Focused planning comparison shows two full-width vertical prompts and no document overflow. |
-| P2 | Referenced skills were small pills that linked away but could not be copied or installed directly. | Replaced every skill pill with a reusable source/install block and animated copy control; added a copyable planning approval command. | Nine recipe skill/command references are present and the tested control reached its success state. |
-| P2 | Catalog rows ended with repeated LAB pillar lockups. | Removed lockup generation from both the dynamic home renderer and generated related rows, retaining only the directional arrow. | Home and skill DOM checks return zero `.row-lab-lockup` elements. |
-| P1 | Prompt controls exposed a second “Copy prompt” label while install references used a different component anatomy. | Reduced prompt controls to the shared icon-only state and rebuilt skill references with the same title/source toolbar, copy slot, and code body used by prompts. | Final focused capture shows matching stacked code surfaces; computed controls are 38 × 38 pixels and the tested icon reached the check state. |
-| P2 | Step indices were visually detached, the feedback note used a second accent, and the contents rail sat opposite the desired reading edge. | Sized indices to the complete heading block, mapped notes to the recipe accent, and moved the desktop contents rail to the right. | Computed index size is 23 px across a 55.5 px heading, all recipe accents resolve to research blue, and the navigation x-position is greater than the article x-position. |
-| P1 | Recipe skill references still looked like generic two-row code panels and placed the copy icon in a detached top-right cell. | Reused the skill-detail install command anatomy: installation label, `$` prompt, LAB pillar stripe, inset copy button, and a separate source link. | The normalized before/after comparison shows the compact command hierarchy; the button and command vertical centers are identical and the control reaches the check state. |
-| P1 | Phase titles, step titles, and step bodies used three different horizontal starts; the centered step index also floated below the title baseline. | Unified phase and step headers on the same numbered grid, aligned desktop body content to it, top-aligned step indices, and introduced a compact 44 px narrow-screen rail with safe wrapping. | Desktop checks report identical x-positions for phase title, step title, body, skill installs, and prompts; at 366 px the phase and step titles share the same x-position with no document overflow. |
-| P1 | Code-related panels used a mix of `var(--code)`, `#18181b`, and unrelated inherited border tokens, producing subtly different fills and border contrast. | Added one code-surface token set for commands, prompts, Markdown blocks, toolbars, and copy controls, then tuned the requested theme contrast direction. | Computed checks return the same `rgb(24, 24, 27)` panel background; outer borders are `rgb(39, 39, 42)` in dark mode and `rgb(244, 244, 245)` in light mode. |
-| P1 | The sticky contents aside provided no indication of which long recipe section was currently visible. | Added a requestAnimationFrame-throttled scrollspy with click, hash, resize, and load synchronization plus a LAB-accent active treatment and `aria-current`. | Foundation remains highlighted while step 1.2 is visible; Foundation, Visuals, Planning, Implementation, and Prototype gate each matched after navigation, with no console errors. |
-| P1 | Recipe phase indices `01`–`04` remained small and gray while nested step indices such as `1.1` were larger and research-blue. | Applied one shared index selector and responsive typography treatment to phase and step indices. | Computed styles match exactly for `01`–`04` and `1.1`: research blue, 23 px/600 on desktop and 20 px/600 at 366 px, with zero horizontal overflow. |
-| P1 | Prompt buttons retained invisible text beside the icon, step numbers scrolled away, active navigation remained inset, and unnumbered sections escaped the main reading column. | Removed visual button text in favor of accessible labels, introduced a durable sticky step rail, made active links full-bleed, and aligned supporting sections to the numbered content column. | Button and icon centers match exactly; the copied state and toast pass; the step index remains at 124 px while scrolling; active-link and nav widths both equal 220 px; all measured content starts at x = 171.953 px. |
-| P1 | Multi-line code headers and panel borders used one contrast level in both themes. | Added separate theme tokens for header text, panel borders, dividers, and controls. | Header text computes to `rgb(212, 212, 216)` in dark mode and `rgb(113, 113, 122)` in light mode; panel borders compute to `rgb(39, 39, 42)` and `rgb(244, 244, 245)` respectively. |
-| P1 | Phase handoffs were presented as loose paragraphs separated only by a rule, while nearby operational guidance used a clear notice surface. | Reused the step-guidance notice grammar for every `.phase-output`, preserving the aligned reading column. | All four handoffs compute to 16 px × 20 px padding, 8 px radius, no border, `rgb(24, 24, 27)` in dark mode and `rgb(244, 244, 245)` in light mode; the focused comparison matches the supplied notice reference. |
-| P1 | Skill-source links sat below installation commands, creating a detached third line and uneven vertical rhythm. | Converted each install reference into a two-row grid with installation metadata and source access sharing the first baseline, then made the command span the second row. | Seven source links align to the command’s right edge; label and link differ by only 0.5 px vertically, desktop has zero overflow, and the 366 px layout remains overflow-free with the compact source label. |
-| P1 | Single-line install commands inherited a larger copy glyph than multi-line prompt headers, making identical controls look inconsistent. | Applied one explicit 18 px icon box to every copy surface and state while preserving each control's existing dimensions. | All 19 copy glyphs return the single computed size `18x18`; icon/button centers differ by 0 px on both axes, and the 366 px layout remains overflow-free. |
-| P1 | The AFK/HITL implementation rule appeared in the opening conversation handoff before tickets or their classifications had been introduced. | Moved the existing notice intact into Planning step 3.1, directly after the ticket-drafting explanation and before the classification command. | The opening rule contains no AFK/HITL notice; Planning step 3.1 contains the single notice before the `to-tickets` install and prompt. |
-| P1 | Related recommendations appeared before package contents, hero installation commands stretched across the entire page despite short command content, and command/prompt copy controls used different visual footprints. | Moved package contents ahead of recommendations, changed homepage/detail hero command containers to `fit-content` with a `100%` maximum, and standardized copy-control boxes across code surfaces. | All generated skill pages report package-section before related-section; desktop commands shrink to their intrinsic width; copy controls match at 48 px desktop and 42 px narrow; the 366 px layout remains overflow-free. |
+| P1 | Handoff containers looked clipped because their borders terminated at the viewport crop. | Replaced the box treatment with a semantic, Markdown-style blockquote and one deliberate accent rail. | `comparison-1-handoff.png` |
+| P1 | Eight Recipe requirements consumed several screens as large cards. | Consolidated the same data and actions into a compact, accessible table. | `comparison-2-requirements.png` |
+| P1 | The standalone Outcome block repeated the page title and weak metadata. | Removed it and added a compact, fully bordered Recipe details panel inside the shared hero. | `comparison-3-recipe-details.png` |
+| P1 | Directory surfaces mixed open edges and rounded children. | Moved the radius, border, background, and clipping to the owning workbench containers. | `comparison-4-directory.png` |
+| P1 | Home, Skill, Recipe index, and Recipe detail heroes used unrelated layout rules. | Added one composable `LabHero` with typed prelude and aside slots; all four page families now share its structure. | `comparison-5-home-hero.png` and `comparison-6-recipes-hero.png` |
+| P2 | Earlier controls and content surfaces still carried generic or oversized patterns. | Retained the compact Package Content table, direct light/dark toggle, LAB footer, and route-owned Skills/Recipes navigation from the preceding refinement pass. | Browser review across home, Skill, and Recipe routes. |
+
+## Verification
+
+- `npm run typecheck`: zero errors and zero warnings.
+- `npm test`: 79/79 passing.
+- `bash scripts/validate-skills.sh`: passed.
+- `npm run catalog -- --check`: catalog current.
+- `node scripts/validate-source-boundary.mjs`: passed.
+- `node scripts/validate-dependencies.mjs`: passed.
+- `npm run test:static`: canonical, preview, Pages-project, and Pages-root publications valid and structurally equivalent.
+- `git diff --check`: passed.
+- Svelte 5 autofixer reviewed the changed Svelte components; dynamic external URL notices were inspected rather than rewritten as internal routes.
 
 ## Final findings
 
 - P0: none.
 - P1: none.
 - P2: none.
-- P3: none that block fidelity or reading flow.
-- Automated checks: site build, generated-site contract, repository validation, and all nine tests pass.
+- P3: none that block fidelity, navigation, accessibility, or publication portability.
 
 final result: passed

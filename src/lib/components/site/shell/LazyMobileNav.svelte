@@ -3,15 +3,14 @@
 	import { resolve } from "$app/paths";
 	import { tick, type Component } from "svelte";
 	import { Button } from "$lib/components/ui/button/index.js";
-	import type { ResolvedTheme, ThemePreference } from "$lib/theme/theme.js";
+	import type { ResolvedTheme } from "$lib/theme/theme.js";
 
 	interface Props {
-		preference: ThemePreference;
-		resolved: ResolvedTheme;
-		onPreferenceChange: (preference: ThemePreference) => void;
+		theme: ResolvedTheme;
+		onThemeChange: (theme: ResolvedTheme) => void;
 	}
 
-	let { preference, resolved, onPreferenceChange }: Props = $props();
+	let { theme, onThemeChange }: Props = $props();
 	let trigger = $state<HTMLButtonElement | null>(null);
 	let open = $state(false);
 	let loading = $state(false);
@@ -40,7 +39,7 @@
 </Button>
 
 {#if MobileNavigation}
-	<MobileNavigation bind:open {trigger} {preference} {resolved} {onPreferenceChange} />
+	<MobileNavigation bind:open {trigger} {theme} {onThemeChange} />
 {/if}
 
 <noscript>

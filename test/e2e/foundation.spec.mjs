@@ -13,8 +13,9 @@ test("renders the complete server-prerendered shell without remote presentation 
 
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Working knowledge/ })).toBeVisible();
-  await expect(page.getByRole("tab", { name: /Skills/ })).toBeVisible();
-  await expect(page.getByRole("tab", { name: /Recipes/ })).toBeVisible();
+  await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "Skills", exact: true }).first()).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toHaveAttribute("href", "/recipes/");
   await expect(page.getByText("6 of 6 skills")).toBeVisible();
   await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
@@ -35,7 +36,7 @@ test("skip navigation moves focus to the main landmark", async ({ page }) => {
 test("theme selection persists across reloads", async ({ page, isMobile }) => {
   await page.goto("/");
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");

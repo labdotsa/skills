@@ -1,6 +1,6 @@
 export const THEME_STORAGE_KEY = "labs-color-theme";
 
-export type ThemePreference = "system" | "light" | "dark";
+export type ThemePreference = "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
 
 export type ThemeSnapshot = Readonly<{
@@ -8,22 +8,21 @@ export type ThemeSnapshot = Readonly<{
   resolved: ResolvedTheme;
 }>;
 
-type ThemeWindow = Pick<Window, "addEventListener" | "removeEventListener" | "matchMedia">;
+type ThemeWindow = Pick<Window, "addEventListener" | "removeEventListener">;
 
 export function normalizePreference(value: unknown): ThemePreference {
-  return value === "light" || value === "dark" || value === "system" ? value : "system";
+  return value === "dark" ? "dark" : "light";
 }
 
-export function resolvePreference(preference: ThemePreference, systemDark: boolean): ResolvedTheme {
-  return preference === "system" ? (systemDark ? "dark" : "light") : preference;
+export function oppositeTheme(theme: ResolvedTheme): ResolvedTheme {
+  return theme === "light" ? "dark" : "light";
 }
 
 export function applyTheme(
   document: Document,
   preference: ThemePreference,
-  systemDark: boolean,
 ): ThemeSnapshot {
-  const resolved = resolvePreference(preference, systemDark);
+  const resolved = preference;
   const root = document.documentElement;
 
   root.dataset.theme = resolved;
@@ -31,7 +30,7 @@ export function applyTheme(
   root.style.colorScheme = resolved;
   document
     .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-    ?.setAttribute("content", resolved === "dark" ? "#09090b" : "#f4f4f5");
+    ?.setAttribute("content", resolved === "dark" ? "#0b0b0c" : "#f8f8f6");
 
   return Object.freeze({ preference, resolved });
 }
@@ -49,16 +48,14 @@ export function createThemeController(
   window: ThemeWindow & Window,
   onChange: (snapshot: ThemeSnapshot) => void,
 ) {
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
   const storage = safeStorage(window);
   let snapshot = applyTheme(
     document,
     normalizePreference(document.documentElement.dataset.themePreference),
-    media.matches,
   );
 
   function publish(preference: ThemePreference) {
-    snapshot = applyTheme(document, preference, media.matches);
+    snapshot = applyTheme(document, preference);
     onChange(snapshot);
   }
 
@@ -71,15 +68,10 @@ export function createThemeController(
     }
   }
 
-  function handleSystemChange() {
-    if (snapshot.preference === "system") publish("system");
-  }
-
   function handleStorage(event: StorageEvent) {
     if (event.key === THEME_STORAGE_KEY) publish(normalizePreference(event.newValue));
   }
 
-  media.addEventListener("change", handleSystemChange);
   window.addEventListener("storage", handleStorage);
 
   return {
@@ -88,7 +80,6 @@ export function createThemeController(
     },
     setPreference,
     destroy() {
-      media.removeEventListener("change", handleSystemChange);
       window.removeEventListener("storage", handleStorage);
     },
   };

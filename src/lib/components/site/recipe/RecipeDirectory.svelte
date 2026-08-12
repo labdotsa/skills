@@ -8,15 +8,13 @@
 	}
 
 	let { index }: Props = $props();
-	let collections = $derived<readonly [DirectoryCollection]>([
-		{ kind: "recipes", items: index.recipes },
-	]);
+	let collection = $derived<DirectoryCollection>({ kind: "recipes", items: index.recipes });
 	let countLabel = $derived(`${index.recipes.length} ${index.recipes.length === 1 ? "sequenced playbook" : "sequenced playbooks"}, maintained in source.`);
 </script>
 
 <PageFrame class="py-12 sm:py-18 lg:py-24">
-	<section class="border-y" id="recipe-catalog" aria-labelledby="recipes-title" data-recipe-count={index.recipes.length}>
-		<DirectoryBrowser {collections} idPrefix="recipe-index" rowDetail="phases" emptyMessage="No recipe matches that search.">
+	<section class="overflow-hidden rounded-lg border bg-card" id="recipe-catalog" aria-labelledby="recipes-title" data-recipe-count={index.recipes.length}>
+		<DirectoryBrowser {collection} idPrefix="recipe-index" rowDetail="phases" emptyMessage="No recipe matches that search.">
 			{#snippet header()}
 				<div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
 					<div>

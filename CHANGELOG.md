@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Unified home, Skill, Recipe-index, and Recipe-detail heroes on one LAB editorial composition; replaced Recipe handoff boxes with blockquotes, condensed Recipe requirements into a table, simplified Recipe metadata, and completed rounded directory and package borders.
+- Realigned the SvelteKit Discovery Site with the approved LAB prototype: a Skills-first directory with Recipes in global navigation, a two-state icon theme toggle, compact package-content tables, and a LAB-branded editorial shell and footer.
 - Enforced the atomic cutover boundary by removing tracked `site/` output, ignoring all regenerated publication bytes, and validating both the sole npm lockfile and generated-output policy.
 - Added the single-source GitHub Pages backup workflow with project/root profile selection, least-required deployment permissions, exact-byte artifacts including `.nojekyll`, normalized canonical comparison, immutable run records, and shared deployed HTTP/browser smoke evidence.
 - Added the single-source Netlify publication path: locked supported tooling, context-bound canonical/preview profiles, validated staging-to-`site/` materialization, immutable and machine-response headers, provenance records, and deployed HTTP/browser smoke evidence.

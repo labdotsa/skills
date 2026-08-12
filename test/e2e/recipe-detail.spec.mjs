@@ -6,6 +6,9 @@ test("prerenders the complete Recipe reading journey from one typed view", async
 
   await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("LAB Recipes");
   await expect(page.getByRole("heading", { level: 1, name: "Functioning Prototype" })).toBeVisible();
+  await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
+  await expect(page.getByText("Outcome", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("complementary", { name: "Recipe details" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Recipe contents" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Foundation" })).toHaveAttribute(
     "href",
@@ -17,7 +20,9 @@ test("prerenders the complete Recipe reading journey from one typed view", async
   await expect(page.getByRole("heading", { level: 2, name: "Visuals" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Planning" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Implementation" })).toBeVisible();
-  await expect(page.getByRole("complementary", { name: "Handoff from Foundation to Visuals" })).toBeVisible();
+  await expect(page.locator("blockquote").filter({ hasText: "Handoff · Foundation → Visuals" })).toBeVisible();
+  await expect(page.getByRole("table", { name: "Skills and tools required by this Recipe" })).toBeVisible();
+  await expect(page.locator("[data-recipe-requirements-table] tbody tr")).toHaveCount(8);
   await expect(page.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();
   await expect(page.getByText("Use $imagegen in Codex")).toBeVisible();
   await expect(page.getByRole("link", { name: "Browse Recipe source on GitHub" })).toHaveAttribute(
@@ -221,7 +226,7 @@ test("matches representative light and dark Recipe reading views", async ({ page
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
 
@@ -258,7 +263,7 @@ test("matches the same Recipe journey, alias, deep links, and visuals at the Pag
   });
 
   if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
-  await page.getByRole("button", { name: /Use dark appearance|Dark/ }).click();
+  await page.getByRole("button", { name: "Switch to dark appearance" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   if (isMobile) await page.keyboard.press("Escape");
   await expect(page).toHaveScreenshot("recipe-detail-dark.png", {

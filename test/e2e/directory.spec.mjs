@@ -33,45 +33,32 @@ test("filters the active directory locally and announces the result count", asyn
   expect(catalogRequests).toEqual([]);
 });
 
-test("uses one workbench for Skill and Recipe selection and category filtering", async ({ page }) => {
+test("keeps Skills as the home collection and routes Recipes through global navigation", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("searchbox", { name: "Search skills" }).fill("tailwind");
-
-  await page.getByRole("tab", { name: /Recipes/ }).click();
-  await expect(page.getByRole("searchbox", { name: "Search recipes" })).toHaveValue("");
-  await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toBeVisible();
-  await expect(page.getByText("1 of 1 recipes")).toBeVisible();
-
-  await page.getByRole("tab", { name: /Skills/ }).click();
+  await expect(page.getByRole("tab")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toHaveAttribute("href", "/recipes/");
+  await page.getByRole("link", { name: "Skills", exact: true }).first().click();
   await page.getByRole("button", { name: /Product 02/ }).click();
   await expect(page.getByRole("button", { name: /Product 02/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(2);
   await expect(page.getByText("2 of 6 skills")).toBeVisible();
-});
-
-test("moves between enhanced directory tabs with arrow keys", async ({ page }) => {
-  await page.goto("/");
-  const skillsTab = page.getByRole("tab", { name: /Skills/ });
-  const recipesTab = page.getByRole("tab", { name: /Recipes/ });
-
-  await skillsTab.focus();
-  await page.keyboard.press("ArrowRight");
-
-  await expect(recipesTab).toBeFocused();
-  await expect(recipesTab).toHaveAttribute("aria-selected", "true");
+  await page.getByRole("link", { name: "Recipes", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/recipes\/$/);
   await expect(page.getByRole("searchbox", { name: "Search recipes" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toBeVisible();
 });
 
 test("links rows to clean base-aware detail routes", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.getByRole("link", { name: "Open tailwind skill" })).toHaveAttribute("href", "/skills/tailwind/");
-  await page.getByRole("tab", { name: /Recipes/ }).click();
+  await page.getByRole("link", { name: "Recipes", exact: true }).first().click();
   await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toHaveAttribute(
     "href",
     "/recipes/functional-prototype/",
   );
-  await page.getByRole("tab", { name: /Skills/ }).click();
+  await page.getByRole("link", { name: "Skills", exact: true }).first().click();
   await page.getByRole("link", { name: "Open tailwind skill" }).click();
   await expect(page).toHaveURL(/\/skills\/tailwind\/$/);
   await expect(page.getByRole("heading", { level: 1, name: "tailwind" })).toBeVisible();
@@ -100,7 +87,7 @@ test("keeps the workbench usable at narrow widths and reduced motion", async ({ 
   await page.goto("/");
 
   await expect(page.getByRole("searchbox", { name: "Search skills" })).toBeVisible();
-  await expect(page.getByRole("tab", { name: /Skills/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   const descriptionHeight = await page.locator('[aria-label="Open build-product-artifacts skill"] .line-clamp-3').evaluate(
     (element) => element.getBoundingClientRect().height,
@@ -115,13 +102,12 @@ test("keeps the workbench usable at narrow widths and reduced motion", async ({ 
 test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
 
-  test("keeps both complete directories and their navigation available", async ({ page }) => {
+  test("keeps the complete Skill directory and Recipe route navigation available", async ({ page }) => {
     await page.goto("/");
 
     await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(6);
-    await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toBeVisible();
-    await expect(page.getByText("Filtering needs JavaScript; the complete Skills and Recipes directories remain available below.")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Skills 06" })).toHaveAttribute("href", "#skills-directory");
-    await expect(page.getByRole("link", { name: "Recipes 01" })).toHaveAttribute("href", "#recipes-directory");
+    await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toHaveCount(0);
+    await expect(page.getByText("Filtering needs JavaScript; the complete Skill directory remains available below.")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toHaveAttribute("href", "/recipes/");
   });
 });

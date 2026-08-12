@@ -96,19 +96,19 @@ console.log(`Publication ${profile.name} is valid at ${requestedOutput}.`);
 
 async function validateDirectory(html, directory) {
   const expectedSkillCount = Number(html.match(/data-skill-count="(\d+)"/)?.[1]);
-  const expectedRecipeCount = Number(html.match(/data-recipe-count="(\d+)"/)?.[1]);
   const skillLinks = [...html.matchAll(/href="(\.\/skills\/[^"?#]+\/)" aria-label="Open [^"]+ skill"/g)].map((match) => match[1]);
   const recipeLinks = [...html.matchAll(/href="(\.\/recipes\/[^"?#]+\/)" aria-label="Open [^"]+ recipe"/g)].map((match) => match[1]);
 
   if (!Number.isInteger(expectedSkillCount) || skillLinks.length !== expectedSkillCount) {
     throw new Error(`The prerendered Skill directory contains ${skillLinks.length} of ${expectedSkillCount} rows`);
   }
-  if (!Number.isInteger(expectedRecipeCount) || recipeLinks.length !== expectedRecipeCount) {
-    throw new Error(`The prerendered Recipe directory contains ${recipeLinks.length} of ${expectedRecipeCount} rows`);
+  if (recipeLinks.length !== 0 || !html.includes('href="./recipes/"')) {
+    throw new Error("The root page must route to Recipes without duplicating Recipe rows in the Skill directory");
   }
-  for (const href of [...skillLinks, ...recipeLinks]) {
+  for (const href of skillLinks) {
     await access(path.join(directory, href.slice(2), "index.html"));
   }
+  await access(path.join(directory, "recipes", "index.html"));
 }
 
 async function validateRecipeIndexes(publicationManifest, directory) {

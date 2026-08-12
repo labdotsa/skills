@@ -1,30 +1,25 @@
 <!doctype html>
-<html lang="en" data-theme="light" data-theme-preference="system">
+<html lang="en" data-theme="light" data-theme-preference="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4f4f5" />
+    <meta name="theme-color" content="#f8f8f6" />
     <script>
       (() => {
         const key = "labs-color-theme";
         const root = document.documentElement;
-        let preference = "system";
+        let preference = "light";
         try {
           const stored = localStorage.getItem(key);
-          if (stored === "light" || stored === "dark" || stored === "system") preference = stored;
+          if (stored === "light" || stored === "dark") preference = stored;
         } catch {}
-        const resolved =
-          preference === "system"
-            ? matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light"
-            : preference;
+        const resolved = preference;
         root.dataset.theme = resolved;
         root.dataset.themePreference = preference;
         root.style.colorScheme = resolved;
         document
           .querySelector('meta[name="theme-color"]')
-          ?.setAttribute("content", resolved === "dark" ? "#09090b" : "#f4f4f5");
+          ?.setAttribute("content", resolved === "dark" ? "#0b0b0c" : "#f8f8f6");
       })();
     </script>
     %sveltekit.head%
