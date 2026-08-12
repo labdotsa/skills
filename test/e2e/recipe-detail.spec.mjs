@@ -30,6 +30,9 @@ test("prerenders the complete Recipe reading journey from one typed view", async
   await expect(requirementsSurface.getByRole("link", { name: "mattpocock/skills (opens in a new tab)" })).toHaveAttribute("target", "_blank");
   await expect(requirementsSurface.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();
   await expect(requirementsSurface.getByText("Use $imagegen in Codex")).toBeVisible();
+  const codeLanguages = await page.locator("[data-recipe-page] [data-code-language]").allTextContents();
+  expect(codeLanguages.length).toBeGreaterThan(0);
+  expect(codeLanguages.every((language) => ["text", "shell"].includes(language.trim().toLowerCase()))).toBe(true);
   await expect(page.getByRole("link", { name: "Browse Recipe source on GitHub" })).toHaveAttribute(
     "href",
     "https://github.com/labdotsa/skills/tree/master/recipes/functional-prototype",

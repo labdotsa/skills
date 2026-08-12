@@ -68,7 +68,7 @@
 {:else if node.type === "code"}
 	<div class="my-6 overflow-hidden rounded-lg border border-border-strong bg-code text-code-foreground">
 		<div class="flex min-h-11 items-center justify-between gap-3 border-b border-border-strong px-4">
-			<span class="font-mono text-xs uppercase tracking-[0.12em]">{node.language ?? "text"}</span>
+			<span class="font-mono text-xs uppercase tracking-[0.12em]" data-code-language={node.language ?? "text"}>{node.language ?? "text"}</span>
 			<CopyButton text={node.value} label={codeCopyLabel} message={codeCopyMessage} />
 		</div>
 		<!-- Axe requires keyboard access for horizontal scrolling. -->

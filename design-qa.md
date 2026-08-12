@@ -15,6 +15,7 @@ The refinement review used the supplied screenshots as the source of truth. Brow
 | Screenshot 7 | 526 × 194 | Move the mobile trigger to the far edge, use shadcn-svelte Sidebar, and match LAB's production logo and typography. | `header-refinement/comparison-header.png` |
 | Screenshot 8 | 2216 × 1054 | Remove the redundant Reference column and make Skill and Source the reference affordances. | `requirements-responsive/comparison-desktop.png` |
 | Screenshot 9 | 1112 × 1352 | Replace the clipped narrow table with the earlier compact card structure. | `requirements-responsive/comparison-responsive.png` |
+| Screenshot 10 | 356 × 270 | Replace the false TypeScript label on a prose prompt with its truthful Text language. | `code-languages/comparison-code-label.png` |
 
 Each comparison places the supplied reference above the implementation, separated by a LAB research-blue rule. Focused implementation crops were used for the handoff, requirements, Recipe metadata, directory, and header comparisons; the hero comparisons use complete viewport captures.
 
@@ -35,6 +36,7 @@ Each comparison places the supplied reference above the implementation, separate
 - At 2216 × 1054, Recipe requirements render as a four-column table with no Reference column. Both Skill and Source point to the same reference URL, open a new tab with `noopener noreferrer`, and expose a 2px primary underline plus color shift on hover/focus.
 - At 1112 × 1352 the table swaps to compact two-column cards; at 390 × 844 it becomes one column. Long commands scroll inside their own focusable region while the page reports zero horizontal overflow at both widths.
 - Browser diagnostics contained only Vite connection messages and no warnings or errors.
+- All six multiline Recipe prompt panels now render the `TEXT` label; the Recipe contains no false Swift, VB.NET, Perl, C#, or TypeScript labels. The page remains overflow-free at 390px and browser diagnostics contain no warnings or errors.
 
 ## Fidelity findings
 
@@ -50,6 +52,7 @@ Each comparison places the supplied reference above the implementation, separate
 | P1 | A collapsed desktop rendering of the mobile-only Sidebar initially extended the scrollable document beyond the viewport. | Hid that instance at the desktop navigation breakpoint while retaining Sidebar's mobile Sheet behavior below it. | Browser measurements at 526px and 1280px both report zero overflow. |
 | P1 | The separate Reference column duplicated information while Skill and Source looked inert. | Removed the column and made both labels direct external links with hover, focus, new-tab, and safe-rel behavior. | `requirements-responsive/implementation-table-hover-2216x1054.png` |
 | P1 | The fixed-width table clipped its command column at the 1112px reference width. | Restored a responsive card composition below 1280px, using two columns at medium widths and one at phone widths. | `requirements-responsive/comparison-responsive.png` and `implementation-cards-390.png` |
+| P1 | Prose prompts were fenced as unrelated programming languages, producing labels such as TypeScript. | Corrected every Recipe prompt fence to `text` and added a rendered-language marker plus regression assertion limiting Recipe panels to Text or Shell. | `code-languages/comparison-code-label.png` |
 
 ## Verification
 

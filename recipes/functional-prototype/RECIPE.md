@@ -92,7 +92,7 @@ There are plenty of resources online. Find the ones that are most suitable for y
 
 If you are using Codex, there is a built-in skill called "Image Gen." This helps you craft a set of attractive directions that you can choose from later. If you have references in mind, it can also help bring them in and reflect them using the current `@artifacts`.
 
-```swift
+```text
 Based on the current screen structure in @artifacts, I want you to imagine how things will look using $imagegen. I need at least three directions for each.
 ```
 
@@ -114,7 +114,7 @@ At this point, we have everything we need to start slicing the work into its own
 
 This will help articulate the current `@artifacts` as solid, implementation-ready tasks. You prompt it as follows:
 
-```vbnet
+```text
 Based on the current [artifacts](artifacts/), I want you to document them in a folder called issues using [$to-tickets](https://www.skills.sh/mattpocock/skills/to-tickets), and each should have its own 0000-file.md.
 ```
 
@@ -122,19 +122,19 @@ Based on the current [artifacts](artifacts/), I want you to document them in a f
 
 Sometimes, these generated tasks, tickets, or issues are marked as HITL, which means we need to decide which option or implementation direction to follow. At this point, you may need to review them by asking:
 
-```perl
+```text
 What HITL issues do we have, and what are our options for each?
 ```
 
 Even better, follow it up with:
 
-```csharp
+```text
 Based on the current [artifacts](artifacts/), what do you recommend?
 ```
 
 After you finish locking down the direction, you need to confirm so these issues can be generated. Simply say:
 
-```
+```text
 LGTM, commit.
 ```
 
@@ -142,7 +142,7 @@ LGTM, commit.
 
 At this point, we are ready to kick off the long-running implementation goal by executing the prompt below:
 
-```typescript
+```text
 /goal I want you to review all the issues in [issues](issues/), as I am not quite sure whether they were implemented correctly. You can review the commits that have been made. Review one issue per run.
 
 ----
