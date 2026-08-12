@@ -4,7 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
-- Gave the canonical `/recipes/` directory explicit precedence over the sibling `recipes.html` compatibility alias in Netlify routing, while redirecting the extensionless singular form to the trailing-slash canonical route.
+- Separated Netlify artifact verification from route verification: immutable bytes are checked at physical manifest paths while the browser smoke journey independently proves clean SvelteKit routes and compatibility navigation.
 - Disabled Netlify's pretty-URL rewriting so canonical trailing-slash SvelteKit directories cannot be redirected onto legacy `.html` compatibility aliases with different publication bytes.
 - Disabled Netlify post-processing so provider-side HTML rewriting cannot change SvelteKit's validated bytes after the immutable publication manifest is generated.
 - Normalized deployed Content-Type casing and optional Cache-Control directive whitespace in Netlify smoke verification without weakening the required media types or cache directives.

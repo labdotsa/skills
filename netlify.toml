@@ -21,18 +21,6 @@ PUBLICATION_PROFILE = "preview"
 [context.branch-deploy.environment]
 PUBLICATION_PROFILE = "preview"
 
-[[redirects]]
-from = "/recipes"
-to = "/recipes/"
-status = 301
-force = true
-
-[[redirects]]
-from = "/recipes/"
-to = "/recipes/index.html"
-status = 200
-force = true
-
 [[headers]]
 for = "/_app/immutable/*"
 

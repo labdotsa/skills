@@ -188,8 +188,6 @@ function isMachinePath(file) {
 }
 
 function publicPath(file) {
-  if (file === "index.html") return "/";
-  if (file.endsWith("/index.html")) return `/${file.slice(0, -"index.html".length)}`;
   return `/${file}`;
 }
 
