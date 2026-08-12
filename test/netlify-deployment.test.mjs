@@ -28,6 +28,9 @@ test("Netlify selects one locked root publication profile for every deploy conte
     },
     processing: {
       skip_processing: true,
+      html: {
+        pretty_urls: false,
+      },
     },
   });
   assert.deepEqual(config.context, {

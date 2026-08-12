@@ -9,6 +9,9 @@ NPM_VERSION = "11.17.0"
 [build.processing]
 skip_processing = true
 
+[build.processing.html]
+pretty_urls = false
+
 [context.production.environment]
 PUBLICATION_PROFILE = "canonical"
 
