@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Declared the canonical publication manifest's UTF-8 JSON response contract explicitly in Netlify headers so deployed smoke verification observes the same media type as the generated artifact.
 - Split Netlify's deterministic production preflight from the Playwright-equipped GitHub release gate, retaining repository, catalog, dependency, type, unit, and static-publication validation without requiring browser downloads or non-automatable human evidence in the provider build image.
 - Replaced horizontal scrolling in compact Recipe requirement commands with one-line ellipsis truncation while preserving complete command text for copying, accessibility, and hover disclosure.
 - Removed organization and collection labels from detail-page eyebrows so the single breadcrumb owns navigation while the eyebrow communicates only content classification.
