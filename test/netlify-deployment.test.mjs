@@ -26,6 +26,9 @@ test("Netlify selects one locked root publication profile for every deploy conte
       NODE_VERSION: "24.19.0",
       NPM_VERSION: "11.17.0",
     },
+    processing: {
+      skip_processing: true,
+    },
   });
   assert.deepEqual(config.context, {
     production: { environment: { PUBLICATION_PROFILE: "canonical" } },
