@@ -32,7 +32,7 @@
 		if (!target) return;
 		event.preventDefault();
 		activeId = id;
-		history.pushState(null, "", `#${id}`);
+		location.hash = id;
 		target.scrollIntoView({
 			behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
 			block: "start",

@@ -29,9 +29,14 @@
 		{#if recipe.introduction.children.length > 0}
 			<div class="mb-14 max-w-3xl"><RecipeRichDocument document={recipe.introduction} /></div>
 		{/if}
-		<div class="grid min-w-0 gap-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
-			<RecipeNav phases={recipe.phases} />
-			<div class="min-w-0">
+		<div
+			class="grid min-w-0 gap-14 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-16"
+			data-recipe-reading-layout
+		>
+			<div class="lg:col-start-2 lg:row-start-1" data-recipe-contents-rail>
+				<RecipeNav phases={recipe.phases} />
+			</div>
+			<div class="min-w-0 lg:col-start-1 lg:row-start-1" data-recipe-reading>
 				{#each recipe.phases as phase, index (phase.id)}
 					<RecipePhase {phase} nextPhase={recipe.phases[index + 1]} />
 				{/each}

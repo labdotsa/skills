@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Move the Recipe contents rail to the right side of the desktop reading layout while retaining its compact single-column placement on smaller screens.
 - Corrected every Recipe prompt fence to truthful Text labeling and added a rendered-language regression guard limiting Recipe code panels to Text or Shell.
 - Linked Recipe requirement names and sources directly to their references in new tabs, removed the redundant Reference column, and restored compact responsive cards below the desktop table breakpoint.
 - Matched the Discovery Site header to LAB's production identity with its standalone flask mark, local Maax Unicase display typography, IBM Plex Sans Arabic body typography, a far-edge mobile trigger, and a real shadcn-svelte Sidebar navigation composition.

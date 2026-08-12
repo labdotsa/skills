@@ -16,8 +16,11 @@ The refinement review used the supplied screenshots as the source of truth. Brow
 | Screenshot 8 | 2216 × 1054 | Remove the redundant Reference column and make Skill and Source the reference affordances. | `requirements-responsive/comparison-desktop.png` |
 | Screenshot 9 | 1112 × 1352 | Replace the clipped narrow table with the earlier compact card structure. | `requirements-responsive/comparison-responsive.png` |
 | Screenshot 10 | 356 × 270 | Replace the false TypeScript label on a prose prompt with its truthful Text language. | `code-languages/comparison-code-label.png` |
+| Screenshot 11 | 2356 × 1400 | Move the Recipe Contents rail from the left to the other side of the reading canvas. | `recipe-contents-right/comparison-right-rail.png` |
 
 Each comparison places the supplied reference above the implementation, separated by a LAB research-blue rule. Focused implementation crops were used for the handoff, requirements, Recipe metadata, directory, and header comparisons; the hero comparisons use complete viewport captures.
+
+For Screenshot 11, the source visual truth is `/var/folders/sl/87qshknd4gz8bg33zgm4g_300000gn/T/TemporaryItems/NSIRD_screencaptureui_tclfKf/Screenshot 2026-08-12 at 11.47.31 AM.png`; the browser-rendered implementation is `.artifacts/design-qa/recipe-contents-right/implementation-desktop-1178x700.png`. The 2356 × 1400 Retina source was normalized to its 1178 × 700 CSS canvas and compared with a 1178 × 700 implementation capture at 1× density. The complete visible reading canvas is the important comparison region, so no smaller focused crop was needed.
 
 ## States and interactions checked
 
@@ -37,6 +40,8 @@ Each comparison places the supplied reference above the implementation, separate
 - At 1112 × 1352 the table swaps to compact two-column cards; at 390 × 844 it becomes one column. Long commands scroll inside their own focusable region while the page reports zero horizontal overflow at both widths.
 - Browser diagnostics contained only Vite connection messages and no warnings or errors.
 - All six multiline Recipe prompt panels now render the `TEXT` label; the Recipe contains no false Swift, VB.NET, Perl, C#, or TypeScript labels. The page remains overflow-free at 390px and browser diagnostics contain no warnings or errors.
+- At the 1178 × 700 normalized desktop viewport, the Recipe reading column occupies the left grid track and the 240px sticky Contents rail occupies the right grid track with a 64px gutter. At 390 × 844, Contents remains before the article in the single-column flow; both regions measure 358px and the page has zero horizontal overflow.
+- Selecting Planning from the moved rail updates the hash, current-location state, and keyboard focus. A fresh browser pass contained no warnings or errors.
 
 ## Fidelity findings
 
@@ -53,6 +58,7 @@ Each comparison places the supplied reference above the implementation, separate
 | P1 | The separate Reference column duplicated information while Skill and Source looked inert. | Removed the column and made both labels direct external links with hover, focus, new-tab, and safe-rel behavior. | `requirements-responsive/implementation-table-hover-2216x1054.png` |
 | P1 | The fixed-width table clipped its command column at the 1112px reference width. | Restored a responsive card composition below 1280px, using two columns at medium widths and one at phone widths. | `requirements-responsive/comparison-responsive.png` and `implementation-cards-390.png` |
 | P1 | Prose prompts were fenced as unrelated programming languages, producing labels such as TypeScript. | Corrected every Recipe prompt fence to `text` and added a rendered-language marker plus regression assertion limiting Recipe panels to Text or Shell. | `code-languages/comparison-code-label.png` |
+| P1 | The Recipe Contents rail occupied the left side while the requested reading composition called for it on the opposite side. | Reversed the wide-screen grid tracks without visual-order CSS: Contents remains first in the document at narrow widths and explicitly occupies the right track from the desktop breakpoint. | `recipe-contents-right/comparison-right-rail.png` |
 
 ## Verification
 

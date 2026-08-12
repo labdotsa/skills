@@ -10,6 +10,13 @@ test("prerenders the complete Recipe reading journey from one typed view", async
   await expect(page.getByText("Outcome", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("complementary", { name: "Recipe details" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Recipe contents" })).toBeVisible();
+  if (!isMobile) {
+    const readingBox = await page.locator("[data-recipe-reading]").boundingBox();
+    const contentsBox = await page.locator("[data-recipe-contents-rail]").boundingBox();
+    expect(readingBox).not.toBeNull();
+    expect(contentsBox).not.toBeNull();
+    expect(contentsBox.x).toBeGreaterThan(readingBox.x + readingBox.width);
+  }
   await expect(page.getByRole("link", { name: "Foundation" })).toHaveAttribute(
     "href",
     "#content-conversation-foundation-layer",
