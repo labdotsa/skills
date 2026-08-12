@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Linked Recipe requirement names and sources directly to their references in new tabs, removed the redundant Reference column, and restored compact responsive cards below the desktop table breakpoint.
 - Matched the Discovery Site header to LAB's production identity with its standalone flask mark, local Maax Unicase display typography, IBM Plex Sans Arabic body typography, a far-edge mobile trigger, and a real shadcn-svelte Sidebar navigation composition.
 - Unified home, Skill, Recipe-index, and Recipe-detail heroes on one LAB editorial composition; replaced Recipe handoff boxes with blockquotes, condensed Recipe requirements into a table, simplified Recipe metadata, and completed rounded directory and package borders.
 - Realigned the SvelteKit Discovery Site with the approved LAB prototype: a Skills-first directory with Recipes in global navigation, a two-state icon theme toggle, compact package-content tables, and a LAB-branded editorial shell and footer.

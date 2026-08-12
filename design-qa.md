@@ -13,6 +13,8 @@ The refinement review used the supplied screenshots as the source of truth. Brow
 | Screenshot 5 | 2382 × 1034 | Establish the home hero as one reusable LAB composition. | `comparison-5-home-hero.png` |
 | Screenshot 6 | 2390 × 698 | Bring the Recipe index hero onto the same composition, rhythm, and type scale. | `comparison-6-recipes-hero.png` |
 | Screenshot 7 | 526 × 194 | Move the mobile trigger to the far edge, use shadcn-svelte Sidebar, and match LAB's production logo and typography. | `header-refinement/comparison-header.png` |
+| Screenshot 8 | 2216 × 1054 | Remove the redundant Reference column and make Skill and Source the reference affordances. | `requirements-responsive/comparison-desktop.png` |
+| Screenshot 9 | 1112 × 1352 | Replace the clipped narrow table with the earlier compact card structure. | `requirements-responsive/comparison-responsive.png` |
 
 Each comparison places the supplied reference above the implementation, separated by a LAB research-blue rule. Focused implementation crops were used for the handoff, requirements, Recipe metadata, directory, and header comparisons; the hero comparisons use complete viewport captures.
 
@@ -30,6 +32,9 @@ Each comparison places the supplied reference above the implementation, separate
 - Mobile navigation renders through shadcn-svelte `Sidebar.Provider`, `Sidebar.Root`, header/content/group/menu/footer primitives, and its mobile Sheet boundary. Opening gives focus to Close navigation; closing restores focus to Open navigation.
 - At 1280px the mobile Sidebar is removed from layout, the desktop navigation is visible, and the document remains exactly 1280px wide.
 - Display text resolves to the locally bundled Maax Unicase family; body text resolves to the locally bundled IBM Plex Sans Arabic family. The header uses LAB's standalone production flask mark rather than the previous duplicate LAB lockup.
+- At 2216 × 1054, Recipe requirements render as a four-column table with no Reference column. Both Skill and Source point to the same reference URL, open a new tab with `noopener noreferrer`, and expose a 2px primary underline plus color shift on hover/focus.
+- At 1112 × 1352 the table swaps to compact two-column cards; at 390 × 844 it becomes one column. Long commands scroll inside their own focusable region while the page reports zero horizontal overflow at both widths.
+- Browser diagnostics contained only Vite connection messages and no warnings or errors.
 
 ## Fidelity findings
 
@@ -43,6 +48,8 @@ Each comparison places the supplied reference above the implementation, separate
 | P2 | Earlier controls and content surfaces still carried generic or oversized patterns. | Retained the compact Package Content table, direct light/dark toggle, LAB footer, and route-owned Skills/Recipes navigation from the preceding refinement pass. | Browser review across home, Skill, and Recipe routes. |
 | P1 | The mobile trigger sat immediately beside an oversized flask-and-LAB lockup, and navigation was composed directly from Sheet. | Adopted LAB's 96px production header rhythm, standalone flask mark, exact local display/body fonts, a far-edge trigger, and the shadcn-svelte Sidebar composition. | `header-refinement/comparison-header.png` and `implementation-sidebar-open.png` |
 | P1 | A collapsed desktop rendering of the mobile-only Sidebar initially extended the scrollable document beyond the viewport. | Hid that instance at the desktop navigation breakpoint while retaining Sidebar's mobile Sheet behavior below it. | Browser measurements at 526px and 1280px both report zero overflow. |
+| P1 | The separate Reference column duplicated information while Skill and Source looked inert. | Removed the column and made both labels direct external links with hover, focus, new-tab, and safe-rel behavior. | `requirements-responsive/implementation-table-hover-2216x1054.png` |
+| P1 | The fixed-width table clipped its command column at the 1112px reference width. | Restored a responsive card composition below 1280px, using two columns at medium widths and one at phone widths. | `requirements-responsive/comparison-responsive.png` and `implementation-cards-390.png` |
 
 ## Verification
 

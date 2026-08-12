@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("prerenders the complete Recipe reading journey from one typed view", async ({ page }) => {
+test("prerenders the complete Recipe reading journey from one typed view", async ({ page, isMobile }) => {
   await page.goto("/recipes/functional-prototype/");
 
   await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("LAB Recipes");
@@ -21,10 +21,15 @@ test("prerenders the complete Recipe reading journey from one typed view", async
   await expect(page.getByRole("heading", { level: 2, name: "Planning" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Implementation" })).toBeVisible();
   await expect(page.locator("blockquote").filter({ hasText: "Handoff · Foundation → Visuals" })).toBeVisible();
-  await expect(page.getByRole("table", { name: "Skills and tools required by this Recipe" })).toBeVisible();
+  const requirementsSurface = isMobile
+    ? page.getByRole("list", { name: "Skills and tools required by this Recipe" })
+    : page.getByRole("table", { name: "Skills and tools required by this Recipe" });
+  await expect(requirementsSurface).toBeVisible();
   await expect(page.locator("[data-recipe-requirements-table] tbody tr")).toHaveCount(8);
-  await expect(page.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();
-  await expect(page.getByText("Use $imagegen in Codex")).toBeVisible();
+  await expect(requirementsSurface.getByRole("link", { name: "$wayfinder (opens in a new tab)" })).toHaveAttribute("target", "_blank");
+  await expect(requirementsSurface.getByRole("link", { name: "mattpocock/skills (opens in a new tab)" })).toHaveAttribute("target", "_blank");
+  await expect(requirementsSurface.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();
+  await expect(requirementsSurface.getByText("Use $imagegen in Codex")).toBeVisible();
   await expect(page.getByRole("link", { name: "Browse Recipe source on GitHub" })).toHaveAttribute(
     "href",
     "https://github.com/labdotsa/skills/tree/master/recipes/functional-prototype",
