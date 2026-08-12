@@ -10,7 +10,10 @@ test("prerenders complete social metadata and truthful JSON-LD from the visible 
   );
   await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute("content", "LAB Skills");
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
-  await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute("content", "LAB Skills — Public agent protocols");
+  await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+    "content",
+    "Agent Skills for Digital Product Teams — LAB Skills",
+  );
   const homeGraph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(homeGraph["@graph"].map((node) => node["@type"])).toEqual(["WebSite", "CollectionPage", "ItemList"]);
   expect(homeGraph["@graph"][2].itemListElement).toHaveLength(6);

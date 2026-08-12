@@ -4,6 +4,9 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Unified the Skills index, Recipe index, Skill detail, and Recipe detail heroes on one invariant responsive anatomy: optional prelude, eyebrow, controlled title measure, and a shared description/actions/supplemental grid.
+- Replaced the permanent hero accent rail with a subtle page-level LAB gradient, added reduced-motion-safe directional transitions between Skills and Recipes, synchronized directory rail/background hover treatments to their pillar colors, introduced consistent footer breathing room, and restored pointer affordances for clickable controls.
+- Refine the shared hero system with direct search-intent copy, LAB-style inline CTA placement, compact display scale, and synchronized visible and social metadata for the Skills and Recipe collections.
 - Move the Recipe contents rail to the right side of the desktop reading layout while retaining its compact single-column placement on smaller screens.
 - Corrected every Recipe prompt fence to truthful Text labeling and added a rendered-language regression guard limiting Recipe code panels to Text or Shell.
 - Linked Recipe requirement names and sources directly to their references in new tabs, removed the redundant Reference column, and restored compact responsive cards below the desktop table breakpoint.

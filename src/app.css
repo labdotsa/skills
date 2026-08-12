@@ -87,6 +87,7 @@
   --motion-duration-editorial: 620ms;
   --motion-ease-standard: ease;
   --motion-ease-expressive: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-directional: cubic-bezier(0.77, 0, 0.175, 1);
   --motion-ease-linear: linear;
   --background: var(--lab-canvas);
   --foreground: var(--lab-ink);
@@ -218,6 +219,10 @@ html[data-theme="dark"] {
     text-underline-offset: 0.18em;
   }
 
+  :where(a[href], button:not(:disabled), [role="button"]:not([aria-disabled="true"]), summary, label[for], select) {
+    cursor: pointer;
+  }
+
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
@@ -226,6 +231,56 @@ html[data-theme="dark"] {
   ::selection {
     background: var(--lab-selection);
   }
+}
+
+@keyframes page-exit-left {
+  to {
+    opacity: 0;
+    transform: translateX(-2.5rem);
+  }
+}
+
+@keyframes page-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+}
+
+@keyframes page-exit-right {
+  to {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+}
+
+@keyframes page-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-2.5rem);
+  }
+}
+
+::view-transition-old(discovery-page),
+::view-transition-new(discovery-page) {
+  animation-duration: var(--motion-duration-emphasis);
+  animation-timing-function: var(--motion-ease-directional);
+}
+
+html[data-navigation-direction="forward"]::view-transition-old(discovery-page) {
+  animation-name: page-exit-left;
+}
+
+html[data-navigation-direction="forward"]::view-transition-new(discovery-page) {
+  animation-name: page-enter-right;
+}
+
+html[data-navigation-direction="backward"]::view-transition-old(discovery-page) {
+  animation-name: page-exit-right;
+}
+
+html[data-navigation-direction="backward"]::view-transition-new(discovery-page) {
+  animation-name: page-enter-left;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, tick, type Component, type Snippet } from "svelte";
 	import type { NotificationKind } from "$lib/notifications.js";
+	import RouteTransition from "$lib/components/shared/RouteTransition.svelte";
 	import {
 		createThemeController,
 		type ThemePreference,
@@ -43,7 +44,8 @@
 	});
 </script>
 
-<div class="flex min-h-screen flex-col" data-publication-profile={publicationProfile}>
+<RouteTransition />
+<div class="site-shell flex min-h-screen flex-col" data-publication-profile={publicationProfile} data-site-shell>
 	<a class="fixed left-4 top-3 z-[100] -translate-y-24 rounded-sm bg-foreground px-4 py-3 font-semibold text-background transition-transform focus:translate-y-0 motion-reduce:transition-none" href="#main-content">
 		Skip to main content
 	</a>
@@ -51,7 +53,7 @@
 		theme={theme.resolved}
 		onThemeChange={setPreference}
 	/>
-	<main id="main-content" tabindex="-1" class="flex-1">
+	<main id="main-content" tabindex="-1" class="flex-1 pb-16 sm:pb-24">
 		{@render children()}
 	</main>
 	<SiteFooter />
@@ -59,3 +61,21 @@
 		<ToasterComponent theme={theme.resolved} richColors closeButton />
 	{/if}
 </div>
+
+<style>
+	.site-shell {
+		--page-accent: var(--lab-main);
+		background:
+			radial-gradient(ellipse 75% 34rem at 50% 0%, color-mix(in oklab, var(--page-accent) 24%, transparent), transparent 76%),
+			var(--background);
+	}
+
+	.site-shell:has(:global([data-page-pillar="research"])) { --page-accent: var(--lab-research); }
+	.site-shell:has(:global([data-page-pillar="design"])) { --page-accent: var(--lab-design); }
+	.site-shell:has(:global([data-page-pillar="development"])) { --page-accent: var(--lab-development); }
+	.site-shell:has(:global([data-page-pillar="marketing"])) { --page-accent: var(--lab-marketing); }
+
+	main {
+		view-transition-name: discovery-page;
+	}
+</style>

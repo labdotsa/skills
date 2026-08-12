@@ -1,5 +1,6 @@
 import type { RecipePageView, SkillPageView } from "./catalog.js";
 import type { DirectoryPageView, RecipeIndexPageView } from "./directory.js";
+import { homeCopy, recipeIndexCopy } from "./site-copy.js";
 
 type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | readonly JsonValue[] | Readonly<{ [key: string]: JsonValue }>;
@@ -36,10 +37,10 @@ const siteName = "LAB Skills" as const;
 const socialImage = "https://skills.lab.sa/brand/social.png" as const;
 const socialImageAlt = "LAB Skills — public agent protocols and delivery playbooks" as const;
 
-const homeTitle = "LAB Skills — Public agent protocols";
-const homeDescription = "Reusable instructions shaped by how LAB researches, designs, develops, and markets digital products.";
-const recipeIndexTitle = "LAB Recipes — Skills assembled into delivery workflows";
-const recipeIndexDescription = "Repeatable delivery recipes with focused prompts, skills, artifacts, and deliberate handoffs.";
+const homeTitle = homeCopy.seoTitle;
+const homeDescription = homeCopy.description;
+const recipeIndexTitle = recipeIndexCopy.seoTitle;
+const recipeIndexDescription = recipeIndexCopy.description;
 
 export function homeSeo(directory: DirectoryPageView, canonicalOrigin: string, indexable: boolean): SeoPage {
 	const canonicalUrl = canonicalUrlFor(canonicalOrigin, "/");

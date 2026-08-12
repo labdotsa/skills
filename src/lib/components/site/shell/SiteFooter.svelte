@@ -11,7 +11,7 @@
 	] as const;
 </script>
 
-<footer id="site-footer" class="mt-auto bg-[#111113] text-white" data-site-footer>
+<footer id="site-footer" class="bg-[#111113] text-white" data-site-footer>
 	<div class="grid h-1 grid-cols-4" aria-hidden="true">
 		<span class="bg-research"></span>
 		<span class="bg-design"></span>
@@ -28,19 +28,19 @@
 				<p class="mt-4 max-w-xl text-sm leading-7 text-zinc-400">LAB Skills turns working product knowledge into reusable public instructions and delivery recipes.</p>
 			</section>
 			<nav class="grid content-start gap-3 text-sm" aria-label="Discovery footer navigation">
-				<p class="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Discover</p>
+				<p class="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400">Discover</p>
 				<a href={resolve("/")}>Skills</a>
 				<a href={resolve("/recipes/")}>Recipes</a>
 				<a href="https://github.com/labdotsa/skills">Source</a>
 			</nav>
 			<nav class="grid grid-cols-2 content-start gap-x-8 gap-y-3 text-sm" aria-label="LAB services">
-				<p class="col-span-2 mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Work with LAB</p>
+				<p class="col-span-2 mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400">Work with LAB</p>
 				{#each serviceLinks as service (service[0])}
 					<a href={service[1]}>{service[0]}</a>
 				{/each}
 			</nav>
 		</div>
-		<div class="mt-12 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+		<div class="mt-12 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
 			<p>© 2026 LAB LLC. All rights reserved.</p>
 			<p class="font-mono uppercase tracking-[0.12em]">Research · Design · Development · Marketing</p>
 		</div>

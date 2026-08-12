@@ -15,7 +15,7 @@
 
 <li data-pillar={pillar}>
 	<a
-		class="group grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_2rem] items-start gap-3 border-b border-s-4 border-b-border border-s-[var(--row-accent)] px-3 py-5 no-underline transition-colors hover:bg-muted/70 focus-visible:bg-muted/70 sm:grid-cols-[3.25rem_minmax(0,1fr)_2.5rem] sm:gap-5 sm:px-5 sm:py-6 motion-reduce:transition-none"
+		class="related-row group relative grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_2rem] items-start gap-3 overflow-hidden border-b border-b-border px-3 py-5 no-underline transition-colors sm:grid-cols-[3.25rem_minmax(0,1fr)_2.5rem] sm:gap-5 sm:px-5 sm:py-6 motion-reduce:transition-none"
 		href={resolve(entry.kind === "skill" ? `/skills/${entry.slug}/` : `/recipes/${entry.slug}/`)}
 		aria-label={`Open related ${entry.kind} ${entry.title}`}
 	>
@@ -38,4 +38,30 @@
 	[data-pillar="design"] { --row-accent: var(--lab-design); }
 	[data-pillar="development"] { --row-accent: var(--lab-development); }
 	[data-pillar="marketing"] { --row-accent: var(--lab-marketing); }
+
+	.related-row::before {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		width: 0.25rem;
+		content: "";
+		background: var(--row-accent);
+		transform: scaleY(0);
+		transform-origin: center;
+		transition: transform var(--motion-duration-standard) var(--motion-ease-expressive);
+	}
+
+	.related-row:hover,
+	.related-row:focus-visible {
+		background: color-mix(in oklab, var(--row-accent) 10%, var(--card));
+	}
+
+	.related-row:hover::before,
+	.related-row:focus-visible::before {
+		transform: scaleY(1);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.related-row::before { transition: none; }
+	}
 </style>

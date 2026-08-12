@@ -87,6 +87,16 @@ test("projects collection structured data in the same visible Catalog order", as
   const home = homeSeo({ skills: [skill], recipes: [recipe] }, "https://skills.lab.sa", true);
   const recipeIndex = recipeIndexSeo({ recipes: [recipe] }, "https://skills.lab.sa", true);
 
+  assert.equal(home.title, "Agent Skills for Digital Product Teams — LAB Skills");
+  assert.equal(
+    home.description,
+    "Browse reusable agent skills for product research, design, development, and marketing. Install one skill or the complete LAB collection.",
+  );
+  assert.equal(recipeIndex.title, "Agent Workflow Recipes for Product Delivery — LAB Skills");
+  assert.equal(
+    recipeIndex.description,
+    "Follow step-by-step agent workflows that combine focused skills, prompts, artifacts, and handoffs from product discovery through implementation.",
+  );
   assert.deepEqual(home.structuredData["@graph"].map((node) => node["@type"]), [
     "WebSite",
     "CollectionPage",

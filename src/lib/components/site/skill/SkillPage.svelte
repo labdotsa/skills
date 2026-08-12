@@ -25,6 +25,7 @@
 <article
 	class="relative isolate overflow-hidden"
 	data-pillar={pillar}
+	data-page-pillar={pillar}
 	data-catalog-snapshot={catalogSnapshotId}
 >
 	<SkillHero {skill} />

@@ -20,7 +20,7 @@
 	let mobileTrigger = $state<HTMLButtonElement | null>(null);
 </script>
 
-<header class="sticky top-0 z-40 border-b bg-background/95 backdrop-blur" data-site-header>
+<header class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl" data-site-header>
 	<Sidebar.Provider open={false} class="contents">
 		<div class="mx-auto flex h-24 w-full max-w-site items-center px-8">
 			<a class="no-underline" href={resolve("/")} aria-label="LAB Skills home">

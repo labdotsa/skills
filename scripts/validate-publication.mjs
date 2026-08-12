@@ -23,7 +23,9 @@ const indexHtml = await readFile(path.join(outputDirectory, "index.html"), "utf8
 const notFoundHtml = await readFile(path.join(outputDirectory, "404.html"), "utf8");
 const manifest = JSON.parse(await readFile(path.join(outputDirectory, "publication-manifest.json"), "utf8"));
 
-if (!indexHtml.includes("Working knowledge,")) throw new Error("The root page is missing its complete shell content");
+if (!indexHtml.includes("Open-source agent skills for digital product teams.")) {
+	throw new Error("The root page is missing its complete shell content");
+}
 if (!indexHtml.includes('<main id="main-content"')) throw new Error("The root page is missing its main landmark");
 if (!indexHtml.includes('href="#main-content"')) throw new Error("The root page is missing skip navigation");
 if (!indexHtml.includes('aria-label="LAB services"')) throw new Error("The root page is missing service navigation");

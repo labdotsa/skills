@@ -9,10 +9,10 @@ test("prerenders the complete Recipe index from the shared Catalog", async ({ pa
 
   await page.goto("/recipes/");
 
-  await expect(page.getByRole("heading", { level: 1, name: /LAB Recipes turn focused skills into complete delivery/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Agent workflow recipes for product delivery." })).toBeVisible();
   await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
-  await expect(page.getByRole("link", { name: "Browse the recipes" })).toHaveAttribute("href", "#recipe-catalog");
-  await expect(page.getByRole("link", { name: "Explore skills" })).toHaveAttribute("href", "/#catalog");
+  await expect(page.getByRole("link", { name: "Browse workflow recipes" })).toHaveAttribute("href", "#recipe-catalog");
+  await expect(page.getByRole("link", { name: "Browse agent skills" })).toHaveAttribute("href", "/#catalog");
   await expect(page.getByRole("heading", { level: 2, name: "Recipes" })).toBeVisible();
   await expect(page.getByText("1 sequenced playbook, maintained in source.")).toBeVisible();
   await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toHaveAttribute(
@@ -32,7 +32,7 @@ test("serves recipes.html as the same canonical Recipe-index screen", async ({ p
   const response = await page.goto("/recipes.html");
 
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole("heading", { level: 1, name: /LAB Recipes turn focused skills into complete delivery/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Agent workflow recipes for product delivery." })).toBeVisible();
   await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toHaveAttribute(
     "href",
     "/recipes/functional-prototype/",
@@ -87,7 +87,7 @@ test("keeps the complete Recipe index usable at 320px with reduced motion", asyn
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/recipes/");
 
-  await expect(page.getByRole("heading", { level: 1, name: /LAB Recipes/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Agent workflow recipes for product delivery." })).toBeVisible();
   await expect(page.getByText("Foundation → Visuals → Planning → Implementation")).toBeVisible();
   await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
@@ -156,7 +156,7 @@ test("matches the same Recipe index and alias at the Pages project base", async 
   await page.goto("http://127.0.0.1:4174/skills/recipes/");
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.getByRole("heading", { level: 1, name: /LAB Recipes/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Agent workflow recipes for product delivery." })).toBeVisible();
   const recipePath = await page.getByRole("link", { name: "Open Functioning Prototype recipe" }).evaluate(
     (link) => new URL(link.href).pathname,
   );
@@ -199,6 +199,6 @@ test.describe("without JavaScript", () => {
     await expect(page.getByText("Foundation → Visuals → Planning → Implementation")).toBeVisible();
     await expect(page.getByText("Filtering needs JavaScript; the complete Recipe directory remains available below.")).toBeVisible();
     await expect(page.getByText("No recipe matches that search.")).toHaveCount(0);
-    await expect(page.getByRole("link", { name: "Browse the recipes" })).toHaveAttribute("href", "#recipe-catalog");
+    await expect(page.getByRole("link", { name: "Browse workflow recipes" })).toHaveAttribute("href", "#recipe-catalog");
   });
 });
