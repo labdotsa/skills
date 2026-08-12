@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the single-source Netlify publication path: locked supported tooling, context-bound canonical/preview profiles, validated staging-to-`site/` materialization, immutable and machine-response headers, provenance records, and deployed HTTP/browser smoke evidence.
 - Added the cross-profile publication quality gate: exhaustive static HTML checks, shadcn component contracts, WCAG axe scans, browser resilience and reflow coverage, pinned visual baselines, transfer budgets, three-run Lighthouse evidence, and explicit human/field evidence records.
 - Published canonical LLM-readable discovery from the same immutable Catalog snapshot as HTML: curated `llms.txt`, exact-byte Markdown and license mirrors, deterministic schema-v2 catalogs, canonical detail alternates, permissive audited crawler policy, cross-surface digest/identity/safety validation, and HTML-only backup profiles.
 - Published complete canonical SEO surfaces from one typed model: unique prerendered metadata, canonical/social tags, truthful JSON-LD, clean sitemap and root robots output, noindex backup profiles, exhaustive static crawl validation, and separate lab-TBT/field-INP measurement semantics.

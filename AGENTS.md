@@ -30,6 +30,7 @@ This is a public Agent Skills repository. Optimize for portability, clarity, and
 - Run `npm run catalog` after changing stable skill metadata, and use `npm run dev` for the local Discovery Site.
 - Run `npm run build:matrix` after changing application source, publication profiles, or static assets.
 - The Pages and Netlify workflows build the same SvelteKit route graph with an explicit publication profile.
+- Netlify builds through `npm run netlify:build`; verify a deployed artifact with `npm run netlify:smoke -- <canonical|preview> <https-origin> <source-sha> <deploy-id>`.
 - Run `npm run validate` before considering a change complete.
 - Update `CHANGELOG.md` for behavioral, lifecycle, or distribution changes.
 - Keep generated catalog content synchronized with skill frontmatter.

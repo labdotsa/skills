@@ -22,7 +22,13 @@ const expectedDevelopment = [
   "@sveltejs/vite-plugin-svelte",
   "@tailwindcss/vite",
   "@types/node",
+  "chrome-launcher",
+  "html-validate",
+  "lighthouse",
+  "remark-gfm",
+  "remark-parse",
   "shadcn-svelte",
+  "smol-toml",
   "svelte",
   "svelte-check",
   "tailwindcss",
@@ -32,8 +38,6 @@ const expectedDevelopment = [
   "vite",
   "yaml",
   "zod",
-  "remark-gfm",
-  "remark-parse",
 ];
 
 assertKeys(packageJson.dependencies, expectedRuntime, "runtime dependencies");
