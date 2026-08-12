@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Split Netlify's deterministic production preflight from the Playwright-equipped GitHub release gate, retaining repository, catalog, dependency, type, unit, and static-publication validation without requiring browser downloads or non-automatable human evidence in the provider build image.
 - Replaced horizontal scrolling in compact Recipe requirement commands with one-line ellipsis truncation while preserving complete command text for copying, accessibility, and hover disclosure.
 - Removed organization and collection labels from detail-page eyebrows so the single breadcrumb owns navigation while the eyebrow communicates only content classification.
 - Extended the collapsed Package contents mask across several rows so long file inventories fade gradually into the owning page surface instead of ending abruptly.

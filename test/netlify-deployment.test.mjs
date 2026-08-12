@@ -35,7 +35,7 @@ test("Netlify selects one locked root publication profile for every deploy conte
   assert.equal(config.redirects, undefined, "static deep routes and 404 must not use redirects or rewrites");
   assert.equal(config.functions, undefined, "the shared static architecture must not ship Netlify Functions");
   assert.equal(config.edge_functions, undefined, "the shared static architecture must not ship Edge Functions");
-  assert.equal(packageJson.scripts["netlify:build"], "npm run validate && node scripts/build-netlify.mjs");
+  assert.equal(packageJson.scripts["netlify:build"], "npm run validate:netlify && node scripts/build-netlify.mjs");
   assert.equal(packageJson.scripts["netlify:smoke"], "node scripts/smoke-netlify.mjs");
 });
 
@@ -129,7 +129,7 @@ test("Netlify records immutable validation and publication provenance", () => {
     sourceRevision: revision,
     packageLockSha256: lockfileDigest,
     profile: publicationManifest.profile,
-    validation: { command: "npm run validate", status: "pass" },
+    validation: { command: "npm run validate:netlify", status: "pass" },
     routes: ["index.html", "skills/tailwind/index.html"],
     files: publicationManifest.files,
   });

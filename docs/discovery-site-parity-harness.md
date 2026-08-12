@@ -29,8 +29,10 @@ For focused loops:
 | `npm run site:serve` | Serve the generated Publication Artifact at `http://127.0.0.1:4173` |
 | `npm run validate` | Existing browser-independent repository and generated-output completion gate |
 
-The GitHub validation workflow installs Chromium, runs the browser suite, regenerates captures, and uploads them as the
-`parity-captures` workflow artifact. Netlify continues to use `npm run validate` without requiring a browser installation.
+The GitHub validation workflow installs the pinned Playwright browsers and owns the complete `npm run validate` release
+gate. Netlify runs `npm run validate:netlify`, the browser-independent repository, type, unit, and static-publication
+subset, before materializing the same canonical route graph. This keeps provider builds deterministic
+without weakening the authoritative browser gate or downloading browser runtimes during a production deployment.
 
 ## Automated contract
 

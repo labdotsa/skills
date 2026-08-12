@@ -57,7 +57,7 @@ export function createNetlifyDeployRecord({
     sourceRevision: publicationManifest.sourceRevision,
     packageLockSha256: publicationManifest.packageLockSha256,
     profile: structuredClone(publicationManifest.profile),
-    validation: { command: "npm run validate", status: "pass" },
+    validation: { command: "npm run validate:netlify", status: "pass" },
     routes: files.filter((file) => file.path.endsWith(".html")).map((file) => file.path),
     files,
   });
