@@ -4,12 +4,14 @@
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
 	import RichDocument from "$lib/components/site/rich-content/RichDocument.svelte";
 	import type { SkillPageView } from "$lib/domain/catalog.js";
+	import SkillNav from "./SkillNav.svelte";
 
 	interface Props {
 		skill: SkillPageView;
 	}
 
 	let { skill }: Props = $props();
+	let instructionsOpen = $state(true);
 </script>
 
 <section class="border-b" aria-labelledby="instructions-title">
@@ -24,14 +26,19 @@
 			</a>
 		</div>
 
-		<div class="mt-8">
-			<OverflowDisclosure label="Skill instructions">
-				<RichDocument
-					document={skill.document}
-					headingOffset={1}
-					class="max-w-4xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8 [&_h1]:text-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_h4]:text-foreground [&_h5]:text-foreground [&_h6]:text-foreground"
-				/>
-			</OverflowDisclosure>
+		<div class="mt-8 grid min-w-0 gap-14 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-16" data-skill-reading-layout>
+			<div class="lg:col-start-2 lg:row-start-1" data-skill-contents-rail>
+				<SkillNav outline={skill.outline} collapsed={!instructionsOpen} onVisit={() => (instructionsOpen = true)} />
+			</div>
+			<div class="min-w-0 lg:col-start-1 lg:row-start-1" data-skill-reading>
+				<OverflowDisclosure label="Skill instructions" bind:open={instructionsOpen}>
+					<RichDocument
+						document={skill.document}
+						headingOffset={1}
+						class="max-w-4xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8 [&_h1]:text-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_h4]:text-foreground [&_h5]:text-foreground [&_h6]:text-foreground"
+					/>
+				</OverflowDisclosure>
+			</div>
 		</div>
 	</PageFrame>
 </section>

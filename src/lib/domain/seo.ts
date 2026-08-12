@@ -146,17 +146,13 @@ export function recipeSeo(recipe: RecipePageView, canonicalOrigin: string, index
 					description: recipe.description,
 					breadcrumb: { "@id": breadcrumbId },
 				},
-				{
-					"@type": "BreadcrumbList",
-					"@id": breadcrumbId,
-					itemListElement: [
-						{
-							"@type": "ListItem",
-							position: 1,
-							name: "LAB Recipes",
-							item: canonicalUrlFor(canonicalOrigin, "/recipes/"),
-						},
-						{ "@type": "ListItem", position: 2, name: recipe.title, item: canonicalUrl },
+			{
+				"@type": "BreadcrumbList",
+				"@id": breadcrumbId,
+				itemListElement: [
+						{ "@type": "ListItem", position: 1, name: "LAB", item: "https://lab.sa" },
+						{ "@type": "ListItem", position: 2, name: "Recipes", item: canonicalUrlFor(canonicalOrigin, "/recipes/") },
+						{ "@type": "ListItem", position: 3, name: recipe.title, item: canonicalUrl },
 					],
 				},
 			],
@@ -204,8 +200,9 @@ function skillStructuredData(skill: SkillPageView, canonicalUrl: string, canonic
 				"@type": "BreadcrumbList",
 				"@id": breadcrumbId,
 				itemListElement: [
-					{ "@type": "ListItem", position: 1, name: siteName, item: canonicalUrlFor(canonicalOrigin, "/") },
-					{ "@type": "ListItem", position: 2, name: skill.name, item: canonicalUrl },
+					{ "@type": "ListItem", position: 1, name: "LAB", item: "https://lab.sa" },
+					{ "@type": "ListItem", position: 2, name: "Skills", item: canonicalUrlFor(canonicalOrigin, "/") },
+					{ "@type": "ListItem", position: 3, name: skill.name, item: canonicalUrl },
 				],
 			},
 			{

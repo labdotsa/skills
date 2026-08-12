@@ -1,4 +1,5 @@
 export const THEME_STORAGE_KEY = "labs-color-theme";
+export const THEME_TRANSITION_DURATION_MS = 180;
 
 export type ThemePreference = "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
@@ -49,14 +50,21 @@ export function createThemeController(
   onChange: (snapshot: ThemeSnapshot) => void,
 ) {
   const storage = safeStorage(window);
+  const root = document.documentElement;
+  let transitionTimer: ReturnType<typeof setTimeout> | undefined;
   let snapshot = applyTheme(
     document,
     normalizePreference(document.documentElement.dataset.themePreference),
   );
 
   function publish(preference: ThemePreference) {
+    root.dataset.themeTransitioning = "true";
+    clearTimeout(transitionTimer);
     snapshot = applyTheme(document, preference);
     onChange(snapshot);
+    transitionTimer = setTimeout(() => {
+      delete root.dataset.themeTransitioning;
+    }, THEME_TRANSITION_DURATION_MS);
   }
 
   function setPreference(value: ThemePreference) {
@@ -80,6 +88,8 @@ export function createThemeController(
     },
     setPreference,
     destroy() {
+      clearTimeout(transitionTimer);
+      delete root.dataset.themeTransitioning;
       window.removeEventListener("storage", handleStorage);
     },
   };

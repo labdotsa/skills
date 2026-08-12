@@ -14,6 +14,6 @@
 	bind:ref
 	data-slot="sidebar-separator"
 	data-sidebar="separator"
-	class={cn("mx-2 bg-sidebar-border w-auto", className)}
+	class={cn("mx-2 bg-sidebar-border data-[orientation=horizontal]:w-[calc(100%_-_1rem)]", className)}
 	{...restProps}
 />

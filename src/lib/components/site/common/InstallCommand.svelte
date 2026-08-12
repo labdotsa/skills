@@ -1,23 +1,40 @@
 <script lang="ts">
 	import ExternalLinkIcon from "@lucide/svelte/icons/external-link";
-	import CopyButton from "$lib/components/shared/CopyButton.svelte";
+	import CodePanelHeader from "./CodePanelHeader.svelte";
 
 	interface Props {
 		command: string;
-		sourceUrl: string;
+		sourceUrl?: string;
+		title?: string;
+		accent?: string;
 	}
 
-	let { command, sourceUrl }: Props = $props();
+	let {
+		command,
+		sourceUrl,
+		title = "Installation",
+		accent = "var(--page-accent)",
+	}: Props = $props();
 </script>
 
-<aside class="min-w-0" aria-labelledby="install-title">
-	<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground" id="install-title">Installation</p>
-	<div class="mt-3 flex min-w-0 items-center gap-3 border border-border-strong border-s-4 border-s-[var(--skill-accent)] bg-code p-3 text-code-foreground">
-		<span class="font-mono text-primary" aria-hidden="true">$</span>
-		<code class="min-w-0 flex-1 overflow-x-auto py-2 font-mono text-sm">{command}</code>
-		<CopyButton text={command} label="Copy install command" message="Install command copied" />
+<aside class="w-fit max-w-full min-w-0" aria-label={title} style={`--command-accent: ${accent}`} data-install-command>
+	<div class="w-fit max-w-full overflow-hidden rounded-lg border border-border-strong bg-code text-code-foreground" data-install-command-surface>
+		<div
+			class="grid min-h-14 min-w-0 grid-cols-[minmax(0,1fr)_auto] items-stretch rounded-none border-0 border-s-4 border-s-[var(--command-accent)] bg-transparent text-inherit"
+			role="group"
+			aria-label={title}
+			data-code-panel
+		>
+			<CodePanelHeader {title} text={command} copyLabel="Copy install command" copyMessage="Install command copied" inline showTitle={false} />
+			<div class="col-start-1 row-start-1 flex min-w-0 items-center gap-3 px-4">
+				<span class="font-mono text-primary" aria-hidden="true">$</span>
+				<code class="min-w-0 flex-1 truncate py-3 font-mono text-sm" title={command}>{command}</code>
+			</div>
+		</div>
 	</div>
-	<a class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-primary decoration-2 underline-offset-4" href={sourceUrl}>
-		Browse source on GitHub <ExternalLinkIcon class="size-4" aria-hidden="true" />
-	</a>
+	{#if sourceUrl}
+		<a class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-primary decoration-2 underline-offset-4" href={sourceUrl}>
+			Browse source on GitHub <ExternalLinkIcon class="size-4" aria-hidden="true" />
+		</a>
+	{/if}
 </aside>

@@ -13,7 +13,7 @@
 {#if requirement.kind !== "builtin"}
 	<a
 		class={[
-			"rounded-sm decoration-primary decoration-2 underline-offset-4 transition-colors hover:text-primary hover:underline focus-visible:text-primary focus-visible:underline",
+			"rounded-sm decoration-primary decoration-2 underline-offset-4 transition-colors duration-[var(--motion-duration-standard)] hover:text-primary hover:underline focus-visible:text-primary focus-visible:underline",
 			className,
 		]}
 		href={requirement.url}

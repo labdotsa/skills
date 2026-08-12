@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ExternalLinkIcon from "@lucide/svelte/icons/external-link";
 	import { resolve } from "$app/paths";
+	import DetailBreadcrumb from "$lib/components/site/common/DetailBreadcrumb.svelte";
 	import LabHero from "$lib/components/site/common/LabHero.svelte";
-	import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
 	import type { RecipePageView } from "$lib/domain/catalog.js";
 
 	interface Props {
@@ -13,19 +13,13 @@
 </script>
 
 <LabHero
-	eyebrow={`${recipe.category.replaceAll("-", " ")} / ${recipe.status} recipe`}
+	eyebrow={`${recipe.category.replaceAll("-", " ")} / Recipe`}
 	title={recipe.title}
 	description={recipe.description}
 	accent="var(--lab-main)"
 >
 	{#snippet prelude()}
-		<Breadcrumb.Root aria-label="Breadcrumb">
-			<Breadcrumb.List>
-				<Breadcrumb.Item><Breadcrumb.Link href={resolve("/recipes/")}>LAB Recipes</Breadcrumb.Link></Breadcrumb.Item>
-				<Breadcrumb.Separator />
-				<Breadcrumb.Item><Breadcrumb.Page>{recipe.title}</Breadcrumb.Page></Breadcrumb.Item>
-			</Breadcrumb.List>
-		</Breadcrumb.Root>
+		<DetailBreadcrumb collectionHref={resolve("/recipes/")} collection="Recipes" subSubject={recipe.title} />
 	{/snippet}
 	{#snippet aside()}
 		<aside class="overflow-hidden rounded-lg border" aria-label="Recipe details">

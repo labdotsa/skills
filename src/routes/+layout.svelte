@@ -12,6 +12,9 @@
 	});
 </script>
 
-<SiteShell publicationProfile={data.publication.name}>
+<SiteShell
+	publicationProfile={data.publication.name}
+	skillPillarCounts={data.skillPillarCounts}
+>
 	{@render children()}
 </SiteShell>

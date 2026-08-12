@@ -4,6 +4,45 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Replaced horizontal scrolling in compact Recipe requirement commands with one-line ellipsis truncation while preserving complete command text for copying, accessibility, and hover disclosure.
+- Removed organization and collection labels from detail-page eyebrows so the single breadcrumb owns navigation while the eyebrow communicates only content classification.
+- Extended the collapsed Package contents mask across several rows so long file inventories fade gradually into the owning page surface instead of ending abruptly.
+- Split visible and structured detail breadcrumbs into the explicit `LAB → Skills/Recipes → detail` hierarchy, and aligned collection/detail hero eyebrows to the same taxonomy.
+- Aligned Skill contents navigation with Recipe navigation: sticky page-owned positioning, source heading hierarchy, contextual descendant expansion, no independent scrollbar, and collapsed-state filtering to headings actually visible in the instruction excerpt.
+- Removed resting fills from mobile Sidebar navigation rows, added page-branded hover/focus feedback, constrained the sheet, and corrected the shared Sidebar separator width so the content genuinely fits without horizontal overflow.
+- Replaced the fixed-width Skill package table with a responsive ordered file list whose full rows link to GitHub source in a new tab, eliminating narrow-screen overflow while preserving file order and metadata.
+- Replaced horizontal scrolling inside narrow hero installation commands with a one-line ellipsis clamp while preserving the complete command for copying, accessibility, and hover disclosure.
+- Added a responsive, sticky contents rail to every Skill detail page by sharing the Recipe navigation behavior, including current-section tracking, keyboard focus, deep links, and automatic expansion of collapsed instructions.
+- Sized hero installation commands to their intrinsic single-line content width while retaining a viewport-safe maximum width and local horizontal overflow for long commands.
+- Rebuilt the production footer lockup around equal 48px mark and label boxes, shared center alignment, and corrected internal wordmark optics instead of unequal image padding.
+- Moved hero command corner ownership to the outer panel, leaving its inner single-line code grid square and cleanly clipped at the shared perimeter.
+- Aligned the compact LAB lockup with equal 32px mark and label boxes on one shared centered axis.
+- Replaced the collapsed-content color overlay with a surface-revealing mask so fades remain seamless across page brands and themes.
+- Removed the visible language/title segment from hero installation commands, leaving one uninterrupted single-line command and full-cell copy action while retaining the accessible installation group label.
+- Centered the LAB mark, wordmark label, navigation text, appearance icon, and active navigation rule on one shared header axis without letting inline baselines or underline borders shift their visible content.
+- Expanded every single-line command copy action to fill its complete trailing cell, so hover, focus, and click feedback cover the entire control instead of a smaller inset icon box.
+- Matched the footer LAB lockup to lab.sa's production geometry and typography: the same 32 px flask, 8 px gap, 48 px Maax Unicase label, tracking, weight, line height, vertical padding, and opacity interaction.
+- Matched primary Button borders to their background in resting, hover, focus, active, expanded, themed, and disabled states so filled CTAs retain the same box height without exposing a separate outline.
+- Centered the desktop Skills, Recipes, and appearance controls on one header axis and removed the divider before the appearance toggle.
+- Made the footer pillar strip proportional to the current published Skill catalog, deriving Research, Design, Development, and Marketing widths during every prerendered build instead of maintaining a fixed color list.
+- Reworked the Discovery Site footer around the applicable lab.sa pattern: compact brand copy, theme-aware surfaces, dedicated Discover and LAB service columns, and one quiet legal row without unrelated corporate controls.
+- Standardized detail breadcrumbs as `> Subject > Sub-subject` through one shared shadcn-svelte composition.
+- Completed a codebase-wide theme-motion audit: every color-aware component now uses the shared 180ms token, and an explicit transition lifecycle overrides local timings only while light/dark mode is changing.
+- Standardized light/dark theme interpolation across the complete shell—including Recipe requirement tables, command cells, borders, icons, and buttons—on one reduced-motion-safe duration and easing contract.
+- Collapsed every hero installation panel into one shared single-line row containing its label, command, prompt, and copy action, with local overflow for long commands.
+- Removed the repeated Shell/Codex leading labels and detached copy boxes from Recipe installation cells, leaving one uninterrupted inline-code surface with a direct borderless copy action.
+- Wrapped long lines in every multiline Text and Shell fence while preserving explicit line breaks, indentation, language headers, and copy actions.
+- Promoted Recipe installation commands to fill their complete Install or Use cells, removing nested padding, radii, borders, and shadows while retaining shared language and copy controls.
+- Promoted the directory search input to its full toolbar cell, removing the nested padded field while preserving keyboard focus, shortcuts, live counts, and responsive stacking.
+- Refined Recipe requirements into a lighter interactive install matrix with compact inline language headers, quiet numbered markers, row-level brand hover feedback, and smaller copy controls.
+- Matched the footer to LAB's live product-innovation slogan and stacked every Work with LAB service in one vertical list.
+- Completed the parent-owned Related Content surface with one rounded perimeter, clipped hover states, and sibling-only dividers around fully borderless rows.
+- Unified each page's navigation, links, focus treatment, selection, and code surfaces under its owning LAB brand color; standardized single- and multiline code panels on shared headers and muted branded backgrounds.
+- Tightened the LAB footer into a balanced twelve-column desktop grid, reduced excess vertical space, and removed the duplicated service-name strap from its legal row.
+- Moved directory and related-row separators to their parent lists so the final record no longer doubles the enclosing surface's bottom border.
+- Standardized every Recipe record on LAB indigo and changed directory rails to slide in horizontally from the leading edge instead of growing vertically from their center.
+- Constrained every hero to one responsive three-track contract: all content occupies the leading two tracks, the trailing track remains intentional desktop whitespace, and the grid collapses to one track below `lg`; consolidated collection and Skill installation lines onto one shared component.
+- Matched the page atmosphere to lab.sa's full-viewport linear gradient geometry and 6.7% LAB color strength, while retaining category-specific page accents.
 - Unified the Skills index, Recipe index, Skill detail, and Recipe detail heroes on one invariant responsive anatomy: optional prelude, eyebrow, controlled title measure, and a shared description/actions/supplemental grid.
 - Replaced the permanent hero accent rail with a subtle page-level LAB gradient, added reduced-motion-safe directional transitions between Skills and Recipes, synchronized directory rail/background hover treatments to their pillar colors, introduced consistent footer breathing room, and restored pointer affordances for clickable controls.
 - Refine the shared hero system with direct search-intent copy, LAB-style inline CTA placement, compact display scale, and synchronized visible and social metadata for the Skills and Recipe collections.

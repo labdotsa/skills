@@ -9,14 +9,21 @@
 		label: string;
 		children: Snippet;
 		collapsedHeight?: number;
+		fadeHeight?: number;
+		open?: boolean;
 	}
 
-	let { label, children, collapsedHeight = 496 }: Props = $props();
-	let open = $state(true);
+	let { label, children, collapsedHeight = 496, fadeHeight = 80, open = $bindable(true) }: Props = $props();
 	let enhanced = $state(false);
 	let overflow = $state(false);
 	let contentHeight = $state(0);
 	let content = $state<HTMLDivElement | null>(null);
+	let maximumHeight = $derived(enhanced && overflow ? `${open ? contentHeight : collapsedHeight}px` : "none");
+	let contentMask = $derived(
+		enhanced && overflow && !open
+			? `linear-gradient(to bottom, black 0, black calc(100% - ${fadeHeight}px), transparent 100%)`
+			: "none",
+	);
 
 	function restoreTabStop(element: HTMLElement) {
 		const previous = element.dataset.overflowTabindex;
@@ -70,19 +77,16 @@
 	});
 </script>
 
-<Collapsible.Root bind:open data-overflow-disclosure data-overflow={overflow}>
+<Collapsible.Root bind:open data-overflow-disclosure data-overflow={overflow} data-overflow-fade-height={fadeHeight}>
 	<div class="relative">
 		<Collapsible.Content
 			bind:ref={content}
 			forceMount
 			class="overflow-hidden transition-[max-height] duration-[var(--motion-duration-editorial)] ease-[var(--motion-ease-expressive)] motion-reduce:transition-none"
-			style={`max-height: ${enhanced && overflow ? `${open ? contentHeight : collapsedHeight}px` : "none"}`}
+			style={`max-height: ${maximumHeight}; -webkit-mask-image: ${contentMask}; mask-image: ${contentMask};`}
 		>
 			{@render children()}
 		</Collapsible.Content>
-		{#if enhanced && overflow && !open}
-			<div class="pointer-events-none absolute inset-x-0 bottom-0 h-12 border-t bg-background/95" aria-hidden="true"></div>
-		{/if}
 	</div>
 	{#if enhanced && overflow}
 		<Collapsible.Trigger

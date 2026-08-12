@@ -9,9 +9,12 @@
 		text: string;
 		label: string;
 		message?: string;
+		compact?: boolean;
+		fillCell?: boolean;
+		class?: string;
 	}
 
-	let { text, label, message = "Copied to clipboard" }: Props = $props();
+	let { text, label, message = "Copied to clipboard", compact = false, fillCell = false, class: className }: Props = $props();
 	let state = $state<"idle" | "busy" | "success" | "error">("idle");
 	let resetTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -60,7 +63,10 @@
 <Button
 	variant="ghost"
 	size="icon"
-	class="size-11 shrink-0"
+	class={[
+		fillCell ? "h-auto w-12 shrink-0 self-stretch rounded-none" : compact ? "size-8 shrink-0 rounded-md" : "size-11 shrink-0",
+		className,
+	]}
 	aria-label={state === "success" ? `${label}: copied` : label}
 	aria-busy={state === "busy"}
 	data-copy-state={state}

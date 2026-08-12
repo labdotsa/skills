@@ -206,6 +206,14 @@ html[data-theme="dark"] {
     text-rendering: optimizeLegibility;
   }
 
+  html[data-theme],
+  html[data-theme] body,
+  html[data-theme] body :where(*, *::before, *::after) {
+    transition-duration: var(--motion-duration-standard);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
+    transition-timing-function: var(--motion-ease-standard);
+  }
+
   button,
   input,
   textarea,
@@ -231,6 +239,13 @@ html[data-theme="dark"] {
   ::selection {
     background: var(--lab-selection);
   }
+}
+
+html[data-theme-transitioning] body,
+html[data-theme-transitioning] body :where(*, *::before, *::after) {
+  transition-duration: var(--motion-duration-standard) !important;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow !important;
+  transition-timing-function: var(--motion-ease-standard) !important;
 }
 
 @keyframes page-exit-left {

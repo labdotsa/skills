@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, tick, type Component, type Snippet } from "svelte";
 	import type { NotificationKind } from "$lib/notifications.js";
+	import type { DirectoryPillarCount } from "$lib/domain/directory.js";
 	import RouteTransition from "$lib/components/shared/RouteTransition.svelte";
 	import {
 		createThemeController,
@@ -13,9 +14,10 @@
 	interface Props {
 		children: Snippet;
 		publicationProfile: string;
+		skillPillarCounts: readonly DirectoryPillarCount[];
 	}
 
-	let { children, publicationProfile }: Props = $props();
+	let { children, publicationProfile, skillPillarCounts }: Props = $props();
 	let theme = $state<ThemeSnapshot>({ preference: "light", resolved: "light" });
 	let setPreference = $state<(preference: ThemePreference) => void>(() => undefined);
 	let ToasterComponent = $state<Component<{ theme: ThemeSnapshot["resolved"]; richColors: boolean; closeButton: boolean }> | null>(null);
@@ -56,7 +58,7 @@
 	<main id="main-content" tabindex="-1" class="flex-1 pb-16 sm:pb-24">
 		{@render children()}
 	</main>
-	<SiteFooter />
+	<SiteFooter {skillPillarCounts} />
 	{#if ToasterComponent}
 		<ToasterComponent theme={theme.resolved} richColors closeButton />
 	{/if}
@@ -65,9 +67,30 @@
 <style>
 	.site-shell {
 		--page-accent: var(--lab-main);
-		background:
-			radial-gradient(ellipse 75% 34rem at 50% 0%, color-mix(in oklab, var(--page-accent) 24%, transparent), transparent 76%),
-			var(--background);
+		--primary: var(--page-accent);
+		--ring: var(--page-accent);
+		--accent: color-mix(in oklab, var(--page-accent) 16%, var(--background));
+		--lab-selection: color-mix(in srgb, var(--page-accent) 25%, transparent);
+		--lab-code: color-mix(in oklab, var(--page-accent) 12%, var(--background));
+		--lab-code-ink: var(--foreground);
+		--code-header: color-mix(in oklab, var(--page-accent) 18%, var(--background));
+		position: relative;
+		isolation: isolate;
+		background: var(--background);
+	}
+
+	.site-shell::before {
+		position: absolute;
+		inset: 0 0 auto;
+		z-index: -1;
+		height: 100vh;
+		background: linear-gradient(
+			to bottom,
+			color-mix(in srgb, var(--page-accent) 6.7%, transparent),
+			transparent
+		);
+		content: "";
+		pointer-events: none;
 	}
 
 	.site-shell:has(:global([data-page-pillar="research"])) { --page-accent: var(--lab-research); }

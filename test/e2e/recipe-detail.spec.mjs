@@ -4,7 +4,11 @@ import AxeBuilder from "@axe-core/playwright";
 test("prerenders the complete Recipe reading journey from one typed view", async ({ page, isMobile }) => {
   await page.goto("/recipes/functional-prototype/");
 
-  await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("LAB Recipes");
+  const breadcrumb = page.getByRole("navigation", { name: "Breadcrumb" });
+  await expect(breadcrumb.locator('[data-slot="breadcrumb-list"] > [data-slot="breadcrumb-separator"]')).toHaveCount(2);
+  await expect(breadcrumb.getByRole("link", { name: "LAB", exact: true })).toHaveAttribute("href", "https://lab.sa");
+  await expect(breadcrumb.getByRole("link", { name: "Recipes", exact: true })).toHaveAttribute("href", "/recipes/");
+  await expect(page.locator("[data-lab-hero-eyebrow]")).toHaveText("product delivery / Recipe");
   await expect(page.getByRole("heading", { level: 1, name: "Functioning Prototype" })).toBeVisible();
   await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
   await expect(page.getByText("Outcome", { exact: true })).toHaveCount(0);
@@ -34,7 +38,7 @@ test("prerenders the complete Recipe reading journey from one typed view", async
   await expect(requirementsSurface).toBeVisible();
   await expect(page.locator("[data-recipe-requirements-table] tbody tr")).toHaveCount(8);
   await expect(requirementsSurface.getByRole("link", { name: "$wayfinder (opens in a new tab)" })).toHaveAttribute("target", "_blank");
-  await expect(requirementsSurface.getByRole("link", { name: "mattpocock/skills (opens in a new tab)" })).toHaveAttribute("target", "_blank");
+  await expect(requirementsSurface.getByRole("link", { name: "mattpocock/skills (opens in a new tab)" }).first()).toHaveAttribute("target", "_blank");
   await expect(requirementsSurface.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();
   await expect(requirementsSurface.getByText("Use $imagegen in Codex")).toBeVisible();
   const codeLanguages = await page.locator("[data-recipe-page] [data-code-language]").allTextContents();
@@ -258,7 +262,7 @@ test("matches the same Recipe journey, alias, deep links, and visuals at the Pag
   await page.evaluate(() => document.fonts.ready);
 
   await expect(page.getByRole("heading", { level: 1, name: "Functioning Prototype" })).toBeVisible();
-  const recipesPath = await page.getByRole("navigation", { name: "Breadcrumb" }).getByRole("link", { name: "LAB Recipes" }).evaluate(
+  const recipesPath = await page.getByRole("navigation", { name: "Breadcrumb" }).getByRole("link", { name: "Recipes", exact: true }).evaluate(
     (link) => new URL(link.href).pathname,
   );
   expect(recipesPath).toBe("/skills/recipes/");

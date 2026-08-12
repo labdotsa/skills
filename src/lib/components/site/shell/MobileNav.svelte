@@ -36,10 +36,10 @@
 	}
 </script>
 
-<Sidebar.Root
+	<Sidebar.Root
 	side="right"
 	collapsible="offcanvas"
-	class="border-s border-sidebar-border lg:hidden"
+	class="max-w-[calc(100vw-0.75rem)] overflow-hidden border-s border-sidebar-border lg:hidden"
 	mobileTitle="LAB Skills"
 	mobileDescription="Public working knowledge and LAB services."
 	onCloseAutoFocus={(event) => {
@@ -58,13 +58,13 @@
 		<p class="text-sm leading-6 text-muted-foreground">Public working knowledge and LAB services.</p>
 	</Sidebar.Header>
 
-	<Sidebar.Content class="py-3">
+	<Sidebar.Content class="overflow-x-hidden overflow-y-auto py-3">
 		<Sidebar.Group>
 			<Sidebar.GroupLabel>Discovery</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton size="lg" isActive={skillsActive}>
+						<Sidebar.MenuButton class="bg-transparent decoration-[var(--page-accent)] decoration-2 underline-offset-4 hover:bg-transparent hover:underline active:bg-transparent focus-visible:bg-transparent focus-visible:underline data-active:bg-transparent data-active:text-[var(--page-accent)] data-open:hover:bg-transparent" size="lg" isActive={skillsActive}>
 							{#snippet child({ props })}
 								<a href={resolve("/")} onclick={closeNavigation} {...props}>
 									<BookOpenIcon aria-hidden="true" />
@@ -74,7 +74,7 @@
 						</Sidebar.MenuButton>
 					</Sidebar.MenuItem>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton size="lg" isActive={recipesActive}>
+						<Sidebar.MenuButton class="bg-transparent decoration-[var(--page-accent)] decoration-2 underline-offset-4 hover:bg-transparent hover:underline active:bg-transparent focus-visible:bg-transparent focus-visible:underline data-active:bg-transparent data-active:text-[var(--page-accent)] data-open:hover:bg-transparent" size="lg" isActive={recipesActive}>
 							{#snippet child({ props })}
 								<a href={resolve("/recipes/")} onclick={closeNavigation} {...props}>
 									<RouteIcon aria-hidden="true" />
@@ -95,11 +95,11 @@
 				<Sidebar.Menu>
 					{#each services as service (service[0])}
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton size="lg">
+							<Sidebar.MenuButton class="bg-transparent decoration-[var(--page-accent)] decoration-2 underline-offset-4 hover:bg-transparent hover:underline active:bg-transparent focus-visible:bg-transparent focus-visible:underline data-active:bg-transparent data-open:hover:bg-transparent" size="lg">
 								{#snippet child({ props })}
 									<a href={service[1]} onclick={closeNavigation} {...props}>
 										<FlaskConicalIcon aria-hidden="true" />
-										<span>{service[0]}</span>
+										<span class="min-w-0 truncate">{service[0]}</span>
 										<ArrowUpRightIcon class="ms-auto" aria-hidden="true" />
 									</a>
 								{/snippet}

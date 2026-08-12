@@ -40,6 +40,14 @@ test("projects complete Skill metadata and truthful structured data from the pag
     "BreadcrumbList",
     "SoftwareSourceCode",
   ]);
+  assert.deepEqual(
+    seo.structuredData["@graph"][1].itemListElement.map(({ position, name }) => ({ position, name })),
+    [
+      { position: 1, name: "LAB" },
+      { position: 2, name: "Skills" },
+      { position: 3, name: "example" },
+    ],
+  );
   assert.equal(seo.structuredData["@graph"][2].codeRepository, skill.sourceUrl);
   assert.equal(JSON.stringify(seo.structuredData).includes('"Recipe"'), false);
   assert.equal(Object.isFrozen(seo), true);
@@ -154,6 +162,14 @@ test("describes a delivery Recipe as a WebPage without culinary schema", async (
   ]);
   assert.equal(seo.structuredData["@graph"][0].name, recipe.title);
   assert.equal(seo.structuredData["@graph"][0].description, recipe.description);
+  assert.deepEqual(
+    seo.structuredData["@graph"][1].itemListElement.map(({ position, name }) => ({ position, name })),
+    [
+      { position: 1, name: "LAB" },
+      { position: 2, name: "Recipes" },
+      { position: 3, name: "Example Recipe" },
+    ],
+  );
   assert.equal(JSON.stringify(seo.structuredData).includes('"Recipe"'), false);
   assert.equal(JSON.stringify(seo.structuredData).includes('"HowTo"'), false);
 });

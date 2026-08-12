@@ -61,6 +61,7 @@ test("theme controller persists explicit choices and synchronizes other tabs", (
   const controller = Theme.createThemeController(environment.document, environment.window, (snapshot) => snapshots.push(snapshot));
 
   controller.setPreference("dark");
+  assert.equal(environment.root.dataset.themeTransitioning, "true");
   environment.windowListeners.get("storage")({ key: Theme.THEME_STORAGE_KEY, newValue: "light" });
 
   assert.deepEqual(snapshots, [
@@ -69,6 +70,7 @@ test("theme controller persists explicit choices and synchronizes other tabs", (
   ]);
   assert.deepEqual(environment.writes, [[Theme.THEME_STORAGE_KEY, "dark"]]);
   controller.destroy();
+  assert.equal(environment.root.dataset.themeTransitioning, undefined);
   assert.equal(environment.windowListeners.size, 0);
 });
 

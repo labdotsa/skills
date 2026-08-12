@@ -69,10 +69,13 @@
 	{/if}
 
 	<div class="bg-card">
-	<div class="grid gap-4 border-b p-4 sm:p-5 lg:grid-cols-[minmax(18rem,1fr)_auto] lg:items-center">
-		<label class="relative block min-w-0">
+	<div class="grid border-b sm:grid-cols-[minmax(18rem,1fr)_auto] sm:items-stretch" data-directory-search-row>
+		<label
+			class="relative block min-h-14 min-w-0 overflow-hidden bg-card transition-[background-color,box-shadow] duration-[var(--motion-duration-standard)] hover:bg-accent/25 focus-within:z-10 focus-within:bg-accent/30 focus-within:shadow-[inset_0_0_0_2px_var(--ring)] sm:min-h-16"
+			data-directory-search-cell
+		>
 			<span class="sr-only">{searchLabel}</span>
-			<SearchIcon class="pointer-events-none absolute start-3 top-1/2 z-10 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+			<SearchIcon class="pointer-events-none absolute start-5 top-1/2 z-10 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
 			<Input
 				bind:ref={searchInput}
 				bind:value={query}
@@ -80,11 +83,11 @@
 				type="search"
 				placeholder={searchPlaceholder}
 				autocomplete="off"
-				class="h-11 ps-10 pe-12"
+				class="h-full rounded-none border-0 bg-transparent ps-12 pe-14 shadow-none focus-visible:border-0 focus-visible:ring-0 dark:bg-transparent"
 			/>
-			<kbd class="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 rounded border bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">/</kbd>
+			<kbd class="pointer-events-none absolute end-5 top-1/2 -translate-y-1/2 rounded border bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">/</kbd>
 		</label>
-		<p class="font-mono text-sm text-muted-foreground" aria-live="polite">
+		<p class="flex min-h-12 items-center border-t px-5 font-mono text-sm text-muted-foreground sm:min-h-16 sm:border-s sm:border-t-0" aria-live="polite">
 			{visibleItems.length} of {activeItems.length} {activeKind}
 		</p>
 	</div>
@@ -107,7 +110,7 @@
 
 	<section id={`${collection.kind}-${idPrefix}`} aria-labelledby={`${collection.kind}-${idPrefix}-title`}>
 		<h3 id={`${collection.kind}-${idPrefix}-title`} class="sr-only">{collection.kind === "skills" ? "Skill directory" : "Recipe directory"}</h3>
-		<ul class="m-0 list-none p-0">
+		<ul class="m-0 list-none divide-y divide-border p-0" data-directory-rows>
 			{#each visibleItems as item, index (item.slug)}
 				<CatalogRow {item} {index} detail={rowDetail} />
 			{/each}

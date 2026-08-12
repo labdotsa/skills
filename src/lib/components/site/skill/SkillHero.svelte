@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
+	import DetailBreadcrumb from "$lib/components/site/common/DetailBreadcrumb.svelte";
 	import LabHero from "$lib/components/site/common/LabHero.svelte";
-	import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
 	import type { SkillPageView } from "$lib/domain/catalog.js";
 	import InstallCommand from "$lib/components/site/common/InstallCommand.svelte";
 
@@ -13,21 +13,15 @@
 </script>
 
 <LabHero
-	eyebrow={`${skill.category.replaceAll("-", " ")} / skill`}
+	eyebrow={`${skill.category.replaceAll("-", " ")} / Skill`}
 	title={skill.name}
 	description={skill.description}
 	accent="var(--skill-accent)"
 >
 	{#snippet prelude()}
-		<Breadcrumb.Root aria-label="Breadcrumb">
-			<Breadcrumb.List>
-				<Breadcrumb.Item><Breadcrumb.Link href={resolve("/")}>LAB Skills</Breadcrumb.Link></Breadcrumb.Item>
-				<Breadcrumb.Separator />
-				<Breadcrumb.Item><Breadcrumb.Page>{skill.name}</Breadcrumb.Page></Breadcrumb.Item>
-			</Breadcrumb.List>
-		</Breadcrumb.Root>
+		<DetailBreadcrumb collectionHref={resolve("/")} collection="Skills" subSubject={skill.name} />
 	{/snippet}
 	{#snippet aside()}
-			<InstallCommand command={skill.installCommand} sourceUrl={skill.sourceUrl} />
+		<InstallCommand command={skill.installCommand} sourceUrl={skill.sourceUrl} accent="var(--skill-accent)" />
 	{/snippet}
 </LabHero>

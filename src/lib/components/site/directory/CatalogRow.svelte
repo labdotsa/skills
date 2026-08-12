@@ -16,9 +16,9 @@
 		: `${item.conversations} conversations`);
 </script>
 
-<li data-pillar={item.pillar}>
+<li data-kind={item.kind} data-pillar={item.pillar}>
 	<a
-		class="catalog-row group relative grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_2rem] items-start gap-3 overflow-hidden border-b border-b-border px-3 py-5 no-underline transition-colors sm:grid-cols-[3.25rem_minmax(0,1fr)_2.5rem] sm:gap-5 sm:px-5 sm:py-6 motion-reduce:transition-none"
+		class="catalog-row group relative grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_2rem] items-start gap-3 overflow-hidden px-3 py-5 no-underline transition-colors duration-[var(--motion-duration-standard)] sm:grid-cols-[3.25rem_minmax(0,1fr)_2.5rem] sm:gap-5 sm:px-5 sm:py-6 motion-reduce:transition-none"
 		href={resolve(item.kind === "skill" ? `/skills/${item.slug}/` : `/recipes/${item.slug}/`)}
 		aria-label={`Open ${item.title} ${itemKind}`}
 	>
@@ -46,6 +46,7 @@
 	[data-pillar="design"] { --row-accent: var(--lab-design); }
 	[data-pillar="development"] { --row-accent: var(--lab-development); }
 	[data-pillar="marketing"] { --row-accent: var(--lab-marketing); }
+	[data-kind="recipe"] { --row-accent: var(--lab-main); }
 
 	.catalog-row::before {
 		position: absolute;
@@ -54,8 +55,7 @@
 		width: 0.25rem;
 		content: "";
 		background: var(--row-accent);
-		transform: scaleY(0);
-		transform-origin: center;
+		transform: translateX(-100%);
 		transition: transform var(--motion-duration-standard) var(--motion-ease-expressive);
 	}
 
@@ -66,7 +66,7 @@
 
 	.catalog-row:hover::before,
 	.catalog-row:focus-visible::before {
-		transform: scaleY(1);
+		transform: translateX(0);
 	}
 
 	@media (prefers-reduced-motion: reduce) {

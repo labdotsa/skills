@@ -3,6 +3,13 @@ import type { RecipeEntry, SkillEntry } from "./catalog.js";
 export type DirectoryKind = "skills" | "recipes";
 export type DirectoryPillar = "research" | "design" | "development" | "marketing";
 
+export type DirectoryPillarCount = Readonly<{
+	pillar: DirectoryPillar;
+	count: number;
+}>;
+
+const directoryPillars = ["research", "design", "development", "marketing"] as const;
+
 type DirectoryItemBase = Readonly<{
 	kind: "skill" | "recipe";
 	slug: string;
@@ -125,6 +132,21 @@ export function pillarForCategory(category: string): DirectoryPillar {
 	if (["frontend", "integrations", "engineering", "delivery"].includes(category)) return "development";
 	if (["content", "growth", "marketing"].includes(category)) return "marketing";
 	return "research";
+}
+
+export function countSkillPillars(
+	skills: readonly Pick<SkillEntry, "category">[],
+): readonly DirectoryPillarCount[] {
+	const counts = new Map<DirectoryPillar, number>(
+		directoryPillars.map((pillar) => [pillar, 0]),
+	);
+	for (const skill of skills) {
+		const pillar = pillarForCategory(skill.category);
+		counts.set(pillar, (counts.get(pillar) ?? 0) + 1);
+	}
+	return Object.freeze(
+		directoryPillars.map((pillar) => Object.freeze({ pillar, count: counts.get(pillar) ?? 0 })),
+	);
 }
 
 function compareCodePoints(left: string, right: string) {

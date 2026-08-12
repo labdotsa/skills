@@ -23,7 +23,7 @@
 <PageHead {seo} />
 
 <article
-	class="relative isolate overflow-hidden"
+	class="relative isolate overflow-clip"
 	data-pillar={pillar}
 	data-page-pillar={pillar}
 	data-catalog-snapshot={catalogSnapshotId}

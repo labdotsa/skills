@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CopyButton from "$lib/components/shared/CopyButton.svelte";
 	import type { RichNode as RichNodeModel } from "$lib/domain/rich-content.js";
+	import CodePanelHeader from "$lib/components/site/common/CodePanelHeader.svelte";
 	import RichNodeComponent from "./RichNode.svelte";
 
 	interface Props {
@@ -26,35 +26,6 @@
 			? `${codeCopyLabel} content ${nodePath}: ${node.value.split("\n", 1)[0]?.trim().slice(0, 80) || node.language || "text"}`
 			: undefined,
 	);
-
-	function keyboardScrollable(element: HTMLElement) {
-		let pending = false;
-		let correctionTimer: ReturnType<typeof setTimeout> | undefined;
-		const update = () => {
-			pending = false;
-			const tabindex = element.scrollWidth > element.clientWidth ? 0 : -1;
-			if (element.tabIndex !== tabindex) element.tabIndex = tabindex;
-			if (element.dataset.overflowTabindex !== undefined) delete element.dataset.overflowTabindex;
-		};
-		const frame = requestAnimationFrame(update);
-		void document.fonts?.ready.then(update);
-		const observer = new ResizeObserver(update);
-		observer.observe(element);
-		const attributes = new MutationObserver(() => {
-			if (pending) return;
-			pending = true;
-			correctionTimer = setTimeout(update, 0);
-		});
-		attributes.observe(element, { attributes: true, attributeFilter: ["tabindex", "data-overflow-tabindex"] });
-		return {
-			destroy() {
-				cancelAnimationFrame(frame);
-				clearTimeout(correctionTimer);
-				observer.disconnect();
-				attributes.disconnect();
-			},
-		};
-	}
 </script>
 
 {#if node.type === "text"}
@@ -66,20 +37,10 @@
 {:else if node.type === "inlineCode"}
 	<code class="rounded-sm bg-code px-1.5 py-0.5 font-mono text-sm text-code-foreground">{node.value}</code>
 {:else if node.type === "code"}
-	<div class="my-6 overflow-hidden rounded-lg border border-border-strong bg-code text-code-foreground">
-		<div class="flex min-h-11 items-center justify-between gap-3 border-b border-border-strong px-4">
-			<span class="font-mono text-xs uppercase tracking-[0.12em]" data-code-language={node.language ?? "text"}>{node.language ?? "text"}</span>
-			<CopyButton text={node.value} label={codeCopyLabel} message={codeCopyMessage} />
-		</div>
-		<!-- Axe requires keyboard access for horizontal scrolling. -->
-		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-		<section
-			class="overflow-x-auto"
-			aria-label={codeRegionLabel}
-			tabindex="0"
-			use:keyboardScrollable
-		>
-			<pre class="p-4 text-sm leading-6"><code>{node.value}</code></pre>
+	<div class="my-6 overflow-hidden rounded-lg border border-border-strong bg-code text-code-foreground" data-code-panel>
+		<CodePanelHeader title={node.language ?? "text"} text={node.value} copyLabel={codeCopyLabel} copyMessage={codeCopyMessage} />
+		<section class="min-w-0 overflow-x-hidden" aria-label={codeRegionLabel}>
+			<pre class="whitespace-pre-wrap p-4 text-sm leading-6 [overflow-wrap:anywhere]" data-multiline-code><code>{node.value}</code></pre>
 		</section>
 	</div>
 {:else if node.type === "image"}
@@ -92,17 +53,17 @@
 	>{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</a>
 {:else if node.type === "heading"}
 	{#if headingDepth === 1}
-		<h1 id={node.id} class="mt-10 scroll-mt-24 text-4xl font-bold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h1>
+		<h1 id={node.id} tabindex="-1" class="mt-10 scroll-mt-24 text-4xl font-bold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h1>
 	{:else if headingDepth === 2}
-		<h2 id={node.id} class="mt-10 scroll-mt-24 text-3xl font-bold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h2>
+		<h2 id={node.id} tabindex="-1" class="mt-10 scroll-mt-24 text-3xl font-bold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h2>
 	{:else if headingDepth === 3}
-		<h3 id={node.id} class="mt-8 scroll-mt-24 text-2xl font-semibold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h3>
+		<h3 id={node.id} tabindex="-1" class="mt-8 scroll-mt-24 text-2xl font-semibold tracking-tight">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h3>
 	{:else if headingDepth === 4}
-		<h4 id={node.id} class="mt-7 scroll-mt-24 text-xl font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h4>
+		<h4 id={node.id} tabindex="-1" class="mt-7 scroll-mt-24 text-xl font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h4>
 	{:else if headingDepth === 5}
-		<h5 id={node.id} class="mt-6 scroll-mt-24 text-lg font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h5>
+		<h5 id={node.id} tabindex="-1" class="mt-6 scroll-mt-24 text-lg font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h5>
 	{:else}
-		<h6 id={node.id} class="mt-6 scroll-mt-24 font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h6>
+		<h6 id={node.id} tabindex="-1" class="mt-6 scroll-mt-24 font-semibold">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</h6>
 	{/if}
 {:else if node.type === "paragraph"}
 	<p class="my-4 leading-7">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</p>

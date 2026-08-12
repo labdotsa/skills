@@ -1,23 +1,55 @@
 <script lang="ts">
-	import CopyButton from "$lib/components/shared/CopyButton.svelte";
 	import type { RecipeRequirementView } from "$lib/domain/catalog.js";
+	import CopyButton from "$lib/components/shared/CopyButton.svelte";
 
 	interface Props {
 		requirement: RecipeRequirementView;
+		flush?: boolean;
 	}
 
-	let { requirement }: Props = $props();
+	let { requirement, flush = false }: Props = $props();
 </script>
 
 {#if requirement.installCommand}
-	<div class="flex min-w-0 items-center gap-2 rounded-md bg-code px-2 text-code-foreground">
-		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-		<!-- Keyboard access is required for horizontally scrolling long commands. -->
-		<code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap px-2 py-3 font-mono text-xs" aria-label={`${requirement.name} install command`} tabindex="0">{requirement.installCommand}</code>
-		<CopyButton text={requirement.installCommand} label={`Copy ${requirement.name} install command`} message={`${requirement.name} install command copied`} />
+	<div
+		class={[
+			"flex min-w-0 items-stretch overflow-hidden bg-code text-code-foreground transition-[border-color,background-color,box-shadow] duration-[var(--motion-duration-standard)] hover:bg-[var(--code-header)] focus-within:ring-2 focus-within:ring-inset focus-within:ring-ring/25",
+			flush
+				? "min-h-14 rounded-none border-0 shadow-none sm:min-h-16"
+				: "min-h-11 rounded-lg border border-border-strong/70 shadow-xs hover:border-primary/45 hover:shadow-sm focus-within:border-primary/60",
+		]}
+		data-code-panel
+		data-code-panel-flush={flush}
+	>
+		<div class="flex min-w-0 flex-1 items-center gap-2 px-4">
+			<span class="font-mono text-primary" aria-hidden="true">$</span>
+			<code
+				class="min-w-0 flex-1 truncate py-2.5 font-mono text-xs"
+				title={requirement.installCommand}
+				data-requirement-command-text
+			>{requirement.installCommand}</code>
+		</div>
+		<CopyButton
+			text={requirement.installCommand}
+			label={`Copy ${requirement.name} install command`}
+			message={`${requirement.name} install command copied`}
+			class="border-0 bg-transparent text-muted-foreground hover:bg-[var(--code-header)] hover:text-foreground"
+			fillCell
+		/>
 	</div>
 {:else}
-	<div class="rounded-md border bg-muted px-4 py-3">
-		<code class="font-mono text-sm">Use ${requirement.name} in Codex</code>
+	<div
+		class={[
+			"flex min-w-0 items-center overflow-hidden bg-code text-code-foreground transition-[border-color,background-color,box-shadow] duration-[var(--motion-duration-standard)] hover:bg-[var(--code-header)] focus-within:ring-2 focus-within:ring-inset focus-within:ring-ring/25",
+			flush
+				? "min-h-14 rounded-none border-0 shadow-none sm:min-h-16"
+				: "min-h-11 rounded-lg border border-border-strong/70 shadow-xs hover:border-primary/45 hover:shadow-sm",
+		]}
+		data-code-panel
+		data-code-panel-flush={flush}
+	>
+		<div class="flex min-w-0 flex-1 items-center px-4 py-2.5">
+			<code class="min-w-0 flex-1 truncate font-mono text-sm" title={`Use $${requirement.name} in Codex`} data-requirement-command-text>Use ${requirement.name} in Codex</code>
+		</div>
 	</div>
 {/if}
