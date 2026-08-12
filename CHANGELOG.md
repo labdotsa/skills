@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Replaced Netlify's colliding physical Recipe `.html` aliases with permanent redirects to their clean SvelteKit routes, while retaining physical aliases in local canonical and GitHub Pages artifacts.
 - Separated Netlify artifact verification from route verification: immutable bytes are checked at physical manifest paths while the browser smoke journey independently proves clean SvelteKit routes and compatibility navigation.
 - Disabled Netlify's pretty-URL rewriting so canonical trailing-slash SvelteKit directories cannot be redirected onto legacy `.html` compatibility aliases with different publication bytes.
 - Disabled Netlify post-processing so provider-side HTML rewriting cannot change SvelteKit's validated bytes after the immutable publication manifest is generated.

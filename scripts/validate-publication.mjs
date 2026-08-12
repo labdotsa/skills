@@ -114,7 +114,9 @@ async function validateDirectory(html, directory) {
 }
 
 async function validateRecipeIndexes(publicationManifest, directory) {
-  const filenames = ["recipes/index.html", "recipes.html"];
+  const filenames = publicationManifest.files.some((file) => file.path === "recipes.html")
+    ? ["recipes/index.html", "recipes.html"]
+    : ["recipes/index.html"];
   const routeCount = publicationManifest.files
     .map((file) => file.path)
     .filter((filename) => /^recipes\/[^/]+\/index\.html$/.test(filename))
@@ -184,7 +186,10 @@ async function validateRecipePages(publicationManifest, directory) {
 
   if (recipePages.length === 0) throw new Error("The publication contains no Recipe detail pages");
   let compatibilityModel;
-  for (const filename of [...recipePages, "recipe.html"]) {
+  const filenames = publicationManifest.files.some((file) => file.path === "recipe.html")
+    ? [...recipePages, "recipe.html"]
+    : recipePages;
+  for (const filename of filenames) {
     const html = await readFile(path.join(directory, filename), "utf8");
     const slug = filename === "recipe.html" ? "functional-prototype" : filename.split("/")[1];
     if ((html.match(/<h1(?:\s|>)/g) ?? []).length !== 1) {

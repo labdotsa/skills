@@ -14,7 +14,10 @@ const profile = resolveNetlifyPublication(context, configuredProfile);
 const repositoryRoot = path.resolve(".");
 const stagedOutput = ".artifacts/netlify-publication";
 
-run(process.execPath, ["scripts/build-publication.mjs", profile, stagedOutput]);
+run(process.execPath, ["scripts/build-publication.mjs", profile, stagedOutput], {
+  ...process.env,
+  NETLIFY_ARTIFACT: "true",
+});
 
 const publicationManifest = JSON.parse(await readFile(path.join(stagedOutput, "publication-manifest.json"), "utf8"));
 const record = createNetlifyDeployRecord({
@@ -35,8 +38,8 @@ const publication = await materializeNetlifyPublication({ repositoryRoot, public
 console.log(`Netlify ${context} publication is valid at ${publication.publishDirectory}.`);
 console.log(`Netlify deploy record: ${JSON.stringify(record)}`);
 
-function run(command, args) {
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, stdio: "inherit" });
+function run(command, args, env = process.env) {
+  const result = spawnSync(command, args, { cwd: process.cwd(), env, stdio: "inherit" });
   if (result.error) throw result.error;
   if (result.status !== 0) process.exit(result.status ?? 1);
 }

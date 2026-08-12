@@ -48,6 +48,12 @@ if (machinePublication.status !== 0) process.exit(machinePublication.status ?? 1
 if (!profile.name.startsWith("pages-")) {
   await rm(path.join(outputDirectory, ".nojekyll"), { force: true });
 }
+if (process.env.NETLIFY_ARTIFACT === "true") {
+  await Promise.all([
+    rm(path.join(outputDirectory, "recipe.html"), { force: true }),
+    rm(path.join(outputDirectory, "recipes.html"), { force: true }),
+  ]);
+}
 
 const files = (await filesUnder(outputDirectory))
   .map((filename) => ({
