@@ -211,12 +211,20 @@ function requireStatus(response, expected, label) {
 }
 
 function requireContentType(response, expected, label) {
-  requireHeader(response, "content-type", expected, label);
+  const actual = response.headers.get("content-type");
+  if (actual?.toLowerCase() !== expected.toLowerCase()) {
+    throw new Error(`${label} content-type is ${String(actual)}; expected ${expected}`);
+  }
 }
 
 function requireHeader(response, name, expected, label) {
   const actual = response.headers.get(name);
-  if (actual !== expected) throw new Error(`${label} ${name} is ${String(actual)}; expected ${expected}`);
+  const normalize = name === "cache-control"
+    ? (value) => value?.split(",").map((part) => part.trim().toLowerCase()).join(",")
+    : (value) => value;
+  if (normalize(actual) !== normalize(expected)) {
+    throw new Error(`${label} ${name} is ${String(actual)}; expected ${expected}`);
+  }
 }
 
 function requireValidator(response, label) {

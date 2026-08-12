@@ -277,7 +277,7 @@ function netlifyFixture(profileName, { forceNoindex = false } = {}) {
     requests.push({ pathname: url.pathname, headers });
     if (url.pathname === "/publication-manifest.json") return response(JSON.stringify(manifest), "application/json; charset=utf-8");
     if (url.pathname === "/__netlify-smoke-not-found__" || url.pathname === "/llms-full.txt") {
-      return response(bodies.get("404.html"), "text/html; charset=utf-8", 404);
+      return response(bodies.get("404.html"), "text/html; charset=UTF-8", 404);
     }
     const file = routeFile(url.pathname);
     const body = bodies.get(file);

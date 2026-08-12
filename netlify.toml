@@ -6,6 +6,9 @@ publish = "site"
 NODE_VERSION = "24.19.0"
 NPM_VERSION = "11.17.0"
 
+[build.processing]
+skip_processing = true
+
 [context.production.environment]
 PUBLICATION_PROFILE = "canonical"
 

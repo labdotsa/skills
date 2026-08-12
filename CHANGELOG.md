@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Disabled Netlify post-processing so provider-side HTML rewriting cannot change SvelteKit's validated bytes after the immutable publication manifest is generated.
+- Normalized deployed Content-Type casing and optional Cache-Control directive whitespace in Netlify smoke verification without weakening the required media types or cache directives.
 - Scoped `.nojekyll` to GitHub Pages publication profiles so Netlify's canonical manifest contains only resources that its platform can serve and verify byte-for-byte.
 - Declared the canonical publication manifest's UTF-8 JSON response contract explicitly in Netlify headers so deployed smoke verification observes the same media type as the generated artifact.
 - Split Netlify's deterministic production preflight from the Playwright-equipped GitHub release gate, retaining repository, catalog, dependency, type, unit, and static-publication validation without requiring browser downloads or non-automatable human evidence in the provider build image.
