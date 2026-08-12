@@ -38,7 +38,10 @@ test("Netlify selects one locked root publication profile for every deploy conte
     "deploy-preview": { environment: { PUBLICATION_PROFILE: "preview" } },
     "branch-deploy": { environment: { PUBLICATION_PROFILE: "preview" } },
   });
-  assert.equal(config.redirects, undefined, "static deep routes and 404 must not use redirects or rewrites");
+  assert.deepEqual(config.redirects, [
+    { from: "/recipes", to: "/recipes/", status: 301, force: true },
+    { from: "/recipes/", to: "/recipes/index.html", status: 200, force: true },
+  ], "the Recipe compatibility alias must not shadow its canonical directory route");
   assert.equal(config.functions, undefined, "the shared static architecture must not ship Netlify Functions");
   assert.equal(config.edge_functions, undefined, "the shared static architecture must not ship Edge Functions");
   assert.equal(packageJson.scripts["netlify:build"], "npm run validate:netlify && node scripts/build-netlify.mjs");
