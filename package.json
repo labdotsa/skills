@@ -22,6 +22,8 @@
     "dev:pages": "node scripts/run-vite.mjs dev pages-project",
     "netlify:build": "npm run validate && node scripts/build-netlify.mjs",
     "netlify:smoke": "node scripts/smoke-netlify.mjs",
+    "pages:build": "npm run validate && node scripts/build-pages.mjs",
+    "pages:smoke": "node scripts/smoke-pages.mjs",
     "preview": "node scripts/run-vite.mjs preview canonical",
     "site:build": "npm run build:canonical",
     "site:serve": "npm run preview",
