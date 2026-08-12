@@ -39,7 +39,7 @@
 				<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{eyebrow}</p>
 				<h1
 					id={titleId}
-					class="mt-4 max-w-[15ch] break-words font-display text-[clamp(3.25rem,7vw,6.5rem)] leading-[0.9] tracking-[-0.055em]"
+					class="mt-4 max-w-[15ch] break-words font-display text-[clamp(3.25rem,7vw,6.5rem)] font-bold leading-[0.9] tracking-normal"
 				>
 					{title}
 				</h1>

@@ -19,6 +19,7 @@ test("renders the complete server-prerendered shell without remote presentation 
   await expect(page.getByText("6 of 6 skills")).toBeVisible();
   await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
+  await expect(page.locator("[data-site-header] [data-lab-wordmark]")).toHaveAttribute("data-variant", "mark");
   await expect(page.locator('img[src*="brand/logo.svg"]').first()).toBeVisible();
   expect(pageErrors).toEqual([]);
   expect(remotePresentationRequests).toEqual([]);
@@ -67,12 +68,13 @@ test("foundation has no horizontal page overflow", async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 });
 
-test("mobile Sheet closes with Escape and restores trigger focus", async ({ page, isMobile }) => {
+test("mobile Sidebar closes with Escape and restores trigger focus", async ({ page, isMobile }) => {
   test.skip(!isMobile, "mobile navigation behavior");
   await page.goto("/");
   const trigger = page.getByRole("button", { name: "Open navigation" });
   await trigger.click();
   await expect(page.getByRole("dialog", { name: "LAB Skills" })).toBeVisible();
+  await expect(page.locator('[data-slot="sidebar"][data-mobile="true"]')).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog", { name: "LAB Skills" })).toBeHidden();
   await expect(trigger).toBeFocused();

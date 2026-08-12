@@ -22,7 +22,7 @@
 			<div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
 				<div>
 					<p class="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Public skill library</p>
-					<h2 id="catalog-title" class="mt-3 max-w-2xl font-display text-3xl leading-tight sm:text-5xl">Methods built in the work.</h2>
+					<h2 id="catalog-title" class="mt-3 max-w-2xl font-display text-3xl font-bold leading-tight tracking-normal sm:text-5xl">Methods built in the work.</h2>
 					<p class="mt-4 max-w-2xl leading-7 text-muted-foreground">
 						Focused instructions generated directly from LAB’s validated repository source.
 					</p>

@@ -236,7 +236,7 @@ test("critical interactions acknowledge input within the deterministic budget", 
     await acknowledgeWithinBudget(page,
       () => page.getByRole("button", { name: "Open navigation" }).click(),
       () => expect(page.getByRole("dialog", { name: "LAB Skills" })).toBeVisible(),
-      `${profile.name} Sheet`);
+      `${profile.name} Sidebar`);
     await page.keyboard.press("Escape");
 
     await page.setViewportSize({ width: 1280, height: 720 });

@@ -24,7 +24,7 @@
 				<a class="inline-flex no-underline" href="https://lab.sa" aria-label="LAB home">
 					<LabWordmark inverted class="text-2xl" />
 				</a>
-				<h2 id="footer-lab-title" class="mt-6 max-w-lg font-display text-3xl leading-tight sm:text-4xl">Open protocols for making things that matter.</h2>
+				<h2 id="footer-lab-title" class="mt-6 max-w-lg font-display text-3xl font-bold leading-tight tracking-normal sm:text-4xl">Open protocols for making things that matter.</h2>
 				<p class="mt-4 max-w-xl text-sm leading-7 text-zinc-400">LAB Skills turns working product knowledge into reusable public instructions and delivery recipes.</p>
 			</section>
 			<nav class="grid content-start gap-3 text-sm" aria-label="Discovery footer navigation">

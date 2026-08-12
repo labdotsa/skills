@@ -50,7 +50,7 @@ test("pins the meaningful empty directory state", async ({ page }) => {
 });
 
 test("pins the open mobile navigation state", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "visual-mobile", "the Sheet is a mobile-only visual state");
+  test.skip(testInfo.project.name !== "visual-mobile", "the Sidebar is a mobile-only visual state");
   for (const theme of ["light", "dark"]) {
     await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
     for (const profile of profiles) {
