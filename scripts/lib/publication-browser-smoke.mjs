@@ -62,7 +62,7 @@ export async function smokePublicationBrowser({ deploymentUrl, profile, basePath
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto(deployment.href, { waitUntil: "networkidle" });
     const firstPaint = await page.evaluate(() => window.__publicationThemeAtDomContentLoaded);
-    if (JSON.stringify(firstPaint) !== JSON.stringify({ theme: "dark", color: "#09090b" })) {
+    if (JSON.stringify(firstPaint) !== JSON.stringify({ theme: "light", color: "#f8f8f6" })) {
       throw new Error(`${providerLabel} theme first paint is ${JSON.stringify(firstPaint)}`);
     }
     await page.keyboard.press("Tab");
