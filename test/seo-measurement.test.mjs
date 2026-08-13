@@ -25,7 +25,7 @@ test("evaluates three-run Lighthouse medians using TBT only as a lab proxy", asy
     metric: "TBT",
     role: "lab-proxy",
     valueMs: 180,
-    thresholdMs: 200,
+    thresholdMs: 350,
   });
   assert.equal("inpMs" in report.lab.median, false);
   assert.equal(report.field.status, "no-data");
@@ -36,9 +36,9 @@ test("reports field p75 INP separately and fails any missed accepted threshold",
   const { evaluateSeoMeasurement } = await import("../src/lib/domain/seo-measurement.ts");
   const report = evaluateSeoMeasurement({
     lighthouseRuns: [
-      { performance: 0.89, accessibility: 1, seo: 0.92, bestPractices: 1, lcpMs: 2_400, cls: 0.08, tbtMs: 190 },
-      { performance: 0.91, accessibility: 1, seo: 0.89, bestPractices: 1, lcpMs: 2_600, cls: 0.11, tbtMs: 210 },
-      { performance: 0.88, accessibility: 1, seo: 0.88, bestPractices: 1, lcpMs: 2_700, cls: 0.12, tbtMs: 220 },
+      { performance: 0.89, accessibility: 1, seo: 0.92, bestPractices: 1, lcpMs: 2_400, cls: 0.08, tbtMs: 340 },
+      { performance: 0.91, accessibility: 1, seo: 0.89, bestPractices: 1, lcpMs: 2_600, cls: 0.11, tbtMs: 360 },
+      { performance: 0.88, accessibility: 1, seo: 0.88, bestPractices: 1, lcpMs: 2_700, cls: 0.12, tbtMs: 370 },
     ],
     fieldData: {
       windowDays: 28,

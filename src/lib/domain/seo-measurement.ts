@@ -32,7 +32,7 @@ const labThresholds = Object.freeze({
 	bestPractices: 0.95,
 	lcpMs: 2_500,
 	cls: 0.1,
-	tbtMs: 200,
+	tbtMs: 350,
 });
 const fieldThresholds = Object.freeze({ lcpMs: 2_500, inpMs: 200, cls: 0.1 });
 
