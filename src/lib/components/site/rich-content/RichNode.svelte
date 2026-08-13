@@ -87,12 +87,17 @@
 		{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}
 	</li>
 {:else if node.type === "table"}
-	<div class="my-6 overflow-x-auto">
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex (Scrollable tables require keyboard access.) -->
+	<section
+		class="rich-table-scroll my-6 overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+		aria-label={`Scrollable table ${nodePath}`}
+		tabindex="0"
+	>
 		<table class="w-full min-w-lg border-collapse text-start text-sm">
 			{#if node.children[0]}<thead><RichNodeComponent node={node.children[0]} nodePath={`${nodePath}.head`} tableHeader {headingOffset} {codeCopyLabel} {codeCopyMessage} /></thead>{/if}
 			{#if node.children.length > 1}<tbody>{#each node.children.slice(1) as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.body.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</tbody>{/if}
 		</table>
-	</div>
+	</section>
 {:else if node.type === "tableRow"}
 	<tr class="border-b">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {tableHeader} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</tr>
 {:else if node.type === "tableCell"}
@@ -102,3 +107,9 @@
 		<td class="px-3 py-2 align-top">{#each node.children as child, index (`${child.type}-${index}`)}<RichNodeComponent node={child} nodePath={`${nodePath}.${index + 1}`} {headingOffset} {codeCopyLabel} {codeCopyMessage} />{/each}</td>
 	{/if}
 {/if}
+
+<style>
+	:global(.rich-table-scroll[data-overflow-tabindex]) {
+		overflow-x: hidden;
+	}
+</style>
