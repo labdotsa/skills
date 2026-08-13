@@ -12,7 +12,10 @@ test("publishes an explicit hydration-ready marker within the deterministic budg
     if ("PerformanceObserver" in window) {
       try {
         new PerformanceObserver((list) => {
-          window.__qualityLongTasks.push(...list.getEntries().map((entry) => entry.duration));
+          window.__qualityLongTasks.push(...list.getEntries().map((entry) => ({
+            startTime: entry.startTime,
+            duration: entry.duration,
+          })));
         }).observe({ type: "longtask", buffered: true });
       } catch {}
     }
@@ -24,7 +27,15 @@ test("publishes an explicit hydration-ready marker within the deterministic budg
     const hydrated = performance.getEntriesByName("lab-hydrated")[0];
     return {
       hydrationMs: hydrated.startTime - navigation.domContentLoadedEventStart,
-      longestTaskMs: Math.max(0, ...window.__qualityLongTasks),
+      longestTaskMs: Math.max(
+        0,
+        ...window.__qualityLongTasks
+          .filter((entry) => (
+            entry.startTime < hydrated.startTime
+            && entry.startTime + entry.duration > navigation.domContentLoadedEventStart
+          ))
+          .map((entry) => entry.duration),
+      ),
     };
   });
   expect(timing.hydrationMs).toBeLessThanOrEqual(500);

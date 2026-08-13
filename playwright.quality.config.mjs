@@ -5,6 +5,7 @@ export default defineConfig({
   outputDir: "tmp/playwright-browser-quality-results",
   reporter: "line",
   retries: 0,
+  workers: 1,
   timeout: 120_000,
   use: {
     baseURL: "http://127.0.0.1:4173",

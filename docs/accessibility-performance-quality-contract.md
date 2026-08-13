@@ -170,7 +170,7 @@ Every public route MUST return its primary heading, description, catalog/detail 
 
 Hydration MUST NOT fetch a second copy of the Catalog or replace server-rendered content. Playwright fails on hydration warnings, uncaught page errors, failed local asset requests, and unexpected console errors.
 
-In the pinned, unthrottled Chromium runner, the interval from `DOMContentLoaded` to the root hydration-ready marker MUST be at most 500 milliseconds, with no hydration task longer than 100 milliseconds. Search, tab, Sheet, disclosure, theme, and copy-busy actions MUST acknowledge input visibly within 200 milliseconds in the same runner. These are deterministic LAB regression budgets, not field INP measurements.
+In the pinned, unthrottled Chromium runner, the interval from `DOMContentLoaded` to the root hydration-ready marker MUST be at most 500 milliseconds, with no hydration task longer than 100 milliseconds. The timing project runs serially so concurrent browser engines cannot throttle one another, and its long-task window is bounded to `DOMContentLoaded` through the hydration-ready mark. Search, tab, Sheet, disclosure, theme, and copy-busy actions MUST acknowledge input visibly within 200 milliseconds in the same runner. These are deterministic LAB regression budgets, not field INP measurements.
 
 ### Shared component behavior
 
