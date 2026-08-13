@@ -67,12 +67,19 @@ try {
           console.log(`${profile.name} ${route.id} run ${index + 1}/3: ${formatRun(run)}`);
         }
         const evaluation = evaluateSeoMeasurement({ lighthouseRuns: runs });
+        const seoExempt = profile.name !== "canonical" || route.id === "not-found";
+        const gateFailures = evaluation.lab.failures.filter((failure) => !(seoExempt && failure === "seo"));
         summaries.push({
           profile: profile.name,
           representative: route.id,
           route: route.pathname,
           runs,
           evaluation,
+          gate: {
+            pass: gateFailures.length === 0,
+            failures: gateFailures,
+            seoExpectation: seoExempt ? "non-indexable" : "indexable",
+          },
         });
       }
     } finally {
@@ -92,10 +99,10 @@ await writeFile(path.join(evidenceDirectory, "summary.json"), `${JSON.stringify(
   summaries,
 }, null, 2)}\n`);
 
-const failures = summaries.filter((summary) => !summary.evaluation.lab.pass);
+const failures = summaries.filter((summary) => !summary.gate.pass);
 if (failures.length > 0) {
   throw new Error(`Lighthouse quality budgets failed:\n${failures.map((summary) =>
-    `${summary.profile} ${summary.route}: ${summary.evaluation.lab.failures.join(", ")}`).join("\n")}`);
+    `${summary.profile} ${summary.route}: ${summary.gate.failures.join(", ")}`).join("\n")}`);
 }
 console.log(`Lighthouse medians pass for ${summaries.length} representative profile routes.`);
 

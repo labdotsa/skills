@@ -18,6 +18,7 @@ if (requestedOutput.split(/[\\/]/).includes("..")) throw new Error("Publication 
 const outputDirectory = path.join(repositoryRoot, requestedOutput);
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(path.dirname(outputDirectory), { recursive: true });
+await rm(path.join(repositoryRoot, ".svelte-kit"), { recursive: true, force: true });
 
 const vite = spawnSync(process.execPath, [path.join(repositoryRoot, "node_modules/vite/bin/vite.js"), "build"], {
   cwd: repositoryRoot,

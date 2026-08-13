@@ -57,7 +57,7 @@
   --lab-surface-raised: #ffffff;
   --lab-surface-strong: #dfdfdb;
   --lab-text-muted: #3f3f46;
-  --lab-text-subtle: #71717a;
+  --lab-text-subtle: #6c6c74;
   --lab-border: #ddddda;
   --lab-border-strong: #a1a1aa;
   --lab-main: #b5afff;
@@ -206,14 +206,6 @@ html[data-theme="dark"] {
     text-rendering: optimizeLegibility;
   }
 
-  html[data-theme],
-  html[data-theme] body,
-  html[data-theme] body :where(*, *::before, *::after) {
-    transition-duration: var(--motion-duration-standard);
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
-    transition-timing-function: var(--motion-ease-standard);
-  }
-
   button,
   input,
   textarea,
@@ -241,11 +233,10 @@ html[data-theme="dark"] {
   }
 }
 
-html[data-theme-transitioning] body,
-html[data-theme-transitioning] body :where(*, *::before, *::after) {
-  transition-duration: var(--motion-duration-standard) !important;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow !important;
-  transition-timing-function: var(--motion-ease-standard) !important;
+html[data-theme-switching],
+html[data-theme-switching] body,
+html[data-theme-switching] body :where(*, *::before, *::after) {
+  transition: none !important;
 }
 
 @keyframes page-exit-left {

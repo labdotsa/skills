@@ -194,7 +194,7 @@ test("keeps Recipe contents and code usable at 320px and 366px without page over
     await expect(page.getByRole("navigation", { name: "Recipe contents" })).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: "Implementation" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
-    await expect(page.getByRole("region", { name: /^Copy prompt content / }).first()).toHaveAttribute("tabindex", "0");
+    await expect(page.getByRole("region", { name: /^Copy prompt content / }).first()).not.toHaveAttribute("tabindex", "0");
   }
 
   await page.setViewportSize({ width: 800, height: 800 });
@@ -309,7 +309,7 @@ test.describe("without JavaScript", () => {
 
     await expect(page.getByRole("heading", { level: 2, name: "Implementation" })).toBeVisible();
     await expect(page.getByRole("heading", { level: 4, name: "Clear Things Up" })).toBeVisible();
-    await expect(page.getByText("npx skills add mattpocock/skills --skill tdd")).toBeVisible();
+    await expect(page.locator('[data-requirement-command-text]:visible').filter({ hasText: "npx skills add mattpocock/skills --skill tdd" }).first()).toBeVisible();
     await expect(page.getByText("Based on the current screen structure in @artifacts", { exact: false })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "Recipe contents" }).getByRole("link", { name: "Implementation", exact: true })).toHaveAttribute(
       "href",

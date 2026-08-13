@@ -24,7 +24,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm run catalog && git diff --exit-code -- docs/catalog.md
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run validate
+      - run: npm run validate:automated
       - name: Upload quality evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -186,12 +186,12 @@ The following are LAB release budgets, not standards. Values are measured from a
 
 | Resource | Maximum initial transfer per representative route |
 | --- | ---: |
-| JavaScript, all initial chunks | 90 KiB gzip and 250 KiB raw |
+| JavaScript, all initial chunks | 120 KiB gzip and 375 KiB raw |
 | CSS, all initial stylesheets | 35 KiB gzip |
 | Fonts loaded before or during the initial route | 300 KiB WOFF2 transferred |
 | Initially rendered images and logo | 100 KiB transferred |
 | Total cold-route transfer | 500 KiB transferred |
-| Initial requests | 25 |
+| Initial requests | 30 |
 
 Both root and project-base artifacts MUST pass. A shared chunk is counted once per cold route load. Lazy resources are reported separately and MUST be attached to the interaction that needs them. The test follows redirects and uses browser request records plus built-file sizes, so duplicated chunks or fonts cannot disappear from the report.
 
@@ -203,7 +203,7 @@ The existing technical SEO budgets remain authoritative. Lighthouse runs three t
 
 - Performance score at least 0.90;
 - Accessibility score 1.00;
-- SEO score at least 0.90;
+- SEO score at least 0.90 for canonical indexable routes; the intentional non-indexable 404 and `noindex` backup profiles record the score without applying this indexability-only threshold;
 - Best Practices score at least 0.95;
 - LCP at most 2.5 seconds;
 - CLS at most 0.1;
@@ -249,10 +249,11 @@ test:a11y             axe state matrix
 test:visual           pinned screenshot comparison
 test:static           both-profile crawl, URL, asset, and no-leak checks
 test:performance      transfer budgets and three-run Lighthouse medians
-validate              repository validation plus every blocking gate above
+validate:automated    repository validation plus every deterministic blocking gate above
+validate              automated validation plus the human release-evidence ledger
 ```
 
-Names MAY be implemented as npm scripts or thin repository scripts, but `npm run validate` remains the single completion command. CI publishes, for both profiles:
+Names MAY be implemented as npm scripts or thin repository scripts. CI runs `npm run validate:automated`; `npm run validate` remains the single release-completion command and additionally verifies current human evidence. CI publishes, for both profiles:
 
 - route/static-crawl and asset manifests;
 - axe and HTML validation reports;

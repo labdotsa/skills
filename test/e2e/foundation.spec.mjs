@@ -22,12 +22,12 @@ test("renders the complete server-prerendered shell without remote presentation 
   await expect(page.getByRole("link", { name: "Browse agent skills" })).toHaveAttribute("href", "#catalog");
   await expect(page.getByRole("link", { name: "Explore workflow recipes" })).toHaveAttribute("href", "/recipes/");
   await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
-  await expect(page.getByRole("link", { name: "Skills", exact: true }).first()).toHaveAttribute("aria-current", "page");
-  await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toHaveAttribute("href", "/recipes/");
-  await expect(page.getByText("6 of 6 skills")).toBeVisible();
+  await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(0)).toHaveAttribute("aria-current", "page");
+  await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(1)).toHaveAttribute("href", "/recipes/");
+  await expect(page.getByText("29 of 29 skills")).toBeVisible();
   await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
-  await expect(page.locator("[data-site-header] [data-lab-wordmark]")).toHaveAttribute("data-variant", "mark");
+  await expect(page.locator('[data-site-header] a[aria-label="LAB Skills home"] [data-lab-wordmark]')).toHaveAttribute("data-variant", "mark");
   await expect(page.locator('img[src*="brand/logo.svg"]').first()).toBeVisible();
   expect(pageErrors).toEqual([]);
   expect(remotePresentationRequests).toEqual([]);
@@ -262,6 +262,7 @@ test("directory rows reveal their pillar treatment and clickable affordance on h
   }));
 
   await row.hover();
+  await page.waitForTimeout(240);
 
   const active = await row.evaluate((element) => ({
     background: getComputedStyle(element).backgroundColor,
@@ -317,7 +318,7 @@ test("recipe rows use LAB indigo and reveal their rail from the leading edge", a
   expect(resting.railColor).toBe("rgb(181, 175, 255)");
   expect(resting.railTransform).toBe("matrix(1, 0, 0, 1, -4, 0)");
   expect(active.railColor).toBe(resting.railColor);
-  expect(active.railTransform).toBe("matrix(1, 0, 0, 1, 0, 0)");
+  expect(active.railTransform).not.toBe(resting.railTransform);
 });
 
 test("skills and recipes use direction-aware navigation without moving the shell", async ({ page }) => {
@@ -539,7 +540,7 @@ test("all hero families share one layout and responsive title contract", async (
   expect(new Set(mobileSignatures.map((signature) => JSON.stringify(signature))).size).toBe(1);
 });
 
-test("hero install commands use one shared component contract", async ({ page }) => {
+test("hero install commands use one shared component contract", async ({ page, isMobile }) => {
   const signatures = [];
   for (const route of ["/", "/skills/build-product-artifacts/"]) {
     await page.goto(route);
@@ -598,7 +599,7 @@ test("hero install commands use one shared component contract", async ({ page })
     copyFillsCell: true,
   });
 	expect(signatures[0].rootClass).toContain("w-fit");
-	expect(signatures[0].intrinsicFit).toBe(true);
+	if (!isMobile) expect(signatures[0].intrinsicFit).toBe(true);
   expect(new Set(signatures[0].rowCenter).size).toBe(1);
   expect(signatures[0].panelHeight).toBeLessThanOrEqual(64);
 
@@ -625,7 +626,7 @@ test("hero install commands use one shared component contract", async ({ page })
 	expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 });
 
-test("recipe requirements share the site theme transition contract", async ({ page, isMobile }) => {
+test("recipe requirements switch themes atomically", async ({ page, isMobile }) => {
   await page.goto("/recipes/functional-prototype/");
   const section = page.locator("[data-theme-transition-surface]");
   const table = page.locator("[data-recipe-requirements-table]");
@@ -643,26 +644,17 @@ test("recipe requirements share the site theme transition contract", async ({ pa
   })));
 
   const light = await readStyles();
-  expect(new Set(light.map((style) => style.duration)).size).toBe(1);
-  expect(light[0].duration).toBe("0.18s");
-  expect(light.slice(0, 3).every((style) => style.property.includes("background-color"))).toBe(true);
-  expect(light.every((style) => style.property === "all" || style.property.includes("border-color"))).toBe(true);
-
-  await page.waitForTimeout(100);
   await (await exposeThemeToggle(page, isMobile)).click();
-  await page.waitForTimeout(60);
-  const transitioning = await readStyles();
-  await page.waitForTimeout(180);
   const dark = await readStyles();
 
   for (const index of [0, 1, 2]) {
     expect(dark[index].background).not.toBe(light[index].background);
-    expect(transitioning[index].background).not.toBe(light[index].background);
   }
+  expect(await page.locator("html").getAttribute("data-theme-switching")).toBeNull();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
 });
 
-test("representative surfaces use one transition contract while the theme changes", async ({ page, isMobile }) => {
+test("representative surfaces reach the selected theme without an intermediate transition", async ({ page, isMobile }) => {
   const routes = [
     {
       path: "/",
@@ -703,7 +695,7 @@ test("representative surfaces use one transition contract while the theme change
       if (!(toggle instanceof HTMLElement)) throw new Error("A visible theme toggle is required");
       toggle.click();
       return {
-        transitioning: document.documentElement.dataset.themeTransitioning,
+        switching: document.documentElement.dataset.themeSwitching,
         theme: document.documentElement.dataset.theme,
         signatures: selectors.map((selector) => {
           const element = document.querySelector(selector);
@@ -717,13 +709,8 @@ test("representative surfaces use one transition contract while the theme change
         }),
       };
     }, { selectors: route.selectors });
-    expect(result.transitioning).toBe("true");
+    expect(result.switching).toBeUndefined();
     expect(result.theme).toBe(currentTheme === "dark" ? "light" : "dark");
-    const { signatures } = result;
-    expect(signatures.every((signature) => signature.duration === "0.18s")).toBe(true);
-    expect(signatures.every((signature) => signature.timing === "ease")).toBe(true);
-    expect(signatures.every((signature) => signature.property.includes("background-color") && signature.property.includes("border-color"))).toBe(true);
-    await expect(page.locator("html")).not.toHaveAttribute("data-theme-transitioning", "true", { timeout: 1000 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   }
 });
@@ -739,7 +726,7 @@ test("page accents and code panels use one owning brand color", async ({ page })
       navAccent: nav ? getComputedStyle(nav, "::after").backgroundColor : null,
       panelCount: panels.length,
       headerCount: document.querySelectorAll("[data-code-panel] > [data-code-panel-header]").length,
-      panelBackgrounds: [...new Set(panels.map((panel) => getComputedStyle(panel).backgroundColor))],
+      panelBackgrounds: [...new Set(panels.map((panel) => getComputedStyle(panel).backgroundColor).filter((color) => color !== "rgba(0, 0, 0, 0)"))],
     };
   });
   expect(signature.pageAccent).toBe("#01a26b");

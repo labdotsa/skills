@@ -4,6 +4,13 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the 23-skill product-opportunity collection and its evidence-gated orchestration guide to the stable public catalog.
+- Replaced the page-wide 180 ms theme interpolation with one atomic, transition-suppressed light/dark swap so text, icons, controls, borders, and surfaces reach their final accessible colors together while normal interaction motion remains intact.
+- Added a read-only GitHub Pages availability gate so organization-disabled Pages is reported as an intentional skipped backup deployment instead of failing every master workflow, while unexpected API failures remain blocking.
+- Recalibrated the pre-revamp JavaScript and request budgets to the measured component-based SvelteKit application (120 KiB gzip, 375 KiB raw, 30 requests) while retaining the 500 KiB cold-transfer ceiling and all third-party/runtime-fetch prohibitions.
+- Made the Lighthouse release gate respect publication intent: canonical indexable routes retain the 0.90 SEO minimum, while intentional `noindex` backup routes and the non-indexable 404 still enforce every performance, accessibility, best-practice, LCP, CLS, and TBT threshold without treating their expected Lighthouse SEO score as a failure.
+- Isolated sequential publication-profile builds by clearing SvelteKit's disposable generated workspace before each build, preventing canonical and project-base route graphs from leaking into one another in release workflows.
+- Split deterministic CI validation from the named human release-evidence ledger, so GitHub workflows run every automatable gate without fabricating keyboard, zoom, forced-colors, VoiceOver, or NVDA attestations; the complete `npm run validate` release command still requires both.
 - Aligned deployed browser smoke with the site's intentional two-state theme contract by verifying the light default first paint instead of obsolete system-dark inheritance.
 - Replaced Netlify's colliding physical Recipe `.html` aliases with permanent redirects to their clean SvelteKit routes, while retaining physical aliases in local canonical and GitHub Pages artifacts.
 - Separated Netlify artifact verification from route verification: immutable bytes are checked at physical manifest paths while the browser smoke journey independently proves clean SvelteKit routes and compatibility navigation.

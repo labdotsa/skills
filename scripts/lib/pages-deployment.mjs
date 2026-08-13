@@ -154,7 +154,7 @@ export function createPagesDeployRecord({
     packageLockSha256: publicationManifest.packageLockSha256,
     profile: structuredClone(publicationManifest.profile),
     normalizedHumanSha256,
-    validation: { command: "npm run validate", status: "pass" },
+    validation: { command: "npm run validate:automated", status: "pass" },
     routes,
     files,
     smoke: { http: structuredClone(http), browser: structuredClone(browser) },

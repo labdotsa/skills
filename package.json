@@ -22,7 +22,7 @@
     "dev:pages": "node scripts/run-vite.mjs dev pages-project",
     "netlify:build": "npm run validate:netlify && node scripts/build-netlify.mjs",
     "netlify:smoke": "node scripts/smoke-netlify.mjs",
-    "pages:build": "npm run validate && node scripts/build-pages.mjs",
+    "pages:build": "npm run validate:automated && node scripts/build-pages.mjs",
     "pages:smoke": "node scripts/smoke-pages.mjs",
     "preview": "node scripts/run-vite.mjs preview canonical",
     "site:build": "npm run build:canonical",
@@ -36,7 +36,8 @@
     "test:static": "node scripts/build-publication-matrix.mjs",
     "test:visual": "playwright test --config playwright.visual.config.mjs",
     "typecheck": "node scripts/typecheck.mjs",
-    "validate": "bash scripts/validate-skills.sh && tsx scripts/generate-catalog.ts --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run test:component && npm run test:static && npm run test:e2e && npm run test:a11y && npm run test:visual && npm run test:performance && npm run test:manual",
+    "validate": "npm run validate:automated && npm run test:manual",
+    "validate:automated": "bash scripts/validate-skills.sh && tsx scripts/generate-catalog.ts --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run test:component && npm run test:static && npm run test:e2e && npm run test:a11y && npm run test:visual && npm run test:performance",
     "validate:netlify": "bash scripts/validate-skills.sh && tsx scripts/generate-catalog.ts --check && node scripts/validate-source-boundary.mjs && node scripts/validate-dependencies.mjs && npm run typecheck && npm test && npm run test:static"
   },
   "license": "MIT",

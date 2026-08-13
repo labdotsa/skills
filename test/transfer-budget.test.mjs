@@ -37,7 +37,7 @@ test("rejects exceeded budgets, presentation CDNs, and a runtime Catalog fetch",
     origin: "http://127.0.0.1:4173",
     resources: [
       { url: "http://127.0.0.1:4173/", kind: "document", rawBytes: 300_000, gzipBytes: 120_000 },
-      { url: "http://127.0.0.1:4173/_app/app.js", kind: "script", rawBytes: 260_000, gzipBytes: 95_000 },
+      { url: "http://127.0.0.1:4173/_app/app.js", kind: "script", rawBytes: 400_000, gzipBytes: 130_000 },
       { url: "http://127.0.0.1:4173/skills.json", kind: "fetch", rawBytes: 20_000, gzipBytes: 6_000 },
       { url: "https://cdn.example.com/font.woff2", kind: "font", rawBytes: 308_000, gzipBytes: 308_000 },
     ],

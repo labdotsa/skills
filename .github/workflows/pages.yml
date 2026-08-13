@@ -23,7 +23,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  availability:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      enabled: ${{ steps.pages.outputs.enabled }}
+    steps:
+      - name: Check whether GitHub Pages is enabled
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_API_URL: ${{ github.api_url }}/repos/${{ github.repository }}/pages
+        run: |
+          status="$(curl --silent --show-error --output "$RUNNER_TEMP/pages.json" --write-out '%{http_code}' \
+            --header 'Accept: application/vnd.github+json' \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "$PAGES_API_URL")"
+          case "$status" in
+            200)
+              echo 'enabled=true' >> "$GITHUB_OUTPUT"
+              ;;
+            404)
+              echo 'enabled=false' >> "$GITHUB_OUTPUT"
+              echo '::notice title=GitHub Pages unavailable::Pages is not enabled for this repository. The organization administrator must enable Pages before the backup deployment can run.'
+              ;;
+            *)
+              echo "Unexpected GitHub Pages API status: $status" >&2
+              cat "$RUNNER_TEMP/pages.json" >&2
+              exit 1
+              ;;
+          esac
+
   build:
+    needs: availability
+    if: needs.availability.outputs.enabled == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -75,6 +111,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: needs.build.result == 'success'
     permissions:
       pages: write
       id-token: write
@@ -93,6 +130,7 @@ jobs:
     needs:
       - build
       - deploy
+    if: needs.build.result == 'success' && needs.deploy.result == 'success'
     permissions:
       contents: read
     steps:

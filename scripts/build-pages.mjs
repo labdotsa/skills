@@ -29,7 +29,7 @@ const buildRecord = Object.freeze({
   workflowRunId,
   workflowRunAttempt: process.env.GITHUB_RUN_ATTEMPT ?? null,
   workflowRunUrl,
-  validation: { command: "npm run validate", status: "pass" },
+  validation: { command: "npm run validate:automated", status: "pass" },
   comparison,
   publicationManifest,
 });

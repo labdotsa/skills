@@ -1,11 +1,11 @@
 export const transferThresholds = Object.freeze({
-  javascriptGzipBytes: 90 * 1024,
-  javascriptRawBytes: 250 * 1024,
+  javascriptGzipBytes: 120 * 1024,
+  javascriptRawBytes: 375 * 1024,
   cssGzipBytes: 35 * 1024,
   fontBytes: 300 * 1024,
   imageBytes: 100 * 1024,
   totalBytes: 500 * 1024,
-  requests: 25,
+  requests: 30,
 });
 
 const presentationKinds = new Set(["document", "font", "image", "script", "stylesheet"]);

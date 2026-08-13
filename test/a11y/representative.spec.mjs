@@ -101,7 +101,30 @@ async function scan(page, testInfo, evidence, ledger, profile, route, state) {
 async function verifyComputedContrast(page, nodes) {
   return page.evaluate((axeNodes) => {
     const parse = (value) => {
-      const values = value.match(/[\d.]+/g)?.map(Number) ?? [];
+      if (value === "transparent") return { r: 0, g: 0, b: 0, a: 0 };
+      const values = value.match(/-?[\d.]+/g)?.map(Number) ?? [];
+      if (value.startsWith("oklab(")) {
+        const [lightness, axisA, axisB, alpha = 1] = values;
+        const lPrime = lightness + 0.3963377774 * axisA + 0.2158037573 * axisB;
+        const mPrime = lightness - 0.1055613458 * axisA - 0.0638541728 * axisB;
+        const sPrime = lightness - 0.0894841775 * axisA - 1.291485548 * axisB;
+        const l = lPrime ** 3;
+        const m = mPrime ** 3;
+        const s = sPrime ** 3;
+        const linearToSrgb = (channel) => 255 * (channel <= 0.0031308
+          ? 12.92 * channel
+          : 1.055 * channel ** (1 / 2.4) - 0.055);
+        return {
+          r: Math.min(255, Math.max(0, linearToSrgb(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s))),
+          g: Math.min(255, Math.max(0, linearToSrgb(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s))),
+          b: Math.min(255, Math.max(0, linearToSrgb(-0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s))),
+          a: alpha,
+        };
+      }
+      if (value.startsWith("color(srgb")) {
+        const [red, green, blue, alpha = 1] = values;
+        return { r: red * 255, g: green * 255, b: blue * 255, a: alpha };
+      }
       return { r: values[0], g: values[1], b: values[2], a: values[3] ?? 1 };
     };
     const composite = (front, back) => {

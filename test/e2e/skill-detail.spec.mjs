@@ -78,6 +78,7 @@ test("keeps Skill deep links, contents state, focus, and collapsed instructions 
 
 test("keeps the Skill contents rail sticky, hierarchical, and synchronized with the collapsed excerpt", async ({ page, isMobile }) => {
   test.skip(isMobile, "the contents rail becomes inline below the desktop breakpoint");
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/skills/copywriting/");
 
   const contents = page.getByRole("navigation", { name: "Skill contents" });

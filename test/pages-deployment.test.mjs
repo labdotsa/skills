@@ -39,7 +39,14 @@ test("Pages deploys one explicitly selected validated publication with least-req
   assert.deepEqual(workflow.permissions, { contents: "read" });
   assert.deepEqual(workflow.concurrency, { group: "github-pages", "cancel-in-progress": false });
 
+  const availability = workflow.jobs.availability;
+  assert.deepEqual(availability.permissions, { contents: "read", pages: "read" });
+  assert.equal(availability.outputs.enabled, "${{ steps.pages.outputs.enabled }}");
+  assert.match(availability.steps.find((step) => step.id === "pages").run, /200\)[\s\S]*enabled=true[\s\S]*404\)[\s\S]*enabled=false/);
+
   const build = workflow.jobs.build;
+  assert.equal(build.needs, "availability");
+  assert.equal(build.if, "needs.availability.outputs.enabled == 'true'");
   assert.deepEqual(build.permissions, { contents: "read", pages: "read" });
   assert.equal(build.outputs.publication_profile, "${{ steps.profile.outputs.name }}");
   assert.equal(build.outputs.normalized_human_sha256, "${{ steps.publication.outputs.normalized_human_sha256 }}");
@@ -66,6 +73,7 @@ test("Pages deploys one explicitly selected validated publication with least-req
 
   const deploy = workflow.jobs.deploy;
   assert.equal(deploy.needs, "build");
+  assert.equal(deploy.if, "needs.build.result == 'success'");
   assert.deepEqual(deploy.permissions, { pages: "write", "id-token": "write" });
   assert.deepEqual(deploy.environment, {
     name: "github-pages",
@@ -75,11 +83,12 @@ test("Pages deploys one explicitly selected validated publication with least-req
 
   const smoke = workflow.jobs.smoke;
   assert.deepEqual(smoke.needs, ["build", "deploy"]);
+  assert.equal(smoke.if, "needs.build.result == 'success' && needs.deploy.result == 'success'");
   assert.deepEqual(smoke.permissions, { contents: "read" });
   const smokeCommand = smoke.steps.find((step) => step.run?.startsWith("npm run pages:smoke --")).run;
   assert.equal(smokeCommand.includes('"${{ needs.build.outputs.normalized_human_sha256 }}"'), true);
   assert.equal(smoke.steps.at(-1).uses, actions.uploadEvidence);
-  assert.equal(packageJson.scripts["pages:build"], "npm run validate && node scripts/build-pages.mjs");
+  assert.equal(packageJson.scripts["pages:build"], "npm run validate:automated && node scripts/build-pages.mjs");
   assert.equal(packageJson.scripts["pages:smoke"], "node scripts/smoke-pages.mjs");
 });
 
@@ -195,7 +204,7 @@ test("Pages records immutable workflow, artifact, comparison, and deployed smoke
     packageLockSha256: fixture.manifest.packageLockSha256,
     profile: fixture.manifest.profile,
     normalizedHumanSha256,
-    validation: { command: "npm run validate", status: "pass" },
+    validation: { command: "npm run validate:automated", status: "pass" },
     routes: ["index.html", "404.html", "skills/tailwind/index.html", "recipes/index.html", "recipes/prototype/index.html"],
     files: fixture.manifest.files,
     smoke: { http, browser },

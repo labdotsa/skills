@@ -1,5 +1,4 @@
 export const THEME_STORAGE_KEY = "labs-color-theme";
-export const THEME_TRANSITION_DURATION_MS = 180;
 
 export type ThemePreference = "light" | "dark";
 export type ResolvedTheme = "light" | "dark";
@@ -51,20 +50,20 @@ export function createThemeController(
 ) {
   const storage = safeStorage(window);
   const root = document.documentElement;
-  let transitionTimer: ReturnType<typeof setTimeout> | undefined;
   let snapshot = applyTheme(
     document,
     normalizePreference(document.documentElement.dataset.themePreference),
   );
 
   function publish(preference: ThemePreference) {
-    root.dataset.themeTransitioning = "true";
-    clearTimeout(transitionTimer);
+    root.dataset.themeSwitching = "true";
+    // Commit the no-transition state before and after changing the theme so
+    // component-level hover transitions cannot interpolate theme variables.
+    void root.offsetWidth;
     snapshot = applyTheme(document, preference);
+    void root.offsetWidth;
+    delete root.dataset.themeSwitching;
     onChange(snapshot);
-    transitionTimer = setTimeout(() => {
-      delete root.dataset.themeTransitioning;
-    }, THEME_TRANSITION_DURATION_MS);
   }
 
   function setPreference(value: ThemePreference) {
@@ -88,8 +87,7 @@ export function createThemeController(
     },
     setPreference,
     destroy() {
-      clearTimeout(transitionTimer);
-      delete root.dataset.themeTransitioning;
+      delete root.dataset.themeSwitching;
       window.removeEventListener("storage", handleStorage);
     },
   };

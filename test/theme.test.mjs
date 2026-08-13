@@ -17,7 +17,7 @@ test("toggles only between light and dark", () => {
 });
 
 function themeEnvironment({ stored, storageThrows = false } = {}) {
-  const root = { dataset: {}, style: {} };
+  const root = { dataset: {}, style: {}, offsetWidth: 1280 };
   const meta = { content: "", setAttribute(_name, value) { this.content = value; } };
   const windowListeners = new Map();
   const writes = [];
@@ -61,7 +61,8 @@ test("theme controller persists explicit choices and synchronizes other tabs", (
   const controller = Theme.createThemeController(environment.document, environment.window, (snapshot) => snapshots.push(snapshot));
 
   controller.setPreference("dark");
-  assert.equal(environment.root.dataset.themeTransitioning, "true");
+  assert.equal(environment.root.dataset.themeSwitching, undefined);
+  assert.equal(environment.root.dataset.theme, "dark");
   environment.windowListeners.get("storage")({ key: Theme.THEME_STORAGE_KEY, newValue: "light" });
 
   assert.deepEqual(snapshots, [
@@ -70,7 +71,7 @@ test("theme controller persists explicit choices and synchronizes other tabs", (
   ]);
   assert.deepEqual(environment.writes, [[Theme.THEME_STORAGE_KEY, "dark"]]);
   controller.destroy();
-  assert.equal(environment.root.dataset.themeTransitioning, undefined);
+  assert.equal(environment.root.dataset.themeSwitching, undefined);
   assert.equal(environment.windowListeners.size, 0);
 });
 

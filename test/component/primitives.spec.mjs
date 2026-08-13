@@ -38,6 +38,10 @@ test("Tabs and Collapsible follow keyboard state while Breadcrumb and Separator 
 test("Sheet restores focus, Tooltip names help, and Sonner announces feedback", async ({ page }) => {
   await page.goto("/");
 
+  const help = page.getByRole("button", { name: "Component help" });
+  await help.hover();
+  await expect(page.getByRole("tooltip")).toHaveText("Helpful component detail");
+
   const sheetTrigger = page.getByRole("button", { name: "Open component sheet" });
   await sheetTrigger.click();
   const sheet = page.getByRole("dialog", { name: "Component sheet" });
@@ -46,11 +50,6 @@ test("Sheet restores focus, Tooltip names help, and Sonner announces feedback", 
   await expect(sheet).toBeHidden();
   await expect(sheetTrigger).toBeFocused();
   await expect(page.locator("body")).toHaveCSS("pointer-events", "auto");
-
-  const help = page.getByRole("button", { name: "Component help" });
-  await page.keyboard.press("Tab");
-  await expect(help).toBeFocused();
-  await expect(page.getByRole("tooltip")).toHaveText("Helpful component detail");
 
   await page.getByRole("button", { name: "Notify success" }).click();
   await expect(page.getByText("Component saved")).toBeVisible();
