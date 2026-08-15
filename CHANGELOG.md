@@ -7,6 +7,7 @@ Notable repository and skill changes are documented here.
 - Added the `architect-modular-monorepo` skill with evidence-driven app/package classification, layered kernel and transport rules, auth/context/loading patterns, Portless local topology, Netlify deployment matrices, and operational workflow guardrails.
 - Added the stable `database-design` skill, distilled from an end-to-end multi-tenant Postgres/analytics audit with normalization, computation placement, tenant integrity, query-plan evidence, event lifecycle, and migration guidance.
 - Expanded `database-design` with tagged-ID strategy, shared identity roots, role-table normalization, polymorphic-reference boundaries, and composite role constraints.
+- Added the stable `prefixed-ulid-ids` skill with strict tagged-ID contracts, role-aware relationship patterns, ORM/database validation, and migration playbooks.
 - Upgraded `pricing-research` with a reproducible Van Westendorp analyzer for JSON/CSV/TSV responses, explicit range conventions, response diagnostics, seeded bootstrap intervals, execution references, and a Pricing Evidence Report template.
 - Added the 23-skill product-opportunity collection and its evidence-gated orchestration guide to the stable public catalog.
 - Calibrated the Lighthouse TBT regression ceiling to the measured SvelteKit detail-page baseline while preserving the 200 ms optimization target and every performance-score/LCP/CLS gate, and upgraded validation to SHA-pinned Node 24 actions.

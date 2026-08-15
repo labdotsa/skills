@@ -16,7 +16,7 @@ test("prerenders complete social metadata and truthful JSON-LD from the visible 
   );
   const homeGraph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(homeGraph["@graph"].map((node) => node["@type"])).toEqual(["WebSite", "CollectionPage", "ItemList"]);
-  expect(homeGraph["@graph"][2].itemListElement).toHaveLength(31);
+  expect(homeGraph["@graph"][2].itemListElement).toHaveLength(32);
 
   await page.goto("/skills/tailwind/");
 
