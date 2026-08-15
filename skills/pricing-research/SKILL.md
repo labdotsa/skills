@@ -4,6 +4,7 @@ description: Selects and executes fit-for-purpose pricing research for price lev
 metadata:
   author: labdotsa
   category: product
+compatibility: Optional analyzer scripts require Node.js 18 or later.
 ---
 
 # Pricing Research
@@ -86,6 +87,9 @@ exclusions:
 pass_or_choice_rule:
 behavioral_follow_up:
 validity_checks_and_tolerances:
+response_validation:
+acceptable_range_definition:
+uncertainty_method:
 ~~~
 
 Use price points that span credible refusal and acceptance. Avoid changing price together with service, contract, or channel unless the design intentionally estimates that bundle.
@@ -108,6 +112,14 @@ Ask when price becomes:
 4. too expensive to consider.
 
 Plot cumulative curves and report intersections as perception diagnostics. Keep demand/revenue claims outside the result.
+
+For a reproducible respondent-level calculation, use the [Van Westendorp execution reference](references/van-westendorp.md) and the included [`scripts/van-westendorp.mjs`](scripts/van-westendorp.mjs) analyzer. It accepts JSON, CSV, or TSV rows with `tooCheap`, `cheap`, `expensive`, and `tooExpensive` fields, validates the strict price order, returns the original and narrower intersection points, and can estimate seeded percentile bootstrap intervals. The default acceptable range is the original `pmc`–`pme` convention; declare `--range narrower` when the narrower convention is intended.
+
+~~~sh
+node scripts/van-westendorp.mjs responses.csv --bootstrap 2000 --seed 42 > psm-result.json
+~~~
+
+The analyzer output is perception evidence only. Preserve the raw input, protocol, range definition, analyzer version, exclusions, and uncertainty settings with the result.
 
 ### Gabor-Granger
 
@@ -142,6 +154,7 @@ Create clean cohorts by offer, segment, channel, period, seller, discount author
 | --- | --- |
 | Interview lacks a recent decision/budget episode | exploratory language only; recruit an eligible case |
 | Van Westendorp category/offer misunderstood | invalidate the range; repair comprehension and rerun |
+| Van Westendorp responses contain missing, non-numeric, negative, or intransitive prices | exclude and disclose the rows; if no valid responses remain, stop and repair the instrument |
 | Gabor-Granger order effects or non-monotonic response exceed predeclared tolerance | inspect design/data, narrow inference, or rerun; never smooth silently |
 | Monadic assignment/balance fails or cohorts differ materially | invalidate causal comparison; repair randomization/cohort design |
 | Conjoint design balance or holdout prediction fails | revise attributes/design/model and collect a new validation sample |
@@ -161,7 +174,7 @@ Investigate gaps instead of averaging. Stated acceptance may exceed behavior bec
 
 ## Deliver the Pricing Evidence Report
 
-Deliver the pricing decision, economic frame, method rationale, instrument/design, sample and limitations, results with uncertainty, stated-versus-revealed reconciliation, unit-economic constraints, and recommended experiment or price decision.
+Deliver the pricing decision, economic frame, method rationale, instrument/design, sample and limitations, results with uncertainty, stated-versus-revealed reconciliation, unit-economic constraints, and recommended experiment or price decision. Use the [Pricing Evidence Report template](references/pricing-evidence-report.md) when creating the native handoff.
 
 | Status | Controlling condition | Permitted handoff |
 | --- | --- | --- |

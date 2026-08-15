@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skills.lab.sa/skills/pricing-research/van-westendorp-response.schema.json",
+  "title": "Van Westendorp response",
+  "description": "One respondent's four Van Westendorp Price Sensitivity Meter thresholds. The analyzer additionally requires strict ascending order.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "tooCheap",
+    "cheap",
+    "expensive",
+    "tooExpensive"
+  ],
+  "properties": {
+    "tooCheap": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price at which quality becomes doubtful because the offer is too cheap."
+    },
+    "cheap": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price at which the offer is perceived as cheap or a bargain."
+    },
+    "expensive": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price at which the offer is perceived as expensive but still worth considering."
+    },
+    "tooExpensive": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price at which the offer is too expensive to consider."
+    }
+  }
+}

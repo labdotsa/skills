@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Upgraded `pricing-research` with a reproducible Van Westendorp analyzer for JSON/CSV/TSV responses, explicit range conventions, response diagnostics, seeded bootstrap intervals, execution references, and a Pricing Evidence Report template.
 - Added the 23-skill product-opportunity collection and its evidence-gated orchestration guide to the stable public catalog.
 - Calibrated the Lighthouse TBT regression ceiling to the measured SvelteKit detail-page baseline while preserving the 200 ms optimization target and every performance-score/LCP/CLS gate, and upgraded validation to SHA-pinned Node 24 actions.
 - Replaced the page-wide 180 ms theme interpolation with one atomic, transition-suppressed light/dark swap so text, icons, controls, borders, and surfaces reach their final accessible colors together while normal interaction motion remains intact.
