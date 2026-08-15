@@ -1,6 +1,6 @@
 ---
 name: database-design
-description: This skill should be used when the user asks to "design a database", "review a database schema", "normalize a schema", "decide what to compute at request time", "optimize database queries", "design indexes", "model multi-tenant data", or "plan database migrations"; or when an existing application's data model must be analyzed end-to-end across domain rules, read/write paths, performance, security, and lifecycle.
+description: This skill should be used when the user asks to "design a database", "review a database schema", "normalize a schema", "model shared entities and roles", "design polymorphic relationships", "choose an ID strategy", "use prefixed IDs", "decide what to compute at request time", "optimize database queries", "design indexes", "model multi-tenant data", or "plan database migrations"; or when an existing application's data model must be analyzed end-to-end across domain rules, read/write paths, performance, security, and lifecycle.
 metadata:
   author: labdotsa
   category: engineering
@@ -42,6 +42,37 @@ Separate concepts that change for different reasons:
 For each entity, define its owner, tenant boundary, lifecycle states, legal transitions, deletion meaning, retention period, and whether historical accuracy requires snapshots. Write invariants in database terms: `NOT NULL`, `CHECK`, `UNIQUE`, foreign keys, exclusion constraints, transaction boundaries, or explicit application-level policies when the database cannot express the rule.
 
 Treat immutable facts differently from mutable resources. A fact may copy destination, campaign, currency, or actor labels at occurrence time to preserve what was true then. Mark such fields as historical snapshots; do not later join a mutable resource and silently rewrite history. Avoid foreign keys with cascading deletes from an immutable fact to a user-managed resource unless destroying the fact is explicitly part of the retention contract. Prefer `SET NULL`, soft deletion, or an archival boundary where history must survive.
+
+## Separate identity, classification, and role
+
+Model these as different axes before choosing columns or ID shapes:
+
+| Axis | Example | Normalized representation |
+| --- | --- | --- |
+| Resource identity | `entity_01...`, `invoice_01...` | Primary key and typed foreign keys |
+| Business classification | Individual, company, government | Enum or constrained attribute on the identity |
+| Role or capability | Client, vendor, approver | Role table, membership, or relationship |
+| Cross-resource reference | Owner, subject, counterparty | Explicit target relation or controlled registry |
+
+A prefixed ID can act as a runtime type tag for resource identity. It must not be used as a substitute for a business enum or role relationship. An `entity_...` value identifies the shared entity row; it does not prove that the entity is a client, vendor, company, or government subject. Preserve those independent facts in their own constrained model.
+
+Use a shared identity row plus role tables when several product surfaces need the same person or organization but each role has different lifecycle, permissions, or attributes:
+
+```text
+entity          shared name, contact, identity, and workspace ownership
+client          client membership and sales-specific lifecycle
+vendor          vendor membership and costs-specific lifecycle
+invoice         references the entity as a client
+expense         references the entity as a vendor
+```
+
+This lets one `entity_...` identity appear in both client and vendor experiences without duplicating common fields. Keep role-specific state in `client` and `vendor`; do not collapse it into a `roles` array when the role has its own timestamps, authorization, uniqueness, retention, or queries. Use a single role table with a constrained `role` column only when all roles truly share lifecycle and invariant behavior.
+
+Make the database prove role membership where a foreign key semantically requires it. If `expense.vendor_id` must identify a vendor in the same workspace, prefer a composite foreign key such as `(workspace_id, vendor_id) → vendor(workspace_id, entity_id)` over a plain FK to `entity(id)`. Add the corresponding workspace-scoped unique key on the parent. A prefixed value helps reject obvious cross-resource mistakes in application code; it does not replace relational integrity.
+
+Treat polymorphic references carefully. A column such as `subject_id` with several possible target tables cannot be made safe merely by storing prefixes in `text`. Either introduce a common root table that owns the identity, use separate nullable FKs with a checked discriminator, or create a registry with explicit target ownership and validation. Route by prefix only after authorization and existence checks. Read `references/identity-and-role-modeling.md` for the decision ledger and relationship patterns.
+
+When adopting prefixed ULIDs, choose the representation at each boundary explicitly. A system may keep `resource_<ULID>` in the application and API, or store prefixed text while exposing bare ULIDs for compatibility, but it must not mix the two accidentally. Use a dedicated prefixed-ID capability for generation, strict parsing, ORM adapters, database checks, and migrations; keep this skill responsible for deciding whether that strategy fits the domain and workload.
 
 ## Normalize deliberately
 
@@ -148,3 +179,4 @@ Read the supporting references when the task needs more than the core workflow:
 - **`references/postgres-access-paths.md`** — index selection, query-plan evidence, pagination, rollups, and migration mechanics.
 - **`references/tenant-lifecycle-and-events.md`** — multi-tenant integrity, RLS, soft deletion, retention, event facts, billing, webhooks, and outbox design.
 - **`references/audit-template.md`** — a fill-in end-to-end database review structure and acceptance checklist.
+- **`references/identity-and-role-modeling.md`** — tagged IDs, shared entity roots, role tables, polymorphic references, and composite role constraints.
