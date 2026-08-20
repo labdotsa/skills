@@ -24,6 +24,9 @@ linkedin_url:
 country_or_market:
 request_summary:
 requested_service:
+existing_product:
+product_url:
+client_stated_goal:
 submitted_materials:
 known_constraints:
 output_path: client-brief.md
@@ -32,6 +35,25 @@ output_path: client-brief.md
 Proceed from partial intake when at least one usable identity signal exists. Preserve the client's own request separately from later interpretation. Treat supplied confidential material according to its access restrictions and never expose it through external searches.
 
 Define the brief's decision context before researching: qualification, discovery preparation, proposal preparation, account planning, or another named decision. Use it to control research depth and relevance.
+
+## Route existing-product requests
+
+Determine whether the inquiry concerns changing the performance or behavior of an existing product. The mere existence of a product does not require product diagnosis: a client with an application may still be requesting brand strategy, market research, or unrelated work.
+
+When product performance is decision-relevant, capture a compact handoff:
+
+~~~yaml
+product:
+product_url:
+target_users:
+client_stated_challenge:
+desired_outcome:
+known_baseline:
+target_and_horizon:
+available_product_evidence:
+~~~
+
+Keep the client brief at organization and engagement level. Do not diagnose product performance, prescribe changes, or infer causes from a public interface alone. Use `product-diagnosis` when the request requires explaining an outcome gap, testing competing causes, or determining the next product intervention. If that skill is unavailable, recommend the diagnostic work explicitly and preserve the handoff fields in the brief.
 
 ## Resolve the client identity
 
@@ -123,6 +145,9 @@ Adapt section depth to the decision, but preserve this minimum structure:
 ## Request context
 ### What the client stated
 ### Interpretation and hypotheses
+
+## Existing-product context
+Include only when relevant; keep diagnosis in `product-diagnosis`.
 
 ## Identity and organization
 
