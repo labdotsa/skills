@@ -5,6 +5,7 @@ Notable repository and skill changes are documented here.
 ## Unreleased
 
 - Added the `submit-mobile-app-stores` skill with an evidence-backed submission dossier, exhaustive App Store/TestFlight/Google Play requirements, Fastlane and browser execution routes, approval gates, runtime requirement checks, and a structural dossier validator.
+- Added the stable `hoko` skill for end-to-end link attribution, campaign routing, QR distribution, conversion tracking, analytics, API/MCP integration, and team governance, including a verified embedded-click implementation playbook with framework-neutral and SvelteKit examples.
 - Renamed `product-opportunity-recipe` to `evaluate-product-opportunity` so the orchestration skill communicates its user-facing outcome more directly.
 - Added the `architect-modular-monorepo` skill with evidence-driven app/package classification, layered kernel and transport rules, auth/context/loading patterns, Portless local topology, Netlify deployment matrices, and operational workflow guardrails.
 - Added the stable `database-design` skill, distilled from an end-to-end multi-tenant Postgres/analytics audit with normalization, computation placement, tenant integrity, query-plan evidence, event lifecycle, and migration guidance.
