@@ -1,0 +1,4 @@
+interface:
+  display_name: "Submit Mobile Apps"
+  short_description: "Prepare and execute App Store and Play submissions"
+  default_prompt: "Prepare or execute a complete Apple App Store or Google Play testing or production submission."
