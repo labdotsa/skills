@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Refined `client-brief` with a context-efficient existing-product checkpoint and structured handoff to a separate product diagnosis when product performance is material to the engagement.
+- Added the `product-diagnosis` skill for defining outcome gaps, locating behavioral breakdowns, comparing causal hypotheses, and selecting evidence-backed investigations or interventions for existing products.
 - Added the `client-brief` skill for resolving client identity, researching public evidence, interpreting request context and positioning, and producing a sourced pre-engagement brief with prioritized discovery questions and explicit confidence statuses.
 - Integrated canonical Discovery Site navigation with the Hoko `OTa83BOY` attribution link, preserving campaign parameters across route-aware page tracking without exposing a private API key or polluting preview publications.
 - Isolated Lighthouse route groups in fresh Chromium processes and preserved incomplete reports with runtime diagnostics, preventing long-lived DevTools session corruption from masking otherwise valid release evidence.

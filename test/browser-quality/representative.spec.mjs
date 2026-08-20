@@ -232,7 +232,7 @@ test("critical interactions acknowledge input within the deterministic budget", 
 
     await acknowledgeWithinBudget(page,
       () => page.getByRole("searchbox", { name: "Search skills" }).fill("tailwind"),
-      () => expect(page.getByText("1 of 35 skills")).toBeVisible(),
+      () => expect(page.getByText("1 of 36 skills")).toBeVisible(),
       `${profile.name} search`);
     await acknowledgeWithinBudget(page,
       () => page.getByRole("button", { name: "Switch to dark appearance" }).click(),
