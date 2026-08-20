@@ -13,4 +13,12 @@ tmp/
 .svelte-kit/
 /site/
 /docs/
+!/docs/
+/docs/*
+!/docs/catalog.md
+!/docs/README.md
+!/docs/agents/
+!/docs/agents/**
+!/docs/adr/
+!/docs/adr/**
 /output/
