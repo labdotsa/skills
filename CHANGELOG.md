@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the `client-brief` skill for resolving client identity, researching public evidence, interpreting request context and positioning, and producing a sourced pre-engagement brief with prioritized discovery questions and explicit confidence statuses.
 - Integrated canonical Discovery Site navigation with the Hoko `OTa83BOY` attribution link, preserving campaign parameters across route-aware page tracking without exposing a private API key or polluting preview publications.
 - Isolated Lighthouse route groups in fresh Chromium processes and preserved incomplete reports with runtime diagnostics, preventing long-lived DevTools session corruption from masking otherwise valid release evidence.
 - Added the `submit-mobile-app-stores` skill with an evidence-backed submission dossier, exhaustive App Store/TestFlight/Google Play requirements, Fastlane and browser execution routes, approval gates, runtime requirement checks, and a structural dossier validator.
