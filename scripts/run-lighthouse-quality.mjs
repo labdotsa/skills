@@ -8,6 +8,7 @@ import lighthouse from "lighthouse";
 import { evaluateSeoMeasurement } from "../src/lib/domain/seo-measurement.ts";
 import { createPublicationServer } from "./lib/publication-server.mjs";
 import { representativeRoutes } from "./lib/quality-routes.mjs";
+import { lighthouseMetrics } from "./lib/lighthouse-report.mjs";
 
 const profiles = [
   { name: "canonical", output: ".artifacts/lighthouse/canonical", basePath: "" },
@@ -32,21 +33,17 @@ const summaries = [];
 for (const profile of profiles) build(profile);
 await mkdir(evidenceDirectory, { recursive: true });
 
-const chrome = await launch({
-  chromePath: chromium.executablePath(),
-  chromeFlags: ["--headless=new", "--no-sandbox", "--disable-gpu"],
-  logLevel: "silent",
-});
-try {
-  for (const profile of profiles) {
-    const rootDirectory = path.resolve(profile.output);
-    const server = createPublicationServer({ rootDirectory, basePath: profile.basePath });
-    await listen(server);
-    try {
-      const address = server.address();
-      const origin = `http://127.0.0.1:${address.port}`;
-      const routes = await loadRoutes(rootDirectory, profile.basePath);
-      for (const route of routes) {
+for (const profile of profiles) {
+  const rootDirectory = path.resolve(profile.output);
+  const server = createPublicationServer({ rootDirectory, basePath: profile.basePath });
+  await listen(server);
+  try {
+    const address = server.address();
+    const origin = `http://127.0.0.1:${address.port}`;
+    const routes = await loadRoutes(rootDirectory, profile.basePath);
+    for (const route of routes) {
+      const chrome = await launchChrome();
+      try {
         const runs = [];
         const routeDirectory = path.join(evidenceDirectory, profile.name, route.id);
         await mkdir(routeDirectory, { recursive: true });
@@ -61,9 +58,10 @@ try {
             maxWaitForLoad: 45_000,
           });
           if (!result?.lhr) throw new Error(`${profile.name} ${route.pathname} run ${index + 1}: Lighthouse produced no report`);
-          const run = metrics(result.lhr);
-          runs.push(run);
           await writeFile(path.join(routeDirectory, `run-${index + 1}.json`), `${JSON.stringify(result.lhr, null, 2)}\n`);
+          const context = `${profile.name} ${route.pathname} run ${index + 1}`;
+          const run = lighthouseMetrics(result.lhr, context);
+          runs.push(run);
           console.log(`${profile.name} ${route.id} run ${index + 1}/3: ${formatRun(run)}`);
         }
         const evaluation = evaluateSeoMeasurement({ lighthouseRuns: runs });
@@ -81,13 +79,13 @@ try {
             seoExpectation: seoExempt ? "non-indexable" : "indexable",
           },
         });
+      } finally {
+        await chrome.kill();
       }
-    } finally {
-      await close(server);
     }
+  } finally {
+    await close(server);
   }
-} finally {
-  await chrome.kill();
 }
 
 await writeFile(path.join(evidenceDirectory, "summary.json"), `${JSON.stringify({
@@ -106,30 +104,16 @@ if (failures.length > 0) {
 }
 console.log(`Lighthouse medians pass for ${summaries.length} representative profile routes.`);
 
-function metrics(lhr) {
-  const score = (category) => {
-    const value = lhr.categories[category]?.score;
-    if (typeof value !== "number") throw new Error(`Lighthouse report is missing ${category} score`);
-    return value;
-  };
-  const numeric = (audit) => {
-    const value = lhr.audits[audit]?.numericValue;
-    if (typeof value !== "number") throw new Error(`Lighthouse report is missing ${audit}`);
-    return value;
-  };
-  return {
-    performance: score("performance"),
-    accessibility: score("accessibility"),
-    seo: score("seo"),
-    bestPractices: score("best-practices"),
-    lcpMs: numeric("largest-contentful-paint"),
-    cls: numeric("cumulative-layout-shift"),
-    tbtMs: numeric("total-blocking-time"),
-  };
-}
-
 function formatRun(run) {
   return `P ${run.performance.toFixed(2)}, A ${run.accessibility.toFixed(2)}, SEO ${run.seo.toFixed(2)}, BP ${run.bestPractices.toFixed(2)}, LCP ${Math.round(run.lcpMs)}ms, CLS ${run.cls.toFixed(3)}, TBT ${Math.round(run.tbtMs)}ms`;
+}
+
+function launchChrome() {
+  return launch({
+    chromePath: chromium.executablePath(),
+    chromeFlags: ["--headless=new", "--no-sandbox", "--disable-gpu"],
+    logLevel: "silent",
+  });
 }
 
 function build(profile) {

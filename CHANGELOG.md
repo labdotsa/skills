@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Integrated canonical Discovery Site navigation with the Hoko `OTa83BOY` attribution link, preserving campaign parameters across route-aware page tracking without exposing a private API key or polluting preview publications.
+- Isolated Lighthouse route groups in fresh Chromium processes and preserved incomplete reports with runtime diagnostics, preventing long-lived DevTools session corruption from masking otherwise valid release evidence.
 - Added the `submit-mobile-app-stores` skill with an evidence-backed submission dossier, exhaustive App Store/TestFlight/Google Play requirements, Fastlane and browser execution routes, approval gates, runtime requirement checks, and a structural dossier validator.
 - Added the stable `hoko` skill for end-to-end link attribution, campaign routing, QR distribution, conversion tracking, analytics, API/MCP integration, and team governance, including a verified embedded-click implementation playbook with framework-neutral and SvelteKit examples.
 - Renamed `product-opportunity-recipe` to `evaluate-product-opportunity` so the orchestration skill communicates its user-facing outcome more directly.
