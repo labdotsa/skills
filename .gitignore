@@ -12,3 +12,5 @@ tmp/
 .artifacts/
 .svelte-kit/
 /site/
+/docs/
+/output/
