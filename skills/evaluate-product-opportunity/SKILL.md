@@ -1,12 +1,12 @@
 ---
-name: product-opportunity-recipe
+name: evaluate-product-opportunity
 description: Orchestrates recognized opportunity, research, market, customer, business-design, feasibility, economics, risk, and appraisal methods into a gated investment decision. Use for a complete go, conditional-go, pivot, stop, or not-ready product-opportunity assessment.
 metadata:
   author: labdotsa
   category: product
 ---
 
-# Product Opportunity Recipe
+# Evaluate Product Opportunity
 
 Operate an evidence program, not a long report. Route only methods needed by the current decision; preserve each method's native artifacts; wrap outputs only at handoff; reopen dependent decisions when upstream evidence changes.
 

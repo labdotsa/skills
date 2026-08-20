@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Renamed `product-opportunity-recipe` to `evaluate-product-opportunity` so the orchestration skill communicates its user-facing outcome more directly.
 - Added the `architect-modular-monorepo` skill with evidence-driven app/package classification, layered kernel and transport rules, auth/context/loading patterns, Portless local topology, Netlify deployment matrices, and operational workflow guardrails.
 - Added the stable `database-design` skill, distilled from an end-to-end multi-tenant Postgres/analytics audit with normalization, computation placement, tenant integrity, query-plan evidence, event lifecycle, and migration guidance.
 - Expanded `database-design` with tagged-ID strategy, shared identity roots, role-table normalization, polymorphic-reference boundaries, and composite role constraints.

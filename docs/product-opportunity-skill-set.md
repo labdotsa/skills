@@ -1,6 +1,6 @@
 # Product opportunity skill set
 
-Recognized methods compose into one evidence-gated product-opportunity recipe. Method skills retain their own reasoning shape; the recipe controls routing, contracts, dependencies, refresh, and verdict.
+Recognized methods compose into one evidence-gated product-opportunity evaluation. Method skills retain their own reasoning shape; `evaluate-product-opportunity` controls routing, contracts, dependencies, refresh, and verdict.
 
 ## Packages
 
@@ -12,7 +12,7 @@ Recognized methods compose into one evidence-gated product-opportunity recipe. M
 | Business design | `value-proposition-canvas`, `business-model-canvas`, `pricing-research`, `market-entry-strategy` | Business Model and Entry Options |
 | Feasibility | `unido-feasibility-study`, `unit-economics`, `financial-modeling`, `iso-31000-risk-assessment` | Integrated Feasibility Case |
 | Decision | `five-case-model` | Product Investment Case and conditional verdict |
-| Orchestration | `product-opportunity-recipe` | Complete, dependency-aware assessment |
+| Orchestration | `evaluate-product-opportunity` | Complete, dependency-aware assessment |
 
 ## Gate flow
 
@@ -36,9 +36,9 @@ Use recognized method name first, recognized artifact/activity second. Keep orch
 
 ## Interoperation boundary
 
-Each skill owns the shape and completion rules of its native artifact. The recipe does not impose a common internal template on interviews, trees, canvases, models, experiments, risk records, or investment cases.
+Each skill owns the shape and completion rules of its native artifact. The evaluation skill does not impose a common internal template on interviews, trees, canvases, models, experiments, risk records, or investment cases.
 
-When a native artifact enters the recipe, add the sidecar defined by the [handoff and claim contract](../skills/product-opportunity-recipe/references/artifact-contract.md). The wrapper records scope, lineage, status, dependencies, and gate consequence while leaving the artifact intact. Routing and predecessor requirements live in the [method map](../skills/product-opportunity-recipe/references/method-map.md); gate policy lives in [decision gates](../skills/product-opportunity-recipe/references/decision-gates.md).
+When a native artifact enters the evaluation, add the sidecar defined by the [handoff and claim contract](../skills/evaluate-product-opportunity/references/artifact-contract.md). The wrapper records scope, lineage, status, dependencies, and gate consequence while leaving the artifact intact. Routing and predecessor requirements live in the [method map](../skills/evaluate-product-opportunity/references/method-map.md); gate policy lives in [decision gates](../skills/evaluate-product-opportunity/references/decision-gates.md).
 
 ## Verdicts
 
