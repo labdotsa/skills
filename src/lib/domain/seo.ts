@@ -22,6 +22,9 @@ export type SeoPage = Readonly<{
 		url?: string;
 		image: string;
 		imageAlt: string;
+		imageWidth: 1200;
+		imageHeight: 630;
+		imageType: "image/png";
 		siteName: "LAB Skills";
 	}>;
 	twitter: Readonly<{
@@ -29,13 +32,14 @@ export type SeoPage = Readonly<{
 		title: string;
 		description: string;
 		image: string;
+		imageAlt: string;
 	}>;
 	structuredData?: StructuredData;
 }>;
 
 const siteName = "LAB Skills" as const;
-const socialImage = "https://skills.lab.sa/brand/social.png" as const;
-const socialImageAlt = "LAB Skills — public agent protocols and delivery playbooks" as const;
+const fallbackSocialImage = "https://skills.lab.sa/brand/social.png" as const;
+const fallbackSocialImageAlt = "LAB Skills — public agent protocols and delivery playbooks" as const;
 
 const homeTitle = homeCopy.seoTitle;
 const homeDescription = homeCopy.description;
@@ -49,6 +53,8 @@ export function homeSeo(directory: DirectoryPageView, canonicalOrigin: string, i
 		title: homeTitle,
 		description: homeDescription,
 		canonicalUrl,
+		socialImagePath: "/thumbnail.png",
+		socialImageAlt: "LAB Skills catalog",
 		indexable,
 		type: "website",
 		structuredData: {
@@ -84,6 +90,8 @@ export function recipeIndexSeo(index: RecipeIndexPageView, canonicalOrigin: stri
 		title: recipeIndexTitle,
 		description: recipeIndexDescription,
 		canonicalUrl,
+		socialImagePath: "/recipes/thumbnail.png",
+		socialImageAlt: "LAB Recipes catalog",
 		indexable,
 		type: "website",
 		structuredData: {
@@ -117,6 +125,8 @@ export function skillSeo(skill: SkillPageView, canonicalOrigin: string, indexabl
 		title,
 		description: skill.description,
 		canonicalUrl,
+		socialImagePath: `/skills/${encodeURIComponent(skill.slug)}/thumbnail.png`,
+		socialImageAlt: `${skill.name} — LAB Skill`,
 		alternate: markdownAlternate(canonicalUrl),
 		indexable,
 		type: "article",
@@ -132,6 +142,8 @@ export function recipeSeo(recipe: RecipePageView, canonicalOrigin: string, index
 		title,
 		description: recipe.description,
 		canonicalUrl,
+		socialImagePath: `/recipes/${encodeURIComponent(recipe.slug)}/thumbnail.png`,
+		socialImageAlt: `${recipe.title} — LAB Recipe`,
 		alternate: markdownAlternate(canonicalUrl),
 		indexable,
 		type: "article",
@@ -239,8 +251,14 @@ function createSeoPage(input: Readonly<{
 	alternate?: Readonly<{ type: "text/markdown"; href: string }>;
 	indexable: boolean;
 	type: "website" | "article";
+	socialImagePath?: string;
+	socialImageAlt?: string;
 	structuredData?: StructuredData;
 }>): SeoPage {
+	const socialImage = input.socialImagePath
+		? canonicalUrlFor("https://skills.lab.sa", input.socialImagePath)
+		: fallbackSocialImage;
+	const socialImageAlt = input.socialImageAlt ?? fallbackSocialImageAlt;
 	return deepFreeze({
 		title: input.title,
 		description: input.description,
@@ -254,6 +272,9 @@ function createSeoPage(input: Readonly<{
 			...(input.canonicalUrl ? { url: input.canonicalUrl } : {}),
 			image: socialImage,
 			imageAlt: socialImageAlt,
+			imageWidth: 1200,
+			imageHeight: 630,
+			imageType: "image/png",
 			siteName,
 		},
 		twitter: {
@@ -261,6 +282,7 @@ function createSeoPage(input: Readonly<{
 			title: input.title,
 			description: input.description,
 			image: socialImage,
+			imageAlt: socialImageAlt,
 		},
 		...(input.indexable && input.structuredData ? { structuredData: input.structuredData } : {}),
 	});

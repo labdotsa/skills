@@ -6,8 +6,12 @@ test("prerenders complete social metadata and truthful JSON-LD from the visible 
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://skills.lab.sa/");
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
     "content",
-    "LAB Skills — public agent protocols and delivery playbooks",
+	"LAB Skills catalog",
   );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://skills.lab.sa/thumbnail.png");
+  await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute("content", "image/png");
+  await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", "1200");
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", "630");
   await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute("content", "LAB Skills");
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
   await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
@@ -24,6 +28,10 @@ test("prerenders complete social metadata and truthful JSON-LD from the visible 
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
     "content",
     "https://skills.lab.sa/skills/tailwind/",
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+	"content",
+	"https://skills.lab.sa/skills/tailwind/thumbnail.png",
   );
   await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveAttribute(
     "href",
@@ -107,6 +115,15 @@ test("serves canonical machine surfaces and the social image only from the inten
   const socialImage = await request.get("/brand/social.png");
   expect(socialImage.status()).toBe(200);
   expect(socialImage.headers()["content-type"]).toBe("image/png");
+
+  for (const filename of ["/thumbnail.png", "/recipes/thumbnail.png", "/skills/tailwind/thumbnail.png", "/recipes/functional-prototype/thumbnail.png"]) {
+	const thumbnail = await request.get(filename);
+	expect(thumbnail.status(), filename).toBe(200);
+	expect(thumbnail.headers()["content-type"], filename).toBe("image/png");
+	const bytes = await thumbnail.body();
+	expect(bytes.readUInt32BE(16), filename).toBe(1200);
+	expect(bytes.readUInt32BE(20), filename).toBe(630);
+  }
 
   for (const filename of ["sitemap.xml", "robots.txt"]) {
     const backup = await request.get(`http://127.0.0.1:4174/skills/${filename}`);

@@ -66,6 +66,7 @@ for (const filename of htmlFiles) {
     profile,
     expectedCanonical,
     expectedAlternate: expectedMarkdownAlternateFor(filename, profile.canonicalOrigin),
+		expectedSocialImage: expectedSocialImageFor(filename, profile.canonicalOrigin),
     structuredData: profile.indexable && filename !== "404.html" ? "required" : "forbidden",
   }));
   await validateLocalReferences(html, filename, outputDirectory);
@@ -78,6 +79,7 @@ const cleanCanonicalRecords = seoRecords
     || compareCodePoints(left.filename, right.filename));
 validateUniqueCanonicalMetadata(cleanCanonicalRecords);
 validateCanonicalLinkGraph(seoRecords);
+await validateThumbnails(manifest, cleanCanonicalRecords, outputDirectory);
 await validateMachineSurfaces(profile, manifest, cleanCanonicalRecords, seoRecords, outputDirectory);
 
 for (const asset of [
@@ -256,6 +258,32 @@ function expectedMarkdownAlternateFor(filename, canonicalOrigin) {
   if (filename === "recipe.html") return `${canonicalOrigin}/recipes/functional-prototype/index.md`;
   const match = filename.match(/^(skills|recipes)\/([^/]+)\/index\.html$/);
   return match ? `${canonicalOrigin}/${match[1]}/${encodeURIComponent(match[2])}/index.md` : undefined;
+}
+
+function expectedSocialImageFor(filename, canonicalOrigin) {
+	if (filename === "404.html") return `${canonicalOrigin}/brand/social.png`;
+	if (filename === "index.html") return `${canonicalOrigin}/thumbnail.png`;
+	if (filename === "recipes.html" || filename === "recipes/index.html") return `${canonicalOrigin}/recipes/thumbnail.png`;
+	if (filename === "recipe.html") return `${canonicalOrigin}/recipes/functional-prototype/thumbnail.png`;
+	const match = filename.match(/^(skills|recipes)\/([^/]+)\/index\.html$/);
+	if (match) return `${canonicalOrigin}/${match[1]}/${encodeURIComponent(match[2])}/thumbnail.png`;
+	throw new Error(`No social image policy exists for emitted HTML file ${filename}`);
+}
+
+async function validateThumbnails(publicationManifest, canonicalRecords, directory) {
+	const manifestPaths = new Set(publicationManifest.files.map((file) => file.path));
+	const expectedPaths = canonicalRecords.map((record) => new URL(record.socialImageUrl).pathname.slice(1));
+	if (new Set(expectedPaths).size !== expectedPaths.length) throw new Error("Canonical routes must have unique social thumbnails");
+	for (const filename of expectedPaths) {
+		if (!manifestPaths.has(filename)) throw new Error(`Publication manifest is missing route thumbnail ${filename}`);
+		const png = await readFile(path.join(directory, filename));
+		if (png.length < 24 || !png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+			throw new Error(`${filename} is not a valid PNG thumbnail`);
+		}
+		if (png.readUInt32BE(16) !== 1200 || png.readUInt32BE(20) !== 630) {
+			throw new Error(`${filename} must be exactly 1200x630`);
+		}
+	}
 }
 
 function canonicalPublicationOrder(filename) {

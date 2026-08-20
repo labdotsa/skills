@@ -33,8 +33,13 @@ test("projects complete Skill metadata and truthful structured data from the pag
   });
   assert.equal(seo.openGraph.type, "article");
   assert.equal(seo.openGraph.url, seo.canonicalUrl);
-  assert.equal(seo.openGraph.image, "https://skills.lab.sa/brand/social.png");
-  assert.equal(seo.twitter.card, "summary_large_image");
+  assert.equal(seo.openGraph.image, "https://skills.lab.sa/skills/example/thumbnail.png");
+  assert.equal(seo.openGraph.imageAlt, "example — LAB Skill");
+  assert.equal(seo.openGraph.imageWidth, 1200);
+  assert.equal(seo.openGraph.imageHeight, 630);
+  assert.equal(seo.openGraph.imageType, "image/png");
+	assert.equal(seo.twitter.card, "summary_large_image");
+	assert.equal(seo.twitter.imageAlt, seo.openGraph.imageAlt);
   assert.deepEqual(seo.structuredData["@graph"].map((node) => node["@type"]), [
     "WebPage",
     "BreadcrumbList",
@@ -121,6 +126,8 @@ test("projects collection structured data in the same visible Catalog order", as
   );
   assert.equal(home.openGraph.type, "website");
   assert.equal(recipeIndex.openGraph.type, "website");
+  assert.equal(home.openGraph.image, "https://skills.lab.sa/thumbnail.png");
+  assert.equal(recipeIndex.openGraph.image, "https://skills.lab.sa/recipes/thumbnail.png");
 });
 
 test("describes a delivery Recipe as a WebPage without culinary schema", async () => {
@@ -156,6 +163,7 @@ test("describes a delivery Recipe as a WebPage without culinary schema", async (
     href: "https://skills.lab.sa/recipes/example/index.md",
   });
   assert.equal(seo.openGraph.type, "article");
+  assert.equal(seo.openGraph.image, "https://skills.lab.sa/recipes/example/thumbnail.png");
   assert.deepEqual(seo.structuredData["@graph"].map((node) => node["@type"]), [
     "WebPage",
     "BreadcrumbList",

@@ -44,6 +44,7 @@
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.62.1",
+    "@resvg/resvg-js": "2.6.2",
     "@sveltejs/adapter-static": "3.0.10",
     "@sveltejs/kit": "2.70.2",
     "@sveltejs/vite-plugin-svelte": "7.3.0",
@@ -54,6 +55,7 @@
     "lighthouse": "13.4.1",
     "remark-gfm": "4.0.1",
     "remark-parse": "11.0.0",
+    "satori": "0.16.2",
     "shadcn-svelte": "1.5.0",
     "smol-toml": "1.8.0",
     "svelte": "5.56.8",

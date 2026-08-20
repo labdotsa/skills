@@ -8,6 +8,7 @@ const canonicalProfile = {
 };
 
 const canonical = "https://skills.lab.sa/skills/example/";
+const socialImage = "https://skills.lab.sa/skills/example/thumbnail.png";
 const validHtml = `<!doctype html>
 <html lang="en">
   <head>
@@ -20,13 +21,17 @@ const validHtml = `<!doctype html>
     <meta property="og:description" content="Complete example instructions.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="${canonical}">
-    <meta property="og:image" content="https://skills.lab.sa/brand/social.png">
+    <meta property="og:image" content="${socialImage}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="LAB Skills preview">
     <meta property="og:site_name" content="LAB Skills">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Example — LAB Skills">
     <meta name="twitter:description" content="Complete example instructions.">
-    <meta name="twitter:image" content="https://skills.lab.sa/brand/social.png">
+    <meta name="twitter:image" content="${socialImage}">
+    <meta name="twitter:image:alt" content="LAB Skills preview">
     <link rel="canonical" href="${canonical}">
     <link rel="alternate" type="text/markdown" href="https://skills.lab.sa/skills/example/index.md">
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","url":"${canonical}"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LAB Skills"}]}]}</script>
@@ -42,6 +47,7 @@ test("validates a complete canonical document and returns its normalized SEO rec
     profile: canonicalProfile,
     expectedCanonical: canonical,
     expectedAlternate: "https://skills.lab.sa/skills/example/index.md",
+    expectedSocialImage: socialImage,
     structuredData: "required",
   });
 
@@ -49,6 +55,7 @@ test("validates a complete canonical document and returns its normalized SEO rec
   assert.equal(record.description, "Complete example instructions.");
   assert.equal(record.canonicalUrl, canonical);
   assert.equal(record.alternateUrl, "https://skills.lab.sa/skills/example/index.md");
+  assert.equal(record.socialImageUrl, socialImage);
   assert.deepEqual(record.schemaTypes, ["WebPage", "BreadcrumbList", "ListItem"]);
 });
 
@@ -60,6 +67,7 @@ test("rejects missing, duplicated, invalid, unsafe, and profile-inconsistent SEO
     profile: canonicalProfile,
     expectedCanonical: canonical,
     expectedAlternate: "https://skills.lab.sa/skills/example/index.md",
+    expectedSocialImage: socialImage,
     structuredData: "required",
     ...overrides,
   });

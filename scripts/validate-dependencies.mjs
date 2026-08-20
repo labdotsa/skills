@@ -17,6 +17,7 @@ const expectedRuntime = [
 const expectedDevelopment = [
   "@axe-core/playwright",
   "@playwright/test",
+	"@resvg/resvg-js",
   "@sveltejs/adapter-static",
   "@sveltejs/kit",
   "@sveltejs/vite-plugin-svelte",
@@ -28,6 +29,7 @@ const expectedDevelopment = [
   "remark-gfm",
   "remark-parse",
   "shadcn-svelte",
+	"satori",
   "smol-toml",
   "svelte",
   "svelte-check",

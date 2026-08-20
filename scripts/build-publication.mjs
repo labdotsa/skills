@@ -33,6 +33,18 @@ process.stdout.write(vite.stdout);
 process.stderr.write(vite.stderr);
 if (vite.status !== 0) process.exit(vite.status ?? 1);
 
+const thumbnailPublication = spawnSync(process.execPath, [
+  path.join(repositoryRoot, "node_modules/tsx/dist/cli.mjs"),
+  path.join(repositoryRoot, "scripts/generate-thumbnails.ts"),
+  requestedOutput,
+], {
+  cwd: repositoryRoot,
+  encoding: "utf8",
+});
+process.stdout.write(thumbnailPublication.stdout);
+process.stderr.write(thumbnailPublication.stderr);
+if (thumbnailPublication.status !== 0) process.exit(thumbnailPublication.status ?? 1);
+
 const machinePublication = spawnSync(process.execPath, [
   path.join(repositoryRoot, "node_modules/tsx/dist/cli.mjs"),
   path.join(repositoryRoot, "scripts/generate-machine-publication.ts"),

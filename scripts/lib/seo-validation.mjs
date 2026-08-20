@@ -16,6 +16,7 @@ export function validateSeoDocument({
   profile,
   expectedCanonical,
   expectedAlternate,
+	expectedSocialImage,
   structuredData,
 }) {
   requireCount(filename, "doctype", html.match(/<!doctype html>/gi) ?? [], 1);
@@ -66,6 +67,9 @@ export function validateSeoDocument({
     "og:description",
     "og:type",
     "og:image",
+	"og:image:type",
+	"og:image:width",
+	"og:image:height",
     "og:image:alt",
     "og:site_name",
   ];
@@ -81,6 +85,7 @@ export function validateSeoDocument({
     "twitter:title",
     "twitter:description",
     "twitter:image",
+	"twitter:image:alt",
   ].map((name) => [name, attribute(
     filename,
     name,
@@ -106,10 +111,19 @@ export function validateSeoDocument({
     throw new Error(`${filename}: og:site_name must be LAB Skills`);
   }
   if (!openGraph["og:image:alt"]) throw new Error(`${filename}: og:image:alt must be non-empty`);
+	if (openGraph["og:image:type"] !== "image/png" || openGraph["og:image:width"] !== "1200" || openGraph["og:image:height"] !== "630") {
+		throw new Error(`${filename}: social image metadata must describe a 1200x630 PNG`);
+	}
+	if (twitter["twitter:image:alt"] !== openGraph["og:image:alt"]) {
+		throw new Error(`${filename}: Twitter and Open Graph image alt text must match`);
+	}
   if (twitter["twitter:card"] !== "summary_large_image") {
     throw new Error(`${filename}: twitter:card must be summary_large_image`);
   }
   validateSocialImage(filename, openGraph["og:image"], profile.canonicalOrigin);
+	if (expectedSocialImage !== undefined && openGraph["og:image"] !== expectedSocialImage) {
+		throw new Error(`${filename}: social image must match its route thumbnail ${expectedSocialImage}`);
+	}
   if (twitter["twitter:image"] !== openGraph["og:image"]) {
     throw new Error(`${filename}: Twitter and Open Graph images must match`);
   }
@@ -165,6 +179,7 @@ export function validateSeoDocument({
     description,
     canonicalUrl,
     alternateUrl,
+		socialImageUrl: openGraph["og:image"],
     schemaTypes: Object.freeze(schemaTypes),
     links: Object.freeze(links.map((link) => tagAttributes(link).href)),
   });
