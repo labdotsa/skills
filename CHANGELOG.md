@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added one-command bulk installation to every Recipe page, preferring an optional skills.sh Pack while retaining a generated repository-grouped fallback and excluding built-in tools that require no installation.
 - Added the `public-pages` skill for the complete evidence-driven lifecycle of public website pages, with integrated creation, implementation, release, audit, prioritization, improvement, and ongoing operations.
 - Added the `design-app-store-screenshots` skill for evidence-backed screenshot strategy, copy, visual direction, auditing, localization, and controlled App Store or Google Play experimentation, with explicit handoff to `submit-mobile-app-stores` for specification validation, packaging, upload, review, and release.
 - Refined `client-brief` with a context-efficient existing-product checkpoint and structured handoff to a separate product diagnosis when product performance is material to the engagement.

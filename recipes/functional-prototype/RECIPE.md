@@ -10,6 +10,7 @@ metadata:
   category: product-delivery
   status: draft
   detail-url: ./recipe.html
+  pack-url: https://skills.sh/p/ZAhjWBxq1YUaoauO
   outcome: functional-prototype
   conversation-layers:
     - foundation

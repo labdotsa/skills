@@ -182,6 +182,10 @@ test("exposes deterministic route entries and plain immutable page views", async
     { kind: "external", name: "external", installCommand: "npx skills add example/skills --skill external" },
     { kind: "builtin", name: "imagegen", installCommand: undefined },
   ]);
+  assert.equal(
+    recipePage.installCommand,
+    "npx skills add labdotsa/skills --skill example && npx skills add example/skills --skill external",
+  );
   assert.equal(Object.isFrozen(recipePage), true);
   assert.equal(Object.isFrozen(recipePage.phases[0].steps[0].document), true);
   assert.equal(JSON.parse(JSON.stringify(first.skillPage("example"))).slug, "example");

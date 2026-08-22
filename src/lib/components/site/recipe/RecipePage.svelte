@@ -24,7 +24,11 @@
 
 <article data-recipe-page data-catalog-snapshot={catalogSnapshotId}>
 	<RecipeHero {recipe} />
-	<RecipeRequirements requirements={recipe.requirements} />
+	<RecipeRequirements
+		requirements={recipe.requirements}
+		installCommand={recipe.installCommand}
+		fallbackInstallCommand={recipe.fallbackInstallCommand}
+	/>
 	<PageFrame class="py-16 sm:py-24">
 		{#if recipe.introduction.children.length > 0}
 			<div class="mb-14 max-w-3xl"><RecipeRichDocument document={recipe.introduction} /></div>

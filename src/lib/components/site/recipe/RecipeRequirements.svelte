@@ -1,20 +1,36 @@
 <script lang="ts">
 	import PageFrame from "$lib/components/shared/PageFrame.svelte";
+	import InstallCommand from "$lib/components/site/common/InstallCommand.svelte";
 	import type { RecipeRequirementView } from "$lib/domain/catalog.js";
 	import RequirementCommand from "./RequirementCommand.svelte";
 	import RequirementReferenceLink from "./RequirementReferenceLink.svelte";
 
 	interface Props {
 		requirements: readonly RecipeRequirementView[];
+		installCommand?: string;
+		fallbackInstallCommand?: string;
 	}
 
-	let { requirements }: Props = $props();
+	let { requirements, installCommand, fallbackInstallCommand }: Props = $props();
 </script>
 
 <section class="border-y bg-card" aria-labelledby="recipe-requirements-title" data-theme-transition-surface>
 	<PageFrame class="py-16 sm:py-24">
 		<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Before you begin</p>
 		<h2 id="recipe-requirements-title" class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Skills used in this Recipe</h2>
+		{#if installCommand}
+			<div class="mt-8" data-recipe-install-all>
+				<InstallCommand command={installCommand} title="Install all Recipe skills" accent="var(--page-accent)" />
+			</div>
+			{#if fallbackInstallCommand}
+				<details class="mt-4 max-w-3xl text-sm text-muted-foreground" data-recipe-install-fallback>
+					<summary class="w-fit cursor-pointer font-semibold text-foreground underline-offset-4 hover:underline">Install without the Pack</summary>
+					<div class="mt-4">
+						<InstallCommand command={fallbackInstallCommand} title="Install Recipe skills by repository" accent="var(--page-accent)" />
+					</div>
+				</details>
+			{/if}
+		{/if}
 		<ul
 			class="mt-8 grid gap-px overflow-hidden rounded-lg border bg-border md:grid-cols-2 xl:hidden"
 			aria-label="Skills and tools required by this Recipe"

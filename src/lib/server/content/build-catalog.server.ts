@@ -8,6 +8,7 @@ import type {
 	ResourceCounts,
 	SkillEntry,
 	SkillPageView,
+	SkillRequirement,
 } from "$lib/domain/catalog.js";
 import type { DiscoveredRecipeSource, DiscoveredSkillSource, SourceFile } from "$lib/domain/content.js";
 import { contentError } from "./diagnostic.js";
@@ -199,6 +200,7 @@ function recipePage(
 		status: recipe.status,
 		author: recipe.author,
 		outcome: recipe.outcome,
+		...(recipe.packUrl ? { packUrl: recipe.packUrl } : {}),
 		sourceUrl: `${sourceRoot}/tree/master/recipes/${encodedSlug}`,
 		fileUrl: `${sourceRoot}/blob/master/recipes/${encodedSlug}/RECIPE.md`,
 		document: recipe.document,
@@ -208,10 +210,28 @@ function recipePage(
 		skillRequirements: recipe.skillRequirements,
 		phases: recipePhases(recipe),
 		requirements: recipe.skillRequirements.map(recipeRequirement),
+		installCommand: recipe.packUrl
+			? `npx skills add ${recipe.packUrl}`
+			: recipeInstallCommand(recipe.skillRequirements),
+		...(recipe.packUrl ? { fallbackInstallCommand: recipeInstallCommand(recipe.skillRequirements) } : {}),
 		localSkills: recipe.skillRequirements.flatMap((requirement) =>
 			requirement.kind === "local" ? [related(skillsBySlug.get(requirement.name)!)] : []),
 		recommendedRecipes: recommendations([...recipesBySlug.values()], recipe, recommendationLimit),
 	});
+}
+
+function recipeInstallCommand(requirements: readonly SkillRequirement[]): string | undefined {
+	const skillsBySource = new Map<string, string[]>();
+	for (const requirement of requirements) {
+		if (requirement.kind === "builtin") continue;
+		const names = skillsBySource.get(requirement.source) ?? [];
+		names.push(requirement.name);
+		skillsBySource.set(requirement.source, names);
+	}
+	if (skillsBySource.size === 0) return undefined;
+	return [...skillsBySource]
+		.map(([source, names]) => `npx skills add ${source} --skill ${names.join(" ")}`)
+		.join(" && ");
 }
 
 function recipeIntroduction(recipe: RecipeEntry) {
@@ -354,6 +374,7 @@ function buildRecipe(discovered: DiscoveredRecipeSource, skillSlugs: ReadonlySet
 		status: input.metadata.status,
 		author: input.metadata.author,
 		outcome: input.metadata.outcome,
+		...(input.metadata["pack-url"] ? { packUrl: input.metadata["pack-url"] } : {}),
 		source: discovered.source,
 		document: rich.document,
 		outline: rich.outline,

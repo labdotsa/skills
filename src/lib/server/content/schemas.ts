@@ -9,6 +9,10 @@ const category = nonEmpty.regex(
 	/^[a-z0-9]+(?:-[a-z0-9]+)*$/,
 	"must use lowercase letters, numbers, and hyphens",
 );
+const packUrl = z.url().refine((value) => {
+	const url = new URL(value);
+	return url.protocol === "https:" && url.hostname === "skills.sh" && /^\/p\/[A-Za-z0-9]+$/.test(url.pathname);
+}, "must be an HTTPS skills.sh Pack URL");
 
 export const skillSourceSchema = z.object({
 	name: packageName,
@@ -41,6 +45,7 @@ export const recipeSourceSchema = z.object({
 		category,
 		status: z.enum(["draft", "stable"]),
 		"detail-url": nonEmpty,
+		"pack-url": packUrl.optional(),
 		outcome: nonEmpty,
 		"conversation-layers": z.array(nonEmpty).min(1),
 		skills: z.array(recipeRequirementSchema).min(1),

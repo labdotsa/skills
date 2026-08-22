@@ -202,6 +202,8 @@ async function validateRecipePages(publicationManifest, directory) {
       "data-recipe-phase",
       "Recipe contents",
       "Skills used in this Recipe",
+      "Install all Recipe skills",
+      "data-recipe-install-all",
       "data-rich-document",
       `https://skills.lab.sa/recipes/${slug}/`,
     ]) {
@@ -211,6 +213,9 @@ async function validateRecipePages(publicationManifest, directory) {
     const phases = [...html.matchAll(/data-recipe-phase="([^"]+)"/g)].map((match) => match[1]);
     if (!snapshot || phases.length === 0) throw new Error(`${filename} is missing its typed Recipe model markers`);
     if (slug === "functional-prototype") {
+      if (!html.includes("npx skills add https://skills.sh/p/ZAhjWBxq1YUaoauO")) {
+        throw new Error(`${filename} is missing its skills.sh Pack install command`);
+      }
       const model = JSON.stringify({ snapshot, phases });
       if (compatibilityModel !== undefined && model !== compatibilityModel) {
         throw new Error("The canonical and compatibility Recipe pages use different view models");

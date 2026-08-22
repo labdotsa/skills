@@ -74,6 +74,7 @@ export type RecipeEntry = EntryBase & Readonly<{
 	status: "draft" | "stable";
 	author: string;
 	outcome: string;
+	packUrl?: string;
 	stages: readonly RecipeStage[];
 	skillRequirements: readonly SkillRequirement[];
 }>;
@@ -137,6 +138,8 @@ export type RecipePageView = Readonly<{
 	skillRequirements: readonly SkillRequirement[];
 	phases: readonly RecipePagePhase[];
 	requirements: readonly RecipeRequirementView[];
+	installCommand?: string;
+	fallbackInstallCommand?: string;
 	localSkills: readonly RelatedEntry[];
 	recommendedRecipes: readonly RelatedEntry[];
 }>;
