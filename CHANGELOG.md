@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the `public-pages` skill for the complete evidence-driven lifecycle of public website pages, with integrated creation, implementation, release, audit, prioritization, improvement, and ongoing operations.
+- Added the `design-app-store-screenshots` skill for evidence-backed screenshot strategy, copy, visual direction, auditing, localization, and controlled App Store or Google Play experimentation, with explicit handoff to `submit-mobile-app-stores` for specification validation, packaging, upload, review, and release.
 - Refined `client-brief` with a context-efficient existing-product checkpoint and structured handoff to a separate product diagnosis when product performance is material to the engagement.
 - Added the `product-diagnosis` skill for defining outcome gaps, locating behavioral breakdowns, comparing causal hypotheses, and selecting evidence-backed investigations or interventions for existing products.
 - Generate a unique, catalog-backed 1200 × 630 social thumbnail for every Skill, Recipe, and directory route, and publish complete Open Graph and Twitter image metadata.

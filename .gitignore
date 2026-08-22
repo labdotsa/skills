@@ -17,6 +17,7 @@ tmp/
 /docs/*
 !/docs/catalog.md
 !/docs/README.md
+!/docs/app-store-screenshot-research.md
 !/docs/agents/
 !/docs/agents/**
 !/docs/adr/

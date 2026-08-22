@@ -22,6 +22,8 @@ Identify the store; testing or production intent; track; app and platform; versi
 4. Before Fastlane, API, browser, submission, release, or monitoring work, read [execution.md](references/execution.md).
 5. For uncertain, time-sensitive, conditional, or challenged requirements, use [research-basis.md](references/research-basis.md) and re-check current official documentation and the live console.
 
+When screenshot assets need strategy, value propositions, carousel storytelling, overlay copy, visual direction, creative auditing, transcreation, custom-listing concepts, or experiment hypotheses, invoke `design-app-store-screenshots` first. Receive its approved creative set, asset matrix, claim ledger, locale/device intent, and unresolved qualifications; retain exact specification, packaging, validation, upload, review, and release ownership here.
+
 ## Build the dossier
 
 Discover existing facts before questioning the user: inspect manifests, build settings, entitlements/permissions, Fastfiles, metadata, privacy artifacts, data-safety material, release notes, assets, CI, and credential *references*. Query store state read-only when authorized access exists.

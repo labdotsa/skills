@@ -24,7 +24,7 @@ test("renders the complete server-prerendered shell without remote presentation 
   await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
   await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(0)).toHaveAttribute("aria-current", "page");
   await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(1)).toHaveAttribute("href", "/recipes/");
-  await expect(page.getByText("36 of 36 skills")).toBeVisible();
+  await expect(page.getByText("38 of 38 skills")).toBeVisible();
   await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
   await expect(page.locator('[data-site-header] a[aria-label="LAB Skills home"] [data-lab-wordmark]')).toHaveAttribute("data-variant", "mark");
