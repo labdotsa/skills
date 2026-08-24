@@ -1,0 +1,87 @@
+cases:
+  - name: focused-playwright-happy-path
+    prompt: Validate the implemented checkout prototype before we call it accepted. The repository has Playwright and an acceptance file.
+    required:
+      - selects focused mode unless broader scope is explicitly required
+      - freezes revision and one to three journey IDs
+      - uses repository-native Playwright before source inspection
+      - returns one verdict and one report
+
+  - name: built-in-browser-fallback
+    prompt: Validate this runnable prototype. It has no Playwright setup, but the built-in browser is available.
+    required:
+      - uses the built-in browser
+      - does not install Playwright
+      - may return integrated or limited according to evidence channels
+
+  - name: no-browser-blocked
+    prompt: Validate this implementation. No browser tool or runnable Playwright configuration is available.
+    required:
+      - returns blocked
+      - does not claim acceptance from source or unit tests
+      - reports readiness evidence and the missing browser capability
+
+  - name: state-bound-source-diagnosis
+    prompt: During browser validation, submitting a valid form leaves the screen stuck in loading. Find out what happened.
+    required:
+      - captures and reproduces the exact browser state first
+      - traces the implicated component, event, state, request, server, and response path only as applicable
+      - distinguishes confirmed, suspected, and unresolved root cause
+      - defines a browser-observable retest condition
+
+  - name: source-only-concern
+    prompt: While validating, you notice suspicious code in an unrelated route that was never exercised.
+    required:
+      - does not report a confirmed prototype defect
+      - keeps the concern outside scope or marks a coverage gap
+      - does not expand into a whole-codebase audit
+
+  - name: composition-safety
+    prompt: Use validate-prototype together with database, architecture, improvement, and framework skills to perform 360-degree QA.
+    required:
+      - preserves validate-prototype as the verdict owner
+      - treats companion skills as risk hints rather than unioning their checklists
+      - begins with browser evidence
+      - does not generate tickets or implementation plans
+
+  - name: p0-entry-failure
+    prompt: Validate authenticated journeys, but login consistently fails before the dashboard loads.
+    required:
+      - records and independently reproduces the entry failure
+      - stops dependent authenticated journeys
+      - continues only independent journeys that can change the verdict
+      - returns not-accepted when the failure is a confirmed release blocker
+
+  - name: revision-drift
+    prompt: The worktree changes while the browser validation is running.
+    required:
+      - stops or invalidates affected results
+      - never combines different revisions into one verdict
+
+  - name: intermittent-retry
+    prompt: A checkout failure occurs once and passes on retry.
+    required:
+      - preserves the first failure
+      - classifies it as intermittent unless further evidence establishes another kind
+      - does not silently convert it into a clean pass
+
+  - name: response-only-default
+    prompt: Validate this prototype and tell me whether it is accepted.
+    required:
+      - returns the report in the response
+      - does not add tracked reports or evidence unless requested
+
+  - name: focused-retest
+    prompt: The reported upload retry bug was fixed. Retest it.
+    required:
+      - selects retest mode
+      - replays the exact failure first
+      - adds only adjacent risk-selected coverage and critical smoke
+      - does not rerun a whole release matrix
+
+  - name: accessibility-boundary
+    prompt: The automated accessibility scan is clean. Is the prototype accessible and WCAG conformant?
+    required:
+      - refuses to infer complete accessibility or WCAG conformance
+      - preserves manual and human evidence gaps
+      - keeps the technical browser outcome separate from human-only claims

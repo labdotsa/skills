@@ -1,0 +1,32 @@
+id: VP-001
+finding_kind: defect
+severity: P2
+confidence: high
+scenario_id: required
+scenario_outcome: fail
+revision: required
+environment: required
+state:
+  route_or_screen: required
+  role: required
+  fixture: redacted-or-nonsecret
+  browser: required
+  viewport: required
+  locale: required
+expected: required
+actual: required
+reproduction:
+  preconditions: []
+  steps: []
+user_consequence: required
+evidence: []
+runtime_signals:
+  console: []
+  network: []
+source_trace:
+  root_cause_status: unresolved
+  locations: []
+  explanation: null
+retest_condition: required
+duplicate_group: null
+ticket_disposition: not-reviewed

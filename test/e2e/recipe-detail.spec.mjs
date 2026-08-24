@@ -36,7 +36,7 @@ test("prerenders the complete Recipe reading journey from one typed view", async
     ? page.getByRole("list", { name: "Skills and tools required by this Recipe" })
     : page.getByRole("table", { name: "Skills and tools required by this Recipe" });
   await expect(requirementsSurface).toBeVisible();
-  await expect(page.locator("[data-recipe-requirements-table] tbody tr")).toHaveCount(8);
+  await expect(page.locator("[data-recipe-requirements-table] tbody tr")).toHaveCount(9);
   await expect(requirementsSurface.getByRole("link", { name: "$wayfinder (opens in a new tab)" })).toHaveAttribute("target", "_blank");
   await expect(requirementsSurface.getByRole("link", { name: "mattpocock/skills (opens in a new tab)" }).first()).toHaveAttribute("target", "_blank");
   await expect(requirementsSurface.getByText("npx skills add mattpocock/skills --skill wayfinder")).toBeVisible();

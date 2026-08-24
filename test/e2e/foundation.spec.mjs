@@ -24,7 +24,7 @@ test("renders the complete server-prerendered shell without remote presentation 
   await expect(page.locator("[data-lab-hero]")).toHaveCount(1);
   await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(0)).toHaveAttribute("aria-current", "page");
   await expect(page.locator("[data-desktop-navigation] .site-nav-link").nth(1)).toHaveAttribute("href", "/recipes/");
-  await expect(page.getByText("38 of 38 skills")).toBeVisible();
+  await expect(page.getByText("39 of 39 skills")).toBeVisible();
   await expect(page.locator("[data-catalog-snapshot]")).toHaveAttribute("data-catalog-snapshot", /^sha256:[0-9a-f]{64}$/);
   await expect(page.locator("main#main-content")).toBeVisible();
   await expect(page.locator('[data-site-header] a[aria-label="LAB Skills home"] [data-lab-wordmark]')).toHaveAttribute("data-variant", "mark");
@@ -767,7 +767,7 @@ test("recipe requirements use compact interactive command controls", async ({ pa
   const requirements = page.locator(isMobile ? "[data-recipe-requirements-cards]" : "[data-recipe-requirements-table]");
   const panels = requirements.locator("[data-code-panel]");
   await expect(requirements).toBeVisible();
-  await expect(panels).toHaveCount(8);
+  await expect(panels).toHaveCount(9);
 
   const signatures = await panels.evaluateAll((elements) => elements.map((element) => {
     const header = element.querySelector(":scope > [data-code-panel-header]");

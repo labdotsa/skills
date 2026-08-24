@@ -1,10 +1,10 @@
 ---
 name: functional-prototype
 description: >-
-  Guide a product from early discovery to a functioning prototype through four focused conversation layers: foundation,
-  visuals, planning, and implementation. Use this recipe to gather and research product context, establish durable
+  Guide a product from early discovery to an accepted functioning prototype through five focused conversation layers:
+  foundation, visuals, planning, implementation, and validation. Use this recipe to gather and research product context, establish durable
   artifacts, define and reverse-engineer visual directions, create implementation-ready tickets, resolve
-  human-in-the-loop decisions, and implement one tested task at a time.
+  human-in-the-loop decisions, implement one tested task at a time, and validate integrated user journeys with independent evidence.
 metadata:
   author: labdotsa
   category: product-delivery
@@ -17,6 +17,7 @@ metadata:
     - visuals
     - planning
     - implementation
+    - validate
   skills:
     - name: wayfinder
       source: mattpocock/skills
@@ -42,6 +43,9 @@ metadata:
     - name: tdd
       source: mattpocock/skills
       url: https://www.skills.sh/mattpocock/skills/tdd
+    - name: validate-prototype
+      source: labdotsa/skills
+      url: https://www.skills.sh/labdotsa/skills/validate-prototype
 ---
 
 # Functioning Prototype
@@ -218,3 +222,31 @@ If the task is not complete, add a note to the issue file explaining what was do
 For your information, this prompt uses the skill below, so make sure it is already accessible:
 
 - [https://www.skills.sh/mattpocock/skills/tdd](https://www.skills.sh/mattpocock/skills/tdd)
+
+## Conversation - Validate
+
+Implementation is not acceptance. Run an independent, observation-first validation pass against the integrated product using:
+
+- [https://www.skills.sh/labdotsa/skills/validate-prototype](https://www.skills.sh/labdotsa/skills/validate-prototype)
+
+```text
+Use $validate-prototype to validate the implemented prototype against the current artifacts and active release slice.
+
+Remain read-only: do not fix code, approve visual baselines, install dependencies, or create tickets. Exercise every journey through the repository's Playwright setup or the built-in browser. If neither can operate the rendered product, return blocked rather than substituting source review.
+
+Use focused mode by default. Freeze the revision and one to three must-work journeys, test one primary configuration, and expand roles, states, viewports, locales, browsers, recovery paths, or accessibility checks only when a documented risk triggers them. When the browser exposes a failure at a particular screen and state, reproduce and capture that state first, trace only the implicated runtime and source path, then define a browser-observable retest condition.
+
+Return one report that separates scenario outcome, finding kind, root-cause confidence, ticket disposition, confirmed passes, and explicit gaps. Keep UX and human-accessibility claims as hypotheses unless representative evidence exists.
+```
+
+The validator remains linear by default. For a genuinely large, safely isolated release scope, it may use at most two bounded read-only scouts after freezing one shared contract. One coordinator owns evidence, independent reproduction, root-cause deduplication, and the verdict.
+
+### Step - Human Validation
+
+Add a human validation guide only when acceptance depends on comprehension, trust, desirability, cognitive burden, product-policy judgment, or lived assistive-technology experience. Agent judgments in these areas remain hypotheses until a human confirms them; their absence does not automatically block a technical browser verdict unless the acceptance contract requires them.
+
+### Step - Remediation Loop
+
+Review the report before creating work. Select no more than three to five deduplicated root-cause groups for prioritization, pass only approved findings to `to-tickets`, implement one coherent ticket, then use the validator's retest mode to replay the exact failed reproduction, adjacent risk-selected regressions, and the critical smoke journey. Never silently replace a visual baseline to make validation pass.
+
+The prototype is accepted when every must-work journey has evidence, no unresolved release blocker remains, required automated and manual checks are complete, human-validation items are resolved or explicitly deferred, and all untested gaps are visible. Acceptance—not backlog exhaustion—is the stop condition.

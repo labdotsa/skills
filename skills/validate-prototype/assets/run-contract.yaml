@@ -1,0 +1,23 @@
+mode: focused
+revision: required
+target:
+  kind: url-or-app
+  value: required
+acceptance_source: required
+capability:
+  status: integrated
+  browser_mechanism: repository-playwright-or-built-in-browser
+  missing_channels: []
+primary_configuration:
+  browser: required
+  role: required
+  viewport: required
+  locale: required
+journeys:
+  - id: required
+    expected_outcome: required
+changed_surfaces: []
+risk_triggers: []
+non_goals: []
+prohibited_side_effects: []
+write_authority: response-only
