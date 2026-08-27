@@ -1,0 +1,10 @@
+{
+  "pairs": [
+    {
+      "name": "low contrast supporting text",
+      "foreground": "#94a3b8",
+      "background": "#ffffff",
+      "minimum": 4.5
+    }
+  ]
+}

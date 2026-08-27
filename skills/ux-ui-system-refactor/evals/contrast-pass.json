@@ -1,0 +1,16 @@
+{
+  "pairs": [
+    {
+      "name": "body text on canvas",
+      "foreground": "#1f2937",
+      "background": "#ffffff",
+      "minimum": 4.5
+    },
+    {
+      "name": "light text on action",
+      "foreground": "rgb(255 255 255)",
+      "background": "hsl(215 80% 35%)",
+      "minimum": 4.5
+    }
+  ]
+}

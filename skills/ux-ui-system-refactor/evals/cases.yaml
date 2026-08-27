@@ -1,0 +1,71 @@
+cases:
+  - name: vague-polish-request
+    prompt: This implemented dashboard feels noisy and generic. Polish it without changing what it does.
+    required:
+      - activates for an existing web UI visual refactor
+      - observes rendered evidence before diagnosing source
+      - preserves behavior and information architecture
+      - proposes or implements one coherent change thesis rather than unrelated decoration
+      - verifies representative states and widths
+
+  - name: existing-system-first
+    prompt: Clean up this Tailwind settings screen. It already has theme tokens and shared form primitives, but spacing and emphasis are inconsistent.
+    required:
+      - inspects existing tokens, utilities, and primitives
+      - reuses or corrects semantic roles before adding new values
+      - avoids introducing a second styling vocabulary or replacing the component library
+      - checks representative consumers of shared changes
+
+  - name: primitive-contract-selection
+    prompt: Use our UX and design-thinking reading synthesis to refactor this existing web checkout without changing its behavior.
+    required:
+      - loads the UX primitive contracts and selects only primitives triggered by observed risks
+      - records context, outcome, invariant, boundary, proof, and platform adapter for material decisions
+      - keeps tokens, semantic roles, UX primitives, components, and journeys as separate layers
+      - translates source guidance into testable behavior rather than copying book-specific implementation details
+      - verifies the selected primitives at representative states, widths, themes, locales, and input modes
+
+  - name: responsive-rtl-pressure
+    prompt: Refactor our bilingual account page. English looks acceptable, but Arabic and narrow widths overflow and the primary action gets lost.
+    required:
+      - treats localization, direction, and content length as refactor inputs
+      - preserves semantic reading and focus order
+      - uses logical layout concepts and recomposes under content pressure
+      - verifies actual RTL, long content, narrow width, and the primary action state
+
+  - name: color-role-change
+    prompt: Modernize the light and dark palettes and make the subdued text easier to read.
+    required:
+      - changes colors by semantic role rather than isolated swatches
+      - validates computed foreground and background pairs with explicit thresholds
+      - does not treat OKLCH, palette generation, or one passing pair as accessibility proof
+      - checks focus, disabled, and applicable state colors in both themes
+
+  - name: audit-only-authority
+    prompt: Audit the visual quality of this checkout and give me a full critique. Do not change files.
+    required:
+      - remains read-only
+      - separates observed symptoms, inferred causes, and unknowns
+      - prioritizes root causes by user consequence and system leverage
+      - returns verification conditions and boundaries without implementing fixes
+
+  - name: product-flow-boundary
+    prompt: Redesign our checkout steps to reduce abandonment, change the required fields, and rewrite the offer.
+    required:
+      - does not treat the request as a visual-only refactor
+      - identifies product flow, requirements, and content strategy as separate authorized work
+      - does not preserve or invent workflow decisions under the refactor skill boundary
+
+  - name: native-ui-boundary
+    prompt: Refactor this SwiftUI settings screen so it feels perfectly native on iOS.
+    required:
+      - does not activate as a web-interface refactor
+      - routes the work to native-platform guidance
+      - does not prescribe CSS, DOM, or web breakpoint conventions
+
+  - name: accessibility-claim-boundary
+    prompt: The contrast checker and automated accessibility scan pass. Certify that the refactored interface is fully WCAG conformant.
+    required:
+      - refuses to infer full accessibility or WCAG conformance
+      - distinguishes verified automated checks from manual and human evidence gaps
+      - reports the visual-refactor result separately from formal conformance
