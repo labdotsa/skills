@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issuer"
+  short_description: "Compile accepted scope into AFK issue graphs"
+  default_prompt: "Use $issuer to compile this accepted work into a bounded, validated implementation issue graph."

@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Add the `issuer` skill for compiling accepted product artifacts, specifications, and findings into bounded, validated AFK issue graphs, with deterministic local Markdown contracts, stable numeric IDs, dependency checks, HITL separation, idempotent tracker publication, and Orchestrator-compatible output.
 - Add the `validate-prototype` skill and a fifth Validate layer to the Functioning Prototype recipe. Validation now requires repository-native Playwright or the built-in browser, uses focused risk-triggered coverage, diagnoses browser-observed states through targeted source tracing, emits one bounded report, and supports evidence-backed retesting without silently expanding into implementation or whole-codebase audit work.
 - Added one-command bulk installation to every Recipe page, preferring an optional skills.sh Pack while retaining a generated repository-grouped fallback and excluding built-in tools that require no installation.
 - Added the `public-pages` skill for the complete evidence-driven lifecycle of public website pages, with integrated creation, implementation, release, audit, prioritization, improvement, and ongoing operations.

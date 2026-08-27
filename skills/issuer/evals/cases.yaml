@@ -1,0 +1,79 @@
+cases:
+  - name: accepted-artifact-to-local-afk-graph
+    prompt: Use Issuer to turn these accepted product artifacts into implementation issues for Orchestrator.
+    required:
+      - selects one bounded active release slice
+      - writes one AFK issue per 0000-prefixed Markdown file under issues
+      - preserves source requirement or scenario IDs
+      - validates the complete local graph before handoff
+
+  - name: no-redundant-approval-gate
+    prompt: Create the implementation issues from this approved release specification. I will be away.
+    required:
+      - does not quiz the user about granularity by default
+      - self-reviews and issues ready AFK work
+      - asks only if missing authority would materially change the result
+
+  - name: critical-open-decision
+    prompt: Issue the checkout work, but the artifacts leave merchant of record and refund authority undecided.
+    required:
+      - does not invent the commercial or authority decision
+      - does not create dependent ready-for-agent implementation issues
+      - batches the blocking decisions into one concise user request
+
+  - name: noncritical-future-hitl
+    prompt: Create the active onboarding issues; future enterprise SSO still needs customer validation.
+    required:
+      - keeps enterprise SSO parked outside the active AFK queue
+      - does not create a HITL dependency on the onboarding frontier
+      - reports parked scope without blocking accepted onboarding work
+
+  - name: affected-layers-only
+    prompt: Turn this accepted server-side idempotency defect into an implementation issue.
+    required:
+      - does not manufacture schema or UI work
+      - produces one observable and independently verifiable outcome
+      - includes failure and replay behavior when supported by the source
+
+  - name: wide-refactor
+    prompt: Issue a repository-wide shared identifier migration that cannot be changed atomically at every caller.
+    required:
+      - uses expand then bounded migration batches then contract
+      - keeps intermediate revisions green
+      - makes contract depend on every migration batch
+
+  - name: unbounded-product-artifacts
+    prompt: Convert every artifact for this large product into implementation tickets.
+    required:
+      - selects one demonstrable active release slice
+      - caps the default active AFK queue at ten
+      - parks later work instead of generating an exhaustive implementation backlog
+
+  - name: tracker-publication
+    prompt: Publish the accepted AFK graph to the GitHub tracker configured by this repository.
+    required:
+      - validates canonical bodies before external mutation
+      - creates or reconciles issues before wiring native dependencies
+      - preserves Issuer IDs for idempotent retries
+      - applies the AFK-ready label only after validation
+
+  - name: orchestrator-vs-remote-only-conflict
+    prompt: Create issues for Orchestrator, but repository instructions prohibit local issue files and require remote-only tracking.
+    required:
+      - identifies the incompatible authorities
+      - does not silently create a second issue source
+      - requests direction instead of publishing unusable input
+
+  - name: audit-malformed-queue
+    prompt: Audit these issue files before Orchestrator starts. They use Mode instead of Type and plain-text blockers.
+    required:
+      - distinguishes formatting incompatibility from semantic readiness
+      - reports UNKNOWN classification and lost dependency edges
+      - does not rewrite files unless repair was requested
+
+  - name: idempotent-rerun
+    prompt: Run Issuer again after an interrupted GitHub publication.
+    required:
+      - finds existing issues by Issuer ID and source identity
+      - creates only missing issues
+      - does not overwrite remotely edited issue bodies silently
