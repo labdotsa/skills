@@ -113,6 +113,15 @@ class ValidateIssuesTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("maximum is 2", result.stderr)
 
+    def test_default_active_queue_is_unlimited(self) -> None:
+        files = {
+            f"{number:04d}-outcome-{number}.md": body(f"{number:04d}")
+            for number in range(11)
+        }
+        result = self.run_validator(files)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("11 issue(s)", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

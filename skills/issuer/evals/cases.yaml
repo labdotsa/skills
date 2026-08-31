@@ -2,7 +2,7 @@ cases:
   - name: accepted-artifact-to-local-afk-graph
     prompt: Use Issuer to turn these accepted product artifacts into implementation issues for Orchestrator.
     required:
-      - selects one bounded active release slice
+      - builds a complete scope ledger before decomposition
       - writes one AFK issue per 0000-prefixed Markdown file under issues
       - preserves source requirement or scenario IDs
       - validates the complete local graph before handoff
@@ -45,9 +45,34 @@ cases:
   - name: unbounded-product-artifacts
     prompt: Convert every artifact for this large product into implementation tickets.
     required:
-      - selects one demonstrable active release slice
-      - caps the default active AFK queue at ten
-      - parks later work instead of generating an exhaustive implementation backlog
+      - emits every accepted in-scope implementation outcome
+      - does not apply a default issue-count or active-queue cap
+      - partitions large output or continues across turns without silently dropping scope
+
+  - name: source-coverage-reconciliation
+    prompt: The conversation contains 18 accepted requirements, 4 explicit out-of-scope items, and 2 unresolved authority questions. Issue all implementable work comprehensively.
+    required:
+      - maps every accepted requirement to one or more issue Source entries
+      - records explicit out-of-scope and unresolved-authority dispositions
+      - assigns every source row a completion disposition and reports incomplete rows separately
+      - gives concrete options and one recommended pattern for each incomplete row
+      - reports zero unmapped accepted requirements before handoff
+
+  - name: incomplete-issuance-ledger
+    prompt: Issue this release comprehensively. Three outcomes are accepted, one depends on a missing refund authority, and one is explicitly deferred to a later phase.
+    required:
+      - labels every normalized source row fully-issued, covered-by, partially-issued, blocked, or parked
+      - identifies the exact reason and smallest missing authority or input for every incomplete row
+      - offers two to four concrete options and one recommended pattern for each incomplete row
+      - states whether safe independent issues were emitted and names their IDs
+      - says Incomplete: none when every row is fully issued or covered by
+
+  - name: one-journey-many-slices
+    prompt: One accepted checkout journey includes address validation, tax calculation, payment authorization, receipt delivery, and refund replay behavior.
+    required:
+      - produces every independently verifiable outcome rather than stopping at three issues
+      - keeps each issue vertically complete across only its affected layers
+      - links shared source rows without duplicating implementation work
 
   - name: tracker-publication
     prompt: Publish the accepted AFK graph to the GitHub tracker configured by this repository.

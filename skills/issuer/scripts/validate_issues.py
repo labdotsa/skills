@@ -41,8 +41,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-active",
         type=int,
-        default=10,
-        help="Maximum Todo AFK issues; 0 disables the limit (default: 10)",
+        default=0,
+        help="Maximum Todo AFK issues; 0 disables the limit (default: unlimited)",
     )
     parser.add_argument(
         "--allow-hitl",

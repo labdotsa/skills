@@ -18,6 +18,33 @@ the maximum existing numeric ID plus one. Do not infer the next ID from file cou
 Do not place `README.md`, indexes, decision records, drafts, or supporting artifacts inside an Orchestrator issue root.
 Some consumers recursively treat every Markdown file as executable work and key state by filename stem.
 
+Completeness is not an issue-count target. Before materializing, reconcile every accepted source row to one or more
+`Source` sections or to an explicit out-of-scope, deferred-authority, or external-evidence disposition. Never silently
+drop accepted scope because the graph is large; partition it into named batches or continue with stable IDs.
+
+## Completion ledger
+
+The final handoff must assign every normalized source row one terminal disposition. A complete graph claim is valid only
+when no accepted row is unmapped and every row is one of:
+
+| Disposition | Use |
+| --- | --- |
+| `FULLY_ISSUED` | All accepted implementation outcomes for the row are emitted and validated. |
+| `COVERED_BY` | A duplicate or overlapping row is fully covered by the named issue ID. |
+| `PARTIALLY_ISSUED` | Safe independent work is emitted, but a remainder is unresolved. |
+| `BLOCKED` | No safe issue can be emitted until a named authority, input, or external fact exists. |
+| `PARKED` | The user or repository explicitly deferred or excluded the row. |
+
+The handoff report must call out `PARTIALLY_ISSUED`, `BLOCKED`, and `PARKED` as incomplete. For each such row include:
+source ID and outcome, disposition, issued issue IDs (or `none`), exact reason, smallest missing user input/authority/
+evidence, two to four concrete options and trade-offs, one explicitly labeled recommended pattern and rationale, and the
+resulting issue or scope change after selection. Include dependent issue IDs when known. Never invent an authority; use
+`No safe recommendation; authority required` when appropriate. If none are incomplete, write `Incomplete: none`.
+
+The compact report may stay in the handoff response. If persisted, keep it outside the Orchestrator issue root (for
+example `.issuer/coverage/<run-id>.md`), because queue consumers parse every Markdown file in that root as executable
+work. Preserve source and Issuer IDs so a later run resumes unresolved rows without duplicating issued work.
+
 ## Required Markdown shape
 
 Every local issue contains:
