@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Upgrade `seo-engine` with eight evidence-backed SEO and AI-citation workflows, comparable baselines, optional calibrated semantic review, a deterministic report-only portfolio helper, and portable source attribution.
 - Add the incubating `security-audit` draft with source-grounded threat models, bounded repository/path/diff and agent-package reviews, independent candidate and final-record validation, explicit execution limits, and a workflow for independent security-fix verification.
 - Rename `user-interface-refactor` to `ux-ui-system-refactor` to reflect its behavior-preserving UX/UI system scope, including source-grounded design-thinking primitive contracts, design-system-aware corrections, responsive and localization stress testing, deterministic contrast checks, and adversarial activation evals.
 - Add the `issuer` skill for compiling all accepted product artifacts, specifications, and findings into complete, validated AFK issue graphs, with deterministic local Markdown contracts, stable numeric IDs, dependency checks, HITL separation, idempotent tracker publication, completion-ledger reconciliation, and Orchestrator-compatible output.

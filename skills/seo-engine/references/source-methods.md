@@ -1,0 +1,18 @@
+# Sources and design limits
+
+Reviewed on 2026-10-21. This skill combines workflow ideas with the existing SEO engine's technical, local, international, and measurement coverage. The procedures and portfolio helper are written for this repository. No upstream runtime, connector configuration, credentials, or provider SDK is bundled.
+
+| Source | Contribution | Limits retained |
+| --- | --- | --- |
+| [Semrush agentic SEO guide](https://www.semrush.com/blog/agentic-seo/) and [Faizan Ali's eight skills](https://github.com/crazylunatic007/agentic-seo-skills/tree/d52744340d2d6772cb1ffc88c7a375a6baa826ea/skills) | Eight bounded workflows, project context separate from method, evidence-based outputs, protective portfolio rules, comparable crawl baselines | Example thresholds and tool availability are contextual. Tool estimates and missing data remain explicit. |
+| [Paul Vengeons's writer/judge article](https://x.com/VengeonsP/status/2112114728596070486) | Separate collection, numeric computation, semantic judgment, and writing. Protect existing queries and validate the delivered page. | Model prices, performance claims, authority cutoffs, exact-match anchor rules, and posting cadence are not adopted as requirements. |
+| [Daniel Agrici's Jev audit](https://github.com/AgriciDaniel/jev-seo/tree/55a184a3b0d09565a4c84268f725a47784e62528) | Structured judgments, uncertainty records, capped analysis, traceable artifacts, independent verification | Its evaluation reports model agreement, not human-labeled accuracy. Composite scores and uncalibrated thresholds are not adopted. |
+| [AEO Consultant's citation case study](https://x.com/aeoexpert/status/2112181831239905598) | Demand-backed prompt seeds, captured answers and citations, source classification, owned-channel coverage by customer need | A promotional case study does not establish causal lift or a repeatable 30-day outcome. Covert forum promotion, filter evasion, and incentivized reviews are excluded. |
+| [Semrush MCP documentation](https://www.semrush.com/kb/1618-mcp) | Read-only capability and API-unit awareness | Plans, quotas, report coverage, and tool schemas require current verification. |
+| [Google AI features](https://developers.google.com/search/docs/appearance/ai-features) | Search eligibility, snippet eligibility, useful content, and visible-content agreement | Google's guidance does not define every other AI platform's retrieval behavior. |
+| [Google spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Exclude ranking-credit purchases, manipulative link exchanges, spam, and unauthorized automated search traffic | Sponsored advertising is distinct from earned editorial contribution and needs appropriate disclosure and link qualification. |
+| [Web Vitals](https://web.dev/articles/vitals) | Field thresholds and lab-versus-field interpretation | A lab score cannot substitute for field INP or prove a field pass. |
+
+The upstream eight-skill repository is MIT licensed, copyright 2026 Faizan Ali. Its downloadable nested archives omit the license, so the repository license was verified separately. The attribution and permission text are preserved in [upstream-license.txt](upstream-license.txt).
+
+The Jev audit repository is also MIT licensed. It was inspected for methodology, not copied or executed. Social articles are research evidence, not bundled instruction packs. The bundled helper makes conservative recommendations from supplied snapshots and cannot verify the truth of upstream data or page equivalence.

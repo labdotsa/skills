@@ -13,5 +13,6 @@ Human-facing documentation lives here. It explains what is available, who it is 
 - [SvelteKit hosting research](sveltekit-hosting-research.md)
 - [App-store screenshot research](app-store-screenshot-research.md)
 - [Security audit skill synthesis](research/security-audit-synthesis.md)
+- [SEO engine skill synthesis](research/seo-engine-synthesis.md)
 - [Domain glossary](../CONTEXT.md)
 - [Architecture decisions](adr/)
