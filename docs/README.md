@@ -12,5 +12,6 @@ Human-facing documentation lives here. It explains what is available, who it is 
 - [LAB design-system and dependency contract](lab-design-system-dependency-contract.md)
 - [SvelteKit hosting research](sveltekit-hosting-research.md)
 - [App-store screenshot research](app-store-screenshot-research.md)
+- [Security audit skill synthesis](research/security-audit-synthesis.md)
 - [Domain glossary](../CONTEXT.md)
 - [Architecture decisions](adr/)
