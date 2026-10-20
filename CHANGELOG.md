@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Add the incubating `security-audit` draft with source-grounded threat models, bounded repository/path/diff and agent-package reviews, independent candidate and final-record validation, explicit execution limits, and a workflow for independent security-fix verification.
 - Rename `user-interface-refactor` to `ux-ui-system-refactor` to reflect its behavior-preserving UX/UI system scope, including source-grounded design-thinking primitive contracts, design-system-aware corrections, responsive and localization stress testing, deterministic contrast checks, and adversarial activation evals.
 - Add the `issuer` skill for compiling all accepted product artifacts, specifications, and findings into complete, validated AFK issue graphs, with deterministic local Markdown contracts, stable numeric IDs, dependency checks, HITL separation, idempotent tracker publication, completion-ledger reconciliation, and Orchestrator-compatible output.
 - Add the `validate-prototype` skill and a fifth Validate layer to the Functioning Prototype recipe. Validation now requires repository-native Playwright or the built-in browser, uses focused risk-triggered coverage, diagnoses browser-observed states through targeted source tracing, emits one bounded report, and supports evidence-backed retesting without silently expanding into implementation or whole-codebase audit work.

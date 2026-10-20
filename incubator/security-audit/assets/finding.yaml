@@ -1,0 +1,52 @@
+# Copy only when structured findings are useful. Null means unknown or unassigned.
+id: SEC-001
+title: null
+source_state: null
+scope_unit: null
+attribution: unknown # introduced | pre-existing | unknown
+validity: candidate # candidate | confirmed | needs_validation | rejected
+actor: null
+controlled_input: null
+resource: null
+security_invariant: null
+entry_point: null
+ordered_path: []
+missing_control: null
+impact: null
+conditions: []
+source_locations: [] # Relative file paths and verified line numbers.
+evidence: [] # Redacted observations with source state and environment.
+counterevidence: []
+independent_validation:
+  reviewer: null
+  outcome: pending # passed | pending | unavailable | disagreed
+  evidence: []
+reproduction:
+  status: not_run # reproduced | not_reproduced | not_run | blocked
+  baseline_state: null
+  environment: null
+  fixture: null
+  interaction: null
+  expected: null
+  actual: null
+  blocker: null
+severity: null # Assign only after confirmation. Explain with severity_reason.
+severity_reason: null
+resolution_check: null # Smallest check resolving an unknown or rejected claim.
+final_review:
+  reviewer: null
+  status: pending # passed | pending | unavailable
+  notes: null
+fix:
+  status: not_requested # not_requested | proposed | unverified | verified | failed | inconclusive
+  recommendation: null
+  patch_artifact: null
+  artifact_checks: [] # Nonmutating patch parsing and applicability checks.
+  final_source_state: null
+  independent_reviewer: null
+  baseline_result: null
+  original_attack_result: null
+  bypass_results: []
+  legitimate_behavior_result: null
+  project_checks: []
+  blockers: []
