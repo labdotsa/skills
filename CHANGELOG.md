@@ -4,6 +4,7 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Harden the `security-audit` draft with reproducible isolated evaluation fixtures, source-bound reviewer provenance, complete final-review accounting, and explicit baseline/final-state requirements for verified repairs.
 - Upgrade `seo-engine` with eight evidence-backed SEO and AI-citation workflows, comparable baselines, optional calibrated semantic review, a deterministic report-only portfolio helper, and portable source attribution.
 - Add the incubating `security-audit` draft with source-grounded threat models, bounded repository/path/diff and agent-package reviews, independent candidate and final-record validation, explicit execution limits, and a workflow for independent security-fix verification.
 - Rename `user-interface-refactor` to `ux-ui-system-refactor` to reflect its behavior-preserving UX/UI system scope, including source-grounded design-thinking primitive contracts, design-system-aware corrections, responsive and localization stress testing, deterministic contrast checks, and adversarial activation evals.

@@ -1,0 +1,12 @@
+{
+  "audit_status": "partial",
+  "source_state": "illustrative-template-source",
+  "coverage": [],
+  "findings": [],
+  "final_review": {
+    "status": "pending",
+    "reviewer": null,
+    "source_state": "illustrative-template-source",
+    "reviewed_ids": []
+  }
+}

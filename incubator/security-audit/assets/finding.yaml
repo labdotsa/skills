@@ -2,6 +2,7 @@
 id: SEC-001
 title: null
 source_state: null
+discovered_by: null
 scope_unit: null
 attribution: unknown # introduced | pre-existing | unknown
 validity: candidate # candidate | confirmed | needs_validation | rejected
@@ -19,6 +20,9 @@ evidence: [] # Redacted observations with source state and environment.
 counterevidence: []
 independent_validation:
   reviewer: null
+  source_state: null
+  report_sha256: null
+  fresh_context: false # A coordinator assertion, not proof of independence.
   outcome: pending # passed | pending | unavailable | disagreed
   evidence: []
 reproduction:
@@ -29,12 +33,14 @@ reproduction:
   interaction: null
   expected: null
   actual: null
+  evidence: []
   blocker: null
 severity: null # Assign only after confirmation. Explain with severity_reason.
 severity_reason: null
 resolution_check: null # Smallest check resolving an unknown or rejected claim.
 final_review:
   reviewer: null
+  source_state: null
   status: pending # passed | pending | unavailable
   notes: null
 fix:
@@ -44,6 +50,7 @@ fix:
   artifact_checks: [] # Nonmutating patch parsing and applicability checks.
   final_source_state: null
   independent_reviewer: null
+  authored_by: null
   baseline_result: null
   original_attack_result: null
   bypass_results: []

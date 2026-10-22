@@ -1,0 +1,707 @@
+{
+  "date": "2026-10-23",
+  "purpose": "Synthetic isolated evaluation; no comparative detection benchmark.",
+  "image": "sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20",
+  "environment": {
+    "network": "none; loopback inside container only",
+    "root_filesystem": "read-only",
+    "target_mount": "read-only",
+    "uid": 65532,
+    "capabilities": "dropped",
+    "no_new_privileges": true,
+    "memory_mib": 256,
+    "cpus": 1,
+    "pid_limit": 32,
+    "wall_limit_seconds": 15
+  },
+  "runtime_driver_sha256": "485e6a43ce192daf312c4883cd932634b3b93e4ed2f1de45fd7a014cd8ef87b6",
+  "runs": [
+    {
+      "name": "baseline",
+      "target": "authorization-app.mjs",
+      "target_sha256": "69db98ce9da93650c3ab157c120cd2ee5c57444739ff1691b5419b37ea3a91b3",
+      "mode": "baseline",
+      "expected_fix_verdict": "reproduced",
+      "actual_exit_code": 0,
+      "timed_out": false,
+      "truncated": false,
+      "result": {
+        "mode": "baseline",
+        "evidence": [
+          {
+            "name": "/documents/bob-notes?as=bob cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=%62ob cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=bob&as=alice cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "/v1/documents/bob-notes?as=bob cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "vulnerable route Alice owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "alice"
+            },
+            "bodyOwner": "alice",
+            "pass": true
+          },
+          {
+            "name": "vulnerable alias Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "vulnerable route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "secure route Alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          }
+        ],
+        "passed": true,
+        "childrenClosed": true
+      }
+    },
+    {
+      "name": "fixed",
+      "target": "authorization-app-fixed.mjs",
+      "target_sha256": "80be49155c5918a19527a0b305aeb767fe5de711c9112d105475ce261b853126",
+      "mode": "patched",
+      "expected_fix_verdict": "passed",
+      "actual_exit_code": 0,
+      "timed_out": false,
+      "truncated": false,
+      "result": {
+        "mode": "patched",
+        "evidence": [
+          {
+            "name": "/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=%62ob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=bob&as=alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/v1/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route Alice owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "alice"
+            },
+            "bodyOwner": "alice",
+            "pass": true
+          },
+          {
+            "name": "vulnerable alias Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "vulnerable route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "secure route Alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          }
+        ],
+        "passed": true,
+        "childrenClosed": true
+      }
+    },
+    {
+      "name": "regression",
+      "target": "authorization-app-regression.mjs",
+      "target_sha256": "2f595d2453faab576df39d6f16a177dc32939a8b7dbec3957ed5a0d89007d2a6",
+      "mode": "patched",
+      "expected_fix_verdict": "failed",
+      "actual_exit_code": 1,
+      "timed_out": false,
+      "truncated": false,
+      "result": {
+        "mode": "patched",
+        "evidence": [
+          {
+            "name": "/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=%62ob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=bob&as=alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/v1/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route Alice owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "alice"
+            },
+            "pass": false
+          },
+          {
+            "name": "vulnerable alias Bob owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "vulnerable route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route Bob owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "secure route Alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          }
+        ],
+        "passed": false,
+        "childrenClosed": true
+      }
+    },
+    {
+      "name": "brittle",
+      "target": "authorization-app-brittle.mjs",
+      "target_sha256": "6686928794ffb7362b9d2d4bb0c3fcce9cd98f022ff14aa3c6b2799f43ebdefb",
+      "mode": "patched",
+      "expected_fix_verdict": "failed",
+      "actual_exit_code": 1,
+      "timed_out": false,
+      "truncated": false,
+      "result": {
+        "mode": "patched",
+        "evidence": [
+          {
+            "name": "/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "/documents/bob-notes?as=%62ob cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 403
+            },
+            "bodyOwner": "bob",
+            "pass": false
+          },
+          {
+            "name": "/documents/bob-notes?as=bob&as=alice cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 403
+            },
+            "bodyOwner": "bob",
+            "pass": false
+          },
+          {
+            "name": "/v1/documents/bob-notes?as=bob cross-owner",
+            "actual": 200,
+            "expected": {
+              "status": 403
+            },
+            "bodyOwner": "bob",
+            "pass": false
+          },
+          {
+            "name": "vulnerable route Alice owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "alice"
+            },
+            "bodyOwner": "alice",
+            "pass": true
+          },
+          {
+            "name": "vulnerable alias Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "vulnerable route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "secure route Alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          }
+        ],
+        "passed": false,
+        "childrenClosed": true
+      }
+    },
+    {
+      "name": "nontriggering-baseline",
+      "target": "authorization-app-fixed.mjs",
+      "target_sha256": "80be49155c5918a19527a0b305aeb767fe5de711c9112d105475ce261b853126",
+      "mode": "baseline",
+      "expected_fix_verdict": "inconclusive",
+      "actual_exit_code": 1,
+      "timed_out": false,
+      "truncated": false,
+      "result": {
+        "mode": "baseline",
+        "evidence": [
+          {
+            "name": "/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "/documents/bob-notes?as=%62ob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "/documents/bob-notes?as=bob&as=alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "/v1/documents/bob-notes?as=bob cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "pass": false
+          },
+          {
+            "name": "vulnerable route Alice owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "alice"
+            },
+            "bodyOwner": "alice",
+            "pass": true
+          },
+          {
+            "name": "vulnerable alias Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "vulnerable route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "vulnerable route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route Bob owner",
+            "actual": 200,
+            "expected": {
+              "status": 200,
+              "owner": "bob"
+            },
+            "bodyOwner": "bob",
+            "pass": true
+          },
+          {
+            "name": "secure route Alice cross-owner",
+            "actual": 403,
+            "expected": {
+              "status": 403
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route missing token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route malformed token",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          },
+          {
+            "name": "secure route inherited token name",
+            "actual": 401,
+            "expected": {
+              "status": 401
+            },
+            "pass": true
+          }
+        ],
+        "passed": false,
+        "childrenClosed": true
+      }
+    }
+  ]
+}

@@ -6,6 +6,8 @@ Use a fresh agent for each candidate. Provide the contract, exact source-state i
 
 Ask the validator to trace the path independently and look for effective guards, inaccessible code, incorrect attacker assumptions, configuration constraints, and unsupported impact. It returns its own evidence, validity decision, reproduction result, and unresolved facts. It may read the target source. It cannot alter the target or the coordinator's records.
 
+Record the discoverer and validator IDs, exact reviewed source state, report SHA-256, and how the fresh context was established. Parent-coordinated delegation is valid when the worker cannot spawn agents itself. Label the coordinator's account as an attestation, not cryptographic proof. Check that the supplied report and target still match their recorded digests before reusing the result.
+
 A confirmed source argument establishes each control-relevant step without relying on an unknown deployment fact. Runtime claims require actual execution evidence. If the decisive condition is unknown, use `needs_validation`. If evidence contradicts the claim, use `rejected` with the counterexample or controlling guard. Preserve disagreements until a new resolving check establishes the result.
 
 ## Reproduce safely
@@ -23,6 +25,8 @@ For source-only evidence, set reproduction `not_run` or `blocked` and explain wh
 The coordinator deduplicates supported root causes and assigns severity to confirmed records. Explain privileges, attacker effort, configuration conditions, affected confidentiality, integrity, and availability, and the plausible consequence. Label hypothetical chains as hypotheses until their links are supported.
 
 A fresh final reviewer receives the consolidated records and cited raw evidence. It checks source-state consistency, line references, validity and reproduction distinctions, independent validator identity, severity rationale, duplicate handling, patch claims, redaction, coverage gaps, and report totals. It can return a record to `needs_validation` or request a narrower claim.
+
+List the exact confirmed finding IDs checked by this reviewer. Missing, duplicated, stale, or unreviewed records keep the gate open. Include the source state for each review. A source, configuration, dependency, archive, or relevant fixture change invalidates affected prior review even when the finding ID is unchanged.
 
 Record final review as `passed`, `pending`, or `unavailable`. A `confirmed` record without `passed` final review remains visible but prevents an audit `complete` claim. Preserve reviewer disagreements rather than averaging votes.
 
@@ -49,6 +53,8 @@ Run these gates in order:
 5. Run required project checks. Record exact commands, outcomes, and blockers.
 
 Set patch status to `not_requested`, `proposed`, `unverified`, `verified`, `failed`, or `inconclusive`. `verified` requires all applicable gates, independent verification, and an exact final state. When runtime execution is blocked, a reviewed patch remains `unverified`; describe any completed source checks separately.
+
+Record the baseline and final source manifests and the environment identity for every result. The baseline reproduction must match the vulnerable finding state. Original-attack, bypass, legitimate-behavior, and project-check results must match the final patched state under comparable fixture and environment conditions. A failed legitimate request makes the fix `failed`. A non-triggering or incomparable baseline makes closure `inconclusive`, even if the patched request also fails.
 
 Revalidate affected findings and coverage after changes to source, configuration, dependencies, or fixtures. Do not combine baseline observations from one environment with patched results from another without proving comparability. Preserve both successful and failed attempts.
 

@@ -27,7 +27,7 @@ Record the following before investigation:
 
 Use a bounded initial pass when no depth is specified. Small scope reduces breadth, never the evidence threshold. Reserve time for validation and reporting. State explicit exclusions and retain unfinished work when the budget ends.
 
-For `diff`, follow changed behavior into callers, controls, and sinks as needed. Attribute a finding as `introduced`, `pre-existing`, or `unknown` using baseline evidence. Keep incidental existing findings separate and preserve the requested scope.
+For `diff`, follow changed behavior into callers, controls, and sinks as needed. Attribute a finding as `introduced`, `pre-existing`, or `unknown` using base and head traces. An old unsafe helper can become newly reachable through a changed caller. A changed caller does not make an already reachable violation new. Keep incidental existing findings separate and preserve the requested scope.
 
 ## 2. Protect the inspection environment
 
@@ -70,6 +70,8 @@ Read [references/validation-and-fixes.md](references/validation-and-fixes.md) be
 
 Give each candidate to a fresh validator that did not discover it and has not inherited the hunter's reasoning. Supply the neutral claim, exact source state, relevant paths, contract, and raw evidence. Ask the validator to disprove reachability, attacker control, missing mitigation, and claimed impact. It must inspect evidence itself.
 
+Record the discoverer and validator identities, reviewed source state, report digest, and fresh-context provenance. When only a coordinator can delegate, it may supply separately obtained validator results with an explicit delegation attestation. A report path or a role change in the same conversation does not establish independence. Reject stale or mismatched evidence.
+
 Use these validity states:
 
 - `candidate`: investigation or independent review is unfinished.
@@ -81,7 +83,7 @@ Record reproduction as `reproduced`, `not_reproduced`, `not_run`, or `blocked`. 
 
 Assign severity only to confirmed findings. Explain attacker prerequisites, reachability, impact, and relevant deployment conditions. Use CVSS only when the vector is justified. Keep hardening observations separate.
 
-After deduplication and severity calibration, use a fresh final reviewer to check every confirmed record against its cited evidence and source state. This reviewer checks reporting consistency and coverage honesty. Missing final review leaves the audit `partial` and the affected record's final review `unavailable` or `pending`.
+After deduplication and severity calibration, use a fresh final reviewer to check every confirmed record against its cited evidence and source state. Record the reviewed finding IDs and source state, including a zero-finding review of coverage when applicable. This reviewer checks reporting consistency and coverage honesty. Missing final review leaves the audit `partial` and the affected record's final review `unavailable` or `pending`.
 
 ## 6. Verify authorized repairs
 
@@ -96,6 +98,8 @@ A patch that cannot be tested may be delivered as an `unverified` proposal with 
 ## 7. Report the evidence and limits
 
 Return one report using [assets/report.md](assets/report.md). Use [assets/finding.yaml](assets/finding.yaml) for durable structured findings when useful or requested. Keep the report in the response unless the user requests saved artifacts or the existing workflow requires them. Redact secrets and real user data before retention.
+
+For a saved JSON report, use [assets/report.json](assets/report.json) and read [references/structured-reports.md](references/structured-reports.md). Run `python3 scripts/validate_report.py <report.json>` from the skill root before delivery. The checker detects contradictory records. It cannot establish exploitability, evidence truth, or reviewer independence.
 
 The audit status is `complete`, `partial`, or `blocked`. `complete` means the agreed coverage and review gates finished, not that the application is secure. Independent review, sandbox, runtime, and budget gaps must remain visible. A completed source-only contract can report blocked runtime reproduction.
 

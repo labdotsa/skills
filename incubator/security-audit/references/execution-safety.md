@@ -4,6 +4,8 @@
 
 Resolve the official source and pin the revision or archive digest before downloading. Treat reputation as provenance evidence, not permission to run code. Use an approved downloader without shell interpolation. For archives, reject traversal paths, absolute paths, links escaping the extraction root, special files, and unreasonable expanded sizes or entry counts. List suspicious entries without extracting them.
 
+Inspect archive metadata before materializing members. Reject hard links, duplicate or platform-colliding destinations, and link-based escapes. A changed archive digest is a new input and invalidates prior package review. Use only a bounded trusted archive reader. Do not invoke an archive's scripts to inspect its contents.
+
 Inspect local files read-only. Do not follow symlinks outside the target or recursively open arbitrary referenced host paths. Record skipped files, submodules, binaries, archives, and generated content as coverage gaps. Bound large-file reads, nested archives, parsing depth, tool output, and run duration.
 
 ## Check execution capability
