@@ -81,3 +81,7 @@ The synthesis aims to improve portability, permission control, evidence clarity,
 Initial evaluations cover activation boundaries, diff attribution, false-positive rejection, missing sandbox capabilities, malicious package instructions, independent validation, baseline drift, bypass testing, and incomplete runs. A disposable fixture supplies a reachable authorization defect, a secure comparison endpoint, an unreachable suspicious function, and a documentation prompt-injection attempt. These cases test decisions and reporting, not comparative detection performance.
 
 For a comparative evaluation, record confirmed true positives, false positives, missed seeded defects, supported coverage, model and tool versions, time, cost, and patch regressions. Keep fixture answers outside the auditing agent's context. A clean scan or a large finding count is insufficient evidence of improvement.
+
+## Stable implementation
+
+The combined workflow is now [the installable `security-audit` skill](../../skills/security-audit/SKILL.md). Its [evaluation ledger](../../skills/security-audit/evals/results.md) records 20 behavioral cases, isolated HTTP repair trials, report-checker tests, and independent review. The [portable runtime evidence](../../skills/security-audit/evals/runtime-results.json) preserves the baseline, successful repair, regression, bypass, and non-triggering-baseline observations. These bounded trials support publication of this workflow; they do not establish better detection than the six source tools.
