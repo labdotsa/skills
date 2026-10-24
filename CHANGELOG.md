@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Extend `seo-engine` with separate Search Console Manual Actions and Security Issues checks, explicit missing-evidence and review states, and a semantic-structure handoff to optional `public-pages` guidance.
+
 - Add `backlinks` with source-bounded audits, editorial prospecting, startup and directory launch planning, placement verification, outcome measurement, a researched 50-site candidate inventory, and a six-skill skills.sh comparison.
 
 - Promote `security-audit` to the stable installable catalog after 20 behavioral cases, isolated repair trials, report-checker boundary tests, and independent QA; include portable fixtures and recorded evaluation limits.

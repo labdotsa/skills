@@ -1,6 +1,6 @@
 # Sources and design limits
 
-Reviewed on 2026-10-21. This skill combines workflow ideas with the existing SEO engine's technical, local, international, and measurement coverage. The procedures and portfolio helper are written for this repository. No upstream runtime, connector configuration, credentials, or provider SDK is bundled.
+Reviewed on 2026-10-21. Search Console report and semantic-structure references added on 2026-10-24. This skill combines workflow ideas with the existing SEO engine's technical, local, international, and measurement coverage. The procedures and portfolio helper are written for this repository. No upstream runtime, connector configuration, credentials, or provider SDK is bundled.
 
 | Source | Contribution | Limits retained |
 | --- | --- | --- |
@@ -11,6 +11,8 @@ Reviewed on 2026-10-21. This skill combines workflow ideas with the existing SEO
 | [Semrush MCP documentation](https://www.semrush.com/kb/1618-mcp) | Read-only capability and API-unit awareness | Plans, quotas, report coverage, and tool schemas require current verification. |
 | [Google AI features](https://developers.google.com/search/docs/appearance/ai-features) | Search eligibility, snippet eligibility, useful content, and visible-content agreement | Google's guidance does not define every other AI platform's retrieval behavior. |
 | [Google spam policies](https://developers.google.com/search/docs/essentials/spam-policies) | Exclude ranking-credit purchases, manipulative link exchanges, spam, and unauthorized automated search traffic | Sponsored advertising is distinct from earned editorial contribution and needs appropriate disclosure and link qualification. |
+| [Search Console Manual Actions](https://support.google.com/webmasters/answer/9044175) and [Security Issues](https://support.google.com/webmasters/answer/9044101) | Separate property-level report checks, affected-page evidence, issue-specific remediation, and review status | Crawl success does not establish a clean report. Local repairs, review submissions, report resolution, and search recovery are distinct states. |
+| [W3C page-structure tutorial](https://www.w3.org/WAI/tutorials/page-structure/) | Meaningful regions, heading hierarchy, native semantics, and accessible navigation in the `public-pages` handoff | Semantic correctness supports comprehension and accessibility. It does not guarantee rankings or rich results, and the companion skill remains optional. |
 | [Web Vitals](https://web.dev/articles/vitals) | Field thresholds and lab-versus-field interpretation | A lab score cannot substitute for field INP or prove a field pass. |
 
 The upstream eight-skill repository is MIT licensed, copyright 2026 Faizan Ali. Its downloadable nested archives omit the license, so the repository license was verified separately. The attribution and permission text are preserved in [upstream-license.txt](upstream-license.txt).

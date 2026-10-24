@@ -12,9 +12,19 @@ Select checks by the affected templates, markets, and business paths. Start with
 
 Do not enforce a universal three-click limit. Prioritize discovery paths, contextual relevance, and business importance. A sitemap supplements internal discovery and does not establish an internal link.
 
+## Search Console reports
+
+Inspect the verified property's [Manual Actions](https://support.google.com/webmasters/answer/9044175) and [Security Issues](https://support.google.com/webmasters/answer/9044101) reports separately using authorized access or owner-supplied evidence. Record the property, report date, result, affected URL patterns, reported issues, and review status for each report. Manual actions concern spam-policy violations; security issues concern compromise or harmful behavior.
+
+If access fails or report evidence is missing, mark that check `blocked` and name the source and missing access or evidence. A successful crawl, indexable directives, or an empty export cannot establish a clean report. A clean report does not rule out other causes of a search decline.
+
+For reported issues, follow issue-specific guidance and investigate the affected scope across the site. Sample URLs are not a complete inventory, and missing examples do not mean no pages are affected. Track local repair checks, review submission, and the report's resolution separately. A passing local check or submitted review does not prove that Google has resolved the issue or that search performance has recovered.
+
 ## Content and structured data
 
 Check that titles, descriptions, headings, main content, and landing-page intent describe the actual offer. Inspect protected queries before changing an established page. Shared query coverage alone does not prove cannibalization.
+
+For semantic-structure defects, capture affected URLs or templates, the initial and rendered markup, heading hierarchy, landmarks, and link or control behavior. When available, hand the findings to `public-pages` for implementation with visitor intent, protected queries and journeys, and observable acceptance checks. Verify meaningful regions, logical headings, native links and controls, and keyboard and screen-reader navigation using [W3C's page-structure guidance](https://www.w3.org/WAI/tutorials/page-structure/). If `public-pages` is unavailable, keep these requirements in the local implementation brief. Semantic repairs support comprehension and accessibility; they do not guarantee rankings or rich results.
 
 Choose structured data supported by the visible page and applicable search feature. Validate syntax, required properties, entity identity, and visible-content agreement. Eligibility is distinct from receiving a rich result. Avoid fake ratings, unsupported claims, and irrelevant FAQ markup.
 
