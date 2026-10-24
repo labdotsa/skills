@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Refresh screenshot baselines for the five-layer Functioning Prototype recipe and current related skills, separate Darwin and Linux captures, and pin CI to Ubuntu 24.04 without changing pixel thresholds.
+
 - Renewed the scoped axe color-contrast adjudication through 2026-11-22 after fresh checks found no independent contrast failures across all 30 route and state scopes; measurement thresholds and human release-evidence requirements remain unchanged.
 
 - Raised deterministic publication-backed Playwright server startup budget to 120 seconds after measuring a 42-second cold two-profile build, preventing valid CI builds from timing out during server launch.

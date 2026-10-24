@@ -234,7 +234,7 @@ The exact browser and operating-system versions are stored with the CI artifact.
 
 The existing capture journeys become Playwright `toHaveScreenshot` assertions. Baselines use pinned Chromium, deterministic local fonts and data, reduced motion, hidden caret, and settled font loading. Required views are the representative route classes in light and dark at 1280 by 720 and 390 by 844, plus open Sheet and meaningful empty/error states.
 
-Pixel differences fail at `maxDiffPixelRatio: 0.005`. A baseline update requires a human-visible image diff and an explanation in the change. The baseline command MUST NOT run automatically in validation.
+Pixel differences fail at `maxDiffPixelRatio: 0.005`. Screenshot paths include Playwright's `{platform}` token, so Darwin, Linux, and Windows baselines remain separate. Capture baselines with the matching operating system and lockfile-pinned Chromium, review every intentional diff, then rerun the comparison without the update flag. If a source or generated-publication change is visually important but remains under the ratio on a long page, move the current platform's baselines aside and recreate that platform's complete set before reviewing the diff. Never overwrite another platform's baseline, and never use a threshold increase or a skipped screenshot to hide a mismatch. A baseline update requires a human-visible image diff and an explanation in the change. The baseline command MUST NOT run automatically in validation.
 
 ## CI commands and evidence
 
