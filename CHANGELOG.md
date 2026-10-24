@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the stable `design-system` skill for semantic tokens, component contracts, platform adaptations, and incremental system evolution, with HIG as essential guidance for every target.
+
 - Extend `seo-engine` with separate Search Console Manual Actions and Security Issues checks, explicit missing-evidence and review states, and a semantic-structure handoff to optional `public-pages` guidance.
 
 - Add `backlinks` with source-bounded audits, editorial prospecting, startup and directory launch planning, placement verification, outcome measurement, a researched 50-site candidate inventory, and a six-skill skills.sh comparison.

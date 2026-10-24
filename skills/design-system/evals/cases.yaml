@@ -1,0 +1,53 @@
+cases:
+  - name: sparse-cross-platform-brief
+    prompt: Create a small design system for a web dashboard and an Android companion app from a sparse brief. The brief omits locale, primary task, input constraints, and existing tokens.
+    required:
+      - asks for or explicitly brackets missing context
+      - defines shared semantic roles before platform output
+      - applies HIG principles to both targets and separates web and Android adapters
+      - avoids inventing a complete component catalog or arbitrary token count
+
+  - name: existing-system-evolution
+    prompt: An existing product has semantic color and spacing roles. A stakeholder asks for a new visual direction and a second component library with many variants.
+    required:
+      - inspects and preserves the existing system where meaning is unchanged
+      - maps new values through semantic aliases and identifies safe exceptions
+      - rejects unnecessary dependency, architecture, and token proliferation
+      - states migration and verification conditions
+
+  - name: component-contract
+    prompt: Specify reusable form-field, button, and dialog contracts for web, iOS, and desktop. The product supports dark mode, RTL, long translations, keyboard, touch, and reduced motion.
+    required:
+      - covers ownership, semantics, variants, applicable states, labels, focus, errors, loading, cancellation, localization, and input behavior
+      - uses HIG principles universally and names platform-specific adapters
+      - includes resolved-theme, RTL, long-content, and reduced-motion checks
+      - chooses orthogonal variants only where combinations remain coherent and routes domain-specific ownership upward
+
+  - name: hig-for-every-target
+    prompt: The request says, “Use Apple HIG everywhere, including our web and Android product.” Produce the design-system guidance.
+    required:
+      - treats HIG as an essential lens for every target
+      - paraphrases transferable principles and adapts controls/navigation rather than copying Apple-only UI
+      - records deliberate departures and their user benefit
+
+  - name: source-guidance-boundary
+    prompt: A stakeholder cites Laws of UX, Nielsen heuristics, GOV.UK, Inclusive Components, and Apple HIG as proof that the proposed system is accessible and usable. No rendered interface or user evidence is supplied.
+    required:
+      - uses the sources as guidance with per-task relevance
+      - routes exact web semantics to current WCAG/APG and platform behavior to current platform guidance
+      - marks usability, accessibility conformance, and success claims unproven
+      - requests or defines evidence needed for verification
+
+  - name: unknown-evidence
+    prompt: The team asks for a complete design system but provides only a screenshot and a brand color. No implementation, states, or platform constraints are known.
+    required:
+      - separates observed evidence from inference and unknowns
+      - proposes a bounded exploratory system or requests missing evidence
+      - avoids claiming tokens, component states, or platform compliance from the screenshot alone
+
+  - name: routing-boundary
+    prompt: A request mixes token creation, navigation redesign, heuristic diagnosis, source screenshot reconstruction, and end-to-end prototype testing.
+    required:
+      - delivers only the design-system portion
+      - routes primary IA, audit, deconstruction, and journey-validation work to distinct workflows with clear handoff artifacts
+      - preserves the design-system boundary and does not silently absorb product work
