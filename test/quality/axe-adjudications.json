@@ -4,7 +4,7 @@
     "owner": "labdotsa",
     "issue": "https://github.com/labdotsa/skills/issues/24",
     "toolVersion": "4.13.0",
-    "expires": "2026-09-10",
+    "expires": "2026-11-22",
     "removalCriteria": "Remove when axe can measure the unchanged sticky, collapsed, and overflow layouts without an incomplete result.",
     "scopes": [
       "a11y-desktop|canonical|home|default",
