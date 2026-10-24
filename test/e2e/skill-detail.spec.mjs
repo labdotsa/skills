@@ -42,9 +42,9 @@ test("prerenders the complete Skill reading journey from one typed view", async 
     "https://github.com/labdotsa/skills/blob/master/skills/tailwind/references/localizable-layout.md",
   );
   await expect(page.getByRole("heading", { level: 2, name: "Related skills & recipes" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Open related skill build-product-artifacts" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Open related skill backlinks" })).toHaveAttribute(
     "href",
-    "/skills/build-product-artifacts/",
+    "/skills/backlinks/",
   );
 });
 
@@ -345,10 +345,10 @@ test("matches the same Skill journey and visual baselines at the Pages project b
   await page.evaluate(() => document.fonts.ready);
 
   await expect(page.getByRole("heading", { level: 1, name: "tailwind" })).toBeVisible();
-  const relatedPath = await page.getByRole("link", { name: "Open related skill build-product-artifacts" }).evaluate(
+  const relatedPath = await page.getByRole("link", { name: "Open related skill backlinks" }).evaluate(
     (link) => new URL(link.href).pathname,
   );
-  expect(relatedPath).toBe("/skills/skills/build-product-artifacts/");
+  expect(relatedPath).toBe("/skills/skills/backlinks/");
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://skills.lab.sa/skills/tailwind/");
   await expect(page).toHaveScreenshot("skill-tailwind-light.png", {
     animations: "disabled",

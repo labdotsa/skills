@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Add `backlinks` with source-bounded audits, editorial prospecting, startup and directory launch planning, placement verification, outcome measurement, a researched 50-site candidate inventory, and a six-skill skills.sh comparison.
+
 - Promote `security-audit` to the stable installable catalog after 20 behavioral cases, isolated repair trials, report-checker boundary tests, and independent QA; include portable fixtures and recorded evaluation limits.
 
 - Harden the `security-audit` draft with reproducible isolated evaluation fixtures, source-bound reviewer provenance, complete final-review accounting, and explicit baseline/final-state requirements for verified repairs.

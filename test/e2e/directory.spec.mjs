@@ -4,8 +4,9 @@ test("prerenders the complete Skill directory from the shared Catalog", async ({
   await page.goto("/");
 
   await expect(page.getByRole("searchbox", { name: "Search skills" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(42);
+  await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(43);
   for (const name of [
+    "backlinks",
     "build-product-artifacts",
     "copywriting",
     "deconstruct",
@@ -31,7 +32,7 @@ test("filters the active directory locally and announces the result count", asyn
 
   await expect(page.getByRole("link", { name: "Open tailwind skill" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(1);
-  await expect(page.locator('p[aria-live="polite"]')).toHaveText("1 of 42 skills");
+  await expect(page.locator('p[aria-live="polite"]')).toHaveText("1 of 43 skills");
   expect(catalogRequests).toEqual([]);
 });
 
@@ -45,7 +46,7 @@ test("keeps Skills as the home collection and routes Recipes through global navi
   await page.getByRole("button", { name: /Product 27/ }).click();
   await expect(page.getByRole("button", { name: /Product 27/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(27);
-  await expect(page.getByText("27 of 42 skills")).toBeVisible();
+  await expect(page.getByText("27 of 43 skills")).toBeVisible();
   await page.getByRole("link", { name: "Recipes", exact: true }).first().click();
   await expect(page).toHaveURL(/\/recipes\/$/);
   await expect(page.getByRole("searchbox", { name: "Search recipes" })).toBeVisible();
@@ -73,11 +74,11 @@ test("clears an empty result and supports the accessible search shortcut", async
   await search.fill("nothing-in-this-library");
 
   await expect(page.getByText("No item matches that search.")).toBeVisible();
-  await expect(page.getByText("0 of 42 skills")).toBeVisible();
+  await expect(page.getByText("0 of 43 skills")).toBeVisible();
   await page.getByRole("button", { name: "Clear filters" }).click();
   await expect(search).toBeFocused();
   await expect(search).toHaveValue("");
-  await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(42);
+  await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(43);
 
   await page.getByRole("heading", { level: 1 }).click();
   await page.keyboard.press("/");
@@ -108,7 +109,7 @@ test.describe("without JavaScript", () => {
   test("keeps the complete Skill directory and Recipe route navigation available", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(42);
+    await expect(page.getByRole("link", { name: /Open .* skill/ })).toHaveCount(43);
     await expect(page.getByRole("link", { name: "Open Functioning Prototype recipe" })).toHaveCount(0);
     await expect(page.getByText("Filtering needs JavaScript; the complete Skill directory remains available below.")).toBeVisible();
     await expect(page.getByRole("link", { name: "Recipes", exact: true }).first()).toHaveAttribute("href", "./recipes/");
