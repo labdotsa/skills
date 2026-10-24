@@ -19,6 +19,7 @@ export default defineConfig({
     command: "node scripts/serve-e2e-publications.mjs",
     reuseExistingServer: false,
     url: "http://127.0.0.1:4173/",
+    timeout: 120_000,
   },
   projects: [
     { name: "visual-desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 720 } } },

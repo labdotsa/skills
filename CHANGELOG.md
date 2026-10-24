@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Raised deterministic publication-backed Playwright server startup budget to 120 seconds after measuring a 42-second cold two-profile build, preventing valid CI builds from timing out during server launch.
+
 - Integrated essential cross-platform HIG guidance and relevant UX references into `ux-ui-system-refactor`, `deconstruct`, `information-architecture`, `public-pages`, and `design-app-store-screenshots` while preserving each workflow's scope and evidence requirements.
 
 - Added the stable `usability-audit` skill for heuristic reviews, state-bound findings, exact screenshot callouts, and retest conditions, with essential HIG guidance and a dependency-free annotation helper.

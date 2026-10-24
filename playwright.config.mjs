@@ -17,6 +17,7 @@ export default defineConfig({
     command: "node scripts/serve-e2e-publications.mjs",
     reuseExistingServer: !process.env.CI,
     url: "http://127.0.0.1:4173/",
+    timeout: 120_000,
   },
   projects: [
     {
