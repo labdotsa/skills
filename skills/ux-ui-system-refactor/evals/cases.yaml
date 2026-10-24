@@ -25,6 +25,22 @@ cases:
       - translates source guidance into testable behavior rather than copying book-specific implementation details
       - verifies the selected primitives at representative states, widths, themes, locales, and input modes
 
+  - name: hig-baseline-nonapple
+    prompt: Critique this responsive web settings screen against the essential HIG design principles, then propose a visual refactor without changing behavior.
+    required:
+      - reads the HIG Design principles baseline even though the target is not an Apple surface
+      - translates transferable principles into web-appropriate observations and target-platform adaptations
+      - preserves behavior, information architecture, content meaning, and established web conventions
+      - distinguishes observed evidence from inferred HIG-related concerns
+
+  - name: hig-baseline-readonly
+    prompt: Audit this desktop web dashboard using the HIG design principles as a cross-platform baseline. Do not edit files.
+    required:
+      - remains read-only
+      - loads the HIG baseline before diagnosing the interface
+      - reports concrete rendered evidence and avoids importing Apple-specific chrome
+      - separates observations, inferences, unknowns, and verification conditions
+
   - name: responsive-rtl-pressure
     prompt: Refactor our bilingual account page. English looks acceptable, but Arabic and narrow widths overflow and the primary action gets lost.
     required:

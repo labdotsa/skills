@@ -35,6 +35,8 @@ Read each selected reference completely before acting.
 
 For narrowly scoped work, load only the relevant quality sections. For a complete page or audit, load all five references.
 
+For create, redesign, or audit work that concerns page experience quality, also read [Apple HIG's Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles). Treat purpose, agency, responsibility, familiarity, flexibility, simplicity, craft, and delight as transferable design principles, then adapt them to the web and target audience. Do not load this design baseline for unrelated operational, search, privacy, or release-only work.
+
 ## Closed-loop workflow
 
 1. **Discover** — identify the page family, primary visitor, context, intent, source message, existing evidence, constraints, and current outcomes.

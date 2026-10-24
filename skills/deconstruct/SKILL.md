@@ -110,6 +110,10 @@ Cover the relevant empty, focus, hover, pressed, disabled, loading, success, val
 
 Mark state visuals absent from the source as unknown or proposed.
 
+Use [Apple HIG's Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) as an essential baseline for every platform. Apply its transferable principles of purpose, agency, responsibility, familiarity, flexibility, simplicity, craft, and delight, then adapt controls and interaction conventions to the detected target platform. Do not import Apple-specific chrome into a web reconstruction.
+
+When the source evidence supports them, also use [Laws of UX](https://lawsofux.com/) for cognition, grouping, recognition, and target acquisition; [Nielsen Norman Group's usability heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/) for visibility, consistency, control, prevention, and recovery; and [Inclusive Components](https://inclusive-components.design/) for semantic, resilient component behavior. These lenses must not overwrite observed evidence.
+
 **Complete when:** every interactive component has applicable states and semantics, and unseen behavior remains distinguishable from evidence.
 
 ## Output contract

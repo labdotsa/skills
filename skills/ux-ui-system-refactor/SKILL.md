@@ -24,6 +24,7 @@ Hand off or separate the work when the primary need is user-flow strategy, brand
 
 ## Load detail only when needed
 
+- For every scoped visual audit or refactor, read the Source synthesis section in [UX primitive contracts](references/ux-primitives.md) before diagnosing or changing the interface; its HIG baseline is required. The remaining primitive catalog is risk-selected.
 - Read [references/diagnostic-matrix.md](references/diagnostic-matrix.md) when the complaint is vague, the UI needs an audit, or several symptoms compete for attention.
 - Read [references/system-refactor.md](references/system-refactor.md) before changing shared tokens, primitives, responsive rules, themes, or several related components.
 - Read [references/ux-primitives.md](references/ux-primitives.md) when turning UX or design-thinking research into reusable decision contracts, selecting a small primitive set for a refactor, or adapting a shared intent across web, mobile, desktop, voice, TV, wearable, spatial, or embedded surfaces.

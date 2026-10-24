@@ -14,10 +14,13 @@ The contracts synthesize the durable parts of the recommended readings and curre
 - [Just Enough Research, 2nd edition](https://abookapart.com/blogs/press/just-enough-research-2nd-edition-is-now-available.html) and [Interviewing Users, 2nd edition](https://rosenfeldmedia.com/books/interviewing-users-second-edition/) supply evidence discipline, interviewing, synthesis, and impact.
 - [The Designing for Growth Field Book](https://cup.columbia.edu/book/the-designing-for-growth-field-book/9780231187893/) supplies opportunity framing, criteria, ideation, prototyping, feedback, and learning launches.
 - [This Is Service Design Doing](https://www.oreilly.com/library/view/this-is-service/9781491927175/titlepage01.html) supplies journey, stakeholder, system, service-blueprint, co-creation, and service-prototyping methods.
+- [Laws of UX](https://lawsofux.com/) supplies compact lenses for cognitive load, grouping, recognition, attention, target acquisition, and predictable behavior. Use individual laws as hypotheses, not universal proof.
 - [Nielsen Norman Group’s usability heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/) supplies a diagnostic vocabulary for visibility, consistency, control, prevention, recognition, flexibility, and recovery.
+- [GOV.UK Design System](https://design-system.service.gov.uk/) supplies tested task, content, form, error, and service patterns. Adapt them to the product, audience, and jurisdiction.
+- [Inclusive Components](https://inclusive-components.design/) supplies accessible component reasoning for semantic structure, disclosure, navigation, forms, and resilient states.
 - [WCAG 2.2](https://www.w3.org/TR/WCAG22/) and the [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) supply web accessibility requirements and widget behavior; [Apple HIG](https://developer.apple.com/design/human-interface-guidelines) and [Material 3](https://developer.android.com/develop/ui/compose/designsystems/material3) supply current platform conventions.
 
-The books explain durable reasoning; standards and platform guidance remain authoritative for current implementation details.
+Apple HIG is an essential baseline for core design work, including non-Apple products. Read its current [Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) guidance, which covers purpose, agency, responsibility, familiarity, flexibility, simplicity, craft, and delight. Preserve those transferable principles, then adapt controls, navigation, input, typography, motion, and feedback to the target platform and its standards. Do not treat Apple-specific chrome or conventions as web requirements. The books explain durable reasoning; standards and platform guidance remain authoritative for current implementation details.
 
 ## The primitive contract
 
@@ -132,9 +135,12 @@ When a primitive exposes a repeated visual decision, correct the narrowest respo
 | Hall, *Just Enough Research*; Portigal, *Interviewing Users* | Research questions, interviews, synthesis, impact, evidence quality | E1, E4, T3 |
 | Liedtka, Ogilvie, Brozenske, *Designing for Growth Field Book* | Opportunity framing, criteria, ideation, prototypes, feedback, learning launches | E1–E2, E4, T1–T3 |
 | Stickdorn et al., *This Is Service Design Doing*; Kalbach, *Mapping Experiences* | Journeys, handoffs, ecosystems, service blueprints, co-creation, service prototypes | E3–E4, C1, I3, A6, T1–T3 |
+| Laws of UX | Cognitive load, grouping, recognition, attention, target acquisition, predictable behavior | C1–C4, V1–V3, I2 |
 | Nielsen Norman Group heuristics | Visibility, consistency, control, recognition, prevention, flexibility, recovery | C2–C6, V1, I1, I3, A7 |
+| GOV.UK Design System | Task-led content, plain labels, forms, errors, progressive disclosure, service patterns | C1–C5, V1, V3, A1, A4 |
+| Inclusive Components | Semantic structure, disclosure, navigation, forms, resilient states, inclusive interaction | I1–I2, A1–A4, A6 |
 | W3C WCAG 2.2 and ARIA APG | Perception, operation, semantics, names, states, keyboard and widget behavior | I1–I2, A1–A4, T1–T2 |
-| Apple HIG; Material 3; other target-platform guidance | Platform-specific input, navigation, layout, state, accessibility, continuity, and adaptation | I2–I4, A3, A5–A6, T2 |
+| Apple HIG; Material 3; other target-platform guidance | Transferable design principles plus target-native input, navigation, layout, state, accessibility, continuity, and adaptation | I2–I4, A3, A5–A6, T2 |
 
 ## Anti-patterns
 

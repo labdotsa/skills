@@ -17,7 +17,9 @@ Consult the current official source relevant to the claim:
 | Topic | Preferred source families | Important limit |
 |---|---|---|
 | Accessibility and semantics | W3C WCAG 2.2, WAI tutorials, WHATWG HTML | Conformance does not prove usability; explanatory pages may be non-normative |
-| Content and forms | GOV.UK content/design guidance, USWDS, W3C WAI forms | Adapt government patterns to local risk and audience |
+| Content and forms | [GOV.UK Design System](https://design-system.service.gov.uk/), USWDS, W3C WAI forms | Adapt government patterns to local risk and audience |
+| UX and interaction quality | [Laws of UX](https://lawsofux.com/), [Nielsen Norman Group usability heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/), [Apple HIG design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) | Use as decision lenses and hypotheses; adapt to the target surface and do not treat them as conversion proof |
+| Inclusive components | [Inclusive Components](https://inclusive-components.design/), W3C WAI, WHATWG HTML | Prefer semantic, resilient patterns; verify actual behavior and assistive-technology support |
 | Search and structured data | Google Search Central and other target-engine documentation | Eligibility is not ranking or display; Google is not every agent |
 | Performance | web.dev Web Vitals and browser documentation | Thresholds evolve; field context and device segments matter |
 | HTTP and error handling | IETF HTTP semantics, target search-engine error guidance | A visually useful page still needs an honest status |

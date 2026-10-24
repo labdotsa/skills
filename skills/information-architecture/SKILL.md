@@ -43,6 +43,13 @@ Always:
 Pattern:
 `[content] → [grouping] → [structure] → [labels] → [validation]`
 
+Use these sources as decision lenses. They do not replace evidence from target users and content.
+
+- [Laws of UX](https://lawsofux.com/) for grouping, recognition, cognitive load, attention, and choice structure.
+- [Nielsen Norman Group's usability heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/) for visibility, consistency, user control, prevention, and recovery in navigation and findability.
+- [GOV.UK Design System](https://design-system.service.gov.uk/) for task-led labels, plain language, forms, errors, and service-oriented structure.
+- [Apple HIG's Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) as an essential cross-platform design baseline. Preserve transferable principles and adapt navigation and interaction to the target platform.
+
 ---
 
 ## Workflow

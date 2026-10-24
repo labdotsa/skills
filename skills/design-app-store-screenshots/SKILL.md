@@ -26,6 +26,12 @@ Discover supplied facts and assets before questioning the user. Record consequen
 
 Read [platform-surface-behavior.md](references/platform-surface-behavior.md) for every assignment. Read [creative-playbook.md](references/creative-playbook.md) when creating, rewriting, or auditing creative. Read [working-templates.md](references/working-templates.md) when producing a brief, storyboard, audit, or experiment plan.
 
+Use [Apple HIG's Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) as an essential design baseline for both Apple and Google store work when explaining product UX.
+
+Apply its transferable principles of purpose, agency, responsibility, familiarity, flexibility, simplicity, craft, and delight. Adapt navigation, controls, input, typography, motion, and feedback to the target platform.
+
+Store-specific policies, device requirements, safe areas, export formats, and metadata remain owned by `platform-surface-behavior.md` and the relevant store documentation. Do not import Apple-specific chrome into Google Play creative.
+
 ## Build the message strategy
 
 Write a one-sentence proposition:

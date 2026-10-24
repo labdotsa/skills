@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Integrated essential cross-platform HIG guidance and relevant UX references into `ux-ui-system-refactor`, `deconstruct`, `information-architecture`, `public-pages`, and `design-app-store-screenshots` while preserving each workflow's scope and evidence requirements.
+
 - Added the stable `usability-audit` skill for heuristic reviews, state-bound findings, exact screenshot callouts, and retest conditions, with essential HIG guidance and a dependency-free annotation helper.
 
 - Added the stable `design-system` skill for semantic tokens, component contracts, platform adaptations, and incremental system evolution, with HIG as essential guidance for every target.
