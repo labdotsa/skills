@@ -4,6 +4,8 @@ Notable repository and skill changes are documented here.
 
 ## Unreleased
 
+- Added the stable `usability-audit` skill for heuristic reviews, state-bound findings, exact screenshot callouts, and retest conditions, with essential HIG guidance and a dependency-free annotation helper.
+
 - Added the stable `design-system` skill for semantic tokens, component contracts, platform adaptations, and incremental system evolution, with HIG as essential guidance for every target.
 
 - Extend `seo-engine` with separate Search Console Manual Actions and Security Issues checks, explicit missing-evidence and review states, and a semantic-structure handoff to optional `public-pages` guidance.

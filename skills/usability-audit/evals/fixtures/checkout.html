@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audit fixture: checkout error recovery</title>
+  <style>body { font: 16px system-ui, sans-serif; margin: 2rem; max-width: 42rem; } form { display: grid; gap: 1rem; } .error { color: #a11; min-height: 1.25rem; } button:disabled { opacity: .5; }</style>
+  <h1>Checkout</h1>
+  <form id="checkout">
+    <label>Card number <input name="card" inputmode="numeric" required></label>
+    <p class="error" id="error" aria-live="polite"></p>
+    <button id="submit" type="submit" disabled>Pay now</button>
+  </form>
+  <script>
+    const form = document.querySelector("#checkout");
+    const card = form.card;
+    const submit = document.querySelector("#submit");
+    const error = document.querySelector("#error");
+    card.addEventListener("input", () => { submit.disabled = card.value.length < 4; });
+    form.addEventListener("submit", (event) => { event.preventDefault(); error.textContent = "Payment could not be completed."; });
+  </script>
+</html>

@@ -1,0 +1,33 @@
+id: UA-001
+audit_status: null
+coverage: null
+disposition: null
+task: ""
+state: ""
+target: null
+viewport: null
+source_png_dimensions: null
+device_pixel_ratio: null
+capture_id: null
+capture_revision: null
+theme: null
+locale: null
+input_mode: null
+role: null
+heuristic:
+  source: null
+  name: null
+  rationale: null
+evidence:
+  screenshot_id: null
+  sha256: null
+  coordinate_system: physical-pixels-origin-top-left
+  bounds: null
+  locator: null
+observation: null
+consequence: null
+severity: null
+confidence: null
+confidence_basis: null
+recommendation: null
+retest: null

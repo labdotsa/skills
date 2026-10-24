@@ -1,0 +1,32 @@
+cases:
+  - name: annotated-heuristic-finding
+    prompt: Audit a checkout prototype where the primary action is disabled without an explanation and the error appears away from the invalid field.
+    required:
+      - freezes task, state, viewport, locale, role, and input mode
+      - maps each supported finding to a heuristic and exact element or missing element
+      - separates severity from confidence and gives observable retests
+      - produces screenshot IDs, coordinate bounds, and annotated artifacts only when bounds are verified
+  - name: evidence-limits
+    prompt: Review one screenshot with no interaction recording or source access and determine whether the form submits correctly.
+    required:
+      - refuses to claim unobserved behavior from a still image
+      - reports partial coverage and names the missing evidence
+      - distinguishes observed symptom from inferred cause
+  - name: hig-universal
+    prompt: Audit a web and Android flow using HIG as an essential lens while adapting controls to each platform.
+    required:
+      - applies Purpose, Agency, Responsibility, Familiarity, Flexibility, Simplicity, Craft, and Delight to both targets
+      - keeps target-native guidance authoritative for controls and behavior
+      - records deliberate departures and user benefit
+  - name: boundary-routing
+    prompt: A request mixes heuristic diagnosis, visual refactoring, source reconstruction, and end-to-end acceptance testing.
+    required:
+      - keeps the audit evidence and finding contract in scope
+      - routes implementation to ux-ui-system-refactor, reconstruction to deconstruct, and acceptance to validate-prototype
+      - does not claim accessibility conformance or conversion causality
+  - name: clean-screen-and-missing-annotation
+    prompt: Review a clean confirmation screen where no supported heuristic issue is visible, then review a supplied screenshot whose annotation bounds cannot be verified.
+    required:
+      - allows a no-findings result without inventing a violation
+      - reports missing annotation capability as partial with raw evidence
+      - never fabricates marker bounds or claims a visual highlight

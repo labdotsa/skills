@@ -1,0 +1,23 @@
+{
+  "screenshot": "captures/checkout-1440x900.png",
+  "capture": {
+    "id": "checkout-submit-error",
+    "revision": "fixture-checkout-v1",
+    "viewportCss": { "width": 1440, "height": 900 },
+    "devicePixelRatio": 2,
+    "coordinateSystem": "physical-pixels-origin-top-left"
+  },
+  "dimensions": { "width": 2880, "height": 1800 },
+  "callouts": [
+    {
+      "id": "A1",
+      "title": "Disabled primary action",
+      "description": "The button gives no reason or recovery path while required data is missing.",
+      "x": 2100,
+      "y": 1420,
+      "width": 480,
+      "height": 96,
+      "locator": "button[type=submit]"
+    }
+  ]
+}
